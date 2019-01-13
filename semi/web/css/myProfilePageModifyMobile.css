@@ -1,0 +1,202 @@
+@CHARSET "UTF-8";
+
+ 
+     .fullScreen{
+         width: 99%;
+         margin-top: 7%;
+     }
+     #modifyScreenMenu{
+         background-color: white;
+         width: 100%;
+     }
+
+     #modifyScreenMenuUl{
+         width: 100%;
+         list-style: none;
+         background-color: white;
+         -webkit-box-sizing: border-box;
+         -moz-box-sizing: border-box;  
+         box-sizing: border-box;
+     }
+     .modifyScreenMenuLi{
+         position: relative;
+         width: 49%;
+         display: inline-block;
+         right: 2%;
+     }
+     li input[type=radio]{
+         display: none;
+     }
+     .modifyScreenMenuLb{
+         position: relative;
+         display: block;
+         font-size: 0.9rem;
+         font-family: 'Jua', sans-serif;
+         background-color: white;
+         color: rgb(190, 190, 190);
+         text-align: center;
+         font-weight:bold; 
+         cursor: pointer;
+     }
+     
+     input:checked + label{
+         color: black;
+         font-size: 1rem;
+         font-weight:bold;
+         border-bottom: 2px solid black;
+     }
+ 
+     #modifyScreenMain{
+         position: relative;
+         display: inline-block;
+         background-color: white;
+         width: 100%;
+         border: 0.5px solid rgba(213,213,213,50);    
+     }
+ 
+     #form1{
+         display: block;
+         height: 100%;
+         background-color: white;
+     }
+     #form2{
+         display: none;
+         height: 100%;
+         background-color: white;
+     }
+ 
+     .modifyScreenMainTop{
+         width: 100%;
+         background-color: white; 
+     }
+ 
+     .modifyScreenMainPhoto{
+         display: none;
+     }
+ 
+     #modifyScreenMainPhotoBt{
+         display: none;
+     }
+     #modifyScreenMainPhoto{
+         display: none;
+     }
+ 
+     .modifyScreenMainContent{
+         display: none;
+     }
+   
+     
+     .modifyInputDiv{
+         background-color: white;
+         padding-top: 2rem;
+     }
+     .modifyInputDiv2{
+         background-color: white;
+         padding-top: 2rem;
+     }
+ 
+     .modifyInputLb{
+         display: inline-block;
+         width: 95%;
+         font-size: 1rem;
+         font-weight: bold;
+         margin-left: 2%;
+         background: white;
+         font-family: 'Jua', sans-serif;
+     }
+     .modifyInputLb2{
+         display: inline-block;
+         width: 96%;
+         font-size: 1rem;
+         font-weight: bold;
+         margin-left: 2%;
+         background: white;
+         font-family: 'Jua', sans-serif;
+     }
+ 
+     .modifyInput{
+         background-color: white;
+         border: 2px solid rgba(213,213,213,50);
+         outline: none;
+         border-radius: 2px;
+         width: 96%;
+         height: 23px;
+         font-size: 1rem;
+         margin-left: 2%;
+         font-weight: bold;
+         font-family: 'Gothic A1', sans-serif;
+     }
+ 
+     .modifyInput:focus{
+         border: 2px solid #B2CCFF;
+     }
+     #gender{
+         margin-left: 2%;
+         border-radius: 2px;
+         outline: none;
+         width: 80px;
+         height: 23px;
+         background-color: white;
+         font-weight: bold;
+         font-size: 1rem;
+         border: 2px solid rgba(213,213,213,50); 
+         font-family: 'Gothic A1', sans-serif;
+     }
+     #gender:focus{
+     border:2px solid #B2CCFF;
+     }
+ 
+     #uploadPhoto{
+     display: none;
+     }
+ 
+     #modifyButton{
+     position: relative;
+     outline: none;
+     border: none;
+     border-radius: 5px;
+     background-color: gray;
+     color:white;
+     font-weight: bolder;
+     width: 70px;
+     height: 27px;
+     margin-right: 2%;
+     margin-top: 3%;
+     margin-bottom: 2%;
+     font-size: 1rem;
+     float: right;
+     cursor: pointer;
+     font-family: 'Gothic A1', sans-serif;
+     }
+ 
+     #psModifyBt{
+     outline: none;
+     border: none;
+     border-radius: 5px;
+     background-color: gray;
+     color:white;
+     font-weight: bolder;
+     width: 130px;
+     height: 27px;
+     margin-right: 2%;
+     margin-top: 5%;
+     margin-bottom: 2%;
+     font-size: 1rem;
+     float: right;
+     cursor: pointer;
+     font-family: 'Gothic A1', sans-serif;
+     }
+ 
+     .ckEmailPhonePw{
+     position: relative;
+     background-color: white;
+     float: right;
+     margin-right: 3%;
+     bottom: 22.5px;
+     font-size: 1rem;
+     font-family: 'Gothic A1', sans-serif;
+     font-weight: bold;
+     }
+ 
+ }
+ }

@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/**
+ * 
+ * @authors JiangDing (jiangdingjd@gmail.com)
+ * @date    2017-11-06 14:10:05
+ * @version 0.1
+ */
+
+body{
+  margin: 0;
+}
+
+.alert_panel{
+  display: none;
+  opacity: 0;
+  width: 400px;
+  height: 250px;
+  text-align: center;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border-radius: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .3s;
+  -moz-transition: all .3s;
+  -ms-transition: all .3s;
+  -o-transition: all .3s;
+  transition: all .3s;
+}
+
+.alert_panel.show{
+  display: block;
+  opacity: 1;
+}
+
+.alert_panel h3{
+  font-size: 22px;
+  line-height: 22px;
+  margin-top: 90px;
+}
+
+.alert_btn_group{
+  margin-top: 57px;
+}
+
+.alert_btn_group span{
+  display: inline-block;
+  width: 146px;
+  height: 44px;
+  border-radius: 22px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 44px;
+  font-weight: 300;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.alert_close_btn{
+  width: 36px;
+  height: 36px;
+  border: 2px solid #5D7B7C;
+  border-radius: 50%;
+  position: absolute;
+  right: -20px;
+  top: -20px;
+  background-color: #fff;
+  text-align: center;
+  font-size: 20px;
+  line-height: 36px;
+  color: #595959;
+  cursor: pointer;
+}
+
+#alert_mask{
+  display: none;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
