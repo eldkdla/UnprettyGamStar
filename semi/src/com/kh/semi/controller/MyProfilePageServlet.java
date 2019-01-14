@@ -42,25 +42,26 @@ public class MyProfilePageServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		HttpSession se = request.getSession();
-		se.setAttribute("myname", 6);
+		se.setAttribute("userNo", 6);
+		
 		int userNo=0;
-		int myname=(int)se.getAttribute("myname");
+		int myNo=(int)se.getAttribute("userNo");
 		
 		if(request.getParameter("uu")==null){ //내 페이지 접속
-			userNo=myname;
+			userNo=myNo;
 		}else{ // 다른사람페이지 접속
 			userNo=Integer.parseInt(request.getParameter("uu"));
 		}
 			
 		User u= new User();
-		u.setUserNo(userNo);
+		u.setNo(userNo);
 		Connection conn = getConnection();
 		
 		//유저정보 가져오기
 		User userData=new UserService().selectUser(conn,u);
 		request.setAttribute("userData", userData);
 		
-		if(userData.getUserState()==1){ //유저가 정지상태이면 내 페이지로 이동
+		if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
 			response.sendRedirect("myprofile");
 		}
 		/*//게시글(다중) 정보 가져오기
@@ -88,7 +89,7 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setAttribute("blockDataArray", blockDataArray);
 		
 		//상대방페이지일때 팔로우 되어있는지 확인하기
-		boolean isFollowed=new UserService().isFollowed(conn,u,myname);
+		boolean isFollowed=new UserService().isFollowed(conn,u,myNo);
 		request.setAttribute("isFollowed", isFollowed);
 		
 		close(conn);

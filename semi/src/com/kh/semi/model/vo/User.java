@@ -2,59 +2,59 @@ package com.kh.semi.model.vo;
 
 public class User {
 
-	private int userNo;
-	private String userId;
-	private String userPw;
-	private String userName;
-	private int userLinkType;
-	private String userGender;
-	private int userState;
+	private int no;
+	private String id;
+	private String pw;
+	private String name;
+	private int linkType;
+	private String gender;
+	private int state;
 	private String profilePhoto;
 	private String profileBackgroundPhoto;
-	private String userEmail;
-	private String userPhone;
-	private String userRemainingDay;
-	public int getUserNo() {
-		return userNo;
+	private String email;
+	private String phone;
+	private String remainingDay;
+	public int getNo() {
+		return no;
 	}
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
+	public void setNo(int no) {
+		this.no = no;
 	}
-	public String getUserId() {
-		return userId;
+	public String getId() {
+		return id;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getUserPw() {
-		return userPw;
+	public String getPw() {
+		return pw;
 	}
-	public void setUserPw(String userPw) {
-		this.userPw = userPw;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
-	public String getUserName() {
-		return userName;
+	public String getName() {
+		return name;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public int getUserLinkType() {
-		return userLinkType;
+	public int getLinkType() {
+		return linkType;
 	}
-	public void setUserLinkType(int userLinkType) {
-		this.userLinkType = userLinkType;
+	public void setLinkType(int linkType) {
+		this.linkType = linkType;
 	}
-	public String getUserGender() {
-		return userGender;
+	public String getGender() {
+		return gender;
 	}
-	public void setUserGender(String userGender) {
-		this.userGender = userGender;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public int getUserState() {
-		return userState;
+	public int getState() {
+		return state;
 	}
-	public void setUserState(int userState) {
-		this.userState = userState;
+	public void setState(int state) {
+		this.state = state;
 	}
 	public String getProfilePhoto() {
 		return profilePhoto;
@@ -68,23 +68,23 @@ public class User {
 	public void setProfileBackgroundPhoto(String profileBackgroundPhoto) {
 		this.profileBackgroundPhoto = profileBackgroundPhoto;
 	}
-	public String getUserEmail() {
-		return userEmail;
+	public String getEmail() {
+		return email;
 	}
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getUserPhone() {
-		return userPhone;
+	public String getPhone() {
+		return phone;
 	}
-	public void setUserPhone(String userPhone) {
-		this.userPhone = userPhone;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	public String getUserRemainingDay() {
-		return userRemainingDay;
+	public String getRemainingDay() {
+		return remainingDay;
 	}
-	public void setUserRemainingDay(String userRemainingDay) {
-		this.userRemainingDay = userRemainingDay;
+	public void setRemainingDay(String remainingDay) {
+		this.remainingDay = remainingDay;
 	}
 
 	

@@ -37,10 +37,10 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		HttpSession se = request.getSession();
-		se.setAttribute("myname", 6);
+		se.setAttribute("userNo", 6);
 		
 		User u= new User();
-		u.setUserNo((int)se.getAttribute("myname"));
+		u.setNo((int)se.getAttribute("userNo"));
 		//유저정보 가져오기
 		User userData=new UserService().selectUser(u);
 		request.setAttribute("userData", userData);

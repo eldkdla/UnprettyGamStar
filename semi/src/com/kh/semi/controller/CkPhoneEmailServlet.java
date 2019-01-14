@@ -37,19 +37,19 @@ public class CkPhoneEmailServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		HttpSession se=request.getSession();
-		se.setAttribute("myname", 6);
+		se.setAttribute("userNo", 6);
 		
 		boolean ck=false;
 		
 		User u=new User();
-		u.setUserNo((int)se.getAttribute("myname"));
+		u.setNo((int)se.getAttribute("userNo"));
 		
 		if(request.getParameter("ckEmail")!=null){
-			u.setUserEmail(request.getParameter("ckEmail"));
+			u.setEmail(request.getParameter("ckEmail"));
 			ck=new UserService().ckEmail(u);
 		}
 		else if(request.getParameter("ckPhone")!=null){
-			u.setUserPhone(request.getParameter("ckPhone"));
+			u.setPhone(request.getParameter("ckPhone"));
 			ck=new UserService().ckPhone(u);
 		}
 		

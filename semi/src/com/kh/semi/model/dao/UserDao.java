@@ -33,17 +33,17 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getUserNo());
+			pstmt.setInt(1,u.getNo());
 			rs=pstmt.executeQuery();
 			if(rs.next()){
-				userData.setUserNo(rs.getInt("USER_NO"));
-				userData.setUserName(rs.getString("USER_NAME"));
-				userData.setUserGender(rs.getString("USER_GENDER"));
-				userData.setUserState(rs.getInt("USER_STATE"));
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setGender(rs.getString("USER_GENDER"));
+				userData.setState(rs.getInt("USER_STATE"));
 				userData.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
 				userData.setProfileBackgroundPhoto(rs.getString("USER_BACKGROUND_PHOTO"));
-				userData.setUserEmail(rs.getString("USER_EMAIL"));
-				userData.setUserPhone(rs.getString("USER_PHONE"));
+				userData.setEmail(rs.getString("USER_EMAIL"));
+				userData.setPhone(rs.getString("USER_PHONE"));
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -65,7 +65,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getUserNo());
+			pstmt.setInt(2, u.getNo());
 			rs=pstmt.executeQuery();
 			isFollowed=rs.next();
 		}catch (Exception e) {
@@ -88,12 +88,12 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserId());
+			pstmt.setString(1,u.getId());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserId(rs.getString("name"));
+				data.setId(rs.getString("name"));
 				content1DataArray.add(data);
 			}
 		}catch (Exception e) {
@@ -114,12 +114,12 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserId());
+			pstmt.setString(1,u.getId());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserId(rs.getString("name"));
+				data.setId(rs.getString("name"));
 				content2DataArray.add(data);
 			}
 		}catch (Exception e) {
@@ -140,12 +140,12 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserId());
+			pstmt.setString(1,u.getId());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserId(rs.getString("name"));
+				data.setId(rs.getString("name"));
 				storageContentDataArray.add(data);
 			}
 		}catch (Exception e) {
@@ -166,12 +166,12 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserId());
+			pstmt.setString(1,u.getId());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserId(rs.getString("name"));
+				data.setId(rs.getString("name"));
 				tagContentDataArray.add(data);
 			}
 		}catch (Exception e) {
@@ -192,13 +192,13 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getUserNo());
+			pstmt.setInt(1,u.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserNo(rs.getInt("USER_NO"));
-				data.setUserName(rs.getString("USER_NAME"));
+				data.setNo(rs.getInt("USER_NO"));
+				data.setName(rs.getString("USER_NAME"));
 				data.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
 				
 				followerDataArray.add(data);
@@ -221,13 +221,13 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getUserNo());
+			pstmt.setInt(1,u.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserNo(rs.getInt("USER_NO"));
-				data.setUserName(rs.getString("USER_NAME"));
+				data.setNo(rs.getInt("USER_NO"));
+				data.setName(rs.getString("USER_NAME"));
 				data.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
 				
 				followDataArray.add(data);
@@ -250,13 +250,13 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getUserNo());
+			pstmt.setInt(1,u.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				User data = new User();
-				data.setUserNo(rs.getInt("USER_NO"));
-				data.setUserName(rs.getString("USER_NAME"));
+				data.setNo(rs.getInt("USER_NO"));
+				data.setName(rs.getString("USER_NAME"));
 				data.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
 				
 				blockDataArray.add(data);
@@ -279,11 +279,11 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserGender());
+			pstmt.setString(1,u.getGender());
 			pstmt.setString(2,u.getProfilePhoto());
-			pstmt.setString(3,u.getUserEmail());
-			pstmt.setString(4,u.getUserPhone());
-			pstmt.setInt(5,u.getUserNo());
+			pstmt.setString(3,u.getEmail());
+			pstmt.setString(4,u.getPhone());
+			pstmt.setInt(5,u.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -304,7 +304,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getUserId());
+			pstmt.setString(1,u.getId());
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -324,7 +324,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,u.getProfilePhoto());
-			pstmt.setInt(2,u.getUserNo());
+			pstmt.setInt(2,u.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -343,7 +343,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1,u.getProfileBackgroundPhoto());
-			pstmt.setInt(2,u.getUserNo());
+			pstmt.setInt(2,u.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -362,8 +362,8 @@ public class UserDao {
 		boolean ckEmail=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getUserEmail());
-			pstmt.setInt(2, u.getUserNo());
+			pstmt.setString(1, u.getEmail());
+			pstmt.setInt(2, u.getNo());
 			
 			rs=pstmt.executeQuery();
 			ckEmail=rs.next();
@@ -383,8 +383,8 @@ public class UserDao {
 		boolean ckPhone=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getUserPhone());
-			pstmt.setInt(2, u.getUserNo());
+			pstmt.setString(1, u.getPhone());
+			pstmt.setInt(2, u.getNo());
 			
 			rs=pstmt.executeQuery();
 			ckPhone=rs.next();
@@ -406,7 +406,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getUserNo());
+			pstmt.setInt(2, u.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -425,7 +425,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getUserNo());
+			pstmt.setInt(2, u.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -444,7 +444,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, u.getUserNo());
+			pstmt.setInt(1, u.getNo());
 			pstmt.setInt(2, myname);
 			
 			result=pstmt.executeUpdate();
@@ -463,7 +463,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, u.getUserNo());
+			pstmt.setInt(1, u.getNo());
 			pstmt.setInt(2, myname);
 			
 			result=pstmt.executeUpdate();

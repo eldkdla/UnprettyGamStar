@@ -50,10 +50,10 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
 		
 		HttpSession se = request.getSession();
-		se.setAttribute("myname", 6);
+		se.setAttribute("userNo", 6);
 		
 		User u= new User();
-		u.setUserNo((int)se.getAttribute("myname"));
+		u.setNo((int)se.getAttribute("userNo"));
 		
 		int result=0;
 		

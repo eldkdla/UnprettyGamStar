@@ -31,11 +31,11 @@ public class PasswordModifyServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession se = request.getSession();
-		se.setAttribute("myname", "lm");
+		se.setAttribute("userNo", "lm");
 		
 		User u= new User();
-		u.setUserId((String)se.getAttribute("myname"));		
-		u.setUserPw("newPw");
+		u.setId((String)se.getAttribute("userNo"));		
+		u.setPw("newPw");
 		
 		int result=new UserService().updatePassword(u);
 		

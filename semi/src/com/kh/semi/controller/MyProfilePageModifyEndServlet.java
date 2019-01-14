@@ -51,10 +51,10 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
 		
 		HttpSession se = request.getSession();
-		se.setAttribute("myname", 6);
+		se.setAttribute("userNo", 6);
 		
 		User u= new User();
-		u.setUserNo((int)se.getAttribute("myname"));
+		u.setNo((int)se.getAttribute("userNo"));
 		
 		User oldUser=new UserService().selectUser(u);
 		
@@ -64,9 +64,9 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 		else{
 			u.setProfilePhoto(oldUser.getProfilePhoto());
 		}
-		u.setUserEmail(multi.getParameter("email"));
-		u.setUserPhone(multi.getParameter("phone"));
-		u.setUserGender(multi.getParameter("gender"));
+		u.setEmail(multi.getParameter("email"));
+		u.setPhone(multi.getParameter("phone"));
+		u.setGender(multi.getParameter("gender"));
 		
 		int result=new UserService().updateUserData(u);
 		
