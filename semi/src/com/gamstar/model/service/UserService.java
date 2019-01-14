@@ -108,6 +108,17 @@ public class UserService {
 		close(conn);
 		return result;
 	}
+	
+	//유저 이전비밀번호 확인
+	public User chkBeforePw(User u){
+		Connection conn=getConnection();
+		
+		User beforePw=new UserDao().chkBeforePw(conn,u);
+		
+		close(conn);
+		return beforePw;
+	}
+	
 /*	
 	//유저 비밀번호 수정
 	public int updatePassword(User u){

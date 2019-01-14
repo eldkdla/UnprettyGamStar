@@ -38,7 +38,7 @@
                 </button>
             </div>
             <div class="profileTopContent">
-                <label id="profileName" onclick="location.href='myprofile?uu=<%=user.getNo()%>'"><%=user.getName()%></label>
+                <label id="profileName" onclick="location.href='profile?uu=<%=user.getNo()%>'"><%=user.getName()%></label>
                 <button class="profileModify" id='profileModify' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/modify.png"><label for="profileModify">프로필 편집</label></button>
                 <button class="profileModify" id='profileWrite' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/write.png"><label for="profileWrite">글 작성하기</label></button>
                 <button class="profileModify" id='profileBlockBt' onclick="blockClick();"><img src="<%=request.getContextPath()%>/img/blockBtOff.png"><label for="profileBlockBt">차단하기</label></button>
@@ -111,7 +111,7 @@
                     $('head').append($('<link/>',{
                         rel:'stylesheet',
                         type:'text/css',
-                        href:'<%=request.getContextPath()%>/css/myProfilePageMobile.css'
+                        href:'<%=request.getContextPath()%>/css/profilePageMobile.css'
                     }));
                 } 
                 else {
@@ -119,7 +119,7 @@
                     $('head').append($('<link/>',{
                         rel:'stylesheet',
                         type:'text/css',
-                        href:'<%=request.getContextPath()%>/css/myProfilePage.css'
+                        href:'<%=request.getContextPath()%>/css/profilePage.css'
                     }));
                 } 
             }
@@ -399,7 +399,7 @@
              
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').on("click",function(){
             	 console.log($(this).attr("id"));
-            	location.href='<%=request.getContextPath()%>/view/myprofile?uu='+$(this).attr("id");
+            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
              });
              
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<img/>',{
@@ -425,7 +425,7 @@
            
             $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){
             	console.log($(this).attr("id"));
-            	location.href='<%=request.getContextPath()%>/view/myprofile?uu='+$(this).attr("id");
+            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
             });
             
             $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<label/>',{

@@ -39,6 +39,7 @@ public class PasswordModifyServlet extends HttpServlet {
 		
 		int result=new UserService().updatePassword(u);
 		
+		
 		if(result!=0){
 			System.out.println("비밀번호 변경성공");
 		}
@@ -47,7 +48,7 @@ public class PasswordModifyServlet extends HttpServlet {
 		}
 		
 
-		response.sendRedirect("myprofile");
+		response.sendRedirect("profile");
 	}
 
 	/**

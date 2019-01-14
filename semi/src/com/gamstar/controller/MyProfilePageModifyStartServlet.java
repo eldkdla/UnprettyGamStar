@@ -45,7 +45,6 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 		User userData=new UserService().selectUser(u);
 		request.setAttribute("userData", userData);
 		
-		
 		//내정보창으로 정보보내기
 		RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
 		rd.forward(request, response);

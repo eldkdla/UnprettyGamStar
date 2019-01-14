@@ -19,7 +19,7 @@ public class EncryptWrapper extends HttpServletRequestWrapper {
 	{
 		String value="";
 		//key.contains("password");
-		if(key!=null&&(key.equals("newPw")||key.equals("newPwCk")))
+		if(key!=null&&(key.equals("newPw")||key.equals("newPwChk")))
 		{
 			value=super.getParameter(key);
 			value=getSha512(value);

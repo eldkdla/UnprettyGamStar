@@ -61,12 +61,12 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 			if(request.getParameter("block").equals("차단됨")){
 				//내 차단목록에 상대를 추가 (db에서 트리거로 서로 팔로우,팔로워 삭제)
 				result=new UserService().insertBlockUser(u,userNo);
-				response.sendRedirect("myprofile");
+				response.sendRedirect("profile");
 			}
 			else{
 				//내 차단목록에서 상대를 삭제		
 				result=new UserService().deleteBlockUser(u,userNo);
-				response.sendRedirect("myprofile");
+				response.sendRedirect("profile");
 			}
 		}
 		

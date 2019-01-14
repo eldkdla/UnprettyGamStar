@@ -267,7 +267,7 @@
        font-family: 'Gothic A1', sans-serif;
    }
   
-  #ckEmail{
+  #chkEmail{
  	   position: relative;
        background-color: white;
        float: right;
@@ -277,7 +277,7 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
   }
-  #ckPhone{
+  #chkPhone{
  	   position: relative;
        background-color: white;
        float: right;
@@ -287,7 +287,17 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
   }
-   #ckPwDiv{
+  #chkBeforePw{
+ 	   position: relative;
+       background-color: white;
+       float: right;
+       right: 65px;
+       bottom: 21px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+  }
+  #chkPwDiv{
        position: relative;
        background-color: white;
        float: right;
@@ -491,7 +501,7 @@
      font-family: 'Gothic A1', sans-serif;
      }
  
-     .ckEmailPhonePw{
+     .chkEmailPhonePw{
      position: relative;
      background-color: white;
      float: right;

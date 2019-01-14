@@ -14,16 +14,16 @@ import com.gamstar.model.service.UserService;
 import com.gamstar.model.vo.User;
 
 /**
- * Servlet implementation class ChkPhoneServlet
+ * Servlet implementation class ChkBeforePw
  */
-@WebServlet("/view/chkPhone")
-public class ChkPhoneEmailServlet extends HttpServlet {
+@WebServlet("/view/chkBeforePw")
+public class ChkBeforePw extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChkPhoneEmailServlet() {
+    public ChkBeforePw() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,34 +34,26 @@ public class ChkPhoneEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
 		
-		HttpSession se=request.getSession();
+		HttpSession se = request.getSession();
 		se.setAttribute("userNo", 6);
 		
-		boolean chk=false;
+		String beforePw=request.getParameter("beforePw");
 		
-		User u=new User();
+		User u = new User();
 		u.setNo((int)se.getAttribute("userNo"));
 		
-		if(request.getParameter("chkEmail")!=null){
-			u.setEmail(request.getParameter("chkEmail"));
-			chk=new UserService().chkEmail(u);
-		}
-		else if(request.getParameter("chkPhone")!=null){
-			u.setPhone(request.getParameter("chkPhone"));
-			chk=new UserService().chkPhone(u);
-		}
+		User user=new UserService().chkBeforePw(u);
 		
+		boolean compare=beforePw.equals(user.getPw());
 		
 		PrintWriter out = response.getWriter();
 		
-		if(chk==true){
+		if(compare){
 			out.print("true");
-		}else if(chk==false){
+		}else{
 			out.print("false");
 		}
-		
 	}
 
 	/**

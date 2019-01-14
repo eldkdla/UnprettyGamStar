@@ -62,7 +62,7 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setAttribute("userData", userData);
 		
 		if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
-			response.sendRedirect("myprofile");
+			response.sendRedirect("profile");
 		}
 		/*//게시글(다중) 정보 가져오기
 		ArrayList<User> content1DataArray=new UserService().selectContent1(conn,u);

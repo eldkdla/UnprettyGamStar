@@ -36,7 +36,7 @@
                 <form method='POST' action="<%=request.getContextPath()%>/view/modifyEnd" id="form1" enctype="multipart/form-data">
                     <div class="modifyScreenMainTop">
                         <div class="modifyScreenMainPhoto">
-                            <button id='modifyScreenMainPhotoBt' onclick="changePhoto();"><img id='modifyScreenMainPhoto'
+                            <button id='modifyScreenMainPhotoBt' onclick="return changePhoto();"><img id='modifyScreenMainPhoto'
                                     src="<%=request.getContextPath()%>/upload/<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
                         </div>
                         <div class="modifyScreenMainContent">
@@ -54,12 +54,12 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이메일</label>
                             <input type="email" class="modifyInput" id='modifiyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;" required />
-                            <div class="ckEmailPhonePw" id="ckEmail"></div>
+                            <div class="chkEmailPhonePw" id="chkEmail"></div>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>전화번호</label>
                             <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getPhone()%>" style='ime-mode:disabled;' required/>
-                             <div class="ckEmailPhonePw" id="ckPhone"></div>
+                             <div class="chkEmailPhonePw" id="chkPhone"></div>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>성별</label>
@@ -82,8 +82,8 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>이전 비밀번호</label>
-                            <input type="password" class="modifyInput" name="beforePw" id="beforePw" maxlength="15"
-                                required />
+                            <input type="password" class="modifyInput" name="beforePw" id="beforePw" maxlength="15" required />
+                            <div class="chkEmailPhonePw" id="chkBeforePw"></div>
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호</label>
@@ -91,9 +91,8 @@
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호 확인</label>
-                            <input type="password" class="modifyInput" name="newPwCk" id="newPwCk" maxlength="15"
-                                required>
-                            <div class="ckEmailPhonePw" id="ckPwDiv"></div>
+                            <input type="password" class="modifyInput" name="newPwchk" id="newPwchk" maxlength="15" required>
+                            <div class="chkEmailPhonePw" id="chkPwDiv"></div>
                         </div>
 
                         <br>
@@ -118,7 +117,7 @@
                 $('head').append($('<link/>',{
                     rel:'stylesheet',
                     type:'text/css',
-                    href:'<%=request.getContextPath()%>/css/myProfilePageModifyMobile.css'
+                    href:'<%=request.getContextPath()%>/css/profilePageModifyMobile.css'
                 }));
             } 
             else {
@@ -126,7 +125,7 @@
                 $('head').append($('<link/>',{
                     rel:'stylesheet',
                     type:'text/css',
-                    href:'<%=request.getContextPath()%>/css/myProfilePageModify.css'
+                    href:'<%=request.getContextPath()%>/css/profilePageModify.css'
                 }));
             } 
         }
@@ -151,7 +150,8 @@
     <script>
         //프로필사진 바꾸기
         function changePhoto() {
-            $('#uploadPhoto').click();  //프로필사진 클릭시 숨겨둔 input file 실행                   
+            $('#uploadPhoto').click();  //프로필사진 클릭시 숨겨둔 input file 실행  
+            return false;
         }
 
         function readURL(input) { //들어온파일 가져와서 e.taget.result로 이미지 받아서 #modifyScreenMainPhoto 사진속성 바꿔주기
@@ -185,18 +185,18 @@
             }
             else{
 	        	if($('#modifiyEmail').val()==""){
-	        		$('#ckEmail').html("");
+	        		$('#chkEmail').html("");
 	        	}else{
 	            	$.ajax({
-	            		url:'<%=request.getContextPath()%>/view/ckPhone',
+	            		url:'<%=request.getContextPath()%>/view/chkPhone',
 	            		type:"POST",
-	            		data:{"ckEmail":$('#modifiyEmail').val()},
+	            		data:{"chkEmail":$('#modifiyEmail').val()},
 	            		success:function(data){
 	            			if(data=="true"){
-	            				$('#ckEmail').html("이메일 중복").css('color', 'red');
+	            				$('#chkEmail').html("이메일 중복").css('color', 'red');
 	            			}
 	            			else if(data=="false"){
-	            				$('#ckEmail').html("이메일 가능").css('color', 'green');
+	            				$('#chkEmail').html("이메일 가능").css('color', 'green');
 	            			}
 	            		},
 	            		error:function(xhr,status){
@@ -220,19 +220,19 @@
             }
             else{
 	            if($('#modifyPhone').val()==""){
-	        		$('#ckPhone').html("");
+	        		$('#chkPhone').html("");
 	        	}
 	            else{
 	                $.ajax({
-	                	url:'<%=request.getContextPath()%>/view/ckPhone',
+	                	url:'<%=request.getContextPath()%>/view/chkPhone',
 	                	type:"POST",
-	                	data:{"ckPhone":$('#modifyPhone').val()},
+	                	data:{"chkPhone":$('#modifyPhone').val()},
 	                	success:function(data){
 	                		if(data=="true"){
-	                			$('#ckPhone').html("전화번호 중복").css('color', 'red');
+	                			$('#chkPhone').html("전화번호 중복").css('color', 'red');
 	                		}
 	                		else if(data=="false"){
-	                			$('#ckPhone').html("전화번호 가능").css('color', 'green');
+	                			$('#chkPhone').html("전화번호 가능").css('color', 'green');
 	                		}
 	                	},
 	                	error:function(xhr,status){
@@ -243,8 +243,6 @@
             }
             
         });
-
-
 
         //이메일,전화번호, 버튼 활성화
         $('#modifiyEmail,#modifyPhone').keyup(function () {
@@ -278,24 +276,45 @@
     </script>
 
     <script>
+    	//이전비밀번호 맞는지 알려주기
+    	$('#beforePw').focusout(function(){
+    		$.ajax({
+    			url:'<%=request.getContextPath()%>/view/chkBeforePw',
+    			type:"POST",
+    			data:{"beforePw":$('#beforePw').val()},
+    			success:function(data){
+    				if(data=="true"){
+    					$('#chkBeforePw').html("비밀번호 일치").css('color', 'green');
+    				}
+    				else if(data=="false"){
+    					$('#chkBeforePw').html("비밀번호 불일치").css('color', 'red');
+    				}
+    			},
+    			error:function(xhr,status){
+    				alert(xhr+" : "+status);
+    			}
+    			
+    		});
+    	});
+    	
         //비밀번호변경에서 새비밀번호 2개 같은지 비교+버튼활성화
         $(function () {
-            $('#newPwCk,#newPw').keyup(function () {
-                if ($('#newPwCk').val() != '' && $('#newPw').val() != '') {
+            $('#newPwchk,#newPw').keyup(function () {
+                if ($('#newPwchk').val() != '' && $('#newPw').val() != '') {
 
-                    if ($('#newPw').val() != $('#newPwCk').val()) {
-                        $('#ckPwDiv').html("비밀번호 불일치").css('color', 'red');
+                    if ($('#newPw').val() != $('#newPwchk').val()) {
+                        $('#chkPwDiv').html("비밀번호 불일치").css('color', 'red');
                         $('#psModifyBt').css('background-color', 'gray');
                         $('#psModifyBt').prop('disabled', 'true');
                     }
                     else {
-                        $('#ckPwDiv').html("비밀번호 일치").css('color', 'green');
+                        $('#chkPwDiv').html("비밀번호 일치").css('color', 'green');
                         $('#psModifyBt').css('background-color', 'cornflowerblue');
                         $('#psModifyBt').removeProp('disabled');
                     }
                 }
                 else {
-                    $('#ckPwDiv').html("");
+                    $('#chkPwDiv').html("");
                     $('#psModifyBt').css('background-color', 'gray');
                     $('#psModifyBt').prop('disabled', 'true');
                 }

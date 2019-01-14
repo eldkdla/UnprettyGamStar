@@ -295,6 +295,32 @@ public class UserDao {
 		}
 		return result;	
 	}
+	
+	//유저 이전비밀번호 확인
+	public User chkBeforePw(Connection conn,User u){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("chkBeforePw");
+		User beforePw=new User();
+		
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, u.getNo());
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				beforePw.setPw(rs.getString("USER_PASSWORD"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return beforePw;
+	}
+	
 	/*
 	//비밀번호 수정
 	public int updatePassword(Connection conn,User u){

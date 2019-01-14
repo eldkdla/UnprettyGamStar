@@ -95,11 +95,12 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 			}
 		}
 		System.out.println("다 끝냈나 "+result);
-		response.sendRedirect("myprofile");
+		response.sendRedirect("profile");
 
 		}
 		else{
 			System.out.println("사진 multipart로 안보냈음");
+			response.sendRedirect("profile");
 		}
 		
 	}
