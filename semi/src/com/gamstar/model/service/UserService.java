@@ -1,4 +1,4 @@
-package com.kh.semi.model.service;
+package com.gamstar.model.service;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
-import com.kh.semi.model.dao.UserDao;
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.dao.UserDao;
+import com.gamstar.model.vo.User;
 
 import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
@@ -161,22 +161,22 @@ public class UserService {
 		return result;
 	}
 	//이메일 중복 확인
-	public boolean ckEmail(User u){
+	public boolean chkEmail(User u){
 		Connection conn=getConnection();
 		
-		boolean ckEmail=new UserDao().ckEmail(conn,u);
+		boolean chkEmail=new UserDao().chkEmail(conn,u);
 		
 		close(conn);
-		return ckEmail;
+		return chkEmail;
 	}
 	//전화번호 중복 확인
-	public boolean ckPhone(User u){
+	public boolean chkPhone(User u){
 		Connection conn=getConnection();
 		
-		boolean ckPhone=new UserDao().ckPhone(conn,u);
+		boolean chkPhone=new UserDao().chkPhone(conn,u);
 		
 		close(conn);
-		return ckPhone;
+		return chkPhone;
 	}
 	
 	//팔로우 추가

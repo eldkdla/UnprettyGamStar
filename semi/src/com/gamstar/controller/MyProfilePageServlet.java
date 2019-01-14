@@ -1,4 +1,4 @@
-package com.kh.semi.controller;
+package com.gamstar.controller;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
@@ -15,13 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.semi.model.service.UserService;
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.service.UserService;
+import com.gamstar.model.vo.User;
 
 /**
  * Servlet implementation class MypageUser
  */
-@WebServlet("/view/myprofile")
+@WebServlet("/view/profile")
 public class MyProfilePageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -93,10 +93,9 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setAttribute("isFollowed", isFollowed);
 		
 		close(conn);
-
 		
 		//내정보창으로 정보보내기
-		RequestDispatcher rd = request.getRequestDispatcher("/view/myProfilePage.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/view/profile.jsp");
 		rd.forward(request, response);
 		
 	}

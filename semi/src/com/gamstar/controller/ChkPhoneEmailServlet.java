@@ -1,4 +1,4 @@
-package com.kh.semi.controller;
+package com.gamstar.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.semi.model.service.UserService;
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.service.UserService;
+import com.gamstar.model.vo.User;
 
 /**
  * Servlet implementation class CkPhoneServlet
  */
-@WebServlet("/view/ckPhone")
-public class CkPhoneEmailServlet extends HttpServlet {
+@WebServlet("/view/chkPhone")
+public class ChkPhoneEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CkPhoneEmailServlet() {
+    public ChkPhoneEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,26 +39,26 @@ public class CkPhoneEmailServlet extends HttpServlet {
 		HttpSession se=request.getSession();
 		se.setAttribute("userNo", 6);
 		
-		boolean ck=false;
+		boolean chk=false;
 		
 		User u=new User();
 		u.setNo((int)se.getAttribute("userNo"));
 		
-		if(request.getParameter("ckEmail")!=null){
-			u.setEmail(request.getParameter("ckEmail"));
-			ck=new UserService().ckEmail(u);
+		if(request.getParameter("chkEmail")!=null){
+			u.setEmail(request.getParameter("chkEmail"));
+			chk=new UserService().chkEmail(u);
 		}
-		else if(request.getParameter("ckPhone")!=null){
-			u.setPhone(request.getParameter("ckPhone"));
-			ck=new UserService().ckPhone(u);
+		else if(request.getParameter("chkPhone")!=null){
+			u.setPhone(request.getParameter("chkPhone"));
+			chk=new UserService().chkPhone(u);
 		}
 		
 		
 		PrintWriter out = response.getWriter();
 		
-		if(ck==true){
+		if(chk==true){
 			out.print("true");
-		}else if(ck==false){
+		}else if(chk==false){
 			out.print("false");
 		}
 		

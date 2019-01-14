@@ -1,4 +1,4 @@
-package com.kh.semi.model.dao;
+package com.gamstar.model.dao;
 
 import static common.JDBCTemplate.close;
 
@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.vo.User;
 
 public class UserDao {
 
@@ -355,46 +355,46 @@ public class UserDao {
 	}
 	
 	//이메일 중복 확인
-	public boolean ckEmail(Connection conn,User u){
+	public boolean chkEmail(Connection conn,User u){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		String sql=prop.getProperty("ckEmail");
-		boolean ckEmail=false;
+		String sql=prop.getProperty("chkEmail");
+		boolean chkEmail=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, u.getEmail());
 			pstmt.setInt(2, u.getNo());
 			
 			rs=pstmt.executeQuery();
-			ckEmail=rs.next();
+			chkEmail=rs.next();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			close(rs);
 			close(pstmt);
 		}
-		return ckEmail;
+		return chkEmail;
 	}
 	//전화번호 중복 확인
-	public boolean ckPhone(Connection conn,User u){
+	public boolean chkPhone(Connection conn,User u){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		String sql=prop.getProperty("ckPhone");
-		boolean ckPhone=false;
+		String sql=prop.getProperty("chkPhone");
+		boolean chkPhone=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, u.getPhone());
 			pstmt.setInt(2, u.getNo());
 			
 			rs=pstmt.executeQuery();
-			ckPhone=rs.next();
+			chkPhone=rs.next();
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally{
 			close(rs);
 			close(pstmt);
 		}
-		return ckPhone;
+		return chkPhone;
 	}
 	
 	//팔로우 추가

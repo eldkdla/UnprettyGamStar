@@ -1,4 +1,4 @@
-package com.kh.semi.model.vo;
+package com.gamstar.model.vo;
 
 public class User {
 

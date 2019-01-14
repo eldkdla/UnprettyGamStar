@@ -1,4 +1,4 @@
-package com.kh.semi.controller;
+package com.gamstar.controller;
 
 import java.io.IOException;
 
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.semi.model.service.UserService;
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.service.UserService;
+import com.gamstar.model.vo.User;
 
 /**
  * Servlet implementation class FollowBlockUpdateServlet

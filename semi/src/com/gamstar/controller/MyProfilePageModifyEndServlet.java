@@ -1,8 +1,9 @@
-package com.kh.semi.controller;
+package com.gamstar.controller;
 
 import java.io.File;
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,22 +13,22 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.kh.semi.model.service.UserService;
-import com.kh.semi.model.vo.User;
+import com.gamstar.model.service.UserService;
+import com.gamstar.model.vo.User;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class MyProfilePhotoModifyServlet
+ * Servlet implementation class MyProfilePageModifyEnd
  */
-@WebServlet("/view/photoModify")
-public class MyProfilePhotoModifyServlet extends HttpServlet {
+@WebServlet("/view/modifyEnd")
+public class MyProfilePageModifyEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfilePhotoModifyServlet() {
+    public MyProfilePageModifyEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -55,49 +56,37 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		User u= new User();
 		u.setNo((int)se.getAttribute("userNo"));
 		
-		int result=0;
-		
 		User oldUser=new UserService().selectUser(u);
 		
-		if(multi.getFilesystemName("uploadProfilePhoto1")!=null){
-			//프로필 사진 수정한것
-			u.setProfilePhoto(request.getContextPath()+"/upload/"+multi.getFilesystemName("uploadProfilePhoto1"));
-			result=new UserService().updateProfilePhoto(u);
-			
-			if(result!=0){
+		if(multi.getFilesystemName("uploadPhoto")!=null){
+			u.setProfilePhoto(request.getContextPath()+"/upload/"+multi.getFilesystemName("uploadPhoto"));
+		}
+		else{
+			u.setProfilePhoto(oldUser.getProfilePhoto());
+		}
+		u.setEmail(multi.getParameter("email"));
+		u.setPhone(multi.getParameter("phone"));
+		u.setGender(multi.getParameter("gender"));
+		
+		int result=new UserService().updateUserData(u);
+		
+		if(result!=0){
+			if(multi.getFilesystemName("uploadPhoto")!=null){//프로필변경후 정보변경 성공시 예전사진 삭제
 				File file=new File(oldUser.getProfilePhoto());
 				if(file.delete()){
 					System.out.println("삭제성공");
 				}else{
 					System.out.println("삭제실패");
 				}
-				System.out.println("프로필사진 변경 성공");
 			}
-		}
-		else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
-			//배경프로필 수정한것
-			u.setProfileBackgroundPhoto(request.getContextPath()+"/upload/"+multi.getFilesystemName("uploadProfilePhoto2"));
-			result=new UserService().updateBackgroundPhoto(u);
-			
-			if(result!=0){
-				System.out.println(oldUser.getProfileBackgroundPhoto());
-				File file=new File(oldUser.getProfileBackgroundPhoto());
-				if(file.delete()){
-					System.out.println("삭제성공");
-				}else{
-					System.out.println("삭제실패");
-				}
-				System.out.println("배경사진 변경 성공");
-			}
-		}
-		System.out.println("다 끝냈나 "+result);
-		response.sendRedirect("myprofile");
-		
+			System.out.println("정보 변경성공");
 		}
 		else{
-			System.out.println("사진 multipart로 안보냈음");
+			System.out.println("정보 변경실패");
 		}
-		
+	
+		}
+		response.sendRedirect("myprofile");
 	}
 
 	/**

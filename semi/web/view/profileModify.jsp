@@ -1,4 +1,4 @@
-<%@page import="com.kh.semi.model.vo.User"%>
+<%@page import="com.gamstar.model.vo.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -37,10 +37,10 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyScreenMainPhoto">
                             <button id='modifyScreenMainPhotoBt' onclick="changePhoto();"><img id='modifyScreenMainPhoto'
-                                    src="<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
+                                    src="<%=request.getContextPath()%>/upload/<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
                         </div>
                         <div class="modifyScreenMainContent">
-                            <label id="modifyScreenIdLb"><%=user.getUserName() %></label><br>
+                            <label id="modifyScreenIdLb"><%=user.getName() %></label><br>
                             <label id="modifyScreenPhotoLb" onclick="changePhoto();">프로필사진 변경</label>
                         </div>
                     </div>
@@ -48,25 +48,25 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이름</label>
-                            <input type="text" class="modifyInput" name="name" value='<%=user.getUserName() %>' style="background-color: rgb(219, 219, 219);border-color: rgb(219, 219, 219);"
+                            <input type="text" class="modifyInput" name="name" value='<%=user.getName() %>' style="background-color: rgb(219, 219, 219);border-color: rgb(219, 219, 219);"
                                 readonly="readonly" />
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이메일</label>
-                            <input type="email" class="modifyInput" id='modifiyEmail' name="email" maxlength="50" value="<%=user.getUserEmail() %>" style="ime-mode:disabled;" required />
+                            <input type="email" class="modifyInput" id='modifiyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;" required />
                             <div class="ckEmailPhonePw" id="ckEmail"></div>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>전화번호</label>
-                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getUserPhone()%>" style='ime-mode:disabled;' required/>
+                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getPhone()%>" style='ime-mode:disabled;' required/>
                              <div class="ckEmailPhonePw" id="ckPhone"></div>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>성별</label>
                             <select name="gender" id="gender" required>
                                 <option value="0" hidden disabled="disabled" >성별</option>
-                                <option value="M" <%=user.getUserGender().equals("M")?"selected":""%>>남자</option>
-                                <option value="W" <%=user.getUserGender().equals("W")?"selected":""%>>여자</option>                      
+                                <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
+                                <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      
                             </select>
                             <input type="file" name="uploadPhoto" id="uploadPhoto" accept="image/*" this.select();>
                         </div>

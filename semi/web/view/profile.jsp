@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
-<%@page import="com.kh.semi.model.vo.User" %>
+<%@page import="com.gamstar.model.vo.User" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,7 +20,6 @@
 </head>
 <body>
 
-
 	<% User user=(User)request.getAttribute("userData");
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
@@ -31,15 +30,15 @@
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
-           <img src="<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
+           <img src="<%=request.getContextPath()%>/upload/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
             <div class="profileTopPhoto">
                 <button id='profilePhotoBt' onclick="changePhoto();">
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
-                    <img id='profilePhoto' src="<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
+                    <img id='profilePhoto' src="<%=request.getContextPath()%>/upload/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
             </div>
             <div class="profileTopContent">
-                <label id="profileName" onclick="location.href='myprofile?uu=<%=user.getUserNo()%>'"><%=user.getUserName()%></label>
+                <label id="profileName" onclick="location.href='myprofile?uu=<%=user.getNo()%>'"><%=user.getName()%></label>
                 <button class="profileModify" id='profileModify' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/modify.png"><label for="profileModify">프로필 편집</label></button>
                 <button class="profileModify" id='profileWrite' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/write.png"><label for="profileWrite">글 작성하기</label></button>
                 <button class="profileModify" id='profileBlockBt' onclick="blockClick();"><img src="<%=request.getContextPath()%>/img/blockBtOff.png"><label for="profileBlockBt">차단하기</label></button>
@@ -130,7 +129,7 @@
              //내정보창에 들어온게 나인지 다른사람인지 확인하고 ui수정
             <% HttpSession se=request.getSession();
              
-            if(user.getUserNo()==6){  //내 페이지
+            if(user.getNo()==6){  //내 페이지
             	System.out.println("아이디 같네");
             	%>
             	 $('#profileFollowBt').css("display","none");
@@ -250,7 +249,7 @@
 	        		$('#profileBlockBt').css("background-color","#F6F6F6"); 
 	        		$('#profileBlockBt').css("color","black");
 	        	} --%>
-	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getUserNo()%>'; 
+	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getNo()%>'; 
 	        }
 	      });
     	
@@ -275,7 +274,7 @@
 		$.ajax({
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getUserNo()%>}, 
+    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>}, 
     	});
 	}
 	 
@@ -395,44 +394,44 @@
             	
             $('#profileContent5').append($('<div/>',{
                 class:'profileFollowDv',
-                id:'<%=followerDataArray.get(i).getUserNo()%>'
+                id:'<%=followerDataArray.get(i).getNo()%>'
              }));
              
-             $('#profileContent5>#<%=followerDataArray.get(i).getUserNo()%>').on("click",function(){
+             $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').on("click",function(){
             	 console.log($(this).attr("id"));
             	location.href='<%=request.getContextPath()%>/view/myprofile?uu='+$(this).attr("id");
              });
              
-             $('#profileContent5>#<%=followerDataArray.get(i).getUserNo()%>').append($('<img/>',{
-                src: '<%=followerDataArray.get(i).getProfilePhoto()%>'
+             $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<img/>',{
+                src: '<%=request.getContextPath()%>/upload/<%=followerDataArray.get(i).getProfilePhoto()%>'
              }));
             
-             $('#profileContent5>#<%=followerDataArray.get(i).getUserNo()%>').append($('<label/>',{
+             $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<label/>',{
                 
              }));
-             $('#profileContent5>#<%=followerDataArray.get(i).getUserNo()%>>label').text('<%=followerDataArray.get(i).getUserName()%>');
+             $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>>label').text('<%=followerDataArray.get(i).getName()%>');
             <%}%>
 
             //6.팔로워 컨텐츠
             <%for(int i=0;i<followDataArray.size();i++){%>
             $('#profileContent6').append($('<div/>',{
                class:'profileFollowDv',
-               id:'<%=followDataArray.get(i).getUserNo()%>'
+               id:'<%=followDataArray.get(i).getNo()%>'
             }));
             
-            $('#profileContent6>#<%=followDataArray.get(i).getUserNo()%>').append($('<img/>',{
-               src: '<%=followDataArray.get(i).getProfilePhoto()%>'
+            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<img/>',{
+               src: '<%=request.getContextPath()%>/upload/<%=followDataArray.get(i).getProfilePhoto()%>'
             }));
            
-            $('#profileContent6>#<%=followDataArray.get(i).getUserNo()%>').on("click",function(){
+            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){
             	console.log($(this).attr("id"));
             	location.href='<%=request.getContextPath()%>/view/myprofile?uu='+$(this).attr("id");
             });
             
-            $('#profileContent6>#<%=followDataArray.get(i).getUserNo()%>').append($('<label/>',{
+            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<label/>',{
                
             }));
-            $('#profileContent6>#<%=followDataArray.get(i).getUserNo()%>>label').text('<%=followDataArray.get(i).getUserName()%>');
+            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>>label').text('<%=followDataArray.get(i).getName()%>');
            <%}%>
 
 
@@ -440,22 +439,22 @@
 			<%for(int i=0;i<blockDataArray.size();i++){%>
 			 $('#profileContent2').append($('<div/>',{
 			    class:'profileFollowDv',
-			    id:'<%=blockDataArray.get(i).getUserNo()%>'
+			    id:'<%=blockDataArray.get(i).getNo()%>'
 			 }));
 			 
-			 $('#profileContent2>#<%=blockDataArray.get(i).getUserNo()%>').append($('<img/>',{
-			    src: '<%=blockDataArray.get(i).getProfilePhoto()%>'
+			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<img/>',{
+			    src: '<%=request.getContextPath()%>/upload/<%=blockDataArray.get(i).getProfilePhoto()%>'
 			 }));
 			
-			 $('#profileContent2>#<%=blockDataArray.get(i).getUserNo()%>').append($('<label/>',{
-				text:'<%=blockDataArray.get(i).getUserName()%>'
+			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<label/>',{
+				text:'<%=blockDataArray.get(i).getName()%>'
 			 }));
 			 
-			 $('#profileContent2>#<%=blockDataArray.get(i).getUserNo()%>').append($('<button/>',{
+			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<button/>',{
 				class:'contentCancelBt'
 			 }));
 			 
-			 $('#profileContent2>#<%=blockDataArray.get(i).getUserNo()%>').on("click",function(){
+			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').on("click",function(){
 				 var deleteBlockId=$(this).parent().attr("id");
 				 $('body').alertBox({
 				        title: '　　　　차단된 이용자 입니다　　　　차단 해제 하시겠습니까?',
@@ -469,7 +468,7 @@
 				
 			}); 
 			 
-			 $(('#profileContent2>#<%=blockDataArray.get(i).getUserNo()%>')+'>button').on("click",function(e){
+			 $(('#profileContent2>#<%=blockDataArray.get(i).getNo()%>')+'>button').on("click",function(e){
 				 e.stopPropagation(); //부모 이벤트 실행 안되게
 				 var deleteBlockId=$(this).parent().attr("id");
 				 $('body').alertBox({

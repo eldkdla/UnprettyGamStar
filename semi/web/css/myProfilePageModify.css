@@ -267,7 +267,27 @@
        font-family: 'Gothic A1', sans-serif;
    }
   
-   .ckEmailPhonePw{
+  #ckEmail{
+ 	   position: relative;
+       background-color: white;
+       float: right;
+       right: 90px;
+       top:5px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+  }
+  #ckPhone{
+ 	   position: relative;
+       background-color: white;
+       float: right;
+       right: 90px;
+       top:5px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+  }
+   #ckPwDiv{
        position: relative;
        background-color: white;
        float: right;
@@ -277,6 +297,7 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
    }
+   
  }
  
  /* ///////////////////////////////////////////////999이하/////////////////////////////////////// */
