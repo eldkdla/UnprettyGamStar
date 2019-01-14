@@ -14,7 +14,7 @@ import com.kh.semi.model.vo.User;
 /**
  * Servlet implementation class PasswordModifyServlet
  */
-@WebServlet("/view/passwordModify")
+@WebServlet(name="PasswordModifyServlet",urlPatterns="/view/passwordModify")
 public class PasswordModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
