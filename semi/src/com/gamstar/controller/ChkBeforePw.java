@@ -16,7 +16,7 @@ import com.gamstar.model.vo.User;
 /**
  * Servlet implementation class ChkBeforePw
  */
-@WebServlet("/view/chkBeforePw")
+@WebServlet(name="ChkBeforePw",urlPatterns="/view/chkBeforePw")
 public class ChkBeforePw extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

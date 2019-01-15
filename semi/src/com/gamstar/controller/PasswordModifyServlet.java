@@ -1,6 +1,8 @@
 package com.gamstar.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,25 +32,35 @@ public class PasswordModifyServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		HttpSession se = request.getSession();
-		se.setAttribute("userNo", "lm");
+		se.setAttribute("userNo", 6);
 		
 		User u= new User();
-		u.setId((String)se.getAttribute("userNo"));		
-		u.setPw("newPw");
+		u.setNo((int)se.getAttribute("userNo"));		
+		u.setPw(request.getParameter("newPw"));
+		String msg="";
+		String loc="";
 		
 		int result=new UserService().updatePassword(u);
 		
 		
 		if(result!=0){
-			System.out.println("비밀번호 변경성공");
+			msg="비밀번호 변경성공";
+			loc="/view/profile";
 		}
 		else{
-			System.out.println("비밀번호 변경실패");
+			msg="비밀번호 변경실패";
+			loc="/view/profile";
 		}
 		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		
 
-		response.sendRedirect("profile");
+		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 	}
 
 	/**

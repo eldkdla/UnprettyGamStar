@@ -118,8 +118,7 @@ public class UserService {
 		close(conn);
 		return beforePw;
 	}
-	
-/*	
+
 	//유저 비밀번호 수정
 	public int updatePassword(User u){
 		Connection conn=getConnection();
@@ -129,7 +128,7 @@ public class UserService {
 		close(conn);
 		return result;
 	}
-	*/
+	
 	//프로필사진 수정
 	public int updateProfilePhoto(User u){
 		Connection conn=getConnection();

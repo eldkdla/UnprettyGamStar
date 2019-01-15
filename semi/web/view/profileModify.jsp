@@ -278,23 +278,38 @@
     <script>
     	//이전비밀번호 맞는지 알려주기
     	$('#beforePw').focusout(function(){
-    		$.ajax({
-    			url:'<%=request.getContextPath()%>/view/chkBeforePw',
-    			type:"POST",
-    			data:{"beforePw":$('#beforePw').val()},
-    			success:function(data){
-    				if(data=="true"){
-    					$('#chkBeforePw').html("비밀번호 일치").css('color', 'green');
-    				}
-    				else if(data=="false"){
-    					$('#chkBeforePw').html("비밀번호 불일치").css('color', 'red');
-    				}
-    			},
-    			error:function(xhr,status){
-    				alert(xhr+" : "+status);
-    			}
-    			
-    		});
+    		if($('#beforePw').val()==""){
+    			$('#chkBeforePw').html("");
+    		}else{
+	    		$.ajax({
+	    			url:'<%=request.getContextPath()%>/view/chkBeforePw',
+	    			type:"POST",
+	    			data:{"beforePw":$('#beforePw').val()},
+	    			success:function(data){
+	    				if(data=="true"){
+	    					$('#chkBeforePw').html("비밀번호 일치").css('color', 'green');
+	    					if($('#chkPwDiv').html()=="비밀번호 일치"){
+	    						$('#psModifyBt').css('background-color', 'cornflowerblue');                        
+	                        	$('#psModifyBt').removeProp('disabled');
+	    					}
+	    					else{
+	    						$('#psModifyBt').css('background-color', 'gray');
+	                            $('#psModifyBt').prop('disabled', 'true');
+	    					}
+	    				}
+	    				else if(data=="false"){
+	    					$('#chkBeforePw').html("비밀번호 불일치").css('color', 'red');
+	    					$('#psModifyBt').css('background-color', 'gray');
+                            $('#psModifyBt').prop('disabled', 'true');
+	    				}
+	    				
+	    			},
+	    			error:function(xhr,status){
+	    				alert(xhr+" : "+status);
+	    			}
+	    			
+	    		});
+    		}
     	});
     	
         //비밀번호변경에서 새비밀번호 2개 같은지 비교+버튼활성화
@@ -309,8 +324,14 @@
                     }
                     else {
                         $('#chkPwDiv').html("비밀번호 일치").css('color', 'green');
-                        $('#psModifyBt').css('background-color', 'cornflowerblue');
-                        $('#psModifyBt').removeProp('disabled');
+                        if($('#chkBeforePw').html()=="비밀번호 일치"){
+                       		$('#psModifyBt').css('background-color', 'cornflowerblue');                        
+                        	$('#psModifyBt').removeProp('disabled');
+                        }
+                        else{
+                        	$('#psModifyBt').css('background-color', 'gray');
+                            $('#psModifyBt').prop('disabled', 'true');
+                        }
                     }
                 }
                 else {

@@ -15,7 +15,8 @@ import common.encrypt.EncryptWrapper;
 
 @WebFilter(
 		servletNames= {
-				"PasswordModifyServlet"
+				"PasswordModifyServlet",
+				"ChkBeforePw"
 		}
 		)
 public class EncryptFilter implements Filter {
@@ -33,7 +34,8 @@ public class EncryptFilter implements Filter {
 		HttpServletRequest request=(HttpServletRequest)req;
 		
 		EncryptWrapper encW=new EncryptWrapper(request);
-		System.out.println("filter : "+encW.getParameter("newPw"));
+		/*System.out.println("filter : "+encW.getParameter("newPw"));*/
+		/*System.out.println("filter : "+encW.getParameter("beforePw"));*/
 		chain.doFilter(encW, res);	
 
 	}

@@ -45,6 +45,8 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 		String path=root+"upload";
 //		String path = request.getRealPath("/upload");
 		System.out.println("path:"+ path);
+		String msg="";
+		String loc="";
 
 		if(ServletFileUpload.isMultipartContent(request)){
 		int maxSize=1024*1024*10;//10MB
@@ -79,14 +81,18 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 					System.out.println("삭제실패");
 				}
 			}
-			System.out.println("정보 변경성공");
+			msg="정보 변경성공";
+			loc="/view/profile";
 		}
 		else{
-			System.out.println("정보 변경실패");
+			msg="정보 변경실패";
+			loc="/view/profile";
 		}
 	
 		}
-		response.sendRedirect("profile");
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 	}
 
 	/**

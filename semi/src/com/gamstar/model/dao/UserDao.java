@@ -321,7 +321,6 @@ public class UserDao {
 		return beforePw;
 	}
 	
-	/*
 	//비밀번호 수정
 	public int updatePassword(Connection conn,User u){
 		PreparedStatement pstmt=null;
@@ -330,7 +329,8 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getId());
+			pstmt.setString(1, u.getPw());
+			pstmt.setInt(2,u.getNo());
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -341,7 +341,6 @@ public class UserDao {
 		return result;
 	}
 	
-	*/
 	//프로필사진 수정
 	public int updateProfilePhoto(Connection conn,User u){
 		PreparedStatement pstmt=null;
