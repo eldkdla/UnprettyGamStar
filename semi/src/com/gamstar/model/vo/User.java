@@ -1,5 +1,7 @@
 package com.gamstar.model.vo;
 
+import java.util.Date;
+
 public class User {
 
 	private int no;
@@ -13,7 +15,10 @@ public class User {
 	private String profileBackgroundPhoto;
 	private String email;
 	private String phone;
-	private String remainingDay;
+	private Date enrollDate;
+	private int remainingDay;
+	
+	
 	public int getNo() {
 		return no;
 	}
@@ -74,16 +79,22 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public Date getEnrollDate() {
+		return enrollDate;
+	}
+	public void setEnrollDate(Date enrollDate) {
+		this.enrollDate = enrollDate;
+	}
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getRemainingDay() {
+	public int getRemainingDay() {
 		return remainingDay;
 	}
-	public void setRemainingDay(String remainingDay) {
+	public void setRemainingDay(int remainingDay) {
 		this.remainingDay = remainingDay;
 	}
 

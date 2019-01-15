@@ -7,12 +7,9 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpSession;
-
 import com.gamstar.model.dao.UserDao;
+import com.gamstar.model.vo.Media;
 import com.gamstar.model.vo.User;
-
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 public class UserService {
 	
@@ -34,23 +31,15 @@ public class UserService {
 		return userData;
 	}
 	
-	/*//게시글(다중) 선택 
-	public ArrayList<User> selectContent1(Connection conn,User u){
+	//게시글(다중) 선택 
+	public ArrayList<Media> selectContent1(Connection conn,User u){
 		
-		ArrayList<User> content1DataArray=new UserDao().selectContent1(conn,u);
+		ArrayList<Media> content1DataArray=new UserDao().selectContent1(conn,u);
 
 		return content1DataArray;
 	}
 	
-	//게시글(단일) 선택 
-	public ArrayList<User> selectContent2(Connection conn,User u){
-		
-		ArrayList<User> content2DataArray=new UserDao().selectContent2(conn,u);
-
-		return content2DataArray;
-	}
-	
-	//저장된 게시물 선택
+	/*//저장된 게시물 선택
 	public ArrayList<User> selectStorageContent(Connection conn,User u){
 	
 	ArrayList<User> storageContentDataArray=new UserDao().selectStorageContent(conn,u);

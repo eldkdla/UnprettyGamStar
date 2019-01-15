@@ -1,3 +1,4 @@
+<%@page import="com.gamstar.model.vo.Media"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -24,7 +25,8 @@
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
-	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
+	   ArrayList<Media> content1DataArray=(ArrayList<Media>)request.getAttribute("content1DataArray");
+	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
 	
 	 <div class='fullScreen'>
@@ -243,12 +245,12 @@
 	        		$('#profileBlockBt').css("background-color","rgb(241,95,95)"); 
 	        		$('#profileBlockBt').css("color","white");
 	        	}
-	        	<%-- else{
+			  	 <%-- else{
 	        		$('#profileBlockBt>label').text("차단하기");
 	        		$('#profileBlockBt>img').attr("src","<%=request.getContextPath()%>/img/blockBtOff.png");
 	        		$('#profileBlockBt').css("background-color","#F6F6F6"); 
 	        		$('#profileBlockBt').css("color","black");
-	        	} --%>
+	        	}  --%>
 	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getNo()%>'; 
 	        }
 	      });
@@ -364,16 +366,30 @@
            'img/04.jpg','img/05.jpg','img/06.jpg','img/07.jpg','img/08.jpg',
            'img/09.jpg','img/10.jpg','img/11.jpg','img/12.jpg','img/13.jpg'); */
             
-            <%-- //1.게시글 컨텐츠
+            //1.게시글 컨텐츠
             
-             <%for(int i=0;i<im_arg.size();i++){%>
+             <%for(int i=0;i<content1DataArray.size();i++){
+             	if(content1DataArray.get(i).getType()==0){%>
             	 $('#profileContent1').append($('<div/>',{
                  class:'profileContent134Photo',
-                 style:"background-image: url('<%=request.getContextPath()%>/<%=im_arg.get(i)%>')"
+                 value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
+                 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=content1DataArray.get(i).getPath()%>')"
              }));
+            	 <%}else{%>
+            	 $('#profileContent1').append($('<div/>',{
+                     class:'profileContent134Photo',
+                     value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
+                     style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/esang.png')"
+                 }));
+            	 <%}%>
+            	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
+            		alert($(this).attr("value")); 
+            	 });
+            	 
+            	 
              <%}%>  
 
-            //3.저장됨 컨텐츠
+         <%--   //3.저장됨 컨텐츠
              <%for(int i=0;i<4;i++){%>
             	 $('#profileContent3').append($('<div/>',{
                  class:'profileContent134Photo',

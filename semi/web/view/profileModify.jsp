@@ -194,9 +194,15 @@
 	            		success:function(data){
 	            			if(data=="true"){
 	            				$('#chkEmail').html("이메일 중복").css('color', 'red');
+	            				$('#modifyButton').css('background-color', 'gray');
+	                            $('#modifyButton').prop('disabled', 'true');
 	            			}
 	            			else if(data=="false"){
 	            				$('#chkEmail').html("이메일 가능").css('color', 'green');
+	            				if($('#chkPhone').html()=="전화번호 가능"){
+	            					$('#modifyButton').css('background-color', 'cornflowerblue');
+	            	                $('#modifyButton').removeProp('disabled');
+	            				}
 	            			}
 	            		},
 	            		error:function(xhr,status){
@@ -230,9 +236,15 @@
 	                	success:function(data){
 	                		if(data=="true"){
 	                			$('#chkPhone').html("전화번호 중복").css('color', 'red');
+	                			$('#modifyButton').css('background-color', 'gray');
+	                            $('#modifyButton').prop('disabled', 'true');
 	                		}
 	                		else if(data=="false"){
 	                			$('#chkPhone').html("전화번호 가능").css('color', 'green');
+	                			if($('#chkEmail').html()=="이메일 가능"){
+	                				$('#modifyButton').css('background-color', 'cornflowerblue');
+	            	                $('#modifyButton').removeProp('disabled');
+	                			}
 	                		}
 	                	},
 	                	error:function(xhr,status){
@@ -244,29 +256,14 @@
             
         });
 
-        //이메일,전화번호, 버튼 활성화
-        $('#modifiyEmail,#modifyPhone').keyup(function () {
-            if ($('#modifiyEmail').val() != '' && $('#modifyPhone').val() != '') {
-                $('#modifyButton').css('background-color', 'cornflowerblue');
-                $('#modifyButton').removeProp('disabled');
-            }
-            else {
-                $('#modifyButton').css('background-color', 'gray');
-                $('#modifyButton').prop('disabled', 'true');
-            }
-        });
 
         //성별 바뀌면 버튼 활성화
         $('#gender').change(function () {
             if ($('#gender>option:selected').val() != 0) {
-            <%-- 	if($('#gender>option:selected').val()==<%=user.getUserGender()%>>  --%>
-	                $('#modifyButton').css('background-color', 'cornflowerblue');
-	                $('#modifyButton').removeProp('disabled');
-	                /*}
-            	else{
-            		$('#modifyButton').css('background-color', 'gray');
-                    $('#modifyButton').prop('disabled', 'true');
-            	} */ 
+            	if($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능"){
+			        $('#modifyButton').css('background-color', 'cornflowerblue');
+			        $('#modifyButton').removeProp('disabled');
+            	}
             }
             else {
                 $('#modifyButton').css('background-color', 'gray');

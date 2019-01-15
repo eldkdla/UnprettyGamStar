@@ -12,5 +12,4 @@
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
 
 
-
 </body>

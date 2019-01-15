@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import com.gamstar.model.vo.Media;
 import com.gamstar.model.vo.User;
 
 public class UserDao {
@@ -79,21 +80,23 @@ public class UserDao {
 		
 	}
 
-	/*//게시글(다중) 선택
-	public ArrayList<User> selectContent1(Connection conn,User u){
+	//게시글(다중) 선택
+	public ArrayList<Media> selectContent1(Connection conn,User u){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("selectContent1");
-		ArrayList<User> content1DataArray=new ArrayList<User>();
+		ArrayList<Media> content1DataArray=new ArrayList<Media>();
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getId());
+			pstmt.setInt(1,u.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
-				User data = new User();
-				data.setId(rs.getString("name"));
+				Media data = new Media();
+				data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
+				data.setType(rs.getInt("MEDIA_TYPE"));
+				data.setPath(rs.getString("MEDIA_PATH"));
 				content1DataArray.add(data);
 			}
 		}catch (Exception e) {
@@ -105,33 +108,9 @@ public class UserDao {
 		return content1DataArray;
 	}
 	
-	//게시글(단일) 선택
-	public ArrayList<User> selectContent2(Connection conn,User u){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String sql=prop.getProperty("selectContent2");
-		ArrayList<User> content2DataArray=new ArrayList<User>();
-		
-		try{
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getId());
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()){
-				User data = new User();
-				data.setId(rs.getString("name"));
-				content2DataArray.add(data);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return content2DataArray;
-	}
 	
-	//저장된게시물 선택
+	
+/*	//저장된게시물 선택
 	public ArrayList<User> selectStorageContent(Connection conn,User u){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;

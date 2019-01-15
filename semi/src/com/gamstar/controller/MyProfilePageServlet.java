@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.gamstar.model.service.UserService;
+import com.gamstar.model.vo.Media;
 import com.gamstar.model.vo.User;
 
 /**
@@ -64,10 +65,10 @@ public class MyProfilePageServlet extends HttpServlet {
 		if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
 			response.sendRedirect("profile");
 		}
-		/*//게시글(다중) 정보 가져오기
-		ArrayList<User> content1DataArray=new UserService().selectContent1(conn,u);
+		//게시글(다중) 정보 가져오기
+		ArrayList<Media> content1DataArray=new UserService().selectContent1(conn,u);
 		request.setAttribute("content1DataArray", content1DataArray);
-
+		/*
 		//저장된 게시물 정보 가져오기
 		ArrayList<User> storageContentDataArray=new UserService().selectStorageContent(conn,u);
 		request.setAttribute("storageContentDataArray", storageContentDataArray);
