@@ -35,13 +35,10 @@ public class ChkBeforePwServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
-		
 		String beforePw=request.getParameter("beforePw");
 		
 		User user = new User();
-		user.setNo((int)se.getAttribute("userNo"));
+		user.setNo((int)request.getSession().getAttribute("userNo"));
 		
 		user=new UserService().chkBeforePw(user);
 		

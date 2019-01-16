@@ -1,4 +1,4 @@
-<%@page import="com.gamstar.model.vo.Media"%>
+<%@page import="com.gamstar.model.vo.NewspeedMedia"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -25,12 +25,11 @@
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
-	   ArrayList<Media> content1DataArray=(ArrayList<Media>)request.getAttribute("content1DataArray");
-	   ArrayList<Media> storageContentDataArray=(ArrayList<Media>)request.getAttribute("storageContentDataArray");
-	   ArrayList<Media> tagContentDataArray=(ArrayList<Media>)request.getAttribute("tagContentDataArray");
+	   ArrayList<NewspeedMedia> content1DataArray=(ArrayList<NewspeedMedia>)request.getAttribute("content1DataArray");
+	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
+	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
-	
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -280,6 +279,44 @@
     		type:"POST",
     		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>}, 
     	});
+		
+		$.ajax({
+    		url:"<%=request.getContextPath()%>/view/selectfollow",
+    		type:"POST",
+    		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
+    		success:function(data){
+    			
+    			$('#profileContent5>*').remove();
+    			
+    			 for(var i=0;i<data.length;i++){							
+							var no=data[i]["no"];
+							var name=data[i]["name"];
+							var profilePhoto=data[i]["profilePhoto"];
+							
+							$('#profileContent5').append($('<div/>',{
+				                class:'profileFollowDv',
+				                id:no
+				             }));
+				             
+				             $('#profileContent5>#'+no).on("click",function(){
+				            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+				             });
+				             
+				             $('#profileContent5>#'+no).append($('<img/>',{
+				                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+				             }));
+				            
+				             $('#profileContent5>#'+no).append($('<label/>',{
+				                
+				             }));
+				             $('#profileContent5>#'+no+'>label').text(name);            	
+					}	
+    		},
+    		error:function(xhr,status){
+    			alert(xhr+" : "+status);
+    		}
+    	});
+		
 	}
 	 
 	</script>
@@ -309,7 +346,6 @@
                     $('#profileMenuRbt2').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt2').css('background','url(<%=request.getContextPath()%>/img/profileMenu2.png) no-repeat');
                     $('#profileContent2').css('display','block'); 
-  
                  }
                  else if(!($('#profileMenuRbt2:checked').val())){
                     $('#profileMenuRbt2').parents('li').css('borderTop',"none");
@@ -468,8 +504,46 @@
              <%}%>  
              
             //5.팔로워 컨텐츠
-            <%for(int i=0;i<followerDataArray.size();i++){%>
-            	
+            $('#profileMenuRbt5').on("click",function(){
+            	$.ajax({
+            		url:"<%=request.getContextPath()%>/view/selectfollow",
+            		type:"POST",
+            		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
+            		success:function(data){
+            			
+            			$('#profileContent5>*').remove();
+            			
+            			 for(var i=0;i<data.length;i++){							
+ 								var no=data[i]["no"];
+ 								var name=data[i]["name"];
+ 								var profilePhoto=data[i]["profilePhoto"];
+ 								
+ 								$('#profileContent5').append($('<div/>',{
+ 					                class:'profileFollowDv',
+ 					                id:no
+ 					             }));
+ 					             
+ 					             $('#profileContent5>#'+no).on("click",function(){
+ 					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+ 					             });
+ 					             
+ 					             $('#profileContent5>#'+no).append($('<img/>',{
+ 					                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+ 					             }));
+ 					            
+ 					             $('#profileContent5>#'+no).append($('<label/>',{
+ 					                
+ 					             }));
+ 					             $('#profileContent5>#'+no+'>label').text(name);            	
+ 						}	
+            		},
+            		error:function(xhr,status){
+            			alert(xhr+" : "+status);
+            		}
+            	});
+            });
+            //페이지 로딩시 팔로워 가져오기
+            <%for(int i=0;i<followerDataArray.size();i++){%> 	
             $('#profileContent5').append($('<div/>',{
                 class:'profileFollowDv',
                 id:'<%=followerDataArray.get(i).getNo()%>'
@@ -490,27 +564,66 @@
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>>label').text('<%=followerDataArray.get(i).getName()%>');
             <%}%>
 
-            //6.팔로워 컨텐츠
-            <%for(int i=0;i<followDataArray.size();i++){%>
-            $('#profileContent6').append($('<div/>',{
-               class:'profileFollowDv',
-               id:'<%=followDataArray.get(i).getNo()%>'
-            }));
-            
-            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<img/>',{
-               src: '<%=request.getContextPath()%>/upload/<%=followDataArray.get(i).getProfilePhoto()%>'
-            }));
-           
-            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){
-            	console.log($(this).attr("id"));
-            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
-            });
-            
-            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<label/>',{
-               
-            }));
-            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>>label').text('<%=followDataArray.get(i).getName()%>');
-           <%}%>
+             //6.팔로우 컨텐츠
+             $('#profileMenuRbt6').on("click",function(){
+	            $.ajax({
+	            		url:"<%=request.getContextPath()%>/view/selectfollow",
+	            		type:"POST",
+	            		data:{"userNo":<%=user.getNo()%>,"isfollow":"follow"},
+	            		success:function(data){
+	            			
+	            			$('#profileContent6>*').remove();
+	            			
+	            			 for(var i=0;i<data.length;i++){							
+	 								var no=data[i]["no"];
+	 								var name=data[i]["name"];
+	 								var profilePhoto=data[i]["profilePhoto"];
+	 								
+	 								$('#profileContent6').append($('<div/>',{
+	 					                class:'profileFollowDv',
+	 					                id:no
+	 					             }));
+	 					             
+	 					             $('#profileContent6>#'+no).on("click",function(){
+	 					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+	 					             });
+	 					             
+	 					             $('#profileContent6>#'+no).append($('<img/>',{
+	 					                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+	 					             }));
+	 					            
+	 					             $('#profileContent6>#'+no).append($('<label/>',{
+	 					                
+	 					             }));
+	 					             $('#profileContent6>#'+no+'>label').text(name);            	
+	 						}	
+	            		},
+	            		error:function(xhr,status){
+	            			alert(xhr+" : "+status);
+	            		}
+	            	});
+             	});
+          	    //페이지 로딩시 팔로우 가져오기
+	            <%for(int i=0;i<followDataArray.size();i++){%>
+	            $('#profileContent6').append($('<div/>',{
+	               class:'profileFollowDv',
+	               id:'<%=followDataArray.get(i).getNo()%>'
+	            }));
+	            
+	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<img/>',{
+	               src: '<%=request.getContextPath()%>/upload/<%=followDataArray.get(i).getProfilePhoto()%>'
+	            }));
+	           
+	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){
+	            	console.log($(this).attr("id"));
+	            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+	            });
+	            
+	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<label/>',{
+	               
+	            }));
+	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>>label').text('<%=followDataArray.get(i).getName()%>');
+	           <%}%>
 
 
 			 //2.차단됨 컨텐츠

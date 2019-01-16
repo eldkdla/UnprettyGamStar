@@ -34,15 +34,12 @@ public class DeleteStoredNewspeedServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
-		HttpSession session = request.getSession();
-		session.setAttribute("userNo", 6);
-		
+
 		int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo"));
 		
 		Newspeed newspeed=new Newspeed();
 		newspeed.setNo(storedNewspeedNo);
-		newspeed.setUserNo((int)session.getAttribute("userNo"));
+		newspeed.setUserNo((int)request.getSession().getAttribute("userNo"));
 		int result=new NewspeedService().deleteStoredNewspeed(newspeed);
 		
 		if(result!=0){

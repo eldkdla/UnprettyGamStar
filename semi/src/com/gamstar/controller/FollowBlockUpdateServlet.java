@@ -35,9 +35,7 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		HttpSession se = request.getSession();
-		
-		int userNo=(int)se.getAttribute("userNo");
+		int userNo=(int)request.getSession().getAttribute("userNo");
 		int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
 			
 		User user= new User();

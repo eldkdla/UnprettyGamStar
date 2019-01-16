@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.gamstar.model.vo.Media;
+import com.gamstar.model.vo.NewspeedMedia;
 import com.gamstar.model.vo.Newspeed;
 import com.gamstar.model.vo.User;
 
@@ -27,11 +27,11 @@ public class NewspeedDao {
 	}
 
 	//게시글(다중) 선택
-		public ArrayList<Media> selectContent1(Connection conn,User user){
+		public ArrayList<NewspeedMedia> selectContent1(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectContent1");
-			ArrayList<Media> content1DataArray=new ArrayList<Media>();
+			ArrayList<NewspeedMedia> content1DataArray=new ArrayList<NewspeedMedia>();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class NewspeedDao {
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()){
-					Media data = new Media();
+					NewspeedMedia data = new NewspeedMedia();
 					data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
 					data.setType(rs.getInt("MEDIA_TYPE"));
 					data.setPath(rs.getString("MEDIA_PATH"));
@@ -57,11 +57,11 @@ public class NewspeedDao {
 		
 		
 	//저장된게시물 선택
-		public ArrayList<Media> selectStorageContent(Connection conn,User user){
+		public ArrayList<NewspeedMedia> selectStorageContent(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectStorageContent");
-			ArrayList<Media> storageContentDataArray=new ArrayList<Media>();
+			ArrayList<NewspeedMedia> storageContentDataArray=new ArrayList<NewspeedMedia>();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
@@ -69,7 +69,7 @@ public class NewspeedDao {
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()){
-					Media data = new Media();
+					NewspeedMedia data = new NewspeedMedia();
 					data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
 					data.setType(rs.getInt("MEDIA_TYPE"));
 					data.setPath(rs.getString("MEDIA_PATH"));
@@ -86,11 +86,11 @@ public class NewspeedDao {
 		}
 		
 		//태그된 게시물 선택
-		public ArrayList<Media> selectTagContent(Connection conn,User user){
+		public ArrayList<NewspeedMedia> selectTagContent(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectTagContent");
-			ArrayList<Media> tagContentDataArray=new ArrayList<Media>();
+			ArrayList<NewspeedMedia> tagContentDataArray=new ArrayList<NewspeedMedia>();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
@@ -98,7 +98,7 @@ public class NewspeedDao {
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()){
-					Media data = new Media();
+					NewspeedMedia data = new NewspeedMedia();
 					data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
 					data.setType(rs.getInt("MEDIA_TYPE"));
 					data.setPath(rs.getString("MEDIA_PATH"));

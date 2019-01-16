@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import com.gamstar.model.vo.Media;
+import com.gamstar.model.vo.NewspeedMedia;
 import com.gamstar.model.vo.User;
 
 public class UserDao {

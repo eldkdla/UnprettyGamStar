@@ -35,11 +35,8 @@ public class PasswordModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
-		
 		User user= new User();
-		user.setNo((int)se.getAttribute("userNo"));		
+		user.setNo((int)request.getSession().getAttribute("userNo"));		
 		user.setPw(request.getParameter("newPw"));
 		String msg="";
 		String loc="";

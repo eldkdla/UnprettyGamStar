@@ -49,12 +49,9 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		if(ServletFileUpload.isMultipartContent(request)){
 		int maxSize=1024*1024*10;//10MB
 		MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
-		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
-		
+
 		User user= new User();
-		user.setNo((int)se.getAttribute("userNo"));
+		user.setNo((int)request.getSession().getAttribute("userNo"));
 		
 		int result=0;
 		

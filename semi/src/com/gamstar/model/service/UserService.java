@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.gamstar.model.dao.UserDao;
-import com.gamstar.model.vo.Media;
+import com.gamstar.model.vo.NewspeedMedia;
 import com.gamstar.model.vo.User;
 
 public class UserService {

@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import com.gamstar.model.service.NewspeedService;
 import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.Media;
+import com.gamstar.model.vo.NewspeedMedia;
 import com.gamstar.model.vo.User;
 
 /**
@@ -43,11 +43,8 @@ public class MyProfilePageServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
-		
 		int userNo=0;
-		int myNo=(int)se.getAttribute("userNo");
+		int myNo=(int)request.getSession().getAttribute("userNo");
 		
 		if(request.getParameter("uu")==null){ //내 페이지 접속
 			userNo=myNo;
@@ -67,15 +64,15 @@ public class MyProfilePageServlet extends HttpServlet {
 			response.sendRedirect("profile");
 		}
 		//게시글(다중) 정보 가져오기
-		ArrayList<Media> content1DataArray=new NewspeedService().selectContent1(conn,user);
+		ArrayList<NewspeedMedia> content1DataArray=new NewspeedService().selectContent1(conn,user);
 		request.setAttribute("content1DataArray", content1DataArray);
 		
 		//저장된 게시물 정보 가져오기
-		ArrayList<Media> storageContentDataArray=new NewspeedService().selectStorageContent(conn,user);
+		ArrayList<NewspeedMedia> storageContentDataArray=new NewspeedService().selectStorageContent(conn,user);
 		request.setAttribute("storageContentDataArray", storageContentDataArray);
 		
 		//태그된 게시물 정보 가져오기
-		ArrayList<Media> tagContentDataArray=new NewspeedService().selectTagContent(conn,user);
+		ArrayList<NewspeedMedia> tagContentDataArray=new NewspeedService().selectTagContent(conn,user);
 		request.setAttribute("tagContentDataArray", tagContentDataArray);
 		
 		//팔로워정보 가져오기

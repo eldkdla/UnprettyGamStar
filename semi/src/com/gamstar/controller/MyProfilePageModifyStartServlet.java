@@ -36,11 +36,8 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
-		
 		User user= new User();
-		user.setNo((int)se.getAttribute("userNo"));
+		user.setNo((int)request.getSession().getAttribute("userNo"));
 		//유저정보 가져오기
 		User userData=new UserService().selectUser(user);
 		request.setAttribute("userData", userData);
