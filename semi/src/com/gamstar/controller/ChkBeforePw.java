@@ -40,10 +40,10 @@ public class ChkBeforePw extends HttpServlet {
 		
 		String beforePw=request.getParameter("beforePw");
 		
-		User u = new User();
-		u.setNo((int)se.getAttribute("userNo"));
+		User user = new User();
+		user.setNo((int)se.getAttribute("userNo"));
 		
-		User user=new UserService().chkBeforePw(u);
+		user=new UserService().chkBeforePw(user);
 		
 		boolean compare=beforePw.equals(user.getPw());
 		

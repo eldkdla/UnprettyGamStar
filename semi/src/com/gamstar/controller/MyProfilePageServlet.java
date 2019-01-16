@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.gamstar.model.service.NewspeedService;
 import com.gamstar.model.service.UserService;
 import com.gamstar.model.vo.Media;
 import com.gamstar.model.vo.User;
@@ -54,43 +55,43 @@ public class MyProfilePageServlet extends HttpServlet {
 			userNo=Integer.parseInt(request.getParameter("uu"));
 		}
 			
-		User u= new User();
-		u.setNo(userNo);
+		User user= new User();
+		user.setNo(userNo);
 		Connection conn = getConnection();
 		
 		//유저정보 가져오기
-		User userData=new UserService().selectUser(conn,u);
+		User userData=new UserService().selectUser(conn,user);
 		request.setAttribute("userData", userData);
 		
 		if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
 			response.sendRedirect("profile");
 		}
 		//게시글(다중) 정보 가져오기
-		ArrayList<Media> content1DataArray=new UserService().selectContent1(conn,u);
+		ArrayList<Media> content1DataArray=new NewspeedService().selectContent1(conn,user);
 		request.setAttribute("content1DataArray", content1DataArray);
-		/*
+		
 		//저장된 게시물 정보 가져오기
-		ArrayList<User> storageContentDataArray=new UserService().selectStorageContent(conn,u);
+		ArrayList<Media> storageContentDataArray=new NewspeedService().selectStorageContent(conn,user);
 		request.setAttribute("storageContentDataArray", storageContentDataArray);
 		
 		//태그된 게시물 정보 가져오기
-		ArrayList<User> tagContentDataArray=new UserService().selectTagContent(conn,u);
-		request.setAttribute("tagContentDataArray", tagContentDataArray);*/
+		ArrayList<Media> tagContentDataArray=new NewspeedService().selectTagContent(conn,user);
+		request.setAttribute("tagContentDataArray", tagContentDataArray);
 		
 		//팔로워정보 가져오기
-		ArrayList<User> followerDataArray=new UserService().selectFollower(conn,u);
+		ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
 		request.setAttribute("followerDataArray", followerDataArray);
 		
 		//팔로우정보 가져오기
-		ArrayList<User> followDataArray=new UserService().selectFollow(conn,u);
+		ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
 		request.setAttribute("followDataArray", followDataArray);
 		
 		//차단정보 가져오기
-		ArrayList<User> blockDataArray=new UserService().selectBlock(conn,u);
+		ArrayList<User> blockDataArray=new UserService().selectBlock(conn,user);
 		request.setAttribute("blockDataArray", blockDataArray);
 		
 		//상대방페이지일때 팔로우 되어있는지 확인하기
-		boolean isFollowed=new UserService().isFollowed(conn,u,myNo);
+		boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
 		request.setAttribute("isFollowed", isFollowed);
 		
 		close(conn);

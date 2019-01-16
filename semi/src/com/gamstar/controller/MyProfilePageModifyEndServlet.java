@@ -55,22 +55,22 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 		HttpSession se = request.getSession();
 		se.setAttribute("userNo", 6);
 		
-		User u= new User();
-		u.setNo((int)se.getAttribute("userNo"));
+		User user= new User();
+		user.setNo((int)se.getAttribute("userNo"));
 		
-		User oldUser=new UserService().selectUser(u);
+		User oldUser=new UserService().selectUser(user);
 		
 		if(multi.getFilesystemName("uploadPhoto")!=null){
-			u.setProfilePhoto(multi.getFilesystemName("uploadPhoto"));
+			user.setProfilePhoto(multi.getFilesystemName("uploadPhoto"));
 		}
 		else{
-			u.setProfilePhoto(oldUser.getProfilePhoto());
+			user.setProfilePhoto(oldUser.getProfilePhoto());
 		}
-		u.setEmail(multi.getParameter("email"));
-		u.setPhone(multi.getParameter("phone"));
-		u.setGender(multi.getParameter("gender"));
+		user.setEmail(multi.getParameter("email"));
+		user.setPhone(multi.getParameter("phone"));
+		user.setGender(multi.getParameter("gender"));
 		
-		int result=new UserService().updateUserData(u);
+		int result=new UserService().updateUserData(user);
 		
 		if(result!=0){
 			if(multi.getFilesystemName("uploadPhoto")!=null){//프로필변경후 정보변경 성공시 예전사진 삭제

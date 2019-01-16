@@ -40,8 +40,8 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		int userNo=(int)se.getAttribute("userNo");
 		int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
 			
-		User u= new User();
-		u.setNo(blockFllowNo);
+		User user= new User();
+		user.setNo(blockFllowNo);
 		
 		int result=0;
 		
@@ -49,23 +49,23 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		System.out.println(request.getParameter("follow"));
 			if(request.getParameter("follow").equals("팔로우됨")){
 				//상대를 내 팔로우 목록에 추가 ,나를 상대 팔로워 목록에 추가
-				result=new UserService().insertFollow(u,userNo);
+				result=new UserService().insertFollow(user,userNo);
 			}
 			else{
 				//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
-				result=new UserService().deleteFollow(u,userNo);
+				result=new UserService().deleteFollow(user,userNo);
 			}
 		}
 		else if(request.getParameter("block")!=null){
 		System.out.println(request.getParameter("block"));
 			if(request.getParameter("block").equals("차단됨")){
 				//내 차단목록에 상대를 추가 (db에서 트리거로 서로 팔로우,팔로워 삭제)
-				result=new UserService().insertBlockUser(u,userNo);
+				result=new UserService().insertBlockUser(user,userNo);
 				response.sendRedirect("profile");
 			}
 			else{
 				//내 차단목록에서 상대를 삭제		
-				result=new UserService().deleteBlockUser(u,userNo);
+				result=new UserService().deleteBlockUser(user,userNo);
 				response.sendRedirect("profile");
 			}
 		}

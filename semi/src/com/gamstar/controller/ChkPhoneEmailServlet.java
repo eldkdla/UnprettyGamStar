@@ -41,16 +41,16 @@ public class ChkPhoneEmailServlet extends HttpServlet {
 		
 		boolean chk=false;
 		
-		User u=new User();
-		u.setNo((int)se.getAttribute("userNo"));
+		User user=new User();
+		user.setNo((int)se.getAttribute("userNo"));
 		
 		if(request.getParameter("chkEmail")!=null){
-			u.setEmail(request.getParameter("chkEmail"));
-			chk=new UserService().chkEmail(u);
+			user.setEmail(request.getParameter("chkEmail"));
+			chk=new UserService().chkEmail(user);
 		}
 		else if(request.getParameter("chkPhone")!=null){
-			u.setPhone(request.getParameter("chkPhone"));
-			chk=new UserService().chkPhone(u);
+			user.setPhone(request.getParameter("chkPhone"));
+			chk=new UserService().chkPhone(user);
 		}
 		
 		

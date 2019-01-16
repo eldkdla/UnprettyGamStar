@@ -38,13 +38,13 @@ public class PasswordModifyServlet extends HttpServlet {
 		HttpSession se = request.getSession();
 		se.setAttribute("userNo", 6);
 		
-		User u= new User();
-		u.setNo((int)se.getAttribute("userNo"));		
-		u.setPw(request.getParameter("newPw"));
+		User user= new User();
+		user.setNo((int)se.getAttribute("userNo"));		
+		user.setPw(request.getParameter("newPw"));
 		String msg="";
 		String loc="";
 		
-		int result=new UserService().updatePassword(u);
+		int result=new UserService().updatePassword(user);
 		
 		
 		if(result!=0){

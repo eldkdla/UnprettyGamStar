@@ -26,6 +26,7 @@
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
 	   ArrayList<Media> content1DataArray=(ArrayList<Media>)request.getAttribute("content1DataArray");
+	   ArrayList<Media> storageContentDataArray=(ArrayList<Media>)request.getAttribute("storageContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
 	
@@ -368,35 +369,45 @@
             
             //1.게시글 컨텐츠
             
-             <%for(int i=0;i<content1DataArray.size();i++){
-             	if(content1DataArray.get(i).getType()==0){%>
+             <%for(int i=0;i<content1DataArray.size();i++){%>
+             	
             	 $('#profileContent1').append($('<div/>',{
-                 class:'profileContent134Photo',
-                 value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
-                 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=content1DataArray.get(i).getPath()%>')"
-             }));
-            	 <%}else{%>
-            	 $('#profileContent1').append($('<div/>',{
-                     class:'profileContent134Photo',
-                     value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
-                     style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/esang.png')"
-                 }));
-            	 <%}%>
+	                 class:'profileContent134Photo',
+	                 value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
+                	 <%if(content1DataArray.get(i).getType()==0){%>
+                		 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=content1DataArray.get(i).getPath()%>')"
+               		 <%}
+                	 else{%>
+                  		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
+              	    <%}%>
+                }));
+            	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
             		alert($(this).attr("value")); 
             	 });
-            	 
-            	 
+
              <%}%>  
 
-         <%--   //3.저장됨 컨텐츠
-             <%for(int i=0;i<4;i++){%>
+           //3.저장됨 컨텐츠
+             <%for(int i=0;i<storageContentDataArray.size();i++){%>
             	 $('#profileContent3').append($('<div/>',{
                  class:'profileContent134Photo',
-                 style:"background-image: url('<%=request.getContextPath()%>/<%=im_arg.get(i+4)%>')"
+                 value:'<%=storageContentDataArray.get(i).getNewspeedNo()%>',
+                 <%if(storageContentDataArray.get(i).getType()==0){%>
+                	 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=storageContentDataArray.get(i).getPath()%>')"
+                 <%}
+            	 else{%>
+            		 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
+               	 <%}%>  	 
              }));
+            	 
+            	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
+             		alert($(this).attr("value")); 
+             	 });
+            	 
              <%}%> 
-
+             
+             <%--
             //4.태그됨 컨텐츠
 	         <%for(int i=7;i>0;i--){%>
             	 $('#profileContent4').append($('<div/>',{

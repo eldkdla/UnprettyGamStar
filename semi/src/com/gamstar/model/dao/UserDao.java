@@ -26,7 +26,7 @@ public class UserDao {
 	}
 	
 	//유저정보 선택
-	public User selectUser(Connection conn,User u){
+	public User selectUser(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("selectUser");
@@ -34,7 +34,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getNo());
+			pstmt.setInt(1,user.getNo());
 			rs=pstmt.executeQuery();
 			if(rs.next()){
 				userData.setNo(rs.getInt("USER_NO"));
@@ -56,7 +56,7 @@ public class UserDao {
 	}
 	
 	//팔로우상태 확인
-	public boolean isFollowed(Connection conn,User u,int myname){
+	public boolean isFollowed(Connection conn,User user,int myname){
 		PreparedStatement pstmt=null;
 		ResultSet rs= null;
 		
@@ -66,7 +66,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getNo());
+			pstmt.setInt(2, user.getNo());
 			rs=pstmt.executeQuery();
 			isFollowed=rs.next();
 		}catch (Exception e) {
@@ -80,90 +80,10 @@ public class UserDao {
 		
 	}
 
-	//게시글(다중) 선택
-	public ArrayList<Media> selectContent1(Connection conn,User u){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String sql=prop.getProperty("selectContent1");
-		ArrayList<Media> content1DataArray=new ArrayList<Media>();
-		
-		try{
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getNo());
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()){
-				Media data = new Media();
-				data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
-				data.setType(rs.getInt("MEDIA_TYPE"));
-				data.setPath(rs.getString("MEDIA_PATH"));
-				content1DataArray.add(data);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return content1DataArray;
-	}
 	
-	
-	
-/*	//저장된게시물 선택
-	public ArrayList<User> selectStorageContent(Connection conn,User u){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String sql=prop.getProperty("selectStorageContent");
-		ArrayList<User> storageContentDataArray=new ArrayList<User>();
-		
-		try{
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getId());
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()){
-				User data = new User();
-				data.setId(rs.getString("name"));
-				storageContentDataArray.add(data);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return storageContentDataArray;
-	}
-	
-	//태그된 게시물 선택
-	public ArrayList<User> selectTagContent(Connection conn,User u){
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		String sql=prop.getProperty("selectTagContent");
-		ArrayList<User> tagContentDataArray=new ArrayList<User>();
-		
-		try{
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getId());
-			rs=pstmt.executeQuery();
-			
-			while(rs.next()){
-				User data = new User();
-				data.setId(rs.getString("name"));
-				tagContentDataArray.add(data);
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}finally{
-			close(rs);
-			close(pstmt);
-		}
-		return tagContentDataArray;
-	} */
 	
 	//팔로워 선택
-	public ArrayList<User> selectFollower(Connection conn,User u){
+	public ArrayList<User> selectFollower(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("selectFollower");
@@ -171,7 +91,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getNo());
+			pstmt.setInt(1,user.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -192,7 +112,7 @@ public class UserDao {
 	}
 	
 	//팔로우 선택
-	public ArrayList<User> selectFollow(Connection conn,User u){
+	public ArrayList<User> selectFollow(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("selectFollow");
@@ -200,7 +120,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getNo());
+			pstmt.setInt(1,user.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -221,7 +141,7 @@ public class UserDao {
 	}
 	
 	//차단목록 선택
-	public ArrayList<User> selectBlock(Connection conn,User u){
+	public ArrayList<User> selectBlock(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("selectBlock");
@@ -229,7 +149,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1,u.getNo());
+			pstmt.setInt(1,user.getNo());
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
@@ -251,18 +171,18 @@ public class UserDao {
 	
 
 	//유저 정보 수정
-	public int updateUserData(Connection conn,User u){
+	public int updateUserData(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("updateUserData");
 		int result=0;
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getGender());
-			pstmt.setString(2,u.getProfilePhoto());
-			pstmt.setString(3,u.getEmail());
-			pstmt.setString(4,u.getPhone());
-			pstmt.setInt(5,u.getNo());
+			pstmt.setString(1,user.getGender());
+			pstmt.setString(2,user.getProfilePhoto());
+			pstmt.setString(3,user.getEmail());
+			pstmt.setString(4,user.getPhone());
+			pstmt.setInt(5,user.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -276,7 +196,7 @@ public class UserDao {
 	}
 	
 	//유저 이전비밀번호 확인
-	public User chkBeforePw(Connection conn,User u){
+	public User chkBeforePw(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("chkBeforePw");
@@ -284,7 +204,7 @@ public class UserDao {
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, u.getNo());
+			pstmt.setInt(1, user.getNo());
 			
 			rs=pstmt.executeQuery();
 			
@@ -301,15 +221,15 @@ public class UserDao {
 	}
 	
 	//비밀번호 수정
-	public int updatePassword(Connection conn,User u){
+	public int updatePassword(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("updatePassword");
 		int result=0;
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getPw());
-			pstmt.setInt(2,u.getNo());
+			pstmt.setString(1, user.getPw());
+			pstmt.setInt(2,user.getNo());
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -321,14 +241,14 @@ public class UserDao {
 	}
 	
 	//프로필사진 수정
-	public int updateProfilePhoto(Connection conn,User u){
+	public int updateProfilePhoto(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("updateProfilePhoto");
 		int result=0;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getProfilePhoto());
-			pstmt.setInt(2,u.getNo());
+			pstmt.setString(1,user.getProfilePhoto());
+			pstmt.setInt(2,user.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -340,14 +260,14 @@ public class UserDao {
 	}
 	
 	//배경사진 수정
-	public int updateBackgroundPhoto(Connection conn,User u){
+	public int updateBackgroundPhoto(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("updateBackgroundPhoto");
 		int result =0;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1,u.getProfileBackgroundPhoto());
-			pstmt.setInt(2,u.getNo());
+			pstmt.setString(1,user.getProfileBackgroundPhoto());
+			pstmt.setInt(2,user.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -359,15 +279,15 @@ public class UserDao {
 	}
 	
 	//이메일 중복 확인
-	public boolean chkEmail(Connection conn,User u){
+	public boolean chkEmail(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("chkEmail");
 		boolean chkEmail=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getEmail());
-			pstmt.setInt(2, u.getNo());
+			pstmt.setString(1, user.getEmail());
+			pstmt.setInt(2, user.getNo());
 			
 			rs=pstmt.executeQuery();
 			chkEmail=rs.next();
@@ -380,15 +300,15 @@ public class UserDao {
 		return chkEmail;
 	}
 	//전화번호 중복 확인
-	public boolean chkPhone(Connection conn,User u){
+	public boolean chkPhone(Connection conn,User user){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		String sql=prop.getProperty("chkPhone");
 		boolean chkPhone=false;
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, u.getPhone());
-			pstmt.setInt(2, u.getNo());
+			pstmt.setString(1, user.getPhone());
+			pstmt.setInt(2, user.getNo());
 			
 			rs=pstmt.executeQuery();
 			chkPhone=rs.next();
@@ -402,7 +322,7 @@ public class UserDao {
 	}
 	
 	//팔로우 추가
-	public int insertFollow(Connection conn,User u,int myname){
+	public int insertFollow(Connection conn,User user,int myname){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("insertFollow");
 		int result=0;
@@ -410,7 +330,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getNo());
+			pstmt.setInt(2, user.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -421,7 +341,7 @@ public class UserDao {
 		return result;
 	}
 	//팔로우삭제
-	public int deleteFollow(Connection conn,User u,int myname){
+	public int deleteFollow(Connection conn,User user,int myname){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("deleteFollow");
 		int result=0;
@@ -429,7 +349,7 @@ public class UserDao {
 		try{
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, myname);
-			pstmt.setInt(2, u.getNo());
+			pstmt.setInt(2, user.getNo());
 			
 			result=pstmt.executeUpdate();
 		}catch (Exception e) {
@@ -441,14 +361,14 @@ public class UserDao {
 	}
 	
 	//차단목록 추가
-	public int insertBlockUser(Connection conn,User u,int myname){
+	public int insertBlockUser(Connection conn,User user,int myname){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("insertBlockUser");
 		int result=0;
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, u.getNo());
+			pstmt.setInt(1, user.getNo());
 			pstmt.setInt(2, myname);
 			
 			result=pstmt.executeUpdate();
@@ -460,14 +380,14 @@ public class UserDao {
 		return result;
 	}
 	//차단목록 삭제
-	public int deleteBlockUser(Connection conn,User u,int myname){
+	public int deleteBlockUser(Connection conn,User user,int myname){
 		PreparedStatement pstmt=null;
 		String sql=prop.getProperty("deleteBlockUser");
 		int result=0;
 		
 		try{
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, u.getNo());
+			pstmt.setInt(1, user.getNo());
 			pstmt.setInt(2, myname);
 			
 			result=pstmt.executeUpdate();

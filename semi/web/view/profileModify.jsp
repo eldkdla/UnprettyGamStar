@@ -260,7 +260,7 @@
         //성별 바뀌면 버튼 활성화
         $('#gender').change(function () {
             if ($('#gender>option:selected').val() != 0) {
-            	if($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능"){
+            	if(($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능")||($('#chkEmail').html()=="" && $('#chkPhone').html()=="")){
 			        $('#modifyButton').css('background-color', 'cornflowerblue');
 			        $('#modifyButton').removeProp('disabled');
             	}

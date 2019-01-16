@@ -265,7 +265,7 @@
         height: 200px;
         margin: 6.5px 6.5px 0 6.5px;
         border-radius: 10px;
-        background-size: cover;
+        background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
         cursor: pointer;
@@ -624,7 +624,7 @@
         height: 200px;
         margin: 2% 1% 0 2%;
         border-radius: 10px;
-        background-size: cover;
+        background-size: 100% 100%;
         background-position: center;
         background-repeat: no-repeat;
         cursor: pointer;

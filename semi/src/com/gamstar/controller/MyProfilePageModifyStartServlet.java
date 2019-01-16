@@ -39,10 +39,10 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 		HttpSession se = request.getSession();
 		se.setAttribute("userNo", 6);
 		
-		User u= new User();
-		u.setNo((int)se.getAttribute("userNo"));
+		User user= new User();
+		user.setNo((int)se.getAttribute("userNo"));
 		//유저정보 가져오기
-		User userData=new UserService().selectUser(u);
+		User userData=new UserService().selectUser(user);
 		request.setAttribute("userData", userData);
 		
 		//내정보창으로 정보보내기

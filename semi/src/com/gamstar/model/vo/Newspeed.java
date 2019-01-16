@@ -6,9 +6,8 @@ public class Newspeed {
 private int no;
 private String content;
 private Date witeDate;
-private int enable;
+private boolean enable;
 private int userNo;
-private Date likeDate;
 
 
 
@@ -30,10 +29,10 @@ public Date getWiteDate() {
 public void setWiteDate(Date witeDate) {
 	this.witeDate = witeDate;
 }
-public int getEnable() {
+public boolean getEnable() {
 	return enable;
 }
-public void setEnable(int enable) {
+public void setEnable(boolean enable) {
 	this.enable = enable;
 }
 public int getUserNo() {
@@ -42,12 +41,7 @@ public int getUserNo() {
 public void setUserNo(int userNo) {
 	this.userNo = userNo;
 }
-public Date getLikeDate() {
-	return likeDate;
-}
-public void setLikeDate(Date likeDate) {
-	this.likeDate = likeDate;
-}
+
 
 
 
