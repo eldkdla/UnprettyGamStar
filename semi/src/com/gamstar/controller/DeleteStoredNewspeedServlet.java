@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
+import com.gamstar.model.service.NewspeedService;
+import com.gamstar.model.vo.Newspeed;
 
 /**
- * Servlet implementation class ChkBeforePw
+ * Servlet implementation class DeleteStoredNewspeedServlet
  */
-@WebServlet(name="ChkBeforePw",urlPatterns="/view/chkBeforePw")
-public class ChkBeforePw extends HttpServlet {
+@WebServlet("/view/deleteStoredNewspeed")
+public class DeleteStoredNewspeedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChkBeforePw() {
+    public DeleteStoredNewspeedServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,24 +35,21 @@ public class ChkBeforePw extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		HttpSession se = request.getSession();
-		se.setAttribute("userNo", 6);
+		HttpSession session = request.getSession();
+		session.setAttribute("userNo", 6);
 		
-		String beforePw=request.getParameter("beforePw");
+		int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo"));
 		
-		User user = new User();
-		user.setNo((int)se.getAttribute("userNo"));
+		Newspeed newspeed=new Newspeed();
+		newspeed.setNo(storedNewspeedNo);
+		newspeed.setUserNo((int)session.getAttribute("userNo"));
+		int result=new NewspeedService().deleteStoredNewspeed(newspeed);
 		
-		user=new UserService().chkBeforePw(user);
-		
-		boolean compare=beforePw.equals(user.getPw());
-		
-		PrintWriter out = response.getWriter();
-		
-		if(compare){
-			out.print("true");
-		}else{
-			out.print("false");
+		if(result!=0){
+			System.out.println("저장게시물 삭제성공");	
+		}
+		else{
+			System.out.println("저장게시물 삭제실패");	
 		}
 	}
 

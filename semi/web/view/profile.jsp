@@ -27,6 +27,7 @@
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
 	   ArrayList<Media> content1DataArray=(ArrayList<Media>)request.getAttribute("content1DataArray");
 	   ArrayList<Media> storageContentDataArray=(ArrayList<Media>)request.getAttribute("storageContentDataArray");
+	   ArrayList<Media> tagContentDataArray=(ArrayList<Media>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
 	
@@ -401,21 +402,71 @@
                	 <%}%>  	 
              }));
             	 
+            	 <%if(user.getNo()==(int)request.getSession().getAttribute("userNo")){%>
+            	 $('#profileContent3>div:nth-child(<%=i+1%>)').append($('<button/>',{
+  					class:'contentCancelBt',
+  					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
+  				 }));
+            	 
+            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
+            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
+            	 
+  				 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
+  				 e.stopPropagation(); //부모 이벤트 실행 안되게
+  				 var deleteNewspeedDiv=$(this).parent();
+  				 var storedNewspeedNo=$(this).parent().attr("value");
+  				 $('body').alertBox({
+  				        title: '저장된 게시물을 지우시겠습니까?',
+  				        lTxt: '아니요',
+  				        lCallback: function(){alert(storedNewspeedNo);},
+  				        rTxt: '네',
+  				        rCallback: function(){
+  							 $.ajax({
+  								url:'<%=request.getContextPath()%>/view/deleteStoredNewspeed',
+  								type:"POST",
+  								data:{"storedNewspeedNo":storedNewspeedNo},
+  								success:function(){
+  									deleteNewspeedDiv.remove();
+  								}
+  							}); 
+  				        }
+  				      });
+  				 });
+  				 
+  				$('#profileContent3>:eq(<%=i%>)').hover(function(){
+  					 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("display","");
+  				},function(){
+  					$(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+  				});
+  				<%}%>
+            	 
             	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
              		alert($(this).attr("value")); 
              	 });
             	 
              <%}%> 
-             
-             <%--
+                  
             //4.태그됨 컨텐츠
-	         <%for(int i=7;i>0;i--){%>
+	         <%for(int i=0;i<tagContentDataArray.size();i++){%>
             	 $('#profileContent4').append($('<div/>',{
                  class:'profileContent134Photo',
-                 style:"background-image: url('<%=request.getContextPath()%>/<%=im_arg.get(i)%>')"
-             }));
+                 value:'<%=tagContentDataArray.get(i).getNewspeedNo()%>',
+                 <%if(tagContentDataArray.get(i).getType()==0){%>
+                 	style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=tagContentDataArray.get(i).getPath()%>')"
+                 <%}
+            	 else{%>
+            	 	style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
+                 <%}%> 
+            	 
+             	}));
+            	 
+            	 $('#profileContent4>:eq(<%=i%>)').on('click',function(){
+              		alert($(this).attr("value")); 
+              	 });
+            	 
              <%}%>  
-             --%>
+             
             //5.팔로워 컨텐츠
             <%for(int i=0;i<followerDataArray.size();i++){%>
             	

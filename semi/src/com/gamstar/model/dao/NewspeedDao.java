@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.gamstar.model.vo.Media;
+import com.gamstar.model.vo.Newspeed;
 import com.gamstar.model.vo.User;
 
 public class NewspeedDao {
@@ -84,21 +85,24 @@ public class NewspeedDao {
 			return storageContentDataArray;
 		}
 		
-		/*//태그된 게시물 선택
-		public ArrayList<User> selectTagContent(Connection conn,User user){
+		//태그된 게시물 선택
+		public ArrayList<Media> selectTagContent(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectTagContent");
-			ArrayList<User> tagContentDataArray=new ArrayList<User>();
+			ArrayList<Media> tagContentDataArray=new ArrayList<Media>();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setString(1,user.getId());
+				pstmt.setInt(1,user.getNo());
 				rs=pstmt.executeQuery();
 				
 				while(rs.next()){
-					User data = new User();
-					data.setId(rs.getString("name"));
+					Media data = new Media();
+					data.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
+					data.setType(rs.getInt("MEDIA_TYPE"));
+					data.setPath(rs.getString("MEDIA_PATH"));
+					
 					tagContentDataArray.add(data);
 				}
 			}catch (Exception e) {
@@ -108,6 +112,29 @@ public class NewspeedDao {
 				close(pstmt);
 			}
 			return tagContentDataArray;
-		} */
+		} 
+		
+		//저장 게시물 삭제
+		public int deleteStoredNewspeed(Connection conn,Newspeed newspeed){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("deleteStoredNewspeed");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, newspeed.getNo());
+				pstmt.setInt(2, newspeed.getUserNo());
+				
+				result=pstmt.executeUpdate();
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			
+			return result;
+			
+		}
 		
 }

@@ -70,6 +70,17 @@ public class UserService {
 		
 		int result=new UserDao().updateUserData(conn,user);
 		
+		try {
+			if(result!=0){
+				conn.commit();				
+			}else{
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
+		
 		close(conn);
 		return result;
 	}
@@ -89,6 +100,17 @@ public class UserService {
 		Connection conn=getConnection();
 		
 		int result=new UserDao().updatePassword(conn,user);
+		
+		try {
+			if(result!=0){
+				conn.commit();				
+			}else{
+				conn.rollback();
+			}
+		} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+		}
 		
 		close(conn);
 		return result;
