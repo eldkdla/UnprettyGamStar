@@ -64,21 +64,21 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>성별</label>
                             <select name="gender" id="gender" required>
-                                <option value="0" hidden disabled="disabled" >성별</option>
+                                <option value="10" hidden disabled="disabled" >성별</option>
                                 <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
                                 <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      
                             </select>
-                            <input type="file" name="uploadPhoto" id="uploadPhoto" accept="image/*" this.select();>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>비공개</label>
-                            <select name="" id="gender" required>
-                                <option value="0" hidden disabled="disabled" >성별</option>
-                                <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
-                                <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      
+                            <select name="disclosure" id="disclosure" required>
+                                <option value="10" hidden disabled="disabled" >공개여부</option>
+                                <option value="1"  <%=user.getDisclosure()==1?"selected":""%> >공개</option>
+                                <option value="0"  <%=user.getDisclosure()==0?"selected":""%> >비공개</option>                      
                             </select>
-                            <input type="file" name="uploadPhoto" id="uploadPhoto" accept="image/*" this.select();>
                         </div>
+                        
+                        <input type="file" name="uploadPhoto" id="uploadPhoto" accept="image/*" this.select();>
                         <br>
 
                         <input type="submit" id='modifyButton' value="변 경" disabled='true' >
@@ -268,7 +268,7 @@
 
         //성별 바뀌면 버튼 활성화
         $('#gender').change(function () {
-            if ($('#gender>option:selected').val() != 0) {
+            if ($('#gender>option:selected').val() != 10) {
             	if(($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능")||($('#chkEmail').html()=="" && $('#chkPhone').html()=="")){
 			        $('#modifyButton').css('background-color', 'cornflowerblue');
 			        $('#modifyButton').removeProp('disabled');
@@ -279,6 +279,21 @@
                 $('#modifyButton').prop('disabled', 'true');
             }
         });
+        
+        //공개 비공개 변경시 버튼 활성화
+        $('#disclosure').change(function (){
+        	if($('#disclosure>option:selected').val() !=10){
+        		if(($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능")||($('#chkEmail').html()=="" && $('#chkPhone').html()=="")){
+			        $('#modifyButton').css('background-color', 'cornflowerblue');
+			        $('#modifyButton').removeProp('disabled');
+            	}
+        	}
+        	else{
+        		 $('#modifyButton').css('background-color', 'gray');
+                 $('#modifyButton').prop('disabled', 'true');
+        	}
+        });
+        
     </script>
 
     <script>

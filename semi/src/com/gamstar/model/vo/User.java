@@ -17,8 +17,20 @@ public class User {
 	private String phone;
 	private Date enrollDate;
 	private int remainingDay;
+	private int disclosure;
 	
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return super.toString();
+	}
+	public int getDisclosure() {
+		return disclosure;
+	}
+	public void setDisclosure(int disclosure) {
+		this.disclosure = disclosure;
+	}
 	public int getNo() {
 		return no;
 	}

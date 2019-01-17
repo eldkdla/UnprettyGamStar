@@ -34,11 +34,11 @@
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
-           <img src="<%=request.getContextPath()%>/upload/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
+           <img src="<%=request.getContextPath()%><%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
             <div class="profileTopPhoto">
                 <button id='profilePhotoBt' onclick="changePhoto();">
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
-                    <img id='profilePhoto' src="<%=request.getContextPath()%>/upload/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
+                    <img id='profilePhoto' src="<%=request.getContextPath()%><%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
             </div>
             <div class="profileTopContent">
@@ -153,6 +153,9 @@
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
             		$('#profileFollowBt').css("background-color","#F6F6F6"); 
             		$('#profileFollowBt').css("color","black");
+            		<%-- <%if(user.getDisclosure()==0){%>
+            		$('#profileMenuRbt1,#profileMenuRbt2,#profileMenuRbt3,#profileMenuRbt4,#profileMenuRbt5,#profileMenuRbt6')
+            		<%}%> --%>
         		<%}%>
          		
          		$('#profileModify').css("display","none");
@@ -529,7 +532,7 @@
  					             });
  					             
  					             $('#profileContent5>#'+no).append($('<img/>',{
- 					                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+ 					                src: '<%=request.getContextPath()%>'+profilePhoto
  					             }));
  					            
  					             $('#profileContent5>#'+no).append($('<label/>',{
@@ -590,7 +593,7 @@
 	 					             });
 	 					             
 	 					             $('#profileContent6>#'+no).append($('<img/>',{
-	 					                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+	 					                src: '<%=request.getContextPath()%>'+profilePhoto
 	 					             }));
 	 					            
 	 					             $('#profileContent6>#'+no).append($('<label/>',{
@@ -635,7 +638,7 @@
 			 }));
 			 
 			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<img/>',{
-			    src: '<%=request.getContextPath()%>/upload/<%=blockDataArray.get(i).getProfilePhoto()%>'
+			    src: '<%=request.getContextPath()%><%=blockDataArray.get(i).getProfilePhoto()%>'
 			 }));
 			
 			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<label/>',{

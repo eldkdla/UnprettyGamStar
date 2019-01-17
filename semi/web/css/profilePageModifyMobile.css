@@ -130,7 +130,7 @@
      .modifyInput:focus{
          border: 2px solid #B2CCFF;
      }
-     #gender{
+    .modifyInputDiv>select{
          margin-left: 2%;
          border-radius: 2px;
          outline: none;
@@ -142,7 +142,7 @@
          border: 2px solid rgba(213,213,213,50); 
          font-family: 'Gothic A1', sans-serif;
      }
-     #gender:focus{
+     .modifyInputDiv>select:focus{
      border:2px solid #B2CCFF;
      }
  

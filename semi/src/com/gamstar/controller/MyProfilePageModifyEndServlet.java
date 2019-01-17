@@ -68,6 +68,8 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			user.setEmail(multi.getParameter("email"));
 			user.setPhone(multi.getParameter("phone"));
 			user.setGender(multi.getParameter("gender"));
+			System.out.println(multi.getParameter("disclosure"));
+			user.setDisclosure(Integer.parseInt(multi.getParameter("disclosure")));
 			
 			int result=new UserService().updateUserData(user);
 			
