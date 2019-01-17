@@ -37,7 +37,7 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyScreenMainPhoto">
                             <button id='modifyScreenMainPhotoBt' onclick="return changePhoto();"><img id='modifyScreenMainPhoto'
-                                    src="<%=request.getContextPath()%>/upload/<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
+                                    src="<%=request.getContextPath()%><%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
                         </div>
                         <div class="modifyScreenMainContent">
                             <label id="modifyScreenIdLb"><%=user.getName() %></label><br>

@@ -307,7 +307,7 @@
 				             });
 				             
 				             $('#profileContent5>#'+no).append($('<img/>',{
-				                src: '<%=request.getContextPath()%>/upload/'+profilePhoto
+				                src: '<%=request.getContextPath()%>'+profilePhoto
 				             }));
 				            
 				             $('#profileContent5>#'+no).append($('<label/>',{
@@ -416,7 +416,7 @@
 	                 class:'profileContent134Photo',
 	                 value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
                 	 <%if(content1DataArray.get(i).getType()==0){%>
-                		 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=content1DataArray.get(i).getPath()%>')"
+                		 style:"background-image: url('<%=request.getContextPath()%><%=content1DataArray.get(i).getPath()%>')"
                		 <%}
                 	 else{%>
                   		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -435,7 +435,7 @@
                  class:'profileContent134Photo',
                  value:'<%=storageContentDataArray.get(i).getNewspeedNo()%>',
                  <%if(storageContentDataArray.get(i).getType()==0){%>
-                	 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=storageContentDataArray.get(i).getPath()%>')"
+                	 style:"background-image: url('<%=request.getContextPath()%>%=storageContentDataArray.get(i).getPath()%>')"
                  <%}
             	 else{%>
             		 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -493,7 +493,7 @@
                  class:'profileContent134Photo',
                  value:'<%=tagContentDataArray.get(i).getNewspeedNo()%>',
                  <%if(tagContentDataArray.get(i).getType()==0){%>
-                 	style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/<%=tagContentDataArray.get(i).getPath()%>')"
+                 	style:"background-image: url('<%=request.getContextPath()%><%=tagContentDataArray.get(i).getPath()%>')"
                  <%}
             	 else{%>
             	 	style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -559,7 +559,7 @@
              });
              
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<img/>',{
-                src: '<%=request.getContextPath()%>/upload/<%=followerDataArray.get(i).getProfilePhoto()%>'
+                src: '<%=request.getContextPath()%><%=followerDataArray.get(i).getProfilePhoto()%>'
              }));
             
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<label/>',{
@@ -615,7 +615,7 @@
 	            }));
 	            
 	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<img/>',{
-	               src: '<%=request.getContextPath()%>/upload/<%=followDataArray.get(i).getProfilePhoto()%>'
+	               src: '<%=request.getContextPath()%><%=followDataArray.get(i).getProfilePhoto()%>'
 	            }));
 	           
 	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){

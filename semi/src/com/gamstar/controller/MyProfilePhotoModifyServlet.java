@@ -78,7 +78,7 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 			}
 			else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
 				//배경프로필 수정한것
-				user.setProfileBackgroundPhoto(multi.getFilesystemName("uploadProfilePhoto2"));
+				user.setProfileBackgroundPhoto("/upload/"+multi.getFilesystemName("uploadProfilePhoto2"));
 				result=new UserService().updateBackgroundPhoto(user);
 				
 				if(result!=0){
