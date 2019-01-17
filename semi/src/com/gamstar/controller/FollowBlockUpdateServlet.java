@@ -35,39 +35,47 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		int userNo=(int)request.getSession().getAttribute("userNo");
-		int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
+		if(request.getSession().getAttribute("userNo")!=null){
+
+			int userNo=(int)request.getSession().getAttribute("userNo");
+			int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
+				
+			User user= new User();
+			user.setNo(blockFllowNo);
 			
-		User user= new User();
-		user.setNo(blockFllowNo);
-		
-		int result=0;
-		
-		if(request.getParameter("follow")!=null){
-		System.out.println(request.getParameter("follow"));
-			if(request.getParameter("follow").equals("팔로우됨")){
-				//상대를 내 팔로우 목록에 추가 ,나를 상대 팔로워 목록에 추가
-				result=new UserService().insertFollow(user,userNo);
+			int result=0;
+			
+			if(request.getParameter("follow")!=null){
+			System.out.println(request.getParameter("follow"));
+				if(request.getParameter("follow").equals("팔로우됨")){
+					//상대를 내 팔로우 목록에 추가 ,나를 상대 팔로워 목록에 추가
+					result=new UserService().insertFollow(user,userNo);
+				}
+				else{
+					//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
+					result=new UserService().deleteFollow(user,userNo);
+				}
 			}
-			else{
-				//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
-				result=new UserService().deleteFollow(user,userNo);
+			else if(request.getParameter("block")!=null){
+			System.out.println(request.getParameter("block"));
+				if(request.getParameter("block").equals("차단됨")){
+					//내 차단목록에 상대를 추가 (db에서 트리거로 서로 팔로우,팔로워 삭제)
+					result=new UserService().insertBlockUser(user,userNo);
+					response.sendRedirect("profile");
+				}
+				else{
+					//내 차단목록에서 상대를 삭제		
+					result=new UserService().deleteBlockUser(user,userNo);
+					response.sendRedirect("profile");
+				}
 			}
+		
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
-		else if(request.getParameter("block")!=null){
-		System.out.println(request.getParameter("block"));
-			if(request.getParameter("block").equals("차단됨")){
-				//내 차단목록에 상대를 추가 (db에서 트리거로 서로 팔로우,팔로워 삭제)
-				result=new UserService().insertBlockUser(user,userNo);
-				response.sendRedirect("profile");
-			}
-			else{
-				//내 차단목록에서 상대를 삭제		
-				result=new UserService().deleteBlockUser(user,userNo);
-				response.sendRedirect("profile");
-			}
-		}
-		
+
 	
 	}
 

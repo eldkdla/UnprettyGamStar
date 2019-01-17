@@ -35,22 +35,33 @@ public class ChkBeforePwServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		String beforePw=request.getParameter("beforePw");
+		if(request.getSession().getAttribute("userNo")!=null){
 		
-		User user = new User();
-		user.setNo((int)request.getSession().getAttribute("userNo"));
-		
-		user=new UserService().chkBeforePw(user);
-		
-		boolean compare=beforePw.equals(user.getPw());
-		
-		PrintWriter out = response.getWriter();
-		
-		if(compare){
-			out.print("true");
+			String beforePw=request.getParameter("beforePw");
+			
+			User user = new User();
+			user.setNo((int)request.getSession().getAttribute("userNo"));
+			
+			user=new UserService().chkBeforePw(user);
+			
+			boolean compare=beforePw.equals(user.getPw());
+			
+			PrintWriter out = response.getWriter();
+			
+			if(compare){
+				out.print("true");
+			}else{
+				out.print("false");
+			}
+			
 		}else{
-			out.print("false");
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
+		
+		
+		
 	}
 
 	/**

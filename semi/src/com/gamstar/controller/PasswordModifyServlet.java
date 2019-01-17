@@ -35,29 +35,38 @@ public class PasswordModifyServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		User user= new User();
-		user.setNo((int)request.getSession().getAttribute("userNo"));		
-		user.setPw(request.getParameter("newPw"));
-		String msg="";
-		String loc="";
+		if(request.getSession().getAttribute("userNo")!=null){
 		
-		int result=new UserService().updatePassword(user);
+				User user= new User();
+				user.setNo((int)request.getSession().getAttribute("userNo"));		
+				user.setPw(request.getParameter("newPw"));
+				String msg="";
+				String loc="";
+				
+				int result=new UserService().updatePassword(user);
+				
+				
+				if(result!=0){
+					msg="비밀번호 변경성공";
+					loc="/view/profile";
+				}
+				else{
+					msg="비밀번호 변경실패";
+					loc="/view/profile";
+				}
+				
+				request.setAttribute("msg", msg);
+				request.setAttribute("loc", loc);
+				
 		
-		
-		if(result!=0){
-			msg="비밀번호 변경성공";
-			loc="/view/profile";
+				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+			
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
-		else{
-			msg="비밀번호 변경실패";
-			loc="/view/profile";
-		}
-		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		
 
-		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 	}
 
 	/**

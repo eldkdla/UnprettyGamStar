@@ -38,27 +38,32 @@ public class SelectFollowServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		User user=new User();
-		user.setNo(Integer.parseInt(request.getParameter("userNo")));
-		Connection conn=getConnection();
+		if(request.getSession().getAttribute("userNo")!=null){
 		
-		if(request.getParameter("isfollow").equals("follower")){
-			ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
+			User user=new User();
+			user.setNo(Integer.parseInt(request.getParameter("userNo")));
+			Connection conn=getConnection();
 			
-			close(conn);
-			response.setContentType("application/json;charset=UTF-8");
-			new Gson().toJson(followerDataArray,response.getWriter());
-		}
-		else if(request.getParameter("isfollow").equals("follow")){
-			ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
+			if(request.getParameter("isfollow").equals("follower")){
+				ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
+				
+				close(conn);
+				response.setContentType("application/json;charset=UTF-8");
+				new Gson().toJson(followerDataArray,response.getWriter());
+			}
+			else if(request.getParameter("isfollow").equals("follow")){
+				ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
+				
+				close(conn);
+				response.setContentType("application/json;charset=UTF-8");
+				new Gson().toJson(followDataArray,response.getWriter());
+			}
 			
-			close(conn);
-			response.setContentType("application/json;charset=UTF-8");
-			new Gson().toJson(followDataArray,response.getWriter());
-		}
-		
-		
-		
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		}	
 		
 	}
 

@@ -3,7 +3,6 @@
 <%
 	String msg=(String)request.getAttribute("msg");
 	String loc=(String)request.getAttribute("loc");
-	String script=(String)request.getAttribute("script");
 %>
  
     
@@ -13,18 +12,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script>
-	//서블릿에서 작성한 메세지 호출
-	alert('<%= msg%>');
-	//새창을 닫아주는 기능 self.close()호출~!
-	<%=script!=null?script:""%>
-	//호출후 페이지 메인으로 이동
-	location.href='<%=request.getContextPath()+loc%>';	
-</script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/informationAlert.css">
 
 </head>
 <body>
 
+   <div id="myModal" class="modal">
+      <div class="modal-content">
+            </br>
+            <p><%=msg %></p>
+            <div class="alert_close_btn" onClick="close_pop();"><p style="margin:0;">&#10005</p></div>
+            <div id='ee' onClick="close_pop();">확인</div>
+      </div>
+    </div>
+ 
+    <script>
+        function close_pop() {
+             location.href='<%=request.getContextPath()+loc%>';
+        };    
+	</script>
+	
 </body>
 </html>
 

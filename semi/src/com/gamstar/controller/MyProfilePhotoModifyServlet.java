@@ -41,64 +41,73 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		String root=getServletContext().getRealPath("/");
-		String path=root+"upload";
-//		String path = request.getRealPath("/upload");
-		System.out.println("path:"+ path);
-
-		if(ServletFileUpload.isMultipartContent(request)){
-		int maxSize=1024*1024*10;//10MB
-		MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
-
-		User user= new User();
-		user.setNo((int)request.getSession().getAttribute("userNo"));
-		
-		int result=0;
-		
-		User oldUser=new UserService().selectUser(user);
-		
-		if(multi.getFilesystemName("uploadProfilePhoto1")!=null){
-			//프로필 사진 수정한것
-			user.setProfilePhoto(multi.getFilesystemName("uploadProfilePhoto1"));
-			result=new UserService().updateProfilePhoto(user);
+		if(request.getSession().getAttribute("userNo")!=null){
+	
+			String root=getServletContext().getRealPath("/");
+			String path=root+"upload";
+	//		String path = request.getRealPath("/upload");
+			System.out.println("path:"+ path);
+	
+			if(ServletFileUpload.isMultipartContent(request)){
+			int maxSize=1024*1024*10;//10MB
+			MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
+	
+			User user= new User();
+			user.setNo((int)request.getSession().getAttribute("userNo"));
 			
-			if(result!=0){
-				File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfilePhoto());
-				if(!(oldUser.getProfilePhoto()).equals("no_profile.png")){
-					if(file.delete()){
-						System.out.println("삭제성공");
-					}else{
-						System.out.println("삭제실패");
-					}
-				}
-				System.out.println("프로필사진 변경 성공");
-			}
-		}
-		else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
-			//배경프로필 수정한것
-			user.setProfileBackgroundPhoto(multi.getFilesystemName("uploadProfilePhoto2"));
-			result=new UserService().updateBackgroundPhoto(user);
+			int result=0;
 			
-			if(result!=0){
-				File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfileBackgroundPhoto());
-				if(!(oldUser.getProfileBackgroundPhoto()).equals("esang.png")){
-					if(file.delete()){
-						System.out.println("삭제성공");
-					}else{
-						System.out.println("삭제실패");
+			User oldUser=new UserService().selectUser(user);
+			
+			if(multi.getFilesystemName("uploadProfilePhoto1")!=null){
+				//프로필 사진 수정한것
+				user.setProfilePhoto(multi.getFilesystemName("uploadProfilePhoto1"));
+				result=new UserService().updateProfilePhoto(user);
+				
+				if(result!=0){
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfilePhoto());
+					if(!(oldUser.getProfilePhoto()).equals("no_profile.png")){
+						if(file.delete()){
+							System.out.println("삭제성공");
+						}else{
+							System.out.println("삭제실패");
+						}
 					}
+					System.out.println("프로필사진 변경 성공");
 				}
-				System.out.println("배경사진 변경 성공");
 			}
-		}
-		System.out.println("다 끝냈나 "+result);
-		response.sendRedirect("profile");
-
-		}
-		else{
-			System.out.println("사진 multipart로 안보냈음");
+			else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
+				//배경프로필 수정한것
+				user.setProfileBackgroundPhoto(multi.getFilesystemName("uploadProfilePhoto2"));
+				result=new UserService().updateBackgroundPhoto(user);
+				
+				if(result!=0){
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfileBackgroundPhoto());
+					if(!(oldUser.getProfileBackgroundPhoto()).equals("esang.png")){
+						if(file.delete()){
+							System.out.println("삭제성공");
+						}else{
+							System.out.println("삭제실패");
+						}
+					}
+					System.out.println("배경사진 변경 성공");
+				}
+			}
+			System.out.println("다 끝냈나 "+result);
 			response.sendRedirect("profile");
+	
+			}
+			else{
+				System.out.println("사진 multipart로 안보냈음");
+				response.sendRedirect("profile");
+			}
+		
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
+
 		
 	}
 

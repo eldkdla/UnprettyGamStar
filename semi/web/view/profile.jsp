@@ -30,6 +30,7 @@
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
+
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -655,7 +656,7 @@
 				        rCallback: function(){
 							location.href='<%=request.getContextPath()%>/view/updatefollowblock?block=차단하기&uu='+deleteBlockId;
 				        }
-				      });
+				 }); 
 				
 			}); 
 			 

@@ -35,19 +35,28 @@ public class DeleteStoredNewspeedServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
-		int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo"));
+		if(request.getSession().getAttribute("userNo")!=null){
+
+			int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo"));
+			
+			Newspeed newspeed=new Newspeed();
+			newspeed.setNo(storedNewspeedNo);
+			newspeed.setUserNo((int)request.getSession().getAttribute("userNo"));
+			int result=new NewspeedService().deleteStoredNewspeed(newspeed);
+			
+			if(result!=0){
+				System.out.println("저장게시물 삭제성공");	
+			}
+			else{
+				System.out.println("저장게시물 삭제실패");	
+			}
 		
-		Newspeed newspeed=new Newspeed();
-		newspeed.setNo(storedNewspeedNo);
-		newspeed.setUserNo((int)request.getSession().getAttribute("userNo"));
-		int result=new NewspeedService().deleteStoredNewspeed(newspeed);
-		
-		if(result!=0){
-			System.out.println("저장게시물 삭제성공");	
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
-		else{
-			System.out.println("저장게시물 삭제실패");	
-		}
+
 	}
 
 	/**

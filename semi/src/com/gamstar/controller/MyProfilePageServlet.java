@@ -43,59 +43,71 @@ public class MyProfilePageServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		int userNo=0;
-		int myNo=(int)request.getSession().getAttribute("userNo");
+		request.getSession().setAttribute("userNo", 6);
 		
-		if(request.getParameter("uu")==null){ //내 페이지 접속
-			userNo=myNo;
-		}else{ // 다른사람페이지 접속
-			userNo=Integer.parseInt(request.getParameter("uu"));
-		}
+		if(request.getSession().getAttribute("userNo")!=null){
+		
+			int userNo=0;
+			int myNo=(int)request.getSession().getAttribute("userNo");
 			
-		User user= new User();
-		user.setNo(userNo);
-		Connection conn = getConnection();
-		
-		//유저정보 가져오기
-		User userData=new UserService().selectUser(conn,user);
-		request.setAttribute("userData", userData);
-		
-		if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
-			response.sendRedirect("profile");
+			if(request.getParameter("uu")==null){ //내 페이지 접속
+				userNo=myNo;
+			}else{ // 다른사람페이지 접속
+				userNo=Integer.parseInt(request.getParameter("uu"));
+			}
+				
+			User user= new User();
+			user.setNo(userNo);
+			Connection conn = getConnection();
+			
+			//유저정보 가져오기
+			User userData=new UserService().selectUser(conn,user);
+			request.setAttribute("userData", userData);
+			
+			if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
+				response.sendRedirect("profile");
+			}
+			//게시글(다중) 정보 가져오기
+			ArrayList<NewspeedMedia> content1DataArray=new NewspeedService().selectContent1(conn,user);
+			request.setAttribute("content1DataArray", content1DataArray);
+			
+			//저장된 게시물 정보 가져오기
+			ArrayList<NewspeedMedia> storageContentDataArray=new NewspeedService().selectStorageContent(conn,user);
+			request.setAttribute("storageContentDataArray", storageContentDataArray);
+			
+			//태그된 게시물 정보 가져오기
+			ArrayList<NewspeedMedia> tagContentDataArray=new NewspeedService().selectTagContent(conn,user);
+			request.setAttribute("tagContentDataArray", tagContentDataArray);
+			
+			//팔로워정보 가져오기
+			ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
+			request.setAttribute("followerDataArray", followerDataArray);
+			
+			//팔로우정보 가져오기
+			ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
+			request.setAttribute("followDataArray", followDataArray);
+			
+			//차단정보 가져오기
+			ArrayList<User> blockDataArray=new UserService().selectBlock(conn,user);
+			request.setAttribute("blockDataArray", blockDataArray);
+			
+			//상대방페이지일때 팔로우 되어있는지 확인하기
+			boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
+			request.setAttribute("isFollowed", isFollowed);
+			
+			close(conn);
+			
+			//내정보창으로 정보보내기
+			RequestDispatcher rd = request.getRequestDispatcher("/view/profile.jsp");
+			rd.forward(request, response);
+			
 		}
-		//게시글(다중) 정보 가져오기
-		ArrayList<NewspeedMedia> content1DataArray=new NewspeedService().selectContent1(conn,user);
-		request.setAttribute("content1DataArray", content1DataArray);
-		
-		//저장된 게시물 정보 가져오기
-		ArrayList<NewspeedMedia> storageContentDataArray=new NewspeedService().selectStorageContent(conn,user);
-		request.setAttribute("storageContentDataArray", storageContentDataArray);
-		
-		//태그된 게시물 정보 가져오기
-		ArrayList<NewspeedMedia> tagContentDataArray=new NewspeedService().selectTagContent(conn,user);
-		request.setAttribute("tagContentDataArray", tagContentDataArray);
-		
-		//팔로워정보 가져오기
-		ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
-		request.setAttribute("followerDataArray", followerDataArray);
-		
-		//팔로우정보 가져오기
-		ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
-		request.setAttribute("followDataArray", followDataArray);
-		
-		//차단정보 가져오기
-		ArrayList<User> blockDataArray=new UserService().selectBlock(conn,user);
-		request.setAttribute("blockDataArray", blockDataArray);
-		
-		//상대방페이지일때 팔로우 되어있는지 확인하기
-		boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
-		request.setAttribute("isFollowed", isFollowed);
-		
-		close(conn);
-		
-		//내정보창으로 정보보내기
-		RequestDispatcher rd = request.getRequestDispatcher("/view/profile.jsp");
-		rd.forward(request, response);
+		else{
+		request.setAttribute("msg", "잘못된 접근");
+		request.setAttribute("loc", "");
+		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		}
+
 		
 	}
 

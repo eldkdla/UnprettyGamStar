@@ -11,13 +11,13 @@
     <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
         rel="stylesheet">
 
+
 </head>
 <body>
 
 <% User user=(User)request.getAttribute("userData");%>
 
 		<div class="fullScreen">
-
             <div id='modifyScreenMenu'>
                 <ul id='modifyScreenMenuUl'>
                     <li class='modifyScreenMenuLi'>
@@ -64,6 +64,15 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>성별</label>
                             <select name="gender" id="gender" required>
+                                <option value="0" hidden disabled="disabled" >성별</option>
+                                <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
+                                <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      
+                            </select>
+                            <input type="file" name="uploadPhoto" id="uploadPhoto" accept="image/*" this.select();>
+                        </div>
+                        <div class="modifyInputDiv">
+                            <label class='modifyInputLb'>비공개</label>
+                            <select name="" id="gender" required>
                                 <option value="0" hidden disabled="disabled" >성별</option>
                                 <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
                                 <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      

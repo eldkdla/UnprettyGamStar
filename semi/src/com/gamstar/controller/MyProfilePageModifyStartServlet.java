@@ -36,15 +36,24 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		User user= new User();
-		user.setNo((int)request.getSession().getAttribute("userNo"));
-		//유저정보 가져오기
-		User userData=new UserService().selectUser(user);
-		request.setAttribute("userData", userData);
+		if(request.getSession().getAttribute("userNo")!=null){
 		
-		//내정보창으로 정보보내기
-		RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
-		rd.forward(request, response);
+			User user= new User();
+			user.setNo((int)request.getSession().getAttribute("userNo"));
+			//유저정보 가져오기
+			User userData=new UserService().selectUser(user);
+			request.setAttribute("userData", userData);
+			
+			//내정보창으로 정보보내기
+			RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
+			rd.forward(request, response);
+			
+		}else{
+			request.setAttribute("msg", "잘못된 접근");
+			request.setAttribute("loc", "");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		}
+
 				
 	}
 
