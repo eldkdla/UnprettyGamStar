@@ -65,8 +65,9 @@ public class NewspeedService {
 				}catch (Exception e) {
 					e.printStackTrace();
 				}
-					
+				
 				close(conn);
+					
 				return result;
 			}
 			

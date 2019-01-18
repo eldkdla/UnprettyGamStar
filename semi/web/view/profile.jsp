@@ -93,16 +93,16 @@
        		<label>게시글을 보려면 팔로우하세요</label>
        	</div>
        	</div>
-        <div id="profileContent1"></div>  
-        <div id="profileContent2"></div>  
-        <div id="profileContent3"></div>  
-        <div id="profileContent4"></div> 
+        <div id="profileContent1"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
+        <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent3"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent4"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         <form action="mypage.jsp" method="post">
-        	<div id="profileContent5"></div>
+        	<div id="profileContent5"></div>		<!-- 팔로우 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followerId" value="followerId"/>
         </form> 
         <form action="mypage.jsp" method="post">
-        	<div id="profileContent6"></div>
+        	<div id="profileContent6"></div>		<!-- 차단됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followId" value="followId"/>
         </form>  
 
