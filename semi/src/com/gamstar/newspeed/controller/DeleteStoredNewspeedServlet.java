@@ -1,4 +1,4 @@
-package com.gamstar.post.controller;
+package com.gamstar.newspeed.controller;
 
 import java.io.IOException;
 

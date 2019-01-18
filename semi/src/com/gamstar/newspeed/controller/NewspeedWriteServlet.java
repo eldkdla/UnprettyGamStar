@@ -1,4 +1,4 @@
-package com.gamstar.post.controller;
+package com.gamstar.newspeed.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +40,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
  * Servlet implementation class PostWritingServlet
  */
 @WebServlet("/view/postwrite")
-public class PostWritingServlet extends HttpServlet {
+public class NewspeedWriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final int MAX_FILE_SIZE = 2100000000;
 	private NewspeedService newspeedService;
@@ -48,7 +48,7 @@ public class PostWritingServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public PostWritingServlet() {
+	public NewspeedWriteServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 		newspeedService = new NewspeedService();
