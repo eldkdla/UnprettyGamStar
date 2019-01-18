@@ -61,12 +61,12 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 			
 			if(multi.getFilesystemName("uploadProfilePhoto1")!=null){
 				//프로필 사진 수정한것
-				user.setProfilePhoto(multi.getFilesystemName("uploadProfilePhoto1"));
+				user.setProfilePhoto("upload/"+multi.getFilesystemName("uploadProfilePhoto1"));
 				result=new UserService().updateProfilePhoto(user);
 				
 				if(result!=0){
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfilePhoto());
-					if(!(oldUser.getProfilePhoto()).equals("no_profile.png")){
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfilePhoto());
+					if(!(oldUser.getProfilePhoto()).equals("upload/no_profile.png")){
 						if(file.delete()){
 							System.out.println("삭제성공");
 						}else{
@@ -78,12 +78,12 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 			}
 			else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
 				//배경프로필 수정한것
-				user.setProfileBackgroundPhoto("/upload/"+multi.getFilesystemName("uploadProfilePhoto2"));
+				user.setProfileBackgroundPhoto("upload/"+multi.getFilesystemName("uploadProfilePhoto2"));
 				result=new UserService().updateBackgroundPhoto(user);
 				
 				if(result!=0){
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfileBackgroundPhoto());
-					if(!(oldUser.getProfileBackgroundPhoto()).equals("esang.png")){
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfileBackgroundPhoto());
+					if(!(oldUser.getProfileBackgroundPhoto()).equals("upload/esang.png")){
 						if(file.delete()){
 							System.out.println("삭제성공");
 						}else{

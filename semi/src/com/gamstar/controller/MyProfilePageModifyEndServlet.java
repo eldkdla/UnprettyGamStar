@@ -60,7 +60,7 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			User oldUser=new UserService().selectUser(user);
 			
 			if(multi.getFilesystemName("uploadPhoto")!=null){
-				user.setProfilePhoto(multi.getFilesystemName("uploadPhoto"));
+				user.setProfilePhoto("upload/"+multi.getFilesystemName("uploadPhoto"));
 			}
 			else{
 				user.setProfilePhoto(oldUser.getProfilePhoto());
@@ -68,14 +68,13 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			user.setEmail(multi.getParameter("email"));
 			user.setPhone(multi.getParameter("phone"));
 			user.setGender(multi.getParameter("gender"));
-			System.out.println(multi.getParameter("disclosure"));
 			user.setDisclosure(Integer.parseInt(multi.getParameter("disclosure")));
 			
 			int result=new UserService().updateUserData(user);
 			
 			if(result!=0){
 				if(multi.getFilesystemName("uploadPhoto")!=null){//프로필변경후 정보변경 성공시 예전사진 삭제
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+"upload/"+oldUser.getProfilePhoto());
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfilePhoto());
 					if(file.delete()){
 						System.out.println("삭제성공");
 					}else{

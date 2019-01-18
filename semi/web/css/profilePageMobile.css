@@ -250,6 +250,22 @@
        width: 0; 
        height: 0;
     }
+    
+    #disclosureContent{
+		display:none;
+		text-align: center;
+		width:99%;
+		margin:auto;
+		height: 250px;
+		background-color: #F6F6F6;
+	}
+	#disclosureContent>label{
+		position:relative;
+		top:80px;
+		font-size: 20px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+	}
 
     #profileContent1{
         display: none;

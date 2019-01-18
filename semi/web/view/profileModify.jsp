@@ -37,7 +37,7 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyScreenMainPhoto">
                             <button id='modifyScreenMainPhotoBt' onclick="return changePhoto();"><img id='modifyScreenMainPhoto'
-                                    src="<%=request.getContextPath()%><%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
+                                    src="<%=request.getContextPath()%>/<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ"></button>
                         </div>
                         <div class="modifyScreenMainContent">
                             <label id="modifyScreenIdLb"><%=user.getName() %></label><br>
@@ -64,7 +64,7 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>성별</label>
                             <select name="gender" id="gender" required>
-                                <option value="10" hidden disabled="disabled" >성별</option>
+                                <option value=10 hidden disabled="disabled" >성별</option>
                                 <option value="M" <%=user.getGender().equals("M")?"selected":""%>>남자</option>
                                 <option value="W" <%=user.getGender().equals("W")?"selected":""%>>여자</option>                      
                             </select>
@@ -72,7 +72,7 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>비공개</label>
                             <select name="disclosure" id="disclosure" required>
-                                <option value="10" hidden disabled="disabled" >공개여부</option>
+                                <option value=10 hidden disabled="disabled" >공개여부</option>
                                 <option value="1"  <%=user.getDisclosure()==1?"selected":""%> >공개</option>
                                 <option value="0"  <%=user.getDisclosure()==0?"selected":""%> >비공개</option>                      
                             </select>

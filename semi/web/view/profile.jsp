@@ -34,11 +34,11 @@
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
-           <img src="<%=request.getContextPath()%><%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
+           <img src="<%=request.getContextPath()%>/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
             <div class="profileTopPhoto">
                 <button id='profilePhotoBt' onclick="changePhoto();">
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
-                    <img id='profilePhoto' src="<%=request.getContextPath()%><%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
+                    <img id='profilePhoto' src="<%=request.getContextPath()%>/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
             </div>
             <div class="profileTopContent">
@@ -88,6 +88,10 @@
             </ul>
         </div>
        
+       	<div id="disclosureContent">
+       		<label>비공개 계정입니다</label><br><br>
+       		<label>게시글을 보려면 팔로우하세요</label>
+       	</div>
         <div id="profileContent1"></div>  
         <div id="profileContent2"></div>  
         <div id="profileContent3"></div>  
@@ -140,23 +144,8 @@
             	 $('#profileBlockBt').css("display","none");
          	<%}
          	else{//다른사람 페이지
-         		System.out.println("다른사람 페이지네"); 
-         		
-         		if(isFollowed){%>
-         		$('#profileFollowBt>label').text("팔로우됨");
-        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
-        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
-        		$('#profileFollowBt').css("color","white"); 
-        		<%}
-         		else{%>
-        			$('#profileFollowBt>label').text("팔로우");
-            		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
-            		$('#profileFollowBt').css("background-color","#F6F6F6"); 
-            		$('#profileFollowBt').css("color","black");
-            		<%-- <%if(user.getDisclosure()==0){%>
-            		$('#profileMenuRbt1,#profileMenuRbt2,#profileMenuRbt3,#profileMenuRbt4,#profileMenuRbt5,#profileMenuRbt6')
-            		<%}%> --%>
-        		<%}%>
+         		System.out.println("다른사람 페이지네");
+         		%>
          		
          		$('#profileModify').css("display","none");
          		$('#profileWrite').css("display","none");
@@ -167,6 +156,27 @@
          		$('#profilePhotoBt').removeAttr("onclick");
          		$('#profilePhotoBt').css("cursor","default");
          		$('#blockMenu').css("display","none");
+         	
+         		<%if(isFollowed){%>
+         		$('#profileFollowBt>label').text("팔로우됨");
+        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+        		$('#profileFollowBt').css("color","white"); 
+        		<%}
+         		else{%>
+        			$('#profileFollowBt>label').text("팔로우");
+            		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
+            		$('#profileFollowBt').css("background-color","#F6F6F6"); 
+            		$('#profileFollowBt').css("color","black");
+            		<%if(user.getDisclosure()==0){
+            		System.out.println("비공개임");
+            		%>
+            		$('#profileMenuDiv').css("display","none");
+            		$('#disclosureContent').css("display","block");
+            		<%}%>
+        		<%}%>
+         		
+         		
          	<%}%>
          	
     </script>
@@ -278,13 +288,32 @@
     	}
 		
 		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
-		$.ajax({
+		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
     		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>}, 
     	});
 		
-		$.ajax({
+		$.ajax({//비공개 계정일때 팔로우 확인
+			url:"<%=request.getContextPath()%>/view/chkFollow",
+			type:"POST",
+			data:{"userNo":<%=user.getNo()%>},
+			success:function(data){
+				if(data=="true"){
+					$('#profileMenuDiv').css("display","");
+            		$('#disclosureContent').css("display","none");
+				}
+				else if(data=="false"){
+					$('#profileMenuDiv').css("display","none");
+            		$('#disclosureContent').css("display","block");
+				}
+			},
+			error:function(xhr,status){
+				alert(xhr+" : "+status);
+			}
+		});
+		
+		$.ajax({ //팔로워 목록 갱신
     		url:"<%=request.getContextPath()%>/view/selectfollow",
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
@@ -307,7 +336,7 @@
 				             });
 				             
 				             $('#profileContent5>#'+no).append($('<img/>',{
-				                src: '<%=request.getContextPath()%>'+profilePhoto
+				                src: '<%=request.getContextPath()%>/'+profilePhoto
 				             }));
 				            
 				             $('#profileContent5>#'+no).append($('<label/>',{
@@ -416,7 +445,7 @@
 	                 class:'profileContent134Photo',
 	                 value:'<%=content1DataArray.get(i).getNewspeedNo()%>',
                 	 <%if(content1DataArray.get(i).getType()==0){%>
-                		 style:"background-image: url('<%=request.getContextPath()%><%=content1DataArray.get(i).getPath()%>')"
+                		 style:"background-image: url('<%=request.getContextPath()%>/<%=content1DataArray.get(i).getPath()%>')"
                		 <%}
                 	 else{%>
                   		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -435,7 +464,7 @@
                  class:'profileContent134Photo',
                  value:'<%=storageContentDataArray.get(i).getNewspeedNo()%>',
                  <%if(storageContentDataArray.get(i).getType()==0){%>
-                	 style:"background-image: url('<%=request.getContextPath()%>%=storageContentDataArray.get(i).getPath()%>')"
+                	 style:"background-image: url('<%=request.getContextPath()%>/<%=storageContentDataArray.get(i).getPath()%>')"
                  <%}
             	 else{%>
             		 style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -459,7 +488,7 @@
   				 $('body').alertBox({
   				        title: '저장된 게시물을 지우시겠습니까?',
   				        lTxt: '아니요',
-  				        lCallback: function(){alert(storedNewspeedNo);},
+  				        lCallback: function(){},
   				        rTxt: '네',
   				        rCallback: function(){
   							 $.ajax({
@@ -493,7 +522,7 @@
                  class:'profileContent134Photo',
                  value:'<%=tagContentDataArray.get(i).getNewspeedNo()%>',
                  <%if(tagContentDataArray.get(i).getType()==0){%>
-                 	style:"background-image: url('<%=request.getContextPath()%><%=tagContentDataArray.get(i).getPath()%>')"
+                 	style:"background-image: url('<%=request.getContextPath()%>/<%=tagContentDataArray.get(i).getPath()%>')"
                  <%}
             	 else{%>
             	 	style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
@@ -532,7 +561,7 @@
  					             });
  					             
  					             $('#profileContent5>#'+no).append($('<img/>',{
- 					                src: '<%=request.getContextPath()%>'+profilePhoto
+ 					                src: '<%=request.getContextPath()%>/'+profilePhoto
  					             }));
  					            
  					             $('#profileContent5>#'+no).append($('<label/>',{
@@ -559,7 +588,7 @@
              });
              
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<img/>',{
-                src: '<%=request.getContextPath()%><%=followerDataArray.get(i).getProfilePhoto()%>'
+                src: '<%=request.getContextPath()%>/<%=followerDataArray.get(i).getProfilePhoto()%>'
              }));
             
              $('#profileContent5>#<%=followerDataArray.get(i).getNo()%>').append($('<label/>',{
@@ -593,7 +622,7 @@
 	 					             });
 	 					             
 	 					             $('#profileContent6>#'+no).append($('<img/>',{
-	 					                src: '<%=request.getContextPath()%>'+profilePhoto
+	 					                src: '<%=request.getContextPath()%>/'+profilePhoto
 	 					             }));
 	 					            
 	 					             $('#profileContent6>#'+no).append($('<label/>',{
@@ -615,7 +644,7 @@
 	            }));
 	            
 	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').append($('<img/>',{
-	               src: '<%=request.getContextPath()%><%=followDataArray.get(i).getProfilePhoto()%>'
+	               src: '<%=request.getContextPath()%>/<%=followDataArray.get(i).getProfilePhoto()%>'
 	            }));
 	           
 	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>').on("click",function(){
@@ -638,7 +667,7 @@
 			 }));
 			 
 			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<img/>',{
-			    src: '<%=request.getContextPath()%><%=blockDataArray.get(i).getProfilePhoto()%>'
+			    src: '<%=request.getContextPath()%>/<%=blockDataArray.get(i).getProfilePhoto()%>'
 			 }));
 			
 			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').append($('<label/>',{
