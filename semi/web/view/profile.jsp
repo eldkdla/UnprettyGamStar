@@ -87,10 +87,11 @@
                 </li>
             </ul>
         </div>
-       
+       	<div id=disclosure>
        	<div id="disclosureContent">
        		<label>비공개 계정입니다</label><br><br>
        		<label>게시글을 보려면 팔로우하세요</label>
+       	</div>
        	</div>
         <div id="profileContent1"></div>  
         <div id="profileContent2"></div>  
@@ -172,7 +173,8 @@
             		System.out.println("비공개임");
             		%>
             		$('#profileMenuDiv').css("display","none");
-            		$('#disclosureContent').css("display","block");
+            		$('#disclosure').css("display","block");
+            		
             		<%}%>
         		<%}%>
          		
@@ -278,7 +280,7 @@
     		$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
-    		$('#profileFollowBt').css("color","white"); 
+    		$('#profileFollowBt').css("color","white");
     	}
     	else{
     		$('#profileFollowBt>label').text("팔로우");
@@ -291,27 +293,33 @@
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>}, 
+    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>},
+    		success:function(data){
+    			
+    			<%if(user.getDisclosure()==0){%>
+    			$.ajax({//비공개 계정일때 팔로우 확인
+    				url:"<%=request.getContextPath()%>/view/chkFollow",
+    				type:"POST",
+    				data:{"userNo":<%=user.getNo()%>},
+    				success:function(data){
+    					if(data=="true"){
+    						$('#profileMenuDiv').css("display","block");
+    	            		$('#disclosure').css("display","none");
+    	            		
+    					}
+    					else if(data=="false"){
+    						$('#profileMenuDiv').css("display","none");
+    	            		$('#disclosure').css("display","block");
+    					}
+    				},
+    				error:function(xhr,status){
+    					alert(xhr+" : "+status);
+    				}
+    			});
+    			<%}%>
+    			
+    		}
     	});
-		
-		$.ajax({//비공개 계정일때 팔로우 확인
-			url:"<%=request.getContextPath()%>/view/chkFollow",
-			type:"POST",
-			data:{"userNo":<%=user.getNo()%>},
-			success:function(data){
-				if(data=="true"){
-					$('#profileMenuDiv').css("display","");
-            		$('#disclosureContent').css("display","none");
-				}
-				else if(data=="false"){
-					$('#profileMenuDiv').css("display","none");
-            		$('#disclosureContent').css("display","block");
-				}
-			},
-			error:function(xhr,status){
-				alert(xhr+" : "+status);
-			}
-		});
 		
 		$.ajax({ //팔로워 목록 갱신
     		url:"<%=request.getContextPath()%>/view/selectfollow",

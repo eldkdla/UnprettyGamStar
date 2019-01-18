@@ -3,6 +3,6 @@
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <property name="java-output-path" value="/jjjj/web/WEB-INF/classes"/>
-        <property name="context-root" value="jjjj"/>
+        <property name="context-root" value="GamStar"/>
     </wb-module>
 </project-modules>
