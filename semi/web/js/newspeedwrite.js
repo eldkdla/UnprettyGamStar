@@ -172,6 +172,11 @@
                 onClickSearchList();
                 onInputPostingContent();
                 onChangeTagText();
+                
+                $('#posting_wrap').on('scroll touchmove mousewheel',function(e){
+                	e.preventDefault();
+                	e.stopPropagation();
+                })
             });
 
 
@@ -719,9 +724,9 @@
                     }
                 }
 
-                var modal = $('#posting_whole');
+                var modal = $('#posting_wrap');
                 $(modal).fadeIn('slow');
-                $(modal).parent().css('background-color', 'rgba(0, 0, 0, 0.8)');
+                
 
                 console.log($(modal).parent());
                 resizing();
@@ -731,7 +736,7 @@
             function hidePostingWhole() {
                 hideMediaEdit();
 
-                var modal = $('#posting_whole');
+                var modal = $('#posting_wrap');
                 var mediaPreview = $('#media_preview');
                 (modal).parent().css('background-color', 'white');
                 $(modal).fadeOut('slow');

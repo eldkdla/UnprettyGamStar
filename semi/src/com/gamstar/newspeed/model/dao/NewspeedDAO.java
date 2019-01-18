@@ -153,6 +153,8 @@ public class NewspeedDAO {
 			pstmt.setString(2, newspeed.getContent());
 			pstmt.setInt(3, newspeed.getUserNo());
 			
+			System.out.println(newspeed.getNo() + "왜그러세요?");
+			
 			result = pstmt.executeUpdate();
 		
 		} catch(Exception e) {
@@ -173,10 +175,11 @@ public class NewspeedDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, newspeedMedia.getIndex());
-			pstmt.setInt(2, newspeedMedia.getNewspeedNo());
+			pstmt.setInt(2, newspeedMedia.getIndex());
+			pstmt.setInt(1, newspeedMedia.getNewspeedNo());
 			
 			System.out.println(newspeedMedia.getType() + "너왜?");
+			System.out.println(newspeedMedia.getNewspeedNo() + "너왜 자꾸없대냐?");
 			
 			pstmt.setInt(3, newspeedMedia.getType());
 			pstmt.setString(4, newspeedMedia.getPath());
@@ -202,8 +205,9 @@ public class NewspeedDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, newspeedMediaTag.getMediaIndex());
-			pstmt.setInt(2, newspeedMediaTag.getNewspeedNo());
+			
+			pstmt.setInt(1, newspeedMediaTag.getNewspeedNo());
+			pstmt.setInt(2, newspeedMediaTag.getMediaIndex());
 			pstmt.setInt(3, newspeedMediaTag.getUserNo());
 			pstmt.setDouble(4, newspeedMediaTag.getX());
 			pstmt.setDouble(5, newspeedMediaTag.getY());

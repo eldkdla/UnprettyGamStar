@@ -64,8 +64,7 @@ public class PostWritingServlet extends HttpServlet {
 		String root = getServletContext().getRealPath("/") + "upload/newspeed/";
 	
 		String path = root + "upload/newspeed/";
-		//int userNo = Integer.parseInt((String) request.getSession().getAttribute("userNo"));
-		int userNo = 1;
+		int userNo = Integer.parseInt(request.getSession().getAttribute("userNo").toString());
 		int result = -1;
 		
 		System.out.println(root + "경로야!");
@@ -166,7 +165,7 @@ public class PostWritingServlet extends HttpServlet {
 	private void setNewspeedMediaList(List<NewspeedMedia> newspeedMediaList, MultipartRequest mr) {
 		for (int i = 0; i < newspeedMediaList.size(); i++) {
 			NewspeedMedia newspeedMedia = newspeedMediaList.get(i);
-			String filePath = "/upload/newspeed/" + mr.getFilesystemName(newspeedMedia.getPath());
+			String filePath = "upload/newspeed/" + mr.getFilesystemName(newspeedMedia.getPath());
 			newspeedMedia.setPath(filePath);
 			
 			if (!filePath.endsWith(".jpg") && !filePath.endsWith(".png") && !filePath.endsWith(".bmp")) {

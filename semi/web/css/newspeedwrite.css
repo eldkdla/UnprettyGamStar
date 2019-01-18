@@ -1,27 +1,7 @@
 @charset "UTF-8";
 
-body {
-	-webkit-transition: background-color 0.8s ease-in;
-	-moz-transition: background-color 0.8s ease-in;
-	transition: background-color 0.8s ease-in;
-	background: while;
-	opacity: 1;
-}
 
-body>p {
-	width: 100%;
-	height: 100%;
-	-webkit-transition: background-color 2s ease-in;
-	-moz-transition: background-color 2s ease-in;
-	transition: background-color 2s ease-in;
-	background: rgba(0, 0, 0, 0.8);
-	opacity: 1;
-}
 
-body>p>div {
-	width: 100%;
-	height: 100%;
-}
 
 .dummy_canvas {
 	display: none;
@@ -33,8 +13,19 @@ body>p>div {
 	position: absolute;
 }
 
+#posting_wrap{
+	top:0;
+	left:0;
+	overflow:hidden;
+	position:absolute;
+	z-index:380000;
+	background-color:rgba(0, 0, 0, 0.5);
+	width:100%;
+	height:100%;
+	display:none;	
+}
+
 #posting_whole {
-	display: none;
 	position: absolute;
 	border: 1px solid #efefef;
 	border-radius: 3px;
@@ -42,6 +33,7 @@ body>p>div {
 	background-color: white;
 	min-height: 400px;
 	min-width: 300px;
+	z-index:590000;
 }
 
 .posting_whole_normal {
@@ -201,7 +193,7 @@ body>p>div {
 
 #posting_whole #media_preview #label_input_files {
 	position: initial;
-	z-index: 5;
+	z-index: 600000;
 	display: block;
 	height: 100%;
 	width: 100%;
@@ -226,7 +218,7 @@ body>p>div {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	z-index: 2;
+	z-index: 600000;
 	background-size: cover;
 	background-position: center;
 }
@@ -249,7 +241,7 @@ body>p>div {
 	position: relative;
 	top: -100%;
 	left: 80%;
-	z-index: 3;
+	z-index: 600000;
 	width: 15%;
 	height: 15%;
 }
@@ -266,7 +258,7 @@ body>p>div {
 	position: relative;
 	top: -50%;
 	left: 35%;
-	z-index: 3;
+	z-index: 600000;
 	width: 30%;
 	height: 30%;
 }
@@ -309,7 +301,7 @@ body>p>div {
 #media_edit {
 	display: none;
 	position: absolute;
-	z-index: 5;
+	z-index: 610000;
 	top: 5%;
 	left: 4%;
 	width: 90%;
@@ -485,7 +477,7 @@ body>p>div {
 
 #media_edit section #canvas_Wrapper {
 	position: absolute;
-	z-index: 8;
+	z-index: 600000;
 	width: 60%;
 	height: 65%;
 	left: 20%;
@@ -493,7 +485,7 @@ body>p>div {
 
 #media_edit section #canvas_Wrapper #filter_canvas {
 	position: relative;
-	z-index: 8;
+	z-index: 600000;
 }
 
 #media_edit section #canvas_Wrapper #cut_tool {
@@ -501,7 +493,7 @@ body>p>div {
 	position: absolute;
 	background-color: black;
 	opacity: 0.5;
-	z-index: 990;
+	z-index: 610000;
 }
 
 #media_edit section #canvas_Wrapper #cut_tool:hover {
@@ -511,7 +503,7 @@ body>p>div {
 #media_edit section #canvas_Wrapper #cut_tool .edge {
 	position: absolute;
 	display: inline-block;
-	z-index: 995;
+	z-index: 620000;
 	width: 15px;
 	height: 15px;
 	opacity: 1;
@@ -539,14 +531,14 @@ body>p>div {
 	position: absolute;
 	width: 75px;
 	height: 75px;
-	z-index: 1050;
+	z-index: 650000;
 }
 
 #media_edit section #canvas_Wrapper #tag_wrapper {
 	position: absolute;
 	width: 200px;
 	height: 230px;
-	z-index: 1050;
+	z-index: 650000;
 	border: 1px solid black;
 	border-radius: 2px;
 	background-color: white;
@@ -556,7 +548,7 @@ body>p>div {
 #media_edit section #canvas_Wrapper #search_wrapper {
 	position: relative;
 	width: 200px;
-	z-index: 1050;
+	z-index: 650000;
 }
 
 #media_edit section #canvas_Wrapper #tag_wrapper #list_wrapper {

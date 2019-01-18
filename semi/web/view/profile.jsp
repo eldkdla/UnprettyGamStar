@@ -4,8 +4,10 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 <%@page import="com.gamstar.user.model.vo.User" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
+
 <html>
+
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -16,11 +18,12 @@
        
        <!-- 차단시 컨펌박스 --> 
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
+	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 
 </head>
 <body>
-
+	
 	<% User user=(User)request.getAttribute("userData");
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
@@ -30,6 +33,10 @@
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
+	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
+<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
+<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
+<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
 
 	 <div class='fullScreen'>
         <div class="profileTop">
@@ -44,7 +51,7 @@
             <div class="profileTopContent">
                 <label id="profileName" onclick="location.href='profile?uu=<%=user.getNo()%>'"><%=user.getName()%></label>
                 <button class="profileModify" id='profileModify' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/modify.png"><label for="profileModify">프로필 편집</label></button>
-                <button class="profileModify" id='profileWrite' onclick="location.href='<%=request.getContextPath()%>/view/profilemodifyStart'"><img src="<%=request.getContextPath()%>/img/write.png"><label for="profileWrite">글 작성하기</label></button>
+                <button class="profileModify" id='profileWrite' onclick="showPostingWhole();"><img src="<%=request.getContextPath()%>/img/write.png"><label for="profileWrite">글 작성하기</label></button>
                 <button class="profileModify" id='profileBlockBt' onclick="blockClick();"><img src="<%=request.getContextPath()%>/img/blockBtOff.png"><label for="profileBlockBt">차단하기</label></button>
 				<button class="profileModify" id='profileFollowBt' onclick="followClick();"><img src="<%=request.getContextPath()%>/img/followOff.png"><label for="profileFollowBt">팔로우</label></button>
 			
@@ -107,6 +114,8 @@
         </form>  
 
     </div>
+    
+   
 
     <script>
             //모바일인지 웹인지 확인해서 css 적용
@@ -719,8 +728,250 @@
 			 
     </script> 
 
+	<div id="posting_wrap">	
+	 <div id="posting_whole" class="posting_whole_normal">
+		<header>
+			<p>게시글 쓰기</p>
+		</header>
+		<div>
+
+			<form action="" method="post" name="newspped_write">
+				<div id="textArea_wrapper">
+					<div contenteditable="true" id="posting_content"
+						placeholder="내용을 입력하세요."></div>
+				</div>
+
+				<hr style="color: lightgray">
+				<div id="media_preview">
+					<div class="thumbnail_wrapper">
+						<label id="label_input_files" for="input_Files"></label> <input
+							type="file" accept="image/*" id="input_Files" multiple
+							style="display: none;" onchange="uploadFiles(this);">
+						<div id="dummy_img_wrapper" style="width: 100%; height: 42%;">
+							<img id="dummy_img"
+								style="src: url(../img/postwrite/add_Btn.png); visibility: hidden; width: 100%; height: 100%;">
+						</div>
+					</div>
+
+				</div>
 
 
+				<div id="button_area">
+					<input type="button" id="button_write" onclick="submitPosting()"
+						class="button_bbs" value="글쓰기"> <input type="button"
+						onclick="hidePostingWhole();" id="button_cancel"
+						class="button_bbs" value="취소">
+				</div>
+			</form>
+
+		</div>
+	</div>
+	
+	</div>
+
+	<div id="media_edit">
+		<header>
+			<p>사진편집</p>
+		</header>
+		<hr>
+
+		<nav id="media_effect_nav">
+			<input type="hidden" id="media_index" value="0">
+			<ul id="media_effect_tab"
+				style="list-style: none; margin: 0; padding: 0; background-color: #efefef;">
+
+				<li class="media_effect_list"><label for="radio_effect_filter">
+						<p class="media_effect_list_p">필터</p>
+				</label> <input type="radio" checked class="effect_radio"
+					id="radio_effect_filter" style="display: none;"
+					name="media_effect_select"></li>
+
+				<li class="media_effect_list"><label for="radio_effect_cutting">
+						<p class="media_effect_list_p">자르기</p>
+				</label> <input type="radio" class="effect_radio" id="radio_effect_cutting"
+					style="display: none;" name="media_effect_select"></li>
+
+				<li class="media_effect_list"><label for="radio_effect_tag">
+						<p class="media_effect_list_p">태그</p>
+				</label> <input type="radio" class="effect_radio" id="radio_effect_tag"
+					style="display: none;" name="media_effect_select"></li>
+
+			</ul>
+		</nav>
+
+		<nav id="media_filter_nav" class="media_effect_sub_tab">
+			<ul id="media_filter_tab"
+				style="list-style: none; margin: 0px; padding: 0;">
+				<li class="media_filter_list"><label
+					class="media_filter_preview_selected" for="radio_effect_normal">
+
+				</label> <input type="radio" checked id="radio_effect_normal"
+					class="filter_radio" name="media_filter_select"></li>
+
+				<li class="media_filter_list"><label
+					class="media_filter_preview" for="radio_effect_grayscale">
+
+				</label> <input type="radio" id="radio_effect_grayscale"
+					class="filter_radio" name="media_filter_select"></li>
+
+				<li class="media_filter_list"><label
+					class="media_filter_preview" for="radio_effect_brightness">
+
+				</label> <input type="radio" id="radio_effect_brightness"
+					class="filter_radio" name="media_filter_select"></li>
+
+				<li class="media_filter_list"><label
+					class="media_filter_preview" for="radio_effect_test"> </label> <input
+					type="radio" id="radio_effect_test" class="filter_radio"
+					name="media_filter_select"></li>
+
+			</ul>
+
+		</nav>
+
+		<nav id="media_cut_nav" class="media_effect_sub_tab"></nav>
+
+		<nav id="media_tag_nav" class="media_effect_sub_tab"></nav>
+
+		<section>
+
+			<article id="canvas_Wrapper">
+				<canvas id="filter_canvas"></canvas>
+				<div id="cut_tool" draggable="true">
+					<img src="../img/postwrite/edge-icon.png" id="left_top_edge"
+						class="edge"> <img src="../img/postwrite/edge-icon.png"
+						id="right_top_edge" class="edge"> <img
+						src="../img/postwrite/edge-icon.png" id="left_bottom_edge"
+						class="edge"> <img src="../img/postwrite/edge-icon.png"
+						id="right_bottom_edge" class="edge">
+				</div>
+
+				<div id="tag_box">
+					<input id="xPoint" type="hidden" value="0"> <input
+						id="yPoint" type="hidden" value="0">
+				</div>
+
+				<div id="tag_wrapper">
+					<div id="search_wrapper">
+						<input type="text" id="tag_name" placeholder="이름을 입력하세요.">
+
+						<div id="icon_wrapper">
+							<div id="tag_close_icon"></div>
+							<div id="tag_search_icon"></div>
+						</div>
+					</div>
+
+					<div id="list_wrapper"></div>
+				</div>
+			</article>
+		</section>
+
+		<input type="button" class="button_bbs"
+			style="position: absolute; right: 125px; bottom: 10px;" value="확인"
+			onclick="confirmMediaEdit()"> <input type="button"
+			class="button_bbs"
+			style="position: absolute; right: 20px; bottom: 10px;" value="닫기"
+			onclick="cancelMediaEdit();">
+
+
+	</div>
+	<script src="../js/jquery-3.3.1.js"></script>
+	<script src="../js/newspeedwrite.js"></script>
+	<script>
+	
+	//게시글 쓸때 ajax통신하는 ㅁ네소드
+        function postFileData() {
+      		var formEx = document.createElement('form');
+      		formEx.method="post";
+      		formEx.enctype="multipart/form-data";
+      		document.body.appendChild(formEx);
+      		
+        	var data = new FormData();
+        	var fileArray = new Array();
+        	var newspeed;
+        
+        	
+			for (var i = 0; i < allFiles.length; i++) {
+				var tagList = $('.tag_list_wrapper:eq(' + i + ')');
+				var tagListArray = new Array();
+				var fileName = 'file' + i;
+				var fileObj;
+				
+				data.append(fileName, allFiles[i]);
+				
+				for (var j = 0; j < tagList.children().length; j++) {
+					console.log('왜그러세요?' + j);
+					var tagObj = {
+							"tagIndex":j,
+							"mediaIndex":(i + 1),
+							"x": $('.tag_list_wrapper:eq' + '(' + i + ') .tag_user_wrapper:eq(' + j + ') .xPoint').val(),
+							"y": $('.tag_list_wrapper:eq' + '(' + i + ') .tag_user_wrapper:eq(' + j + ') .yPoint').val(),
+							"userNo": $('.tag_list_wrapper:eq' + '(' + i + ') .tag_user_wrapper:eq(' + j + ') .userNo').val()		
+					};
+					
+					tagListArray.push(tagObj);
+				}
+				
+				fileObj = {
+						"mediaIndex":(i + 1),
+						"fileName":fileName,
+						"tagList":tagListArray
+				}
+				
+				fileArray.push(fileObj);
+			}
+			
+			newspeed = {
+					"fileList":fileArray,
+					"content":$('#posting_content').html()
+			};
+
+			data.append('content',$('#posting_content').html());
+			data.append('newspeed',JSON.stringify(newspeed));
+
+         	$.ajax({
+        		url:'<%=request.getContextPath()%>/view/postwrite',
+        		type:"post",
+        		data:data,
+                processData: false, 
+                contentType: false, 
+                success: function(data, textStatus, jqXHR)
+                {
+                	location.reload();	
+                }, error: function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log('ERRORS: ' + textStatus);
+                    console.log(errorThrown);
+                }
+        	});
+         	
+         	$(formEx).remove();	
+         	
+         	hidePostingWhole();
+        }
+        
+        function requestFollowList() {
+        	var userNo = 0;	
+
+           	$.ajax({
+        		url:'<%=request.getContextPath()%>/user/usertag',
+        		type:"post",
+        		data:{"userNo": <%=request.getSession().getAttribute("userNo").toString()%>, "userName":$('#tag_name').val()}, 
+                success: function(data, textStatus, jqXHR)
+                {
+					console.log(data);
+					addFollowList(data);
+                },
+                error: function(jqXHR, textStatus, errorThrown)
+                {
+                    console.log('ERRORS: ' + textStatus);
+                    console.log(errorThrown);
+                }
+        	});
+        
+        }
+        
+        </script>
 
 </body>
 </html>
