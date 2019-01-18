@@ -10,6 +10,7 @@
 <body>
 <a href="<%=request.getContextPath()%>/view/profile">내정보</a>   <!-- /view/myprofile -->
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
+<a href="<%=request.getContextPath()%>/view/login.jsp">로그인</a>
 
 
 </body>
