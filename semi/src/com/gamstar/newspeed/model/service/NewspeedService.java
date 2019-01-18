@@ -1,14 +1,19 @@
 package com.gamstar.newspeed.model.service;
 
-import java.io.FileReader;
-import java.io.IOException;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
+
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import com.gamstar.newspeed.model.dao.NewspeedDAO;
-import com.gamstar.newspeed.model.vo.*;
-import static common.JDBCTemplate.*;
+import com.gamstar.newspeed.model.vo.Newspeed;
+import com.gamstar.newspeed.model.vo.NewspeedMedia;
+import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
+import com.gamstar.user.model.vo.User;
 
 public class NewspeedService {
 	public static final int NEWSPEED_CONTENT_INSERT_ERROR = -100;
@@ -20,6 +25,51 @@ public class NewspeedService {
 	public NewspeedService() {
 		newspeedDAO = new NewspeedDAO();
 	}
+	
+			//게시글(다중) 선택 
+			public ArrayList<NewspeedMedia> selectContent1(Connection conn,User user){
+				
+			ArrayList<NewspeedMedia> content1DataArray=new NewspeedDAO().selectContent1(conn,user);
+
+			return content1DataArray;
+			}
+			
+			//저장된 게시물 선택
+			public ArrayList<NewspeedMedia> selectStorageContent(Connection conn,User user){
+			
+			ArrayList<NewspeedMedia> storageContentDataArray=new NewspeedDAO().selectStorageContent(conn,user);
+
+			return storageContentDataArray;
+			}
+			
+			//태그된 게시물 선택
+			public ArrayList<NewspeedMedia> selectTagContent(Connection conn,User user){
+			
+			ArrayList<NewspeedMedia> tagContentDataArray=new NewspeedDAO().selectTagContent(conn,user);
+
+			return tagContentDataArray;
+			}
+			
+			//저장게시물 삭제
+			public int deleteStoredNewspeed(Newspeed newspeed){
+				Connection conn=getConnection();
+				
+				int result=new NewspeedDAO().deleteStoredNewspeed(conn,newspeed);
+				
+				try {
+					if(result!=0){
+						conn.commit();				
+					}else{
+						conn.rollback();
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+					
+				close(conn);
+				return result;
+			}
+			
 
 	public int insertNewspeedData(Newspeed newspeed, List<NewspeedMedia> newspeedMediaList,
 			List<NewspeedMediaTag> newspeedMediaTagList) {

@@ -1,4 +1,4 @@
-package com.gamstar.controller;
+package com.gamstar.user.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -8,27 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
-import com.oreilly.servlet.MultipartRequest; 
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
+import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-
 /**
- * Servlet implementation class MyProfilePhotoModifyServlet
+ * Servlet implementation class MyProfilePageModifyEnd
  */
-@WebServlet("/view/photoModify")
-public class MyProfilePhotoModifyServlet extends HttpServlet {
+@WebServlet("/view/modifyEnd")
+public class MyProfilePageModifyEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfilePhotoModifyServlet() {
+    public MyProfilePageModifyEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,73 +40,64 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		if(request.getSession().getAttribute("userNo")!=null){
-	
+		
 			String root=getServletContext().getRealPath("/");
 			String path=root+"upload";
 	//		String path = request.getRealPath("/upload");
 			System.out.println("path:"+ path);
+			String msg="";
+			String loc="";
 	
 			if(ServletFileUpload.isMultipartContent(request)){
 			int maxSize=1024*1024*10;//10MB
 			MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
-	
+			
 			User user= new User();
 			user.setNo((int)request.getSession().getAttribute("userNo"));
 			
-			int result=0;
-			
 			User oldUser=new UserService().selectUser(user);
 			
-			if(multi.getFilesystemName("uploadProfilePhoto1")!=null){
-				//프로필 사진 수정한것
-				user.setProfilePhoto("upload/"+multi.getFilesystemName("uploadProfilePhoto1"));
-				result=new UserService().updateProfilePhoto(user);
-				
-				if(result!=0){
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfilePhoto());
-					if(!(oldUser.getProfilePhoto()).equals("upload/no_profile.png")){
-						if(file.delete()){
-							System.out.println("삭제성공");
-						}else{
-							System.out.println("삭제실패");
-						}
-					}
-					System.out.println("프로필사진 변경 성공");
-				}
-			}
-			else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
-				//배경프로필 수정한것
-				user.setProfileBackgroundPhoto("upload/"+multi.getFilesystemName("uploadProfilePhoto2"));
-				result=new UserService().updateBackgroundPhoto(user);
-				
-				if(result!=0){
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfileBackgroundPhoto());
-					if(!(oldUser.getProfileBackgroundPhoto()).equals("upload/esang.png")){
-						if(file.delete()){
-							System.out.println("삭제성공");
-						}else{
-							System.out.println("삭제실패");
-						}
-					}
-					System.out.println("배경사진 변경 성공");
-				}
-			}
-			System.out.println("다 끝냈나 "+result);
-			response.sendRedirect("profile");
-	
+			if(multi.getFilesystemName("uploadPhoto")!=null){
+				user.setProfilePhoto("upload/"+multi.getFilesystemName("uploadPhoto"));
 			}
 			else{
-				System.out.println("사진 multipart로 안보냈음");
-				response.sendRedirect("profile");
+				user.setProfilePhoto(oldUser.getProfilePhoto());
+			}
+			user.setEmail(multi.getParameter("email"));
+			user.setPhone(multi.getParameter("phone"));
+			user.setGender(multi.getParameter("gender"));
+			user.setDisclosure(Integer.parseInt(multi.getParameter("disclosure")));
+			
+			int result=new UserService().updateUserData(user);
+			
+			if(result!=0){
+				if(multi.getFilesystemName("uploadPhoto")!=null){//프로필변경후 정보변경 성공시 예전사진 삭제
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfilePhoto());
+					if(file.delete()){
+						System.out.println("삭제성공");
+					}else{
+						System.out.println("삭제실패");
+					}
+				}
+				msg="정보 변경성공";
+				loc="/view/profile";
+			}
+			else{
+				msg="정보 변경실패";
+				loc="/view/profile";
 			}
 		
+			}
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
 
-		
 	}
 
 	/**

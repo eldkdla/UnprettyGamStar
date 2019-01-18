@@ -16,8 +16,18 @@ public class User {
 	   private String phone;
 	   private Date enrollDate;
 	   private int remainingDay;
+	   private int disclosure;
 	   
-	   
+	public int getDisclosure() {
+		return disclosure;
+	}
+
+
+	public void setDisclosure(int disclosure) {
+		this.disclosure = disclosure;
+	}
+
+
 	public int getNo() {
 		return no;
 	}
@@ -150,11 +160,12 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [no=" + no + ", id=" + id + ", pw=" + pw + ", name=" + name + ", linkType=" + linkType
-				+ ", gender=" + gender + ", state=" + state + ", profilePhoto=" + profilePhoto
-				+ ", profileBackgroundPhoto=" + profileBackgroundPhoto + ", email=" + email + ", phone=" + phone
-				+ ", enrollDate=" + enrollDate + ", remainingDay=" + remainingDay + "]";
+		// TODO Auto-generated method stub
+		return super.toString();
 	}
+
+
+	
 	   
 	   
 }

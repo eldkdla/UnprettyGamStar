@@ -1,4 +1,4 @@
-package com.gamstar.controller;
+package com.gamstar.user.controller;
 
 import java.io.IOException;
 
@@ -7,10 +7,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 
 /**
  * Servlet implementation class FollowBlockUpdateServlet

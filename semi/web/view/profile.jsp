@@ -1,9 +1,9 @@
-<%@page import="com.gamstar.model.vo.NewspeedMedia"%>
+<%@page import="com.gamstar.newspeed.model.vo.NewspeedMedia"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
-<%@page import="com.gamstar.model.vo.User" %>
+<%@page import="com.gamstar.user.model.vo.User" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>

@@ -1,8 +1,6 @@
-package com.gamstar.controller;
+package com.gamstar.post.controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,23 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
-import com.google.gson.Gson;
-
-import static common.JDBCTemplate.*;
+import com.gamstar.newspeed.model.service.NewspeedService;
+import com.gamstar.newspeed.model.vo.Newspeed;
 
 /**
- * Servlet implementation class SelectFollowServlet
+ * Servlet implementation class DeleteStoredNewspeedServlet
  */
-@WebServlet("/view/selectfollow")
-public class SelectFollowServlet extends HttpServlet {
+@WebServlet("/view/deleteStoredNewspeed")
+public class DeleteStoredNewspeedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectFollowServlet() {
+    public DeleteStoredNewspeedServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,34 +32,29 @@ public class SelectFollowServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		if(request.getSession().getAttribute("userNo")!=null){
+
+			int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo"));
+			
+			Newspeed newspeed=new Newspeed();
+			newspeed.setNo(storedNewspeedNo);
+			newspeed.setUserNo((int)request.getSession().getAttribute("userNo"));
+			int result=new NewspeedService().deleteStoredNewspeed(newspeed);
+			
+			if(result!=0){
+				System.out.println("저장게시물 삭제성공");	
+			}
+			else{
+				System.out.println("저장게시물 삭제실패");	
+			}
 		
-			User user=new User();
-			user.setNo(Integer.parseInt(request.getParameter("userNo")));
-			Connection conn=getConnection();
-			
-			if(request.getParameter("isfollow").equals("follower")){
-				ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
-				
-				close(conn);
-				response.setContentType("application/json;charset=UTF-8");
-				new Gson().toJson(followerDataArray,response.getWriter());
-			}
-			else if(request.getParameter("isfollow").equals("follow")){
-				ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
-				
-				close(conn);
-				response.setContentType("application/json;charset=UTF-8");
-				new Gson().toJson(followDataArray,response.getWriter());
-			}
-			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
-		}	
-		
+		}
+
 	}
 
 	/**

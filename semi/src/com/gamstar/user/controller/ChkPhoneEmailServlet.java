@@ -1,4 +1,4 @@
-package com.gamstar.controller;
+package com.gamstar.user.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,22 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class ChkBeforePw
+ * Servlet implementation class ChkPhoneServlet
  */
-@WebServlet(name="ChkBeforePw",urlPatterns="/view/chkBeforePw")
-public class ChkBeforePwServlet extends HttpServlet {
+@WebServlet("/view/chkPhone")
+public class ChkPhoneEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChkBeforePwServlet() {
+    public ChkPhoneEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,33 +33,38 @@ public class ChkBeforePwServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		
+		response.setContentType("text/html; charset=UTF-8");
+
 		if(request.getSession().getAttribute("userNo")!=null){
 		
-			String beforePw=request.getParameter("beforePw");
+			boolean chk=false;
 			
-			User user = new User();
+			User user=new User();
 			user.setNo((int)request.getSession().getAttribute("userNo"));
 			
-			user=new UserService().chkBeforePw(user);
+			if(request.getParameter("chkEmail")!=null){
+				user.setEmail(request.getParameter("chkEmail"));
+				chk=new UserService().chkEmail(user);
+			}
+			else if(request.getParameter("chkPhone")!=null){
+				user.setPhone(request.getParameter("chkPhone"));
+				chk=new UserService().chkPhone(user);
+			}
 			
-			boolean compare=beforePw.equals(user.getPw());
 			
 			PrintWriter out = response.getWriter();
 			
-			if(compare){
+			if(chk==true){
 				out.print("true");
-			}else{
+			}else if(chk==false){
 				out.print("false");
 			}
-			
+		
 		}else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
-		
-		
 		
 	}
 

@@ -1,29 +1,30 @@
-package com.gamstar.controller;
+package com.gamstar.user.controller;
+
+import static common.JDBCTemplate.getConnection;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
-
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 /**
- * Servlet implementation class ChkPhoneServlet
+ * Servlet implementation class ChkFollowServlet
  */
-@WebServlet("/view/chkPhone")
-public class ChkPhoneEmailServlet extends HttpServlet {
+@WebServlet("/view/chkFollow")
+public class ChkFollowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChkPhoneEmailServlet() {
+    public ChkFollowServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,34 +35,28 @@ public class ChkPhoneEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
-
-		if(request.getSession().getAttribute("userNo")!=null){
 		
-			boolean chk=false;
+		if(request.getSession().getAttribute("userNo")!=null){
+			Connection conn=getConnection();
 			
-			User user=new User();
-			user.setNo((int)request.getSession().getAttribute("userNo"));
+			User user= new User();
+			user.setNo(Integer.parseInt(request.getParameter("userNo")));
 			
-			if(request.getParameter("chkEmail")!=null){
-				user.setEmail(request.getParameter("chkEmail"));
-				chk=new UserService().chkEmail(user);
-			}
-			else if(request.getParameter("chkPhone")!=null){
-				user.setPhone(request.getParameter("chkPhone"));
-				chk=new UserService().chkPhone(user);
-			}
+			int myNo=(int)request.getSession().getAttribute("userNo");
 			
+			boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
 			
 			PrintWriter out = response.getWriter();
 			
-			if(chk==true){
+			if(isFollowed){
 				out.print("true");
-			}else if(chk==false){
+			}
+			else{
 				out.print("false");
 			}
-		
-		}else{
+			
+		}
+		else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);

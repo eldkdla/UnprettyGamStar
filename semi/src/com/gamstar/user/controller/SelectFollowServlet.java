@@ -1,8 +1,11 @@
-package com.gamstar.controller;
+package com.gamstar.user.controller;
+
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +13,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.model.service.UserService;
-import com.gamstar.model.vo.User;
-import static common.JDBCTemplate.*;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
+import com.google.gson.Gson;
+
 /**
- * Servlet implementation class ChkFollowServlet
+ * Servlet implementation class SelectFollowServlet
  */
-@WebServlet("/view/chkFollow")
-public class ChkFollowServlet extends HttpServlet {
+@WebServlet("/view/selectfollow")
+public class SelectFollowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChkFollowServlet() {
+    public SelectFollowServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,30 +40,31 @@ public class ChkFollowServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		if(request.getSession().getAttribute("userNo")!=null){
+		
+			User user=new User();
+			user.setNo(Integer.parseInt(request.getParameter("userNo")));
 			Connection conn=getConnection();
 			
-			User user= new User();
-			user.setNo(Integer.parseInt(request.getParameter("userNo")));
-			
-			int myNo=(int)request.getSession().getAttribute("userNo");
-			
-			boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
-			
-			PrintWriter out = response.getWriter();
-			
-			if(isFollowed){
-				out.print("true");
+			if(request.getParameter("isfollow").equals("follower")){
+				ArrayList<User> followerDataArray=new UserService().selectFollower(conn,user);
+				
+				close(conn);
+				response.setContentType("application/json;charset=UTF-8");
+				new Gson().toJson(followerDataArray,response.getWriter());
 			}
-			else{
-				out.print("false");
+			else if(request.getParameter("isfollow").equals("follow")){
+				ArrayList<User> followDataArray=new UserService().selectFollow(conn,user);
+				
+				close(conn);
+				response.setContentType("application/json;charset=UTF-8");
+				new Gson().toJson(followDataArray,response.getWriter());
 			}
 			
-		}
-		else{
+		}else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
-		}
+		}	
 		
 	}
 
