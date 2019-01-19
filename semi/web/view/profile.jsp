@@ -12,18 +12,42 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-	<script src="http://code.jquery.com/jquery.min.js"></script> 
+	<!-- <script src="http://code.jquery.com/jquery.min.js"></script>  -->
+	<script src="../js/jquery-3.3.1.js"></script>
+	
     <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
         rel="stylesheet">
        
        <!-- 차단시 컨펌박스 --> 
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
+	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
-
+	<script src="../js/newspeedwrite.js"></script>
+	
 </head>
 <body>
+	<script>
+	function showProfilePhotoMenu(){
+		$('#updatePhoto').fadeIn();
+	}
 	
+	$(document).keyup(function(e) {
+	    if (e.keyCode == 27) { 
+	    	$('#updatePhoto').fadeOut();
+	   }
+	});
+	
+	$("#updatePhoto").click(function(){
+		$("#updatePhoto").fadeOut();
+	});
+	
+	 $("#updatePhotoContent>button:nth-child(1)").click(function(){  //프로필사진 바꾸기
+   		 $('#uploadProfilePhoto1').click();  //프로필사진 클릭시 숨겨둔 input file 실행 
+       });
+	
+	
+	</script>
 	<% User user=(User)request.getAttribute("userData");
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
@@ -33,6 +57,7 @@
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
 	%>
+	
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
 <canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 <canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
@@ -43,7 +68,7 @@
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
            <img src="<%=request.getContextPath()%>/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
             <div class="profileTopPhoto">
-                <button id='profilePhotoBt' onclick="changePhoto();">
+                <button id='profilePhotoBt' onclick="showProfilePhotoMenu();">
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
                     <img id='profilePhoto' src="<%=request.getContextPath()%>/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
@@ -57,6 +82,14 @@
 			
             </div>
         </div>
+ 		
+ 		<div id="updatePhoto">
+ 			<div id="updatePhotoContent">
+ 				<button>프로필사진 변경</button><br>
+ 				<button>스토리 변경</button><br>
+ 				<button>스토리 보기</button>
+ 			</div>
+ 		</div>
  		
  		<form action="<%=request.getContextPath()%>/view/photoModify" method="post" id="modifyPhoto" enctype="multipart/form-data">
 	        <input type="file" name="uploadProfilePhoto1" id="uploadProfilePhoto1" accept="image/*" this.select();>
@@ -118,6 +151,8 @@
    
 
     <script>
+    
+    
             //모바일인지 웹인지 확인해서 css 적용
             $(document).ready(function(){
             	
@@ -205,11 +240,12 @@
                 });
             });
 
-            //프로필사진 바꾸기
+            /* //프로필사진 바꾸기
             function changePhoto() {
                 $('#uploadProfilePhoto1').click();  //프로필사진 클릭시 숨겨둔 input file 실행                   
-            }
-
+            } */
+ 
+            
             function readURL1(input) { //들어온파일 가져와서 e.taget.result로 이미지 받아서 #modifyScreenMainPhoto 사진속성 바꿔주기
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -257,7 +293,7 @@
     
     <script>  //팔로우,차단버튼 이벤트 
 	function blockClick(){
-/* 		$('#profileFollowBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
+    	/* 		$('#profileFollowBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
 		$('body').alertBox({
 	        title: '차단 하시겠습니까?',
@@ -875,8 +911,8 @@
 
 
 	</div>
-	<script src="../js/jquery-3.3.1.js"></script>
-	<script src="../js/newspeedwrite.js"></script>
+	
+	
 	<script>
 	
 	//게시글 쓸때 ajax통신하는 ㅁ네소드

@@ -175,6 +175,44 @@
       border: 0.5px solid rgba(213,213,213,50);
       z-index: 5;
     }
+    
+    #updatePhoto{
+		display:none;
+		position:fixed;
+		width:100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.6);
+		overflow:hidden;
+		left: 0;
+	    top: 0;
+		z-index:200;
+		}
+		#updatePhotoContent{
+		position:relative;
+		margin: 100px auto;
+		width:340px;
+		height: 300px;
+		border:none;
+		border: none;
+		text-align: center;
+		}
+		#updatePhotoContent>button{
+		width:60%;
+		height: 80px;
+		font-size: 17px;
+		font-family: 'Gothic A1', sans-serif;
+		font-weight:bold;
+		background-color: white;
+		cursor: pointer;
+		margin-top: 5px;
+		border-radius: 10px;
+		box-shadow: 0 0 5px 1px;
+		outline:none;
+		}
+		#updatePhotoContent>button:hover{
+		background-color: rgb(193,193,193);
+		color: white;
+		}
 
     #profileMenuDiv{
         margin: auto;
