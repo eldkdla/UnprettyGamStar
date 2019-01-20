@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.user.model.dao.UserDao;
 import com.gamstar.user.model.vo.User;
 
@@ -52,6 +53,14 @@ public class UserService {
 			ArrayList<User> blockDataArray=new UserDao().selectBlock(conn,user);
 
 			return blockDataArray;
+		}
+		
+		//스토리 선택
+		public NewspeedMedia selectStory(Connection conn,User user){
+			
+			NewspeedMedia oldUserStory = new UserDao().selectStory(conn,user);
+			
+			return oldUserStory;
 		}
 		
 		//팔로우상태 확인
@@ -156,6 +165,25 @@ public class UserService {
 			close(conn);
 			return result;
 		}
+		//스토리 수정
+		public int updateStory(Connection conn,NewspeedMedia newUserStory,User user){
+			
+			int result=new UserDao().updateStory(conn,newUserStory,user);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			
+			return result;
+		}
+		
 		//이메일 중복 확인
 		public boolean chkEmail(User user){
 			Connection conn=getConnection();

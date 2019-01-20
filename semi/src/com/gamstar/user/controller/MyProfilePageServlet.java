@@ -66,6 +66,11 @@ public class MyProfilePageServlet extends HttpServlet {
 			if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
 				response.sendRedirect("profile");
 			}
+			
+			//스토리 가져오기
+			NewspeedMedia userStory=new UserService().selectStory(conn, user);
+			request.setAttribute("userStory", userStory);
+			
 			//게시글(다중) 정보 가져오기
 			ArrayList<NewspeedMedia> content1DataArray=new NewspeedService().selectContent1(conn,user);
 			request.setAttribute("content1DataArray", content1DataArray);

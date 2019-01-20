@@ -27,28 +27,9 @@
 	
 </head>
 <body>
-	<script>
-	function showProfilePhotoMenu(){
-		$('#updatePhoto').fadeIn();
-	}
 	
-	$(document).keyup(function(e) {
-	    if (e.keyCode == 27) { 
-	    	$('#updatePhoto').fadeOut();
-	   }
-	});
-	
-	$("#updatePhoto").click(function(){
-		$("#updatePhoto").fadeOut();
-	});
-	
-	 $("#updatePhotoContent>button:nth-child(1)").click(function(){  //프로필사진 바꾸기
-   		 $('#uploadProfilePhoto1').click();  //프로필사진 클릭시 숨겨둔 input file 실행 
-       });
-	
-	
-	</script>
 	<% User user=(User)request.getAttribute("userData");
+	   NewspeedMedia userStory=(NewspeedMedia)request.getAttribute("userStory");
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
@@ -59,16 +40,16 @@
 	%>
 	
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
-<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
-<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
-<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
+	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
+	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
+	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
 
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
            <img src="<%=request.getContextPath()%>/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
             <div class="profileTopPhoto">
-                <button id='profilePhotoBt' onclick="showProfilePhotoMenu();">
+                <button id='profilePhotoBt'>
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
                     <img id='profilePhoto' src="<%=request.getContextPath()%>/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
@@ -85,15 +66,29 @@
  		
  		<div id="updatePhoto">
  			<div id="updatePhotoContent">
- 				<button>프로필사진 변경</button><br>
- 				<button>스토리 변경</button><br>
+ 				<button>프로필사진 변경</button>
+ 				<button>스토리 변경</button>
  				<button>스토리 보기</button>
  			</div>
  		</div>
  		
+ 		<div id="storyContent">
+			<div>
+			<div id="storyProgressBarBKG">
+				<div id="storyProgressBar"> </div>
+			</div>
+			<img alt="" src="<%=request.getContextPath() %>/img/soundOff.png">
+			<video src="<%=request.getContextPath()%>/<%=userStory.getPath()%>" muted autoplay id="storyVideo"></video>
+			</div>
+		</div>
+
  		<form action="<%=request.getContextPath()%>/view/photoModify" method="post" id="modifyPhoto" enctype="multipart/form-data">
-	        <input type="file" name="uploadProfilePhoto1" id="uploadProfilePhoto1" accept="image/*" this.select();>
-	        <input type="file" name="uploadProfilePhoto2" id="uploadProfilePhoto2" accept="image/*" this.select();>
+	        <input type="file" class="hiddenInput" name="uploadProfilePhoto1" id="uploadProfilePhoto1" accept="image/*" this.select();>
+	        <input type="file" class="hiddenInput" name="uploadProfilePhoto2" id="uploadProfilePhoto2" accept="image/*" this.select();>
+		</form>
+		<form action="<%=request.getContextPath()%>/view/storymodify" method="post" id="modifyStory" enctype="multipart/form-data">
+	        <input type="file" class="hiddenInput" name="uploadProfileStory" id="uploadProfileStory" accept="video/mp4" this.select();>
+	        <input type="test" class="hiddenInput" name="storyUserNo" id="storyUserNo" value="<%=user.getNo() %>">
 		</form>
 		
         <hr id="dividingLine">
@@ -182,11 +177,14 @@
              //내정보창에 들어온게 나인지 다른사람인지 확인하고 ui수정
             <% HttpSession se=request.getSession();
              
-            if(user.getNo()==6){  //내 페이지
+            if(user.getNo()==(int)se.getAttribute("userNo")){  //내 페이지
             	System.out.println("아이디 같네");
             	%>
             	 $('#profileFollowBt').css("display","none");
             	 $('#profileBlockBt').css("display","none");
+            	 $('#profilePhotoBt').click(function(){
+            		 showProfilePhotoMenu();
+            	 });
          	<%}
          	else{//다른사람 페이지
          		System.out.println("다른사람 페이지네");
@@ -198,21 +196,42 @@
          		$('#profilePhotoHover').css("display","none");
          		$('#profileBackgroundPhoto').removeAttr("onclick");
          		$('#profileBackgroundPhoto').css("cursor","default");
-         		$('#profilePhotoBt').removeAttr("onclick");
-         		$('#profilePhotoBt').css("cursor","default");
          		$('#blockMenu').css("display","none");
          	
          		<%if(isFollowed){%>
-         		$('#profileFollowBt>label').text("팔로우됨");
-        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
-        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
-        		$('#profileFollowBt').css("color","white"); 
+	         		$('#profileFollowBt>label').text("팔로우됨");
+	        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+	        		$('#profileFollowBt').css("color","white"); 
+        		
+	        		<%if(userStory.getPath()!=""){%> //스토리가 있으면
+	        		//프사 선택시 스토리 열리게 
+		        		 $('#profilePhotoBt').click(function(){
+		        			 $("#storyContent").fadeIn();
+		     				updateBar=setInterval(update,500);
+		     				if(!$('#storyProgressBar').width()==0){
+		     					myMovie.currentTime=0;
+		     					progressBar.style.width='0px';
+		     				    window.clearInterval(updateBar);
+		     				}
+		     				if(myMovie.paused){
+		     					myMovie.play();
+		     				}
+		            	 });
+		        		 $('#profilePhotoBt').css("cursor","pointer");
+	        		<%}
+	        		else{%> //스토리 없으면
+	        			$('#profilePhotoBt').off("click");
+	             		$('#profilePhotoBt').css("cursor","default");
+	        		<%}%>
         		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
             		$('#profileFollowBt').css("background-color","#F6F6F6"); 
             		$('#profileFollowBt').css("color","black");
+            		$('#profilePhotoBt').off("click");
+             		$('#profilePhotoBt').css("cursor","default");
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
@@ -289,6 +308,30 @@
                 console.log(this.files[0]);
                 readURL2(this);
             });
+            
+            //스토리 바꾸기
+            /* function changePhoto() {
+                $('#uploadProfileStory').click(); 	//hidden 인풋 실행      
+            }  */
+         
+            function readURL3(input) { //들어온파일 가져와서 e.taget.result로 이미지 받아서 #modifyScreenMainPhoto 사진속성 바꿔주기
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        console.log(e.target.result);
+                    }
+                    console.log(input.files[0].name);
+                    reader.readAsDataURL(input.files[0]); //url읽어드린다
+
+                    $('#modifyStory').submit(); 
+                }
+            }
+
+            $('#uploadProfileStory').change(function () { //숨겨둔 input file에서 그림 선택하면 실행되는 함수 
+                console.log(this.files[0]);
+                readURL3(this);
+            });
+            
     </script>
     
     <script>  //팔로우,차단버튼 이벤트 
@@ -326,12 +369,37 @@
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
+    		
+    		<%if(userStory.getPath()!=""){%> //스토리가 있으면
+    		//프사 선택시 스토리 열리게 
+        		 $('#profilePhotoBt').click(function(){
+        			 $("#storyContent").fadeIn();
+     				updateBar=setInterval(update,500);
+     				if(!$('#storyProgressBar').width()==0){
+     					myMovie.currentTime=0;
+     					progressBar.style.width='0px';
+     				    window.clearInterval(updateBar);
+     				}
+     				if(myMovie.paused){
+     					myMovie.play();
+     				}
+            	 });
+        		 $('#profilePhotoBt').css("cursor","pointer");
+    		<%}
+    		else{%> //스토리 없으면
+        		$('#profilePhotoBt').off("click");
+         		$('#profilePhotoBt').css("cursor","default");
+    		<%}%>
+    		
     	}
     	else{
     		$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
+    		
+    		$('#profilePhotoBt').off("click");
+     		$('#profilePhotoBt').css("cursor","default");
     	}
 		
 		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
@@ -1008,6 +1076,98 @@
         }
         
         </script>
+        
+        <script>
+		function showProfilePhotoMenu(){  //프로필 클릭시 메뉴 보여주기
+			$('#updatePhoto').fadeIn();
+		}
+		
+		$(document).keyup(function(e) {	//esc누르면 프로필 메뉴 닫기
+		    if (e.keyCode == 27) { 
+		    	$('#updatePhoto').fadeOut();
+		   }
+		});
+		
+		$("#updatePhoto").click(function(){	//배경 클릭시 프로필 메뉴 닫기
+			$("#updatePhoto").fadeOut();
+		});
+		
+		 $("#updatePhotoContent>button:nth-child(1)").click(function(){  //프로필사진 바꾸기
+	   		 $('#uploadProfilePhoto1').click();  //프로필사진 클릭시 숨겨둔 input file 실행 
+	     });
+		 $("#updatePhotoContent>button:nth-last-child(2)").click(function(){  //스토리 변경
+			 $('#uploadProfileStory').click(); 	//hidden 인풋 실행 
+	     });
+		 $("#updatePhotoContent>button:nth-last-child(1)").click(function(){  //스토리 보기
+			 $("#storyContent").fadeIn();
+				updateBar=setInterval(update,10);
+				if(!$('#storyProgressBar').width()==0){
+					myMovie.currentTime=0;
+					progressBar.style.width='0px';
+				    window.clearInterval(updateBar);
+				}
+				if(myMovie.paused){
+					myMovie.play();
+				}
+	     });
+		 
+		 $(document).ready(function(){
+			    barSize=480;
+			    myMovie=document.getElementById('storyVideo');
+			    playButton=document.getElementById('playButton');
+			    bar=document.getElementById('storyProgressBarBKG');
+			    progressBar=document.getElementById('storyProgressBar');
+			    
+			    <%if(userStory.getPath()!=""){%> //스토리있으면 테두리 추가
+			    	console.log("스토리있대");
+			    	$('#profilePhoto').css({'background-image': 'linear-gradient(white, white), radial-gradient(circle at top left, #FAED7D,#F361DC)','background-origin': 'border-box','background-clip': 'content-box, border-box'});
+			    <%}%>
+		});
+	
+		function update(){
+		    if(!myMovie.ended){
+		        var size=parseInt(myMovie.currentTime*barSize/myMovie.duration);
+		        progressBar.style.width=size+'px';
+		    }else{
+		        progressBar.style.width='0px';
+		        window.clearInterval(updateBar);
+		        $("#storyContent").fadeOut();
+		    }
+		 }
+		
+		$('#storyProgressBarBKG').click(function(e) { //스토리 프로그레스바 클릭시 동영상 거기로 이동
+			e.stopPropagation();
+		    if(!myMovie.paused && !myMovie.ended){
+		        var mouseX = e.pageX-bar.offsetLeft;
+		        var newtime = mouseX*myMovie.duration/barSize;
+		        myMovie.currentTime = newtime;
+		        progressBar.style.width=mouseX+'px';
+		    }
+		 });
+		
+		$("#storyContent>div>video").click( function (e){ //스토리영상 클릭시 음소거 토글
+			e.stopPropagation();
+		    if( $("#storyContent>div>video").prop('muted')){
+		          $("#storyContent>div>video").prop('muted', false);
+		          $("#storyContent>div>img").attr("src","<%=request.getContextPath() %>/img/soundOn.png");
+		    } 
+		    else {
+		      $("#storyContent>div>video").prop('muted', true);
+		      $("#storyContent>div>img").attr("src","<%=request.getContextPath() %>/img/soundOff.png");
+		    }
+		  });
+		 
+		$(document).keyup(function(e) {  //esc누르면 스토리 꺼짐
+		    if (e.keyCode == 27) { 
+		    	$("#storyContent").fadeOut();
+		   }
+		});
+		 
+		$("#storyContent").click(function(e){   //스토리밖 클릭시 스토리 꺼짐
+			$("#storyContent").fadeOut();
+		});
+		
+	</script>
 
 </body>
 </html>
