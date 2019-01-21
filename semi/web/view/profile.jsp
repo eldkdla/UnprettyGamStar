@@ -36,22 +36,13 @@
 	   ArrayList<NewspeedMedia> content1DataArray=(ArrayList<NewspeedMedia>)request.getAttribute("content1DataArray");
 	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
-	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
-	   String msg="";
+	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
 	%>
 	
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
-
-	<div id="myModal" class="modal">
-      <div class="modal-content">
-            </br>
-            <p><%=msg %></p>
-            <div onClick="close_pop();">확인</div>
-      </div>
-    </div>
     
 	 <div class='fullScreen'>
         <div class="profileTop">
@@ -155,7 +146,27 @@
    
 
     <script>
-		    function close_pop(){  //alert창 안보이게하기
+    		//공용 Alert 모달창
+		    function profileAlert(alertMsg){
+		    	$('#myModal').remove();
+		    	$('body').append($('<div/>',{
+		    		id:'myModal',
+		    		class:'modal'
+		    	}));
+		    	$('#myModal').append($('<div/>',{
+		    		class:'modal-content'
+		    	}));
+		    	$('.modal-content').append($('<p/>',{
+		    		text:alertMsg
+		    	}));
+		    	$('.modal-content').append($('<div/>',{
+		    		onclick:'close_pop()',
+		    		text:'확인'
+		    	}));
+		    	
+		    }
+    		//모달창 닫기
+		    function close_pop(){
 		    	$('#myModal').css("display","none");
 		    }
     
@@ -300,7 +311,7 @@
             		readURL1(this);
             		
             	} else {
-            		msg='이미지를 선택해주세요';
+            		profileAlert('이미지 선택해주세요');
             		$('#uploadProfilePhoto1').val("");
             	}
                 
@@ -336,7 +347,7 @@
              		readURL2(this);
              		
              	} else {
-             		msg='이미지를 선택해주세요';
+             		profileAlert('이미지 선택해주세요');
              		$('#uploadProfilePhoto2').val("");
              	}
                 
@@ -371,7 +382,7 @@
              		readURL3(this);
              		
              	} else {
-             		msg='mp4만 올릴 수 있어요';
+             		profileAlert('MP4만 올릴 수 있어요');
              		$('#uploadProfileStory').val("");
              	}
                 
