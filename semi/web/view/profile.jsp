@@ -18,8 +18,8 @@
     <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
         rel="stylesheet">
        
-       <!-- 차단시 컨펌박스 --> 
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
@@ -37,6 +37,7 @@
 	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");	   
+	   String msg="";
 	%>
 	
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
@@ -44,6 +45,14 @@
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
 
+	<div id="myModal" class="modal">
+      <div class="modal-content">
+            </br>
+            <p><%=msg %></p>
+            <div onClick="close_pop();">확인</div>
+      </div>
+    </div>
+    
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -146,7 +155,9 @@
    
 
     <script>
-    
+		    function close_pop(){  //alert창 안보이게하기
+		    	$('#myModal').css("display","none");
+		    }
     
             //모바일인지 웹인지 확인해서 css 적용
             $(document).ready(function(){
@@ -269,10 +280,10 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        console.log(e.target.result);
+                        /* console.log(e.target.result); */
                         $('#profilePhoto').attr('src', e.target.result);
                     }
-                    console.log(input.files[0].name);
+                    /* console.log(input.files[0].name); */
                     reader.readAsDataURL(input.files[0]); //url읽어드린다
 
                     $('#modifyPhoto').submit(); 
@@ -280,8 +291,19 @@
             }
 
             $('#uploadProfilePhoto1').change(function () { //숨겨둔 input file에서 그림 선택하면 실행되는 함수 
-                console.log(this.files[0]);
-                readURL1(this);
+                pathpoint = this.value.lastIndexOf('.');
+            	filepoint = this.value.substring(pathpoint+1,this.length);
+            	filetype = filepoint.toLowerCase();
+            	
+            	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+
+            		readURL1(this);
+            		
+            	} else {
+            		msg='이미지를 선택해주세요';
+            		$('#uploadProfilePhoto1').val("");
+            	}
+                
             });
 
          	//배경사진 바꾸기
@@ -293,10 +315,10 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        console.log(e.target.result);
+                       /*  console.log(e.target.result); */
                         $('#profileBackgroundPhoto').attr('src', e.target.result);
                     }
-                    console.log(input.files[0].name);
+                    /* console.log(input.files[0].name); */
                     reader.readAsDataURL(input.files[0]); //url읽어드린다
         
                      $('#modifyPhoto').submit(); 
@@ -305,8 +327,19 @@
             }
 
             $('#uploadProfilePhoto2').change(function () { //숨겨둔 input file에서 그림 선택하면 실행되는 함수 
-                console.log(this.files[0]);
-                readURL2(this);
+            	pathpoint = this.value.lastIndexOf('.');
+             	filepoint = this.value.substring(pathpoint+1,this.length);
+             	filetype = filepoint.toLowerCase();
+             	
+             	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp') {
+
+             		readURL2(this);
+             		
+             	} else {
+             		msg='이미지를 선택해주세요';
+             		$('#uploadProfilePhoto2').val("");
+             	}
+                
             });
             
             //스토리 바꾸기
@@ -318,9 +351,9 @@
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
                     reader.onload = function (e) {
-                        console.log(e.target.result);
+                        /* console.log(e.target.result); */
                     }
-                    console.log(input.files[0].name);
+                    /* console.log(input.files[0].name); */
                     reader.readAsDataURL(input.files[0]); //url읽어드린다
 
                     $('#modifyStory').submit(); 
@@ -328,8 +361,20 @@
             }
 
             $('#uploadProfileStory').change(function () { //숨겨둔 input file에서 그림 선택하면 실행되는 함수 
-                console.log(this.files[0]);
-                readURL3(this);
+               
+            	pathpoint = this.value.lastIndexOf('.');
+             	filepoint = this.value.substring(pathpoint+1,this.length);
+             	filetype = filepoint.toLowerCase();
+             	
+             	if(filetype=='mp4') {
+
+             		readURL3(this);
+             		
+             	} else {
+             		msg='mp4만 올릴 수 있어요';
+             		$('#uploadProfileStory').val("");
+             	}
+                
             });
             
     </script>
