@@ -10,7 +10,7 @@
 	
 
 
-</head>
+</head>	
 <body>
 <a href="<%=request.getContextPath()%>/view/profile">내정보</a>   <!-- /view/myprofile -->
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
