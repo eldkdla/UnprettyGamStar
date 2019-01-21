@@ -42,18 +42,4 @@
 	        cursor: pointer;
         }
  
-		 .alert_close_btn{
-		  width: 36px;
-		  height: 36px;
-		  border: 2px solid #5D7B7C;
-		  border-radius: 50%;
-		  position: relative;
-		  background-color: #fff;
-		  text-align: center;
-		  font-size: 20px;
-		  line-height: 36px;
-		  color: #595959;
-		  cursor: pointer;
-		  left:300px;
-		  bottom:160px;
-		}
+		

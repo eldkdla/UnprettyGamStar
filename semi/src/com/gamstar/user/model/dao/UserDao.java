@@ -448,13 +448,10 @@ public class UserDao {
 			if(rs.next())
 			{
 				data = new User();
-				data.setId(rs.getString("userid"));
-				data.setPw(rs.getString("password"));
-				data.setName(rs.getString("username"));
-				data.setGender(rs.getString("gender"));
-				data.setEmail(rs.getString("email"));
-				data.setPhone(rs.getString("phone"));
-				data.setEnrollDate(rs.getDate("enrollDate"));
+				data.setNo(rs.getInt("USER_NO"));
+				data.setId(rs.getString("USER_ID"));
+				data.setPw(rs.getString("USER_PASSWORD"));
+				System.out.println(data.getNo());
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

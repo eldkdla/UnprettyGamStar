@@ -8,9 +8,22 @@
 <script src="http://code.jquery.com/jquery.min.js"></script>
 </head>
 <body>
+<%
+String login="";
+if(request.getSession().getAttribute("userNo")==null)
+{
+	 
+}else
+{
+	login = (int)request.getSession().getAttribute("userNo") + "";
+}
+
+%> 
 <a href="<%=request.getContextPath()%>/view/profile">내정보</a>   <!-- /view/myprofile -->
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
 <a href="<%=request.getContextPath()%>/view/login.jsp">로그인</a>
+<p><%=login%>가 로그인 한 상태입니다.</p>
+<a href="<%=request.getContextPath()%>/logout">로그아웃</a>
 
 
 </body>

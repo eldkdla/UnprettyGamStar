@@ -267,7 +267,7 @@ public class UserService {
 	//유저로그인
 	public User loginCheck(User u) {
 		Connection conn = getConnection();
-		User data = new UserDao().selectUser(conn, u);
+		User data = new UserDao().loginCheck(conn, u);
 		close(conn);
 		return data;
 	}
