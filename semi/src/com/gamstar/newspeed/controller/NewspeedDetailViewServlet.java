@@ -38,6 +38,8 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		
 		NewspeedService nService = new NewspeedService();
 		nService.selectNewspeedJSON(newspeedNo);
+		
+		
 
 	}
 
