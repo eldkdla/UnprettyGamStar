@@ -32,7 +32,6 @@
 
                     fileReader.onload = function(e) {
 
-                        
                         console.log('파일을 체크해요!');
                         var fileExt = getFileExt(uploadFiless[uploadIndex].name);
                         var mediaType = 0;
@@ -43,7 +42,7 @@
                         
                     	allFiles[allFiles.length] = uploadFiless[uploadIndex];
                         setElement(e, mediaType);
-                        addTagList();
+                        
                         uploadIndex++;
                         if (uploadIndex < fileLength) {
                	
@@ -143,9 +142,19 @@
 
 
                     $(thumbnailMediaWrapper).css('display', 'block');
-
+                    
                     resizing();
                     resizeLi();
+                    addTagList(function(){
+                        if (uploadIndex < fileLength) {
+                           	
+                        	readFiles();
+                        } else if (uploadIndex == fileLength) {
+                        	$('#input_Files').val("");
+                        	return;
+                        }   
+                    	
+                    });
                 }
 
 

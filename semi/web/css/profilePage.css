@@ -14,9 +14,10 @@
         text-align: left;
     }
 
-    ::-webkit-scrollbar { 
+    body:NOT(.dummy_canvas)::-webkit-scrollbar{
           display: none; 
     }
+    
     #BackgroundPhotoIconDv{
         position: absolute;
         display: block;
@@ -479,7 +480,7 @@
         height: 230px;
     }
    
-    ::-webkit-scrollbar { 
+    body:NOT(.dummy_canvas)::-webkit-scrollbar{
           display: none; 
     }
     #BackgroundPhotoIconDv{
