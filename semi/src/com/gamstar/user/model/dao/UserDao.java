@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -430,6 +431,41 @@ public class UserDao {
 			close(pstmt);
 		}
 		return userList;
+	}
+	
+	//유저로그인
+	public User loginCheck(Connection conn, User u) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("loginCheck");
+		User data = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, u.getId());
+			rs = pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				data = new User();
+				data.setId(rs.getString("userid"));
+				data.setPw(rs.getString("password"));
+				data.setName(rs.getString("username"));
+				data.setGender(rs.getString("gender"));
+				data.setEmail(rs.getString("email"));
+				data.setPhone(rs.getString("phone"));
+				data.setEnrollDate(rs.getDate("enrollDate"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+			
+		}
+		return data;
 	}
 
 }

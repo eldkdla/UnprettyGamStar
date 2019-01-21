@@ -15,7 +15,6 @@ public class UserService {
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){
 				
-
 			User userData=new UserDao().selectUser(conn,user);
 				
 			return userData;
@@ -263,6 +262,14 @@ public class UserService {
 		List<User> userList = new UserDao().selectFollowLike(conn, userNo, userName);
 		
 		return userList;
+	}
+	
+	//유저로그인
+	public User loginCheck(User u) {
+		Connection conn = getConnection();
+		User data = new UserDao().selectUser(conn, u);
+		close(conn);
+		return data;
 	}
 
 }
