@@ -14,29 +14,32 @@
 <body>
 <a href="<%=request.getContextPath()%>/view/profile">내정보</a>   <!-- /view/myprofile -->
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
+<%String sg="efafaef"; %>
+<button onclick='aa("<%=sg%>");'>eeeee</button>
 
-<button>eeeee</button>
-
-<div id="myModal" class="modal">
-      <div class="modal-content">
-            </br>
-            <p>dddddd</p>
-            <div onClick="close_pop();">확인</div>
-      </div>
-    </div>
     
 </body>
 <script>
-function aa(){
-	
+function aa(String msg){
+	$('#myModal').remove();
 	$('body').append($('<div/>',{
 		id:'myModal',
 		class:'modal'
 	}));
 	$('#myModal').append($('<div/>',{
-		class:modal-con
+		class:'modal-content'
+	}));
+	$('.modal-content').append($('<p/>',{
+		text:msg
+	}));
+	$('.modal-content').append($('<div/>',{
+		onclick:'close_pop()',
+		text:'확인'
 	}));
 	
+}
+function close_pop(){
+	$('#myModal').css("display","none");
 }
 
 	</script>
