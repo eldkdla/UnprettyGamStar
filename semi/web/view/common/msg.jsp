@@ -19,7 +19,7 @@
 
    <div id="myModal" class="modal">
       <div class="modal-content">
-            </br>
+           
             <p><%=msg %></p>
             <div onClick="close_pop();">확인</div>
       </div>

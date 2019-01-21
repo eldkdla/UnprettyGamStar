@@ -24,7 +24,7 @@
 	
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
-	
+	<script src="../js/newspeedRequest.js"></script>
 </head>
 <body>
 	
@@ -630,7 +630,7 @@
                 }));
             	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
-            		alert($(this).attr("value")); 
+            		 requestNewspeedInfo('../',$(this).attr("value"));
             	 });
 
              <%}%>  
@@ -688,7 +688,7 @@
   				<%}%>
             	 
             	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
-             		alert($(this).attr("value")); 
+            		 requestNewspeedInfo('../',$(this).attr("value")); 
              	 });
             	 
              <%}%> 
@@ -708,7 +708,7 @@
              	}));
             	 
             	 $('#profileContent4>:eq(<%=i%>)').on('click',function(){
-              		alert($(this).attr("value")); 
+            		 requestNewspeedInfo('../',$(this).attr("value")); 
               	 });
             	 
              <%}%>  
