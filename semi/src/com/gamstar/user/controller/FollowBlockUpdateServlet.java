@@ -37,6 +37,7 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		if(request.getSession().getAttribute("userNo")!=null){
 
 			int userNo=(int)request.getSession().getAttribute("userNo");
+			System.out.println("sdfsadfasd : "+request.getParameter("uu"));
 			int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
 				
 			User user= new User();
