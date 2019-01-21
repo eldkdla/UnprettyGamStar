@@ -6,6 +6,7 @@ public class NewspeedMediaTag {
 	private int userNo;
 	private double x;
 	private double y;
+	private String userName;
 
 	public int getMediaIndex() {
 		return mediaIndex;
@@ -52,6 +53,14 @@ public class NewspeedMediaTag {
 		return "NewspeedMediaTag [mediaIndex=" + mediaIndex + ", newspeedNo=" + newspeedNo + ", userNo=" + userNo
 				+ ", x=" + x + ", y=" + y + ", getMediaIndex()=" + getMediaIndex() + ", getNewspeedNo()="
 				+ getNewspeedNo() + ", getUserNo()=" + getUserNo() + ", getX()=" + getX() + ", getY()=" + getY() + "]";
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 	

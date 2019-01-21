@@ -30,13 +30,14 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
-		if (request.getParameter("newspeedNo") == null || request.getSession().getAttribute("userNo") == null) {
+		if(isError(request)) {
 			
 		}
 		
+		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
+		
 		NewspeedService nService = new NewspeedService();
-		//nService.selectNewspeed();
-		//hihi
+		nService.selectNewspeedJSON(newspeedNo);
 
 	}
 
@@ -46,6 +47,15 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public boolean isError(HttpServletRequest request) {
+		if (request.getParameter("newspeedNo") == null || request.getSession().getAttribute("userNo") == null) {
+			System.out.println("로그인이 안되어있거나 게시글번호가 없거나");
+			return true;
+		}
+		
+		return false;
 	}
 
 }

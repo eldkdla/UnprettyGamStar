@@ -7,10 +7,13 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.gamstar.newspeed.model.vo.Newspeed;
+import com.gamstar.newspeed.model.vo.NewspeedComment;
 import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
 import com.gamstar.user.model.vo.User;
@@ -250,4 +253,171 @@ public class NewspeedDAO {
 		
 		return result;
 	}
+
+	
+	public Newspeed selectNewspeed(Connection conn, int newspeedNo) {
+		Newspeed newspeed = null;
+		String sql = prop.getProperty("selectNewspeedNewspeedNo");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				newspeed = getNewspeed(rs);
+			}
+
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return newspeed;
+	}
+	
+	
+	private Newspeed getNewspeed(ResultSet rs) throws Exception{
+		Newspeed n = new Newspeed();
+		n.setNo(rs.getInt("NEWSPEED_NO"));
+		n.setContent(rs.getString("NEWSPEED_CONTENT"));
+		n.setDate(rs.getDate("NEWSPEED_DATE"));
+		n.setUserNo(rs.getInt("USER_NO"));
+		
+		return n;
+	}
+	
+
+	
+	public List<NewspeedMedia> selectNewspeedMediaList(Connection conn,int newspeedNo) {
+		List<NewspeedMedia> newspeedMediaList = new ArrayList<NewspeedMedia>();
+		String sql = prop.getProperty("selectNewspeedMediaNewspeedNo");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				NewspeedMedia newspeedMedia = getNewspeedMedia(rs);
+				newspeedMediaList.add(newspeedMedia);
+			}
+
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return newspeedMediaList;
+	}
+	
+	private NewspeedMedia getNewspeedMedia(ResultSet rs) throws SQLException{
+		NewspeedMedia newspeedMedia = new NewspeedMedia();
+		newspeedMedia.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
+		newspeedMedia.setIndex(rs.getInt("MEDIA_INDEX"));
+		newspeedMedia.setPath(rs.getString("MEDIA_PATH"));
+		newspeedMedia.setType(rs.getInt("MEDIA_TYPE"));
+			
+		return newspeedMedia;
+	}
+	
+	/*
+	 * 
+	 * selectNewspeedNewspeedNo=SELECT * FROM TB_NEWSPEED WHERE NEWSPEED_NO = ?
+selectNewspeedMediaNewspeedNo=SELECT * FROM TB_NEWSPEED_MEDIA WHERE NEWSPEED_NO = ?
+selectNewspeedMediaTagNewspeedNo=SELECT * FROM TB_NEWSPEED_TAG WHERE NEWSPEED_NO = ?
+selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO = N.USER_NO) WHERE U.USER_NO = ?
+	 */
+	
+	public List<NewspeedMediaTag> selectNewspeedMediaTagList(Connection conn,int newspeedNo) {
+		List<NewspeedMediaTag> newspeedMediaTagList = new ArrayList<NewspeedMediaTag>();
+		String sql = prop.getProperty("selectNewspeedMediaTagNewspeedNo");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			
+			while (rs.next()) {
+				NewspeedMediaTag newspeedMediaTag= getNewspeedMediaTag(rs);
+				newspeedMediaTagList.add(newspeedMediaTag);
+			}
+
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return newspeedMediaTagList;
+	}
+	
+	private NewspeedMediaTag getNewspeedMediaTag(ResultSet rs) throws SQLException{
+		NewspeedMediaTag newspeedMediaTag = new NewspeedMediaTag();
+		newspeedMediaTag.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
+		newspeedMediaTag.setMediaIndex(rs.getInt("MEDIA_INDEX"));
+		newspeedMediaTag.setUserNo(rs.getInt("USER_NO"));
+		newspeedMediaTag.setX(rs.getDouble("X"));
+		newspeedMediaTag.setY(rs.getDouble("Y"));
+			
+		return newspeedMediaTag;
+	}
+	
+	//selectNewspeedCommentNewspeedNo=SELECT * FROM TB_NEWSPEED_COMMENT WHERE NEWSPEED_NO = ? AND COMMENT_ENABLE = 1
+
+	public List<NewspeedComment> selectNewspeedCommentList(Connection conn,int newspeedNo) {
+		List<NewspeedComment> newspeedCommentList = new ArrayList<NewspeedComment>();
+		String sql = prop.getProperty("selectNewspeedCommentNewspeedNo");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			
+			while (rs.next()) {
+				NewspeedComment newspeedComment= getNewspeedComment(rs);
+				newspeedCommentList.add(newspeedComment);
+			}
+
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return newspeedCommentList;
+	}
+	
+	private NewspeedComment getNewspeedComment(ResultSet rs) throws SQLException{
+		NewspeedComment newspeedComment = new NewspeedComment();
+		newspeedComment.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
+		newspeedComment.setContent(rs.getString("COMMENT_CONTENT"));
+		newspeedComment.setDate(rs.getDate("COMMENT_DATE"));
+		newspeedComment.setNo(rs.getInt("COMMENT_NO"));
+		newspeedComment.setRootNo(rs.getInt("COMMENT_ROOT_NO"));
+		newspeedComment.setUserNo(rs.getInt("USER_NO"));
+		
+		return newspeedComment;	
+	}
+
 }
