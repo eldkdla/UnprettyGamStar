@@ -856,7 +856,7 @@
 			 }));
 			 
 			 $('#profileContent2>#<%=blockDataArray.get(i).getNo()%>').on("click",function(){
-				 var deleteBlockId=$(this).parent().attr("id");
+				 var deleteBlockId=$(this).attr("id");
 				 $('body').alertBox({
 				        title: '　　　　차단된 이용자 입니다　　　　차단 해제 하시겠습니까?',
 				        lTxt: '아니요',
