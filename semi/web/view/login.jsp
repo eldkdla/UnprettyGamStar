@@ -127,15 +127,18 @@
     		naverLogin.init();
     		
         //팝업창 처리 메소드
-    	function setNaverData(naverId, email, winObj) {
+    	function setNaverData(naverId, email, name, winObj) {
     		winObj.close();
     		//var form = $('#nLoginFrm')
     		//var form = document.nLoginFrm;
 
-    		
     		$('#naverId').val(naverId);
     		$('#email').val(email);
+    		$('#name').val(name);
+    		
+    		//alert(name);
     		$('#nLoginFrm').submit();
+    		
     	};
         
         
@@ -148,7 +151,9 @@
 <!-- 네이버 처리용 필드 -->
 <form id="nLoginFrm" method="post" action="<%=request.getContextPath()%>/nlogin">
 <input type="hidden" id="naverId" name="naverId" value="">
-<input type="hidden" id="email" name="email" value=""></form>
+<input type="hidden" id="email" name="email" value="">
+<input type="hidden" id="name" name="name" value="">
+</form>
 <!-- 네이버 처리용 필드 -->
 
 </body>
