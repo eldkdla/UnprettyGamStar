@@ -47,6 +47,7 @@ private Properties prop=new Properties();
 				ReportBoard r=new ReportBoard();
 				r.setReportBoardNo(rs.getInt("report_no"));
 				r.setReportBoardType(rs.getInt("report_type"));
+				r.setReportBoardLink(rs.getInt("report_link"));
 				r.setReportBoardWriterNo(rs.getInt("user_no"));
 				r.setReportBoardTargetNo(rs.getInt("target_user_no"));
 				r.setReportBoardTargetId(rs.getString("user_id"));

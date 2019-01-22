@@ -631,11 +631,22 @@
                         	<input type='hidden' class='reportBoardNo' value='<%=r.getReportBoardNo() %>'/>
                         </td>
                         <td class='reportedTargetName'><%=r.getReportBoardTargetId() %></td>
-                        <td><%=r.getReportBoardType() %></td>
-                        <td><a href='#'><%=r.getReportBoardType() %></a></td>
+                        <td class='reportedBoardType'><%=r.getReportBoardType() %></td>
+                        <td class='reportedLink'><a href='#'><%=r.getReportBoardLink() %></a></td>
                         <td>
                         	<a onclick='openNextTr(this);'>
-                        	<%if(r.getReportBoardContent()!=null){ %>
+                        		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {
+                        		
+                        			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
+                					for(ReportBoardMedia m : mediaList) {%>
+                					<img src='<%=request.getContextPath() %><%=m.getReportBoardMediaPathRe() %>' style="width:10%; display:inline-block;"/>
+                        		<%} 
+                					if(mediaList.size()>3)
+                					{%>
+                						<br/>
+                					<%} 
+                				}
+                        		if(r.getReportBoardContent()!=null){ %>
 	                        	<%if(r.getReportBoardContent().length()>20) { %>
 	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
 	                        	<%} else { %>
@@ -725,8 +736,9 @@
             </div>
         </form>
     </div>
-    <form name='reportDeleteFrm' id='reportDeleteFrm' method="POST" style='display: none;'>
+    <form name='reportDeleteFrm' id='reportDeleteFrm' method="POST" style='display: none;' onsubmit='return deleteTarget_val();'>
         <input type="hidden" id="reportDeleteId" name='reportDeleteId'/>
+        <input type="hidden" id="reportDeleteType" name='reportDeleteType'/>
     </form>
 
     <script>
@@ -791,6 +803,20 @@
         	$(tr).next('tr').toggle();
         	
         }
+        function deleteTr(){
+        	//선택 줄 색변화
+        	tr=it.parentNode.parentNode;
+        	tr.style.backgroundColor="rgba(234, 242, 253, 0.5)";
+        	$(tr).siblings().each(function(){
+        		$(this).css('background-color','white');
+        	});
+        	
+        	
+        }
+        
+        function stopAllTr(){}
+        function deleteAllTr(){}
+        function cancelAllTR(){}
 
     </script>
 </body>

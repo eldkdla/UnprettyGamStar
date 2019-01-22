@@ -6,6 +6,7 @@ public class ReportBoard {
 	
 	private int reportBoardNo;
 	private int reportBoardType;
+	private int reportBoardLink;
 	private int reportBoardWriterNo;
 	private int reportBoardTargetNo;
 	private String reportBoardTargetId;
@@ -15,11 +16,13 @@ public class ReportBoard {
 	
 	public ReportBoard() {}
 
-	public ReportBoard(int reportBoardNo, int reportBoardType, int reportBoardWriterNo, int reportBoardTargetNo,
-			String reportBoardTargetId, String reportBoardContent, Date reportBoardDate, int reportEndResult) {
+	public ReportBoard(int reportBoardNo, int reportBoardType, int reportBoardLink, int reportBoardWriterNo,
+			int reportBoardTargetNo, String reportBoardTargetId, String reportBoardContent, Date reportBoardDate,
+			int reportEndResult) {
 		super();
 		this.reportBoardNo = reportBoardNo;
 		this.reportBoardType = reportBoardType;
+		this.reportBoardLink = reportBoardLink;
 		this.reportBoardWriterNo = reportBoardWriterNo;
 		this.reportBoardTargetNo = reportBoardTargetNo;
 		this.reportBoardTargetId = reportBoardTargetId;
@@ -42,6 +45,14 @@ public class ReportBoard {
 
 	public void setReportBoardType(int reportBoardType) {
 		this.reportBoardType = reportBoardType;
+	}
+
+	public int getReportBoardLink() {
+		return reportBoardLink;
+	}
+
+	public void setReportBoardLink(int reportBoardLink) {
+		this.reportBoardLink = reportBoardLink;
 	}
 
 	public int getReportBoardWriterNo() {
@@ -95,8 +106,9 @@ public class ReportBoard {
 	@Override
 	public String toString() {
 		return "ReportBoard [reportBoardNo=" + reportBoardNo + ", reportBoardType=" + reportBoardType
-				+ ", reportBoardWriterNo=" + reportBoardWriterNo + ", reportBoardTargetNo=" + reportBoardTargetNo
-				+ ", reportBoardTargetId=" + reportBoardTargetId + ", reportBoardContent=" + reportBoardContent
-				+ ", reportBoardDate=" + reportBoardDate + ", reportEndResult=" + reportEndResult + "]";
+				+ ", reportBoardLink=" + reportBoardLink + ", reportBoardWriterNo=" + reportBoardWriterNo
+				+ ", reportBoardTargetNo=" + reportBoardTargetNo + ", reportBoardTargetId=" + reportBoardTargetId
+				+ ", reportBoardContent=" + reportBoardContent + ", reportBoardDate=" + reportBoardDate
+				+ ", reportEndResult=" + reportEndResult + "]";
 	}
 }
