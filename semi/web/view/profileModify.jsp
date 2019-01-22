@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>내 정보 수정창</title>
 
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
@@ -95,16 +95,16 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>이전 비밀번호</label>
-                            <input type="password" class="modifyInput" name="beforePw" id="beforePw" maxlength="15" required />
+                            <input type="password" class="modifyInput" name="beforePw" id="beforePw" minlength="8" maxlength="20" required />
                             <div class="chkEmailPhonePw" id="chkBeforePw"></div>
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호</label>
-                            <input type="password" class="modifyInput" name="newPw" id="newPw" maxlength="15" required />
+                            <input type="password" class="modifyInput" name="newPw" id="newPw" minlength="8" maxlength="20" required />
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호 확인</label>
-                            <input type="password" class="modifyInput" name="newPwchk" id="newPwchk" maxlength="15" required>
+                            <input type="password" class="modifyInput" name="newPwchk" id="newPwchk" minlength="8" maxlength="20" required>
                             <div class="chkEmailPhonePw" id="chkPwDiv"></div>
                         </div>
 

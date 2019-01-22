@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset=UTF-8">
-<title>Insert title here</title>
+<title>임시메인</title>
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 	
@@ -16,4 +16,3 @@
 <a href="<%=request.getContextPath()%>/view/profilemodifyStart">내정보수정</a>
     
 </body>
-

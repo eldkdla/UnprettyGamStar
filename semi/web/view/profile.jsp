@@ -10,7 +10,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>사람정보창</title>
 
 	<!-- <script src="http://code.jquery.com/jquery.min.js"></script>  -->
 	<script src="../js/jquery-3.3.1.js"></script>
@@ -64,13 +64,29 @@
             </div>
         </div>
  		
- 		<div id="updatePhoto">
- 			<div id="updatePhotoContent">
+ 		<div class="updatePhoto" id="updatePhoto">
+ 			<div class="updatePhotoContent" id="updatePhotoContent">
  				<button>프로필사진 변경</button>
  				<button>스토리 변경</button>
  				<button>스토리 보기</button>
  			</div>
  		</div>
+ 		
+ 		<div class="updatePhoto" id="userPhotoMenu">
+ 			<div class="updatePhotoContent" id="userPhotoMenuContent">
+ 				<button>스토리 보기</button>
+ 				<button>신고하기</button>
+ 			</div>
+ 		</div>
+ 		
+ 		<form action="" method="post" enctype="multipart/form-data">
+ 		<div class="reportBgk" id="reportBgk">
+ 			<div class="reportContent" id="reportContent">
+ 				<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
+ 				<input type="file" multiple="multiple"><button type="button">신고하기</button>
+ 			</div>
+ 		</div>	
+ 		</form>
  		
  		<div id="storyContent">
 			<div>
@@ -226,43 +242,74 @@
 	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
 	        		$('#profileFollowBt').css("color","white"); 
         		
-	        		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-	        		//프사 선택시 스토리 열리게 
-		        		 $('#profilePhotoBt').click(function(){
-		        			 $("#storyContent").fadeIn();
-		     				updateBar=setInterval(update,500);
-		     				if(!$('#storyProgressBar').width()==0){
-		     					myMovie.currentTime=0;
-		     					progressBar.style.width='0px';
-		     				    window.clearInterval(updateBar);
-		     				}
-		     				if(myMovie.paused){
-		     					myMovie.play();
-		     				}
-		            	 });
-		        		 $('#profilePhotoBt').css("cursor","pointer");
-	        		<%}
-	        		else{%> //스토리 없으면
-	        			$('#profilePhotoBt').off("click");
-	             		$('#profilePhotoBt').css("cursor","default");
-	        		<%}%>
+	        		$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+	        			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	 		        			 $("#storyContent").fadeIn();
+	 		     				updateBar=setInterval(update,500);
+	 		     				if(!$('#storyProgressBar').width()==0){
+	 		     					myMovie.currentTime=0;
+	 		     					progressBar.style.width='0px';
+	 		     				    window.clearInterval(updateBar);
+	 		     				}
+	 		     				if(myMovie.paused){
+	 		     					myMovie.play();
+	 		     				}
+	 		            	
+	 	        		<%}
+	 	        		else{%> //스토리 없으면
+	 	        			profileAlert("스토리가 없습니다");
+	 	        		<%}%> 
+       				 });
+	        		
         		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
             		$('#profileFollowBt').css("background-color","#F6F6F6"); 
             		$('#profileFollowBt').css("color","black");
-            		$('#profilePhotoBt').off("click");
-             		$('#profilePhotoBt').css("cursor","default");
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
             		$('#profileMenuDiv').css("display","none");
-            		$('#disclosure').css("display","block");
-            		
+            		$('#disclosure').css("display","block");            		 
             		<%}%>
+            		
+            		$("#userPhotoMenuContent>button:nth-child(1)").css("background-color","rgba(50,50,50,0.2)");
+           			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+           			
         		<%}%>
-         		
+        		
+	        		 $('#profilePhotoBt').click(function(){
+	        			 $("#userPhotoMenu").fadeIn();
+	     				
+	            	 });
+	        		 $('#userPhotoMenu').click(function(){
+	        			$('#userPhotoMenu').fadeOut(); 
+	        		 });	 
+	            	 
+	            	 $("#userPhotoMenuContent>button:nth-child(2)").click(function(){
+	            		 $('#reportBgk').fadeIn();
+	            	 });
+	            	 $('#reportBgk').click(function(){
+	            		$('#reportBgk').fadeOut(); 
+	            	 });
+	            	 $('#reportContent').click(function(e){
+	            		 e.stopPropagation();
+	            	 });
+	            	 
+	            	 //신고창에서 신고보내기
+	            	 $('#reportContent>button').click(function(){
+	      				if($('#reportContent>textarea').val()!=""){
+	      					/* $.ajax({
+	      						url='',
+	      						type='POST'
+	      						
+	      					}); */
+	      				}
+	     	 			else{
+	     	 				profileAlert("신고내용 입력");
+	     	 			}
+	      			});
          		
          	<%}%>
          	
@@ -426,27 +473,31 @@
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
     		
-    		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-    		//프사 선택시 스토리 열리게 
-        		 $('#profilePhotoBt').click(function(){
-        			 $("#storyContent").fadeIn();
-     				updateBar=setInterval(update,500);
-     				if(!$('#storyProgressBar').width()==0){
-     					myMovie.currentTime=0;
-     					progressBar.style.width='0px';
-     				    window.clearInterval(updateBar);
-     				}
-     				if(myMovie.paused){
-     					myMovie.play();
-     				}
-            	 });
-        		 $('#profilePhotoBt').css("cursor","pointer");
-    		<%}
-    		else{%> //스토리 없으면
-        		$('#profilePhotoBt').off("click");
-         		$('#profilePhotoBt').css("cursor","default");
-    		<%}%>
-    		
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled",false);
+   			$("#userPhotoMenuContent>button:nth-child(1)").hover(function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgb(193,193,193)","color":"white"});
+   			},function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			});
+   			$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+   			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	        			 $("#storyContent").fadeIn();
+	     				updateBar=setInterval(update,500);
+	     				if(!$('#storyProgressBar').width()==0){
+	     					myMovie.currentTime=0;
+	     					progressBar.style.width='0px';
+	     				    window.clearInterval(updateBar);
+	     				}
+	     				if(myMovie.paused){
+	     					myMovie.play();
+	     				}
+	            	
+        		<%}
+        		else{%> //스토리 없으면
+        			profileAlert("스토리가 없습니다");
+        		<%}%> 
+				 });
     	}
     	else{
     		$('#profileFollowBt>label').text("팔로우");
@@ -454,8 +505,9 @@
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
     		
-    		$('#profilePhotoBt').off("click");
-     		$('#profilePhotoBt').css("cursor","default");
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgba(50,50,50,0.2)","color":"gray"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+   		
     	}
 		
 		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
@@ -1141,6 +1193,8 @@
 		$(document).keyup(function(e) {	//esc누르면 프로필 메뉴 닫기
 		    if (e.keyCode == 27) { 
 		    	$('#updatePhoto').fadeOut();
+		    	$('#userPhotoMenu').fadeOut();
+		    	/* $('#reportBgk').fadeOut(); */
 		   }
 		});
 		
