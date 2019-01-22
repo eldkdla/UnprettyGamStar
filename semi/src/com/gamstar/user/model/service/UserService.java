@@ -16,7 +16,6 @@ public class UserService {
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){
 				
-
 			User userData=new UserDao().selectUser(conn,user);
 				
 			return userData;
@@ -315,5 +314,21 @@ public class UserService {
 		
 		return userList;
 	}
+	
+	//유저로그인
+		public User loginCheck(User u) {
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheck(conn, u);
+			close(conn);
+			return data;
+		}
+		
+		//네이버유저로그인
+		public User loginCheckNaver(User u) {
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheckNaver(conn, u);
+			close(conn);
+			return data;
+		}
 
 }

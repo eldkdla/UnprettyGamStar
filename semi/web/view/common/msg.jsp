@@ -14,12 +14,12 @@
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/informationAlert.css">
 
+
 </head>
 <body>
 
    <div id="myModal" class="modal">
       <div class="modal-content">
-           
             <p><%=msg %></p>
             <div onClick="close_pop();">확인</div>
       </div>
