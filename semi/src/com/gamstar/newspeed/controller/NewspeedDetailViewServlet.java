@@ -53,6 +53,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		}
 
 		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
+		int userNo = (int)request.getSession(false).getAttribute("userNo");
 		NewspeedService nService = new NewspeedService();
 		UserService uService = new UserService();
 		
@@ -66,10 +67,15 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		List<NewspeedComment> newspeedCommentList = nService.selectNewspeedCommentList(newspeedNo);
 		List<NewspeedMedia>newspeedMediaList = nService.selectNewspeedMediaList(newspeedNo);
 		List<NewspeedMediaTag>newspeedMediaTagList = nService.selectNespeedMediaTagList(newspeedNo);
+		boolean isLike = nService.isLiked(userNo, newspeedNo);
+		boolean isStore = nService.isStored(userNo, newspeedNo);
 		User writer = new User();
 		writer.setNo(newspeed.getUserNo());
 		writer = uService.selectUser(writer);
 		JSONObject newspeedJSON = parseNewspeedToJSON(newspeed,writer,newspeedMediaList, newspeedMediaTagList, newspeedCommentList);
+		newspeedJSON.put("isLike", isLike);
+		newspeedJSON.put("isStore", isStore);
+		
 		
 		System.out.println(newspeedJSON.toJSONString());
 		
