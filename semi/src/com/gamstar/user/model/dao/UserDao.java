@@ -511,7 +511,6 @@ public class UserDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, u.getId());
 				rs = pstmt.executeQuery();
-				
 				if(rs.next())
 				{
 					data = new User();
@@ -537,6 +536,7 @@ public class UserDao {
 		
 		//네이버유저로그인
 		public User loginCheckNaver(Connection conn, User u) {
+			System.out.println("다오는 왔닌?");
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			String sql = prop.getProperty("loginCheckNaver");
@@ -546,17 +546,19 @@ public class UserDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, u.getId());
 				rs = pstmt.executeQuery();
+				System.out.println("펑펑"+rs);
 				
 				if(rs.next())
 				{
 					data = new User();
 					data.setNo(rs.getInt("USER_NO"));
 					data.setId(rs.getString("NAVER_USER_ID"));
-					System.out.println(data.getNo());
+					//System.out.println(data.getNo());
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				System.out.println("다오가 터졌니?");
 			}
 			finally {
 				close(rs);
@@ -636,15 +638,37 @@ public class UserDao {
 			pstmt.setInt(1, u.getNo());
 			pstmt.setString(2, u.getId());
 			pstmt.setString(3, u.getPw());
-			
+
 			result=pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-		
+
+		return result;
+	}
+
+	//TB_NAVER_USER insert
+	public int insertUserNaver(Connection conn, User u) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertUserNaver");
+		System.out.println("짜증"+u.getNo());
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, u.getNo());
+			pstmt.setString(2, u.getId());
+
+			result=pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
 		return result;
 	}
 	

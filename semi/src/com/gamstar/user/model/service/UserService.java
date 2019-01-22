@@ -325,6 +325,7 @@ public class UserService {
 		
 		//네이버유저로그인
 		public User loginCheckNaver(User u) {
+			System.out.println("서비스는 왔니? 네이년 서블릿");
 			Connection conn = getConnection();
 			User data = new UserDao().loginCheckNaver(conn, u);
 			close(conn);
@@ -372,6 +373,30 @@ public class UserService {
 			System.out.println("basic에 지금 시퀀스 : "+u.getNo());
 			int result = new UserDao().insertUserBasic(conn, u);
 			System.out.println("하위 : "+result);
+			if(result > 0 && tbUserResult > 0)
+			{
+				commit(conn);
+				return result;
+			}
+			else
+			{
+				rollback(conn);
+				return -1;
+			}			
+			 
+		}
+		
+		//회원가입 TB_NAVER_USER
+		public int insertUserNaver(User u) {
+			Connection conn = getConnection();			
+			
+			int tbUserResult = insertUser(u);
+			System.out.println("in naver 상위 : "+tbUserResult);
+
+			System.out.println("basic에 지금 시퀀스 : "+u.getNo());
+			
+			int result = new UserDao().insertUserNaver(conn, u);
+			System.out.println("in naver 하위 : "+result);
 			if(result > 0 && tbUserResult > 0)
 			{
 				commit(conn);

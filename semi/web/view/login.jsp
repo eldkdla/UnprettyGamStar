@@ -136,7 +136,7 @@
     		$('#email').val(email);
     		$('#name').val(name);
     		
-    		alert(name);
+    		//alert(name);
     		$('#nLoginFrm').submit();
     		
     	};
