@@ -31,12 +31,18 @@ public class UserNaverLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String nId = request.getParameter("naverId");
 		String nEmail = request.getParameter("email");
-		System.out.println(nId+" : "+nEmail);
+		String nName = request.getParameter("name");
+		System.out.println("이름이 왜?"+nName);
+		System.out.println(nId+" : "+nEmail+" : "+nName);
 		
 		User u = new User();
 		u.setId(nId);
+		u.setEmail(nEmail);
+		u.setName(nName);
 				
 		User data = new UserService().loginCheckNaver(u); //로그인 확인
 		String view="";//응답페이지의 주소
