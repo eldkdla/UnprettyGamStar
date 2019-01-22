@@ -8,10 +8,16 @@
 </head>
 
 <style>
-.userRegFrm{
+div{
 width: 600px;
 min-width: 300px;
-margin: 0 auto;
+
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+border: 1px solid red;
+
 }
 </style>
 
@@ -23,7 +29,7 @@ margin: 0 auto;
         <div class="userRegFrm">
             <label for = "userId">아이디</label>
             <input type="text" class="regControl" id="userId" name="userId" placeholder="아이디 입력" required>
-            <div class="checkMsg" id="id_check"></div>
+            <div class="checkMsg" id="id_check">111</div>
         </div>
         <!-- 비밀번호 -->
 			<div class="userRegFrm">

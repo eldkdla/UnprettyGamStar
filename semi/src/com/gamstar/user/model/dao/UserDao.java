@@ -451,7 +451,10 @@ public class UserDao {
 					data.setNo(rs.getInt("USER_NO"));
 					data.setId(rs.getString("USER_ID"));
 					data.setPw(rs.getString("USER_PASSWORD"));
-					System.out.println(data.getNo());
+					//System.out.println(data.getNo());
+					//조인해서 나머지 유저 데이터 추가
+					//후에 로그인에서 TB_USER에서 state참조하여 차단로그인 체크.
+					
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block

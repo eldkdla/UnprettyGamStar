@@ -48,7 +48,7 @@ public class UserLoginServlet extends HttpServlet {
 		if(data==null)
 		{
 			//아이디가 없다!
-			msg="입력하신 아이디가 &nbsp;\n  존재하지 않습니다.";
+			msg="입력하신 아이디가 <br> 존재하지 않습니다.";
 			view="/view/common/msg.jsp";
 			request.setAttribute("loc", "/view/login.jsp");
 			request.setAttribute("msg", msg);
@@ -77,7 +77,7 @@ public class UserLoginServlet extends HttpServlet {
 			else {
 				//패스워드가 일치하지 않습니다.
 				System.out.println("패스워드가 일치하지 않음");
-				msg="패스워드가 일치하지 않습니다!";
+				msg="패스워드가<br>일치하지 않습니다!";
 				view="/view/common/msg.jsp";
 				request.setAttribute("loc", "/view/login.jsp");
 				request.setAttribute("msg", msg);
