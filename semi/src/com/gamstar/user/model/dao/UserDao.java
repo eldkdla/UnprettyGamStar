@@ -434,35 +434,66 @@ public class UserDao {
 	}
 	
 	//유저로그인
-	public User loginCheck(Connection conn, User u) {
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = prop.getProperty("loginCheck");
-		User data = null;
-		
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, u.getId());
-			rs = pstmt.executeQuery();
+		public User loginCheck(Connection conn, User u) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = prop.getProperty("loginCheck");
+			User data = null;
 			
-			if(rs.next())
-			{
-				data = new User();
-				data.setNo(rs.getInt("USER_NO"));
-				data.setId(rs.getString("USER_ID"));
-				data.setPw(rs.getString("USER_PASSWORD"));
-				System.out.println(data.getNo());
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, u.getId());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next())
+				{
+					data = new User();
+					data.setNo(rs.getInt("USER_NO"));
+					data.setId(rs.getString("USER_ID"));
+					data.setPw(rs.getString("USER_PASSWORD"));
+					System.out.println(data.getNo());
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			finally {
+				close(rs);
+				close(pstmt);
+				
+			}
+			return data;
 		}
-		finally {
-			close(rs);
-			close(pstmt);
+		
+		//네이버유저로그인
+		public User loginCheckNaver(Connection conn, User u) {
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = prop.getProperty("loginCheckNaver");
+			User data = null;
 			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, u.getId());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next())
+				{
+					data = new User();
+					data.setNo(rs.getInt("USER_NO"));
+					data.setId(rs.getString("NUSER_ID"));
+					System.out.println(data.getNo());
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally {
+				close(rs);
+				close(pstmt);
+				
+			}
+			return data;
 		}
-		return data;
-	}
 
 }

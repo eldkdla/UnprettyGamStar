@@ -265,11 +265,19 @@ public class UserService {
 	}
 	
 	//유저로그인
-	public User loginCheck(User u) {
-		Connection conn = getConnection();
-		User data = new UserDao().loginCheck(conn, u);
-		close(conn);
-		return data;
-	}
+		public User loginCheck(User u) {
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheck(conn, u);
+			close(conn);
+			return data;
+		}
+		
+		//네이버유저로그인
+		public User loginCheckNaver(User u) {
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheckNaver(conn, u);
+			close(conn);
+			return data;
+		}
 
 }

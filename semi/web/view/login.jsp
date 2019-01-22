@@ -41,6 +41,10 @@
 			</form>
 		</div>
 		
+		 
+		 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<div id="naverIdLogin"></div>
+<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 		 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
 		 <%-- <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a> --%>
 		<!-- //네이버아이디로로그인 버튼 노출 영역 -->
@@ -108,12 +112,62 @@
               onclick:'close_pop()',
               text:'확인'
            }));
-           
         }
-        //모달창 닫기
+        
+		//모달창 닫기
         function close_pop(){
            $('#myModal').css("display","none");
         }
+        
+        
+        //네아로 연동
+    	var naverLogin = new naver.LoginWithNaverId(
+    			{
+    				clientId: "fqOHJi8WFN9_xpysEVQG",
+    				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
+    				isPopup: true, /* 팝업을 통한 연동처리 여부 */
+    				callbackHandle: true,
+    				loginButton: {color: "green", type: 2, height: 30 } /* 로그인 버튼의 타입을 지정 */
+    				
+    			}
+    		);
+    		//http://localhost:9090/njst/views/user/nlogin.jsp
+    		/* 설정정보를 초기화하고 연동을 준비 */
+    		naverLogin.init();
+        //팝업창 처리 메소드
+    	function setNaverData(naverId, email, winObj) {
+    		//$('#token').val(token);
+    		
+    		console.log(naverId);
+    		console.log(email);
+    		//console.log(winObj);
+    		console.log("어떻게 찍히니?")
+    		winObj.close();
+    		//var form = $('#nLoginFrm')
+    		var form = document.nLoginFrm;
+
+    		
+    		$('#naverId').val(naverId);
+    		$('#email').val(email);
+    		
+    		$('#nLoginFrm').submit();
+    	};
+        
+        //값체크용 펑션
+    	function test(num) {
+    		//$('#token').val(token);
+
+        console.log(num);
+
+    	};
 </script>
+
+<!-- 네이버 처리용 필드 -->
+<form id="nLoginFrm" method="post" action="<%=request.getContextPath()%>/nlogin">
+<input type="hidden" id="naverId" name="naverId" value="">
+<input type="hidden" id="email" name="email" value="">
+<input type="submit">
+</form>
+
 </body>
 </html>
