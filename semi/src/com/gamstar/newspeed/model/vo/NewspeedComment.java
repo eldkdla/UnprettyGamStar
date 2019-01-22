@@ -10,6 +10,7 @@ public class NewspeedComment {
 	private int userNo;
 	private Date date;
 	private int enable;
+	private String userName;
 
 	public int getNewspeedNo() {
 		return newspeedNo;
@@ -67,14 +68,21 @@ public class NewspeedComment {
 		this.enable = enable;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
 	@Override
 	public String toString() {
 		return "NewspeedComment [newspeedNo=" + newspeedNo + ", no=" + no + ", rootNo=" + rootNo + ", content="
-				+ content + ", userNo=" + userNo + ", date=" + date + ", enable=" + enable + ", getNewspeedNo()="
-				+ getNewspeedNo() + ", getNo()=" + getNo() + ", getRootNo()=" + getRootNo() + ", getContent()="
-				+ getContent() + ", getUserNo()=" + getUserNo() + ", getDate()=" + getDate() + ", getEnable()="
-				+ getEnable() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ content + ", userNo=" + userNo + ", date=" + date + ", enable=" + enable + ", userName=" + userName
+				+ ", getNewspeedNo()=" + getNewspeedNo() + ", getNo()=" + getNo() + ", getRootNo()=" + getRootNo()
+				+ ", getContent()=" + getContent() + ", getUserNo()=" + getUserNo() + ", getDate()=" + getDate()
+				+ ", getEnable()=" + getEnable() + ", getUserName()=" + getUserName() + "]";
 	}
 
 }

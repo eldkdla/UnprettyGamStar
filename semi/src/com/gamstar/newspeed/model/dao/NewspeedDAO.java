@@ -417,6 +417,7 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedComment.setNo(rs.getInt("COMMENT_NO"));
 		newspeedComment.setRootNo(rs.getInt("COMMENT_ROOT_NO"));
 		newspeedComment.setUserNo(rs.getInt("USER_NO"));
+		newspeedComment.setUserName(rs.getString("USER_NAME"));
 		
 		return newspeedComment;	
 	}
