@@ -17,6 +17,7 @@ import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedComment;
 import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
+import com.gamstar.user.model.dao.UserDao;
 import com.gamstar.user.model.vo.User;
 
 public class NewspeedService {
@@ -25,9 +26,11 @@ public class NewspeedService {
 	public static final int NEWSPEED_MEDIA_TAG_INSERT_ERROR = -300;
 	
 	private NewspeedDAO newspeedDAO;
+	private UserDao userDAO;
 
 	public NewspeedService() {
 		newspeedDAO = new NewspeedDAO();
+		userDAO = new UserDao();
 	}
 	
 			//게시글(다중) 선택 
@@ -138,22 +141,23 @@ public class NewspeedService {
 		List<NewspeedMedia> newspeedMediaList = newspeedDAO.selectNewspeedMediaList(conn, newspeedNo);
 		List<NewspeedMediaTag> newspeedMediaTagList = newspeedDAO.selectNewspeedMediaTagList(conn, newspeedNo);
 		List<NewspeedComment> newspeedCommentList = newspeedDAO.selectNewspeedCommentList(conn, newspeedNo);
+		User writer = userDAO.selectNewspeedWriter(conn, newspeedNo);
+		JSONObject newspeedJSON = getFileInNewspeed(newspeed, newspeedMediaList, newspeedMediaTagList);
+		inputNewspeedWriterInJSON(writer, newspeedJSON);
 		
-		System.out.println(newspeed + "뉴스피드");
-		System.out.println(newspeedMediaList + "리스트");
-		System.out.println(newspeedCommentList + "리스트");
-		
-
-		System.out.println("힘내라너희"+getFileInNewspeed(newspeed, newspeedMediaList, newspeedMediaTagList).toJSONString());
-		
-	
-		
-		return getFileInNewspeed(newspeed, newspeedMediaList, newspeedMediaTagList);	
+		return newspeedJSON;	
 	}
 	
 	//'{"commentList":[{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commenftContent":"날씨가 너무 춥네요~", "commentIndex":1},{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commentContent":"날씨가 너무 춥네요~", "commentIndex":1}],"fileList":[{"mediaIndex":1,"fileName":"btn_add_media.png","tagList":[{"tagIndex":0,"mediaIndex":1,"x":"0.03350970017636689","y":"0.4192790451074912","userNo":"6", "userName":"반가워"}]}, {"mediaIndex":2,"fileName":"m-series-2015-upscaling-4k-large.jpg","tagList":[{"tagIndex":0,"mediaIndex":2,"x":"0.28924162257495595","y":"0.44327739509527836","userNo":"6","userName":"반가워"}]}],
 	//"content":"asdasdsdadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsasd", "newspeedNo":"1","userNo":"1", "userName":"임태완", "profilephoto":"basic_profile_photo.png"}');
-
+	
+	private void inputNewspeedWriterInJSON(User writer, JSONObject newspeedJSON) {
+		newspeedJSON.put("userNo", writer.getNo());
+		newspeedJSON.put("userName", writer.getName());
+		newspeedJSON.put("profilephoto", writer.getProfilePhoto());
+		
+		System.out.println(writer.getProfilePhoto() + "프사인데 있음?");
+	}
 	
 	
 	private JSONObject getFileInNewspeed(Newspeed newspeed,List<NewspeedMedia> mediaList, List<NewspeedMediaTag> mediaTagList) {
@@ -163,12 +167,8 @@ public class NewspeedService {
 		newspeedJSONObject.put("content", newspeed.getContent());
 		newspeedJSONObject.put("userNo",newspeed.getUserNo());
 		newspeedJSONObject.put("newspeedNo", newspeed.getNo());
-		newspeedJSONObject.put("profilephoto", "임시");
-		newspeedJSONObject.put("userName", "확인만");
 		
 		for (int i = 0; i < mediaList.size(); i++) {
-			
-			
 			mediaListJSONArray.add(getMediaInTagList(mediaList.get(i), mediaTagList));
 		}
 		

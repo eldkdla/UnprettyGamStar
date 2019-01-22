@@ -479,5 +479,31 @@ public class UserDao {
 		}
 		return userList;
 	}
+	
+	
+	
+	public User selectNewspeedWriter(Connection conn,int newspeedNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("selectNewspeedWriter");
+		User userData=new User();
+		
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,newspeedNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return userData;
+	}
 
 }

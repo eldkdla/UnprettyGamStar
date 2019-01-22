@@ -374,6 +374,7 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedMediaTag.setUserNo(rs.getInt("USER_NO"));
 		newspeedMediaTag.setX(rs.getDouble("X"));
 		newspeedMediaTag.setY(rs.getDouble("Y"));
+		newspeedMediaTag.setUserName(rs.getString("USER_NAME"));
 			
 		return newspeedMediaTag;
 	}
