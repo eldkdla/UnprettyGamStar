@@ -37,7 +37,7 @@ public class PreviewChatListDao {
 		PreparedStatement pstmt3=null;
 		PreparedStatement pstmt4=null;
 		ArrayList<PreiviewChatList> previewlist=new ArrayList<PreiviewChatList>();
-
+		boolean flag=true;
 		String sql = prop.getProperty("callPreviewChatroomNo");
 		PreiviewChatList preview=new PreiviewChatList();
 		//채팅방 목록
@@ -48,6 +48,7 @@ public class PreviewChatListDao {
 			rs=pstmt.executeQuery();
 
 			while(rs.next()) {
+				flag=false;
 				preview=new PreiviewChatList();
 				System.out.println("채팅방 번호 : "+ rs.getInt("chatroom_no"));
 				preview.setChatroomNo(rs.getInt("chatroom_no"));
@@ -112,9 +113,10 @@ public class PreviewChatListDao {
 		finally
 		{
 			close(pstmt);
+			if(flag==false) {
 			close(pstmt2);
 			close(pstmt3);
-			close(pstmt4);
+			close(pstmt4);}
 
 		}
 		return previewlist;

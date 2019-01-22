@@ -359,7 +359,7 @@
     }
     /*채팅방 만들기 +버튼*/
     #plusfriendBtn{
-        background: url("../images/plusbtn.png") no-repeat;
+        background: url("../img/plusbtn.png") no-repeat;
         border: none;
         width: 32px;
         height: 32px;
@@ -369,7 +369,7 @@
         top:450px;
     }
     #plusfriendBtn:hover{
-        background: url("../images/plusbtnhover.png") no-repeat;
+        background: url("../img/plusbtnhover.png") no-repeat;
     }
 
 

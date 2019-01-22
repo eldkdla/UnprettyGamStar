@@ -161,7 +161,7 @@
 			                   
 			                }));
 							$('#fchatlistdiv'+i).append($('<img/>',{
-					            src: 'images/alarm.png',
+					            src: 'img/alarm.png',
 					            class:'alarm',
 					            style:'position: relative; width: 15px; height: 15px; top:30px; left: 10px;'
 					           
@@ -487,7 +487,7 @@ var f=0;
         }));
         if(count>=2){
 		$('#chatlistdiv'+f).append($('<img/>',{
-            src: 'images/groupchatimg.png',
+            src: 'img/groupchatimg.png',
             class:'chatuserimg',
             id: 'chatuserimg'+f
            
