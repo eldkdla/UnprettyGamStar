@@ -38,44 +38,45 @@ public class ReportUserBanServlet extends HttpServlet {
 		{
 			request.setAttribute("msg", "잘못된 접근입니다");
 			request.setAttribute("loc", "/");
-			request.getRequestDispatcher("/views/common/adminMsg.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 			return;
 		}
 		else
-		{int reportedId=Integer.parseInt(request.getParameter("reportedId"));
-		String reportedName=request.getParameter("reportedName");
-		int reportBoardNo=Integer.parseInt(request.getParameter("reportBoardNo"));
-		String stopType=request.getParameter("stoptype");
-		int stopdays=999999999;
-		if(stopType.equals("temp"))
 		{
-			stopdays=Integer.parseInt(request.getParameter("stopdays"));			
-		}
-		
-		System.out.println(stopdays);
-		
-		int result=0;
-		
-		result=new ReportService().setUserStop(reportedId,stopdays,reportBoardNo);
-		
-		String view="/views/common/msg.jsp";
-		String msg="";
-		String loc="";
-		
-		if(result>0)
-		{
-			msg=reportedName+" 유저를"+stopdays+"일 정지시켰습니다.";
-			loc="/admin/reportList";
-		}
-		else
-		{
-			msg="처리에 실패하였습니다.";
-			loc="/admin/reportList";
-		}
-		
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher(view).forward(request, response);
+			int reportedId=Integer.parseInt(request.getParameter("reportedId"));
+			String reportedName=request.getParameter("reportedName");
+			int reportBoardNo=Integer.parseInt(request.getParameter("reportBoardNo"));
+			String stopType=request.getParameter("stoptype");
+			int stopdays=999999999;
+			if(stopType.equals("temp"))
+			{
+				stopdays=Integer.parseInt(request.getParameter("stopdays"));			
+			}
+			
+			System.out.println(stopdays);
+			
+			int result=0;
+			
+			result=new ReportService().setUserStop(reportedId,stopdays,reportBoardNo);
+			
+			String view="/view/common/msg.jsp";
+			String msg="";
+			String loc="";
+			
+			if(result>0)
+			{
+				msg=reportedName+" 회원을"+stopdays+"일 정지시켰습니다.";
+				loc="/admin/reportList";
+			}
+			else
+			{
+				msg="처리에 실패하였습니다.";
+				loc="/admin/reportList";
+			}
+			
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
 

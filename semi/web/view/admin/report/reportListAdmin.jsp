@@ -635,10 +635,14 @@
                         <td><a href='#'><%=r.getReportBoardType() %></a></td>
                         <td>
                         	<a onclick='openNextTr(this);'>
+                        	<%if(r.getReportBoardContent()!=null){ %>
 	                        	<%if(r.getReportBoardContent().length()>20) { %>
 	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
 	                        	<%} else { %>
 	                        	<%=r.getReportBoardContent() %>
+	                        	<%} 
+	                        	} else{
+	                        	%> '내용없음'
 	                        	<%} %>
                         	</a>
                         </td>
@@ -699,7 +703,7 @@
     <!-- 레이어창 -->
     <div class='popupLayer'>
         <!-- 내용 -->
-        <form name='stopForm' id="stopForm" method="POST" action='<%=request.getContextPath() %>/report/stopUser.do' onsubmit='return stopUser_val();'>
+        <form name='stopForm' id="stopForm" method="POST" action='<%=request.getContextPath() %>/admin/report/userBan' onsubmit='return stopUser_val();'>
             <div class='layerContent'>
                 <input type="hidden" id="reportedId" name='reportedId'/>
                 <input type="hidden" id="reportedName" name="reportedName"/>

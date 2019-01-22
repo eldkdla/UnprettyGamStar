@@ -417,8 +417,60 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedComment.setNo(rs.getInt("COMMENT_NO"));
 		newspeedComment.setRootNo(rs.getInt("COMMENT_ROOT_NO"));
 		newspeedComment.setUserNo(rs.getInt("USER_NO"));
+		newspeedComment.setUserName(rs.getString("USER_NAME"));
 		
 		return newspeedComment;	
+	}
+	
+	
+	public boolean isLikeNewspeed(Connection conn, int userNo, int newspeedNo) {
+		String sql = prop.getProperty("selectNewspeedIsLike");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return false;
+	}
+	
+	public boolean isStoreNewspeed(Connection conn, int userNo ,int newspeedNo){
+		String sql = prop.getProperty("selectNewspeedIsStore");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, newspeedNo);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				return true;
+			}
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return false;
 	}
 
 }
