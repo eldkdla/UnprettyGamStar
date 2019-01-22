@@ -214,7 +214,8 @@ public class UserDao {
 				pstmt.setString(3,user.getEmail());
 				pstmt.setString(4,user.getPhone());
 				pstmt.setInt(5,user.getDisclosure());
-				pstmt.setInt(6,user.getNo());
+				pstmt.setString(6, user.getName());
+				pstmt.setInt(7,user.getNo());
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {

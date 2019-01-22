@@ -63,6 +63,7 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			else{
 				user.setProfilePhoto(oldUser.getProfilePhoto());
 			}
+			user.setName(multi.getParameter("name"));
 			user.setEmail(multi.getParameter("email"));
 			user.setPhone(multi.getParameter("phone"));
 			user.setGender(multi.getParameter("gender"));
