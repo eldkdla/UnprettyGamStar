@@ -45,7 +45,14 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.getSession().setAttribute("userNo", 6);
 		
 		if(request.getSession().getAttribute("userNo")!=null){
-		
+			//관리자페이지면 돌려보내기
+			if(request.getParameter("uu")!=null){  
+				if((Integer.parseInt(request.getParameter("uu")))<=0){
+					request.setAttribute("msg", "잘못된 접근");
+					request.setAttribute("loc", "");
+					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				}
+			}
 			int userNo=0;
 			int myNo=(int)request.getSession().getAttribute("userNo");
 			
@@ -63,9 +70,14 @@ public class MyProfilePageServlet extends HttpServlet {
 			User userData=new UserService().selectUser(conn,user);
 			request.setAttribute("userData", userData);
 			
-			if(userData.getState()==1){ //유저가 정지상태이면 내 페이지로 이동
+			if(userData.getState()==1||userData.getState()==100){ //유저가 정지상태이면 내 페이지로 이동
 				response.sendRedirect("profile");
 			}
+			
+			//스토리 가져오기
+			NewspeedMedia userStory=new UserService().selectStory(conn, user);
+			request.setAttribute("userStory", userStory);
+			
 			//게시글(다중) 정보 가져오기
 			ArrayList<NewspeedMedia> content1DataArray=new NewspeedService().selectContent1(conn,user);
 			request.setAttribute("content1DataArray", content1DataArray);

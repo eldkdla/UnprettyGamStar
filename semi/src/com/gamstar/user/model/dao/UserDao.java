@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.user.model.vo.User;
 
 public class UserDao {
@@ -171,7 +172,35 @@ public class UserDao {
 			}
 			return blockDataArray;
 		}
-		
+		//스토리 확인
+		public NewspeedMedia selectStory(Connection conn, User user){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql=prop.getProperty("selectStory");
+			NewspeedMedia oldUserStory=new NewspeedMedia();
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()){
+					oldUserStory.setType(rs.getInt("MEDIA_TYPE"));
+					oldUserStory.setPath(rs.getString("MEDIA_PATH"));
+				}
+				else{
+					oldUserStory.setPath("");
+				}
+				
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+			return oldUserStory;
+		}
 
 		//유저 정보 수정
 		public int updateUserData(Connection conn,User user){
@@ -272,6 +301,44 @@ public class UserDao {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1,user.getProfileBackgroundPhoto());
 				pstmt.setInt(2,user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+		}
+		//스토리변경
+		public int updateStory(Connection conn,NewspeedMedia newUserStory,User user){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("updateStory");
+			int result=0;
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, newUserStory.getPath());
+				pstmt.setInt(2, user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+			
+		}
+		
+		//회원탈퇴  (state 100으로 변경)
+		public int unregister(Connection conn,User user){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("unregister");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {
@@ -498,5 +565,30 @@ public class UserDao {
 			}
 			return data;
 		}
+	
+	
+	public User selectNewspeedWriter(Connection conn,int newspeedNo){
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String sql=prop.getProperty("selectNewspeedWriter");
+		User userData=new User();
+		
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,newspeedNo);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		return userData;
+	}
 
 }

@@ -40,8 +40,11 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		if(request.getSession().getAttribute("userNo")!=null){
+		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
 	
+			String msg="";
+			String loc="";
+			
 			String root=getServletContext().getRealPath("/");
 			String path=root+"upload";
 	//		String path = request.getRealPath("/upload");
@@ -72,7 +75,8 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 							System.out.println("삭제실패");
 						}
 					}
-					System.out.println("프로필사진 변경 성공");
+					msg="프로필사진 변경 성공";
+					loc="/view/profile";
 				}
 			}
 			else if(multi.getFilesystemName("uploadProfilePhoto2")!=null){
@@ -89,18 +93,19 @@ public class MyProfilePhotoModifyServlet extends HttpServlet {
 							System.out.println("삭제실패");
 						}
 					}
-					System.out.println("배경사진 변경 성공");
+					msg="배경사진 변경 성공";
+					loc="/view/profile";
 				}
 			}
-			System.out.println("다 끝냈나 "+result);
-			response.sendRedirect("profile");
-	
+			request.setAttribute("msg", msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 			}
 			else{
 				System.out.println("사진 multipart로 안보냈음");
 				response.sendRedirect("profile");
 			}
-		
+			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");

@@ -36,7 +36,17 @@ public class ChkFollowServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		if(request.getSession().getAttribute("userNo")!=null){
+		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
+			
+			//관리자페이지면 돌려보내기
+			if(request.getParameter("userNo")!=null){  
+				if((Integer.parseInt(request.getParameter("userNo")))<=0){
+					request.setAttribute("msg", "잘못된 접근");
+					request.setAttribute("loc", "");
+					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				}
+			}
+			
 			Connection conn=getConnection();
 			
 			User user= new User();

@@ -35,8 +35,18 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		
 		if(request.getSession().getAttribute("userNo")!=null){
-
+			
+			//관리자페이지면 돌려보내기
+			if(request.getParameter("uu")!=null){  
+				if((Integer.parseInt(request.getParameter("uu")))<=0){
+					request.setAttribute("msg", "잘못된 접근");
+					request.setAttribute("loc", "");
+					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				}
+			}
+			
 			int userNo=(int)request.getSession().getAttribute("userNo");
+			System.out.println("sdfsadfasd : "+request.getParameter("uu"));
 			int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
 				
 			User user= new User();

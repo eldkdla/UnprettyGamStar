@@ -20,7 +20,7 @@
      }
      .modifyScreenMenuLi{
          position: relative;
-         width: 49%;
+         width: 29%;
          display: inline-block;
          right: 2%;
      }
@@ -30,7 +30,7 @@
      .modifyScreenMenuLb{
          position: relative;
          display: block;
-         font-size: 0.9rem;
+         font-size: 0.8rem;
          font-family: 'Jua', sans-serif;
          background-color: white;
          color: rgb(190, 190, 190);
@@ -41,7 +41,7 @@
      
      input:checked + label{
          color: black;
-         font-size: 1rem;
+         font-size: 0.9rem;
          font-weight:bold;
          border-bottom: 2px solid black;
      }
@@ -60,6 +60,11 @@
          background-color: white;
      }
      #form2{
+         display: none;
+         height: 100%;
+         background-color: white;
+     }
+     #form3{
          display: none;
          height: 100%;
          background-color: white;
@@ -94,6 +99,10 @@
          background-color: white;
          padding-top: 2rem;
      }
+     .modifyInputDiv3{
+         background-color: white;
+         padding-top: 2rem;
+     }
  
      .modifyInputLb{
          display: inline-block;
@@ -105,6 +114,15 @@
          font-family: 'Jua', sans-serif;
      }
      .modifyInputLb2{
+         display: inline-block;
+         width: 96%;
+         font-size: 1rem;
+         font-weight: bold;
+         margin-left: 2%;
+         background: white;
+         font-family: 'Jua', sans-serif;
+     }
+     .modifyInputLb3{
          display: inline-block;
          width: 96%;
          font-size: 1rem;
@@ -186,6 +204,23 @@
      cursor: pointer;
      font-family: 'Gothic A1', sans-serif;
      }
+      #unregister{
+  	 outline: none;
+     border: none;
+     border-radius: 5px;
+     background-color: gray;
+     color:white;
+     font-weight: bolder;
+     width: 130px;
+     height: 27px;
+     margin-right: 2%;
+     margin-top: 5%;
+     margin-bottom: 2%;
+     font-size: 1rem;
+     float: right;
+     cursor: pointer;
+     font-family: 'Gothic A1', sans-serif;
+   }
  
      .chkEmailPhonePw{
      position: relative;

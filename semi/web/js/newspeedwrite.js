@@ -3,55 +3,65 @@
             var allFileNames = [];
             var lastImg;
             var lastIndex;
+            var uploadFiless;
+            var uploadIndex;
+            var fileLength;
+            var realFiles;
+            
+            var maxFileListLength;
 
-            function uploadFiles(inputFiles) {
-                var files = inputFiles.files;
-                var reader = new FileReader();
-                var j = 0;
+            function uploadFiles() {
+            	uploadFiless = $('#input_Files')[0].files;
+                uploadIndex = 0;
+                fileLength = uploadFiless.length;
+                
+                if (fileLength == 0) {
+                	return;
+                }
 
                 if(!checkFile()) {
                     alert('올릴 수 없는 파일이 존재합니다. 다시 올려주세요');
                     return;
                 }
+                
+   
+                readFiles();     
+                
+                function readFiles() {
+                    var fileReader = new FileReader();
 
+                    fileReader.onload = function(e) {
 
-                for (var i = 0; i < files.length; i++) {
-                	console.log(i + '번째인데 왜안하니?');
-                    var file = files[i];
-                    allFiles[allFiles.length] = file;
-
-                    reader = new FileReader();
-       
-
-                    
-                    console.log(i + '번째인데 어디서부터 안하는거?');
-                    reader.readAsDataURL(file);
-                    
-                    console.log(i + '여기?');
-                    reader.onload = function (e) {
-                    	console.log(i + '너는?');
-                    	j = 0;
-                    	var fileName = allFiles[j + allFiles.length - 1].name;
-                    	var fileExt = getFileExt(fileName);
-                    	var mediaType = 0;
-                    	
-                    	if (isVideo(fileExt)) {
-                    		mediaType = 1;
-                    	}
-                    	
+                        console.log('파일을 체크해요!');
+                        var fileExt = getFileExt(uploadFiless[uploadIndex].name);
+                        var mediaType = 0;
+                        
+                        if (isVideo(fileExt)) {
+                            mediaType = 1;
+                        }
+                        
+                    	allFiles[allFiles.length] = uploadFiless[uploadIndex];
                         setElement(e, mediaType);
-             
-                        j++;
-                    };
+                        
+                        uploadIndex++;
+                        if (uploadIndex < fileLength) {
+               	
+                        	readFiles();
+                        } else if (uploadIndex == fileLength) {
+                        	$('#input_Files').val("");
+                        	return;
+                        }            
+                    }
                     
-                    resizing();
-                    addTagList();
+                    fileReader.readAsDataURL(uploadFiless[uploadIndex]);
                 }
 
                 function checkFile() {
-                    for (var i = 0; i < files.length; i++) {
-                        var file = files[i];
+                    for (var i = 0; i < uploadFiles.length; i++) {
+                        var file = uploadFiles[i];
                         var fileExt = getFileExt(file.name);
+                        
+                        console.log('파일을 체크해요!');
                         
                         if (!isImage(fileExt) && ! isVideo(fileExt)) {
                             return false;
@@ -132,9 +142,19 @@
 
 
                     $(thumbnailMediaWrapper).css('display', 'block');
-
+                    
                     resizing();
                     resizeLi();
+                    addTagList(function(){
+                        if (uploadIndex < fileLength) {
+                           	
+                        	readFiles();
+                        } else if (uploadIndex == fileLength) {
+                        	$('#input_Files').val("");
+                        	return;
+                        }   
+                    	
+                    });
                 }
 
 
@@ -148,8 +168,6 @@
                 function removeTagList(index) {
                     $('.tag_list_wrapper:eq(' + (index - 1) + ')').remove();
                 }
-
-                $('#input_Files').val("");
             }
 
 
@@ -755,7 +773,7 @@
             	
             	$('#media_tag_nav > *').remove();
             	$('#list_wrapper > *').remove();
-            	$('#posting_content').text('');;
+            	$('#posting_content').text('');
             }
 
             function showMedaiEdit() {

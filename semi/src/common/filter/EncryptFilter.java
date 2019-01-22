@@ -16,7 +16,8 @@ import common.encrypt.EncryptWrapper;
 @WebFilter(
 		servletNames= {
 				"PasswordModifyServlet",
-				"ChkBeforePw"
+				"ChkBeforePw",
+				"UnregisterServlet"
 		}
 		)
 public class EncryptFilter implements Filter {
