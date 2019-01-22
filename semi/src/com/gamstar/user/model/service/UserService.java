@@ -63,6 +63,7 @@ public class UserService {
 			return oldUserStory;
 		}
 		
+		
 		//팔로우상태 확인
 		public boolean isFollowed(Connection conn,User user,int myname){
 			
@@ -164,6 +165,25 @@ public class UserService {
 			
 			close(conn);
 			return result;
+		}
+		//스토리 추가
+		public int insertStory(Connection conn,NewspeedMedia newUserStory,User user){
+			
+			int result=new UserDao().insertStory(conn,newUserStory,user);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			
+			return result;
+			
 		}
 		//스토리 수정
 		public int updateStory(Connection conn,NewspeedMedia newUserStory,User user){
