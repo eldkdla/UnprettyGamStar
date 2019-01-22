@@ -69,6 +69,54 @@ public class ReportService {
 			close(conn);
 			return result;
 		}
-
-
+		
+		//여러개정지
+		public int setSelectUserStop(int[] userNo, int stopDays, int[] reportBoardNo)
+		{
+			Connection conn=getConnection();
+			
+			int[] result=new int[userNo.length];
+			for(int i=0; i<userNo.length;i++)
+			{
+				result[i]=new ReportDao().setUserStop(conn,userNo[i],stopDays);
+			}
+			
+			int allResult=0;
+			
+			for(int i=0; i<userNo.length;i++)
+			{
+				if(result[i]==0)
+				{
+					rollback(conn);
+					close(conn);
+					return allResult;
+				}
+				if(i==(userNo.length-1))
+				{
+					int resultInputLog=0;
+					
+					for(int j=0; j<userNo.length;j++)
+					{
+						resultInputLog=new ReportDao().inputReportLog(conn,reportBoardNo[j],stopDays);
+						
+						if(resultInputLog==0)
+						{
+							rollback(conn);
+							close(conn);
+							return allResult;
+						}
+						if(j==(userNo.length-1))
+						{
+							allResult=1;
+							commit(conn);
+							close(conn);
+							return allResult;
+						}
+					}
+					
+				}
+			}
+			close(conn);
+			return allResult;
+		}
 }

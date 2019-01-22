@@ -736,10 +736,12 @@
             </div>
         </form>
     </div>
-    <form name='reportDeleteFrm' id='reportDeleteFrm' method="POST" style='display: none;' onsubmit='return deleteTarget_val();'>
-        <input type="hidden" id="reportDeleteId" name='reportDeleteId'/>
+    <form name='reportDeleteFrm' id='reportDeleteFrm' method="POST" style='display: none;' 
+    	action='<%=request.getContextPath() %>게시글 삭제 servlet있나여' onsubmit='return deleteTarget_val();'>
         <input type="hidden" id="reportDeleteType" name='reportDeleteType'/>
+        <input type="hidden" id="reportDeleteLink" name='reportDeleteLink'/>
     </form>
+    
 
     <script>
         // 모바일 메뉴 열기 위한 함수
@@ -803,7 +805,7 @@
         	$(tr).next('tr').toggle();
         	
         }
-        function deleteTr(){
+        function deleteTr(it){
         	//선택 줄 색변화
         	tr=it.parentNode.parentNode;
         	tr.style.backgroundColor="rgba(234, 242, 253, 0.5)";
@@ -811,10 +813,47 @@
         		$(this).css('background-color','white');
         	});
         	
+        	//정보모으기
+        	link=$(tr).children('.reportedLink').children().text();
+        	$('#reportDeleteLink').val(link);
+        	type=$(tr).children('.reportedBoardType').text();
+        	$('#reportDeleteType').val(type);
         	
         }
         
-        function stopAllTr(){}
+        function deleteTarget_val(){
+        	if(type!=0&&type!=2)
+       		{        		
+	        	result=confirm(type+'타입의 '+link+'번을 삭제하시겠습니까?');
+       		}
+        	else
+       		{
+        		alert(type+'타입은 삭제할 수 없습니다.');
+       			result=false;
+       		}
+	        	return result;
+        }
+        
+        function stopAllTr(){
+        	
+        	$("#stopForm").attr("action", "<%=request.getContextPath() %>/admin/report/selectUserBan");
+        	
+        	$('.checks:checked').each(function(){
+        		tr=$(this).parent().parent();
+        		
+        		reportedTargetNo=$(tr).children('td:first-of-type').children('.reportedTargetNo').val();
+        		tempTargetNo=$('#reportedId').val();
+            	$('#reportedId').val(tempTargetNo+reportedTargetNo+' ');
+            	
+            	reportedTargetId=$(tr).children('.reportedTargetName').text();
+            	tempTargetId=$('#reportedName').val();
+            	$('#reportedName').val(tempTargetId+reportedTargetId+' ');
+            	
+            	reportBoardNo=$(tr).children('td:first-of-type').children('.reportBoardNo').val();
+            	tempBoardNo=$('#reportBoardNo').val();
+            	$('#reportBoardNo').val(tempBoardNo+reportBoardNo+' ');
+        	});
+        }
         function deleteAllTr(){}
         function cancelAllTR(){}
 
