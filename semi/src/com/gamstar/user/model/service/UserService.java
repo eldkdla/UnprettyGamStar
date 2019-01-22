@@ -184,6 +184,29 @@ public class UserService {
 			return result;
 		}
 		
+		//회원탈퇴  (state 100으로 변경)
+		public int unregister(User user){
+			Connection conn=getConnection();
+			
+			int result=0;
+			
+			result=new UserDao().unregister(conn,user);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			
+			close(conn);
+			return result;
+		}
+		
 		//이메일 중복 확인
 		public boolean chkEmail(User user){
 			Connection conn=getConnection();

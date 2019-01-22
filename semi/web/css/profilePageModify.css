@@ -90,6 +90,14 @@
         background-color: white;
         border: 1px solid rgba(213,213,213,50);
     }
+    #form3{
+        display: none;
+        height: 87%;
+        margin-left: 5px;
+        margin-right: 5px;
+        background-color: white;
+        border: 1px solid rgba(213,213,213,50);
+    }
  
     .modifyScreenMainTop{
         width: 700px;
@@ -167,6 +175,11 @@
         margin: 0 0 20px 0px;
         padding-top: 10px;
     }
+     .modifyInputDiv3{
+        background-color: white;
+        margin: 0 0 20px 0px;
+        padding-top: 10px;
+    }
  
     .modifyInputLb{
         display: inline-block;
@@ -178,6 +191,15 @@
         font-family: 'Jua', sans-serif;
     }
     .modifyInputLb2{
+        display: inline-block;
+        text-align: right;
+        width: 160px;
+        font-size: 17px;
+        font-weight: bold;
+        background: white;
+        font-family: 'Jua', sans-serif;
+    }
+    .modifyInputLb3{
         display: inline-block;
         text-align: right;
         width: 160px;
@@ -249,7 +271,25 @@
    } */
  
    #psModifyBt{
-     position: relative;
+       position: relative;
+       outline: none;
+       border: none;
+       border-radius: 5px;
+       background-color: gray;
+       color:white;
+       font-weight: bolder;
+       width: 130px;
+       height: 27px;
+       font-size: 15px;
+       margin-top: -10px;
+       right: 60px;
+       bottom: 10px;
+       float: right;
+       cursor: pointer;
+       font-family: 'Gothic A1', sans-serif;
+   }
+   #unregister{
+  	   position: relative;
        outline: none;
        border: none;
        border-radius: 5px;
@@ -297,6 +337,7 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
   }
+
   #chkPwDiv{
        position: relative;
        background-color: white;
@@ -307,6 +348,16 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
    }
+     #chkPwDv{
+      position: relative;
+       background-color: white;
+       float: right;
+       right: 65px;
+       bottom: 21px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+ 	 }
    
  }
  
@@ -334,9 +385,8 @@
      }
      .modifyScreenMenuLi{
          position: relative;
-         width: 49%;
+         width: 31%;
          display: inline-block;
-         right: 2%;
      }
      li input[type=radio]{
          display: none;
@@ -344,7 +394,7 @@
      .modifyScreenMenuLb{
          position: relative;
          display: block;
-         font-size: 0.9rem;
+         font-size: 0.8rem;
          font-family: 'Jua', sans-serif;
          background-color: white;
          color: rgb(190, 190, 190);
@@ -352,10 +402,22 @@
          font-weight:bold; 
          cursor: pointer;
      }
+     @media all and (max-width:650px) {
+     	.modifyScreenMenuLi{
+     		width:29%;
+     		left:1%;
+     	}
+     }
+     @media all and (max-width:500px) {
+     	.modifyScreenMenuLi{
+     		width:29%;
+     		right:3%;
+     	}
+     }
      
      input:checked + label{
          color: black;
-         font-size: 1rem;
+         font-size: 0.9rem;
          font-weight:bold;
          border-bottom: 2px solid black;
      }
@@ -374,6 +436,11 @@
          background-color: white;
      }
      #form2{
+         display: none;
+         height: 100%;
+         background-color: white;
+     }
+     #form3{
          display: none;
          height: 100%;
          background-color: white;
@@ -408,6 +475,10 @@
          background-color: white;
          padding-top: 2rem;
      }
+     .modifyInputDiv3{
+         background-color: white;
+         padding-top: 2rem;
+     }
  
      .modifyInputLb{
          display: inline-block;
@@ -419,6 +490,15 @@
          font-family: 'Jua', sans-serif;
      }
      .modifyInputLb2{
+         display: inline-block;
+         width: 96%;
+         font-size: 1rem;
+         font-weight: bold;
+         margin-left: 2%;
+         background: white;
+         font-family: 'Jua', sans-serif;
+     }
+     .modifyInputLb3{
          display: inline-block;
          width: 96%;
          font-size: 1rem;
@@ -485,6 +565,23 @@
  
      #psModifyBt{
      outline: none;
+     border: none;
+     border-radius: 5px;
+     background-color: gray;
+     color:white;
+     font-weight: bolder;
+     width: 130px;
+     height: 27px;
+     margin-right: 2%;
+     margin-top: 5%;
+     margin-bottom: 2%;
+     font-size: 1rem;
+     float: right;
+     cursor: pointer;
+     font-family: 'Gothic A1', sans-serif;
+     }
+     #unregister{
+  	   outline: none;
      border: none;
      border-radius: 5px;
      background-color: gray;

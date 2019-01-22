@@ -28,6 +28,10 @@
                         <input type="radio" name="modifyScreenMenuRbt" id="modifyScreenMenuRbt2">
                         <label for="modifyScreenMenuRbt2" class="modifyScreenMenuLb"><br>비밀번호 변경</label>
                     </li>
+                    <li class='modifyScreenMenuLi'>
+                        <input type="radio" name="modifyScreenMenuRbt" id="modifyScreenMenuRbt3">
+                        <label for="modifyScreenMenuRbt3" class="modifyScreenMenuLb"><br>회원 탈퇴</label>
+                    </li>
                 </ul>
             </div>
 
@@ -111,6 +115,23 @@
 
                     </div>
                 </form>
+                
+                <form method='POST' action="<%=request.getContextPath()%>/view/unregister" id="form3">
+
+                    <div class="modifyScreenMainTop">
+                        <div class="modifyInputDiv3">
+                            <label class='modifyInputLb3'>비밀번호 확인</label>
+                            <input type="password" class="modifyInput" name="chkPw" id="chkPw" maxlength="15" required />
+                            <div class="chkEmailPhonePw" id="chkPwDv"></div>
+                        </div>
+
+                        <br>
+
+                        <input type="submit" id='unregister' value="회원탈퇴 하기" disabled='true'  />
+
+
+                    </div>
+                </form>
 
             </div>
         </div>
@@ -142,16 +163,22 @@
         });
     </script>
     
-    
     <script>
         //프로필변경,비밀번호변경 메뉴선택에 따른 컨텐츠 보이게하기
         $('#modifyScreenMenuRbt1').click(function () {
             $('#form1').css('display', 'block');
             $('#form2').css('display', 'none');
+            $('#form3').css('display', 'none');
         });
         $('#modifyScreenMenuRbt2').click(function () {
             $('#form1').css('display', 'none');
             $('#form2').css('display', 'block');
+            $('#form3').css('display', 'none');
+        });
+        $('#modifyScreenMenuRbt3').click(function () {
+            $('#form1').css('display', 'none');
+            $('#form2').css('display', 'none');
+            $('#form3').css('display', 'block');
         });
 
     </script>
@@ -208,7 +235,7 @@
 	            			}
 	            			else if(data=="false"){
 	            				$('#chkEmail').html("이메일 가능").css('color', 'green');
-	            				if($('#chkPhone').html()=="전화번호 가능"){
+	            				if($('#chkPhone').html()=="전화번호 가능"||$('#chkPhone').html()==""){
 	            					$('#modifyButton').css('background-color', 'cornflowerblue');
 	            	                $('#modifyButton').removeProp('disabled');
 	            				}
@@ -250,7 +277,7 @@
 	                		}
 	                		else if(data=="false"){
 	                			$('#chkPhone').html("전화번호 가능").css('color', 'green');
-	                			if($('#chkEmail').html()=="이메일 가능"){
+	                			if($('#chkEmail').html()=="이메일 가능"||$('#chkEmail').html()==""){
 	                				$('#modifyButton').css('background-color', 'cornflowerblue');
 	            	                $('#modifyButton').removeProp('disabled');
 	                			}
@@ -362,7 +389,36 @@
                 }
             });
         });
-
+        
+      //회원탈퇴시 비밀번호 맞는지 알려주기
+    	$('#chkPw').keyup(function(){
+    		if($('#chkPw').val()==""){
+    			$('#chkPwDv').html("");
+    		}else{
+	    		$.ajax({
+	    			url:'<%=request.getContextPath()%>/view/chkBeforePw',
+	    			type:"POST",
+	    			data:{"beforePw":$('#chkPw').val()},
+	    			success:function(data){
+	    				if(data=="true"){
+	    					$('#chkPwDv').html("비밀번호 일치").css('color', 'green');
+	    					$('#unregister').css('background-color', 'cornflowerblue');                        
+	                        $('#unregister').removeProp('disabled');
+	    				}
+	    				else if(data=="false"){
+	    					$('#chkPwDv').html("비밀번호 불일치").css('color', 'red');
+	    					$('#unregister').css('background-color', 'gray');
+                            $('#unregister').prop('disabled', 'true');
+	    				}
+	    				
+	    			},
+	    			error:function(xhr,status){
+	    				alert(xhr+" : "+status);
+	    			}
+	    			
+	    		});
+    		}
+    	});
 
     </script>
 

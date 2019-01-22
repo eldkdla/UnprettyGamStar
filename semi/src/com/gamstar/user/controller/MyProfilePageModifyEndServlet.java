@@ -39,7 +39,7 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		if(request.getSession().getAttribute("userNo")!=null){
+		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
 		
 			String root=getServletContext().getRealPath("/");
 			String path=root+"upload";

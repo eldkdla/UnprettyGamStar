@@ -309,7 +309,7 @@ public class UserDao {
 			}
 			return result;
 		}
-		
+		//스토리변경
 		public int updateStory(Connection conn,NewspeedMedia newUserStory,User user){
 			PreparedStatement pstmt=null;
 			String sql=prop.getProperty("updateStory");
@@ -327,6 +327,25 @@ public class UserDao {
 			}
 			return result;
 			
+		}
+		
+		//회원탈퇴  (state 100으로 변경)
+		public int unregister(Connection conn,User user){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("unregister");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
 		}
 		
 		//이메일 중복 확인

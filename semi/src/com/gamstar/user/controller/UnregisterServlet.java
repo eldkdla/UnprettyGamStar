@@ -2,7 +2,6 @@ package com.gamstar.user.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,16 +12,16 @@ import com.gamstar.user.model.service.UserService;
 import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class MyProfilePageModifyServlet
+ * Servlet implementation class UnregisterServlet
  */
-@WebServlet("/view/profilemodifyStart")
-public class MyProfilePageModifyStartServlet extends HttpServlet {
+@WebServlet(name="UnregisterServlet",urlPatterns="/view/unregister")
+public class UnregisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyProfilePageModifyStartServlet() {
+    public UnregisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,27 +32,23 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
 		
-		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
+		User user=new User();
+		user.setNo((int)request.getSession().getAttribute("userNo"));
 		
-			User user= new User();
-			user.setNo((int)request.getSession().getAttribute("userNo"));
-			//유저정보 가져오기
-			User userData=new UserService().selectUser(user);
-			request.setAttribute("userData", userData);
-			
-			//내정보창으로 정보보내기
-			RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
-			rd.forward(request, response);
-			
-		}else{
-			request.setAttribute("msg", "잘못된 접근");
+		int result=new UserService().unregister(user);
+		
+		if(result!=0){
+			request.setAttribute("msg", "회원탈퇴 성공");
 			request.setAttribute("loc", "");
-			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		}
+		else{
+			request.setAttribute("msg", "회원탈퇴 실패");
+			request.setAttribute("loc", "");
 		}
 
-				
+		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		
 	}
 
 	/**
