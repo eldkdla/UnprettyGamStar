@@ -481,7 +481,7 @@ public class UserDao {
 				{
 					data = new User();
 					data.setNo(rs.getInt("USER_NO"));
-					data.setId(rs.getString("NUSER_ID"));
+					data.setId(rs.getString("NAVER_USER_ID"));
 					System.out.println(data.getNo());
 				}
 			} catch (SQLException e) {

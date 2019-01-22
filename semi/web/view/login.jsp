@@ -11,6 +11,11 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 </head>
 <body>
+<% if(request.getSession().getAttribute("userNo")!=null)
+{
+	response.sendRedirect(request.getContextPath()+"/");
+}
+%>
 <h3>로그인 페이지다요.</h3>
 <section id="login-container">
 	<div id="loginLayout">
@@ -42,7 +47,7 @@
 		</div>
 		
 		 
-		 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
+<!-- 네이버아이디로로그인 버튼 노출 영역 -->
 <div id="naverIdLogin"></div>
 <!-- //네이버아이디로로그인 버튼 노출 영역 -->
 		 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
@@ -52,7 +57,7 @@
 		<%-- <a href="<%=apiURL%>" target="_blank"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a> --%>
 		<!-- //네이버아이디로로그인 버튼 노출 영역 -->
 		<div id="plus">
-			<a id="gnbLogin" href="#">Login</a>
+			<a id="gnbLogin" href="<%=request.getContextPath()%>">HOME-INDEX</a>
 			<input type="button" value="네이버연동" id="111"> 
 			<input type="button" value="페이스북" id="222">
 			<input type="button" value="다음" id="333">
