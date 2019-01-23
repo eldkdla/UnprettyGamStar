@@ -11,6 +11,7 @@ import java.util.List;
 import com.gamstar.admin.report.model.dao.ReportDao;
 import com.gamstar.admin.report.model.vo.ReportBoard;
 import com.gamstar.admin.report.model.vo.ReportBoardMedia;
+import com.gamstar.user.model.vo.User;
 
 public class ReportService {
 	
@@ -118,5 +119,57 @@ public class ReportService {
 			}
 			close(conn);
 			return allResult;
+		}
+		
+		//취소
+		public int cancelReport(int[] reportBoardNo)
+		{
+			Connection conn=getConnection();
+			
+			int[] result=new int[reportBoardNo.length];
+			for(int i=0; i<reportBoardNo.length;i++)
+			{
+				result[i]=new ReportDao().cancelReport(conn,reportBoardNo[i]);
+			}
+			
+			int allResult=0;
+			int count=0;
+			
+			for(int i=0; i<result.length;i++)
+			{
+				if(result[i]>0)
+				{
+					count++;
+				}
+			}
+			if(count==result.length)
+			{
+				allResult=1;
+			}
+			
+			close(conn);
+			return allResult;
+		}
+		
+		//검색
+		public List<ReportBoard> searchReportList(int cPage, int numPerPage, String searchType, String searchKeyword)
+		{
+			Connection conn=getConnection();
+			List<ReportBoard> list= null;
+			switch(searchType)
+			{
+			case "id" : list=new ReportDao().selectIdReportList(conn,cPage,numPerPage,searchKeyword);break;
+//			case "type" :list=new ReportDao().selectIdReportList(conn,cPage,numPerPage,searchKeyword);break;
+			}
+			
+			close(conn);
+			return list;
+		}
+		public int selectReportListCount(String searchType, String searchKeyword)
+		{
+			Connection conn=getConnection();
+			int result=new ReportDao().selectIdReportCount(conn,searchKeyword);
+			close(conn);
+			return result;
 		}
 }

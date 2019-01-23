@@ -190,7 +190,7 @@ public class SupportDao {
 			pstmt.setInt(1, supportAnswer.getSupportBoardNo());
 			pstmt.setInt(2, supportAnswer.getSupportBoardRootNo());
 			pstmt.setString(3, supportAnswer.getSupportBoardContent());
-//			pstmt.setInt(4, supportAnswer.getSupportBoardWriterNo());
+			pstmt.setInt(4, supportAnswer.getSupportBoardWriterNo());
 			result=pstmt.executeUpdate();
 		}
 		catch(SQLException e)

@@ -11,16 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.gamstar.admin.report.model.service.ReportService;
 
 /**
- * Servlet implementation class ReportUserBanServlet
+ * Servlet implementation class ReportDeleteServlet
  */
-@WebServlet("/admin/report/userBan")
-public class ReportUserBanServlet extends HttpServlet {
+@WebServlet("/admin/deleteReport")
+public class ReportDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportUserBanServlet() {
+    public ReportDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +29,7 @@ public class ReportUserBanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -43,40 +44,15 @@ public class ReportUserBanServlet extends HttpServlet {
 		}
 		else
 		{
-			int reportedId=Integer.parseInt(request.getParameter("reportedId"));
-			String reportedName=request.getParameter("reportedName");
-			int reportBoardNo=Integer.parseInt(request.getParameter("reportBoardNo"));
-			String stopType=request.getParameter("stoptype");
-			int stopdays=999999999;
-			if(stopType.equals("temp"))
-			{
-				stopdays=Integer.parseInt(request.getParameter("stopdays"));			
-			}
+			int type=Integer.parseInt(request.getParameter("reportDeleteType"));
+			int link=Integer.parseInt(request.getParameter("reportDeleteLink"));
 			
-			System.out.println(stopdays);
+			//여기서 type별로 삭제하는 곳으로 옮겨주자
 			
-			int result=0;
+			request.setAttribute("msg", "준비중입니다");
+			request.setAttribute("loc", "/admin/reportList");
+			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 			
-			result=new ReportService().setUserStop(reportedId,stopdays,reportBoardNo);
-			
-			String view="/view/common/msg.jsp";
-			String msg="";
-			String loc="";
-			
-			if(result>0)
-			{
-				msg=reportedName+" 회원을"+stopdays+"일 정지시켰습니다.";
-				loc="/admin/reportList";
-			}
-			else
-			{
-				msg="처리에 실패하였습니다.";
-				loc="/admin/reportList";
-			}
-			
-			request.setAttribute("msg", msg);
-			request.setAttribute("loc", loc);
-			request.getRequestDispatcher(view).forward(request, response);
 		}
 	}
 

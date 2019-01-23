@@ -42,7 +42,7 @@
                 <%if(list==null||list.isEmpty()) {%>
                 <tr>
                 	<td colspan='5'>
-                		검색 결과가 없습니다.
+                		'<%=searchKeyword %>'로 검색되는 결과가 없습니다.
                 	</td>
                 </tr>
                 <%} else{ %>

@@ -70,7 +70,8 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			supportAnswer.setSupportBoardNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo"))*(-1));
 			supportAnswer.setSupportBoardContent(mr.getParameter("supportContent"));
 			supportAnswer.setSupportBoardRootNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
-			System.out.println("SupportAnswerEditServlet supportAnswer: "+supportAnswer);
+			supportAnswer.setSupportBoardWriterNo((Integer)request.getSession().getAttribute("userNo"));
+			
 			int result=new SupportService().insertAnswer(supportAnswer);
 			
 			String view="";

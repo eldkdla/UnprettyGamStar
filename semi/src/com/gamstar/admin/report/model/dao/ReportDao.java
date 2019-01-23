@@ -182,4 +182,146 @@ private Properties prop=new Properties();
 		
 		return result;
 	}
+	
+	public int deleteNewspeed(Connection conn, int link)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteNewspeed");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, link);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("deleteNewspeed dao");
+		}
+		finally
+		{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteComment(Connection conn, int link)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deleteComment");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, link);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("deletecomm dao");
+		}
+		finally
+		{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//취소
+	public int cancelReport(Connection conn, int no)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("cancelReport");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,no);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	//검색
+	public List<ReportBoard> selectIdReportList(Connection conn, int cPage, int numPerPage,String searchKeyword)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		ArrayList<ReportBoard> list=new ArrayList();
+		String sql=prop.getProperty("selectIdReportList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			pstmt.setString(3, "%"+searchKeyword+"%");
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				ReportBoard r=new ReportBoard();
+				r.setReportBoardNo(rs.getInt("report_no"));
+				r.setReportBoardType(rs.getInt("report_type"));
+				r.setReportBoardLink(rs.getInt("report_link"));
+				r.setReportBoardWriterNo(rs.getInt("user_no"));
+				r.setReportBoardTargetNo(rs.getInt("target_user_no"));
+				r.setReportBoardTargetId(rs.getString("user_id"));
+				r.setReportBoardContent(rs.getString("report_content"));
+				r.setReportBoardDate(rs.getDate("report_date"));
+				r.setReportEndResult(rs.getInt("report_result"));
+				
+				list.add(r);
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	
+	public int selectIdReportCount(Connection conn, String searchKeyword)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("selectIdReportCount");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, "%"+searchKeyword+"%");
+			rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+				result=rs.getInt("cnt");
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

@@ -4,6 +4,8 @@
 <%
 	Map<Integer,List<ReportBoardMedia>> mList=(Map<Integer,List<ReportBoardMedia>>)request.getAttribute("mediaList");
 	List<ReportBoard> list=(List)request.getAttribute("list");
+	String searchType=request.getParameter("searchType");
+	String searchKeyword=request.getParameter("searchKeyword");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
 	
@@ -618,7 +620,7 @@
                 <% if(list==null || list.isEmpty()) { %>
                 	<tr>
                 		<td colspan='7'>
-                			신고된 내용이 없습니다
+                			'<%=searchKeyword %>'로 검색되는 결과가 없습니다.
                 		</td>
                 	</tr>
                 <%}
@@ -662,9 +664,7 @@
                        		<%if((Integer)r.getReportEndResult()==null||r.getReportEndResult()==0) {%>
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
                             <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button>
-                            <%}else if(r.getReportEndResult()==-1){%>
-                            	&nbsp;
-                       		<%}else{%>
+                            <%} else{%>
                             	정지(<%=r.getReportEndResult() %>)
                             <%} %>
                         </td>
@@ -699,13 +699,13 @@
                     <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/reportSearch' method='post'>
-                    <select name='searchType'>
+                <form id='searchReport' name='searchReport' style="float:right; ">
+                    <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='type'>타입</option>
                     </select>
-                    <input type='text' name='searchKeyword'/>
-                    <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
+                    <input type='text' name='str'/>
+                    <button class='searchBtn'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>
             <div class='pageChange' style="clear:both;">
@@ -864,29 +864,29 @@
         }
         
         function deleteAllTr(){}
-		function cancelAllTr(){
-		        	
+        function cancelAllTR(){
+        	
 			$("#stopForm").attr("action", "<%=request.getContextPath() %>/admin/reportCancel");
-			$("#stopForm").attr("onsubmit", "submit()");
-	    	
-	    	$('.checks:checked').each(function(){
-	    		tr=$(this).parent().parent();
-	    		
-	    		reportedTargetNo=$(tr).children('td:first-of-type').children('.reportedTargetNo').val();
-	    		tempTargetNo=$('#reportedId').val();
-	        	$('#reportedId').val(tempTargetNo+reportedTargetNo+' ');
-	        	
-	        	reportedTargetId=$(tr).children('.reportedTargetName').text();
-	        	tempTargetId=$('#reportedName').val();
-	        	$('#reportedName').val(tempTargetId+reportedTargetId+' ');
-	        	
-	        	reportBoardNo=$(tr).children('td:first-of-type').children('.reportBoardNo').val();
-	        	tempBoardNo=$('#reportBoardNo').val();
-	        	$('#reportBoardNo').val(tempBoardNo+reportBoardNo+' ');
-	        	
-	        	$('#stopForm').submit();
-	    	});
-	    }
+        	
+        	$('.checks:checked').each(function(){
+        		tr=$(this).parent().parent();
+        		
+        		reportedTargetNo=$(tr).children('td:first-of-type').children('.reportedTargetNo').val();
+        		tempTargetNo=$('#reportedId').val();
+            	$('#reportedId').val(tempTargetNo+reportedTargetNo+' ');
+            	
+            	reportedTargetId=$(tr).children('.reportedTargetName').text();
+            	tempTargetId=$('#reportedName').val();
+            	$('#reportedName').val(tempTargetId+reportedTargetId+' ');
+            	
+            	reportBoardNo=$(tr).children('td:first-of-type').children('.reportBoardNo').val();
+            	tempBoardNo=$('#reportBoardNo').val();
+            	$('#reportBoardNo').val(tempBoardNo+reportBoardNo+' ');
+            	
+            	$('#stoptype0').val(0);
+            	$('#stopForm').submit();
+        	});
+        }
 
     </script>
 </body>

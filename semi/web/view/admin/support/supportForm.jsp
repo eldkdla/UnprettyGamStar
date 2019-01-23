@@ -155,7 +155,7 @@ textarea#supportAnswer{
                         <div class='showMedia'>
                             <div class='scrollWrapper'>
                             	<% for(SupportBoardMedia m : mlist) { %>
-                                	<img class='supImg' src='<%=request.getContextPath() %><%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
+                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
                                 <%} %>
                             </div>
                         </div>
@@ -173,7 +173,7 @@ textarea#supportAnswer{
                             &nbsp;
                             <% for(SupportBoardMedia m : mlist) { %>
                             <br/>
-                            <a onclick='showImg("<%=request.getContextPath() %><%=m.getSupportBoardMediaPathRe() %>");'>
+                            <a onclick='showImg("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
                             	<%=m.getSupportBoardMediaPathOri().substring(m.getSupportBoardMediaPathOri().lastIndexOf("/")+1) %>
                            	</a>
                            	<%} %>

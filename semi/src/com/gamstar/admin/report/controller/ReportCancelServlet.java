@@ -1,7 +1,6 @@
 package com.gamstar.admin.report.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,16 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import com.gamstar.admin.report.model.service.ReportService;
 
 /**
- * Servlet implementation class ReportUserBanServlet
+ * Servlet implementation class ReportCancelServlet
  */
-@WebServlet("/admin/report/selectUserBan")
-public class ReportSelectUserBanServlet extends HttpServlet {
+@WebServlet("/admin/reportCancel")
+public class ReportCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReportSelectUserBanServlet() {
+    public ReportCancelServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,7 +28,6 @@ public class ReportSelectUserBanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
@@ -43,38 +41,17 @@ public class ReportSelectUserBanServlet extends HttpServlet {
 		}
 		else
 		{
-			String reportedTargetNo=(String)request.getParameter("reportedId").trim();
-			String reportedTargetId=(String)request.getParameter("reportedName").trim();
 			String reportBoardNo=(String)request.getParameter("reportBoardNo").trim();
-			
-			String stopType=request.getParameter("stoptype");
-			
-			String[] targetNoStrs=reportedTargetNo.split(" ");
-			String[] targetIdStrs=reportedTargetId.split(" ");
 			String[] boardNoStrs=reportBoardNo.split(" ");
 			
-			int[] targetNos=new int[targetNoStrs.length];
 			int[] boardNos=new int[boardNoStrs.length];
 			
-			
-			for(int i=0; i<targetNos.length; i++)
+			for(int i=0; i<boardNoStrs.length; i++)
 			{
-				targetNos[i]=Integer.parseInt(targetNoStrs[i]);
 				boardNos[i]=Integer.parseInt(boardNoStrs[i]);
 			}
 			
-			
-			int stopdays=999999999;
-			
-			if(stopType.equals("temp"))
-			{
-				stopdays=Integer.parseInt(request.getParameter("stopdays"));			
-			}
-			
-			
-			int result=0;
-			
-			result=new ReportService().setSelectUserStop(targetNos,stopdays,boardNos);
+			int result=new ReportService().cancelReport(boardNos);
 			
 			String view="/view/common/msg.jsp";
 			String msg="";
@@ -82,19 +59,7 @@ public class ReportSelectUserBanServlet extends HttpServlet {
 			
 			if(result>0)
 			{
-				if(targetIdStrs.length<3)
-				{
-					String name="";
-					for(String s : targetIdStrs)
-					{
-						name+=s+" ";
-					}
-					msg=name.trim()+" 회원을"+stopdays+"일 정지시켰습니다.";
-				}
-				else
-				{
-					msg=targetIdStrs.length+"명의 회원을"+stopdays+"일 정지시켰습니다.";
-				}
+				msg=boardNos.length+"개의 신고를 처리하였습니다";
 				loc="/admin/reportList";
 			}
 			else

@@ -146,6 +146,7 @@ public class AdminManagerDao {
 		}
 		return result;
 	}
+	
 	//어드민 추가
 	public int createAdmin(Connection conn, User admin)
 	{

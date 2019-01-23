@@ -84,7 +84,7 @@ public class SupportViewServlet extends HttpServlet {
 			else
 			{
 				view="/view/common/msg.jsp";
-				request.setAttribute("loc", request.getContextPath()+"/admin/supportList");
+				request.setAttribute("loc", "/admin/supportList");
 				request.setAttribute("msg", "게시물이 없습니다");
 			}
 			
