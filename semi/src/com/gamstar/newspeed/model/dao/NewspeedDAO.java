@@ -565,12 +565,32 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 	public int deleteNewspeedStore(Connection conn, int userNo, int newspeedNo) {
 		String sql = prop.getProperty("deleteNewspeedStore");
 		PreparedStatement pstmt = null;
+	
 		int result = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(2, userNo);
 			pstmt.setInt(1, newspeedNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewspeedComment(Connection conn, NewspeedComment newspeedComment) {
+		String sql = prop.getProperty("deleteNewspeedStore");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
 			result = pstmt.executeUpdate();
 			
 

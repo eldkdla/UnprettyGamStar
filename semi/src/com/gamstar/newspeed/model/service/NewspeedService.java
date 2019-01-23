@@ -266,6 +266,21 @@ public class NewspeedService {
 		
 	}
 	
+	public int insertNewspeedComment(NewspeedComment newspeedComment) {
+		Connection conn = getConnection();
+		int result = newspeedDAO.insertNewspeedComment(conn,newspeedComment);
+	
+		if (result < 1) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
 
 	
 	//'{"commentList":[{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commenftContent":"날씨가 너무 춥네요~", "commentIndex":1},{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commentContent":"날씨가 너무 춥네요~", "commentIndex":1}],"fileList":[{"mediaIndex":1,"fileName":"btn_add_media.png","tagList":[{"tagIndex":0,"mediaIndex":1,"x":"0.03350970017636689","y":"0.4192790451074912","userNo":"6", "userName":"반가워"}]}, {"mediaIndex":2,"fileName":"m-series-2015-upscaling-4k-large.jpg","tagList":[{"tagIndex":0,"mediaIndex":2,"x":"0.28924162257495595","y":"0.44327739509527836","userNo":"6","userName":"반가워"}]}],

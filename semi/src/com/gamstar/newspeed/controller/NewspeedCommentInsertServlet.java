@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gamstar.newspeed.model.service.NewspeedService;
+import com.gamstar.newspeed.model.vo.NewspeedComment;
+
 /**
  * Servlet implementation class NewspeedCommentInsertServlet
  */
@@ -29,6 +32,23 @@ public class NewspeedCommentInsertServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		if (request.getSession().getAttribute("userNo") == null) {
+			return;
+		}
+		
+		
+		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
+		int userNo = (int)request.getSession().getAttribute("userNo");
+		String content = request.getParameter("content");
+		
+		NewspeedComment newspeedComment = new NewspeedComment();
+		newspeedComment.setUserNo(userNo);
+		newspeedComment.setContent(content);
+		newspeedComment.setNewspeedNo(newspeedNo);
+		
+		NewspeedService nService = new NewspeedService();
+		
+		int result = nService.insertNewspeedComment(newspeedComment);
 	}
 
 	/**
