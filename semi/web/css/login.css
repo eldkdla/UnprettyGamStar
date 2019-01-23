@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+/* login */
+section#login-container {
+	width: 600px;
+	min-width:600px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#xxx {
+	border: 1px dotted black;
+	/* background-color: beige; */
+}
+
+#plus {
+	border: 2px solid sandybrown;
+	/*background-color: coral*/
+}
+
+#welcome {
+	margin-top: 2%;
+}
+
+.loginLabel {
+	/* display: inline-block; */
+	/* text-align: right; */
+	width: 85px;
+	font-size: 17px;
+	font-weight: bold;
+	background: white;
+	font-family: 'Jua', sans-serif;
+}
+
+.loginButton {
+	position: relative;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	font-weight: bolder;
+	width: 70px;
+	height: 70px;
+	font-size: 15px;
+	cursor: pointer;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+table, th, tr, td {
+	border: 1px solid red;
+}
+
+#loginTable {
+	width: 350px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.loginInput {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+
+	background-color: white;
+
+	
+	border: 2px solid rgba(213, 213, 213, 50);
+ 	margin: 0 auto;
+	outline: none;
+	border-radius: 2px;
+	width: 87%;
+	font-size: 15px;
+	font-weight: bold;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.loginLogo {
+	font-weight: bold;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+p#capslock {
+	border:1px dashed red;
+	position: absolute;
+	top: 57%;
+	margin: 0%;
+}
+
+.btn {
+	position: relative;
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-color: white;
+	outline: none;
+}
+
+#plus_login{
+	/* width : 400px; */
+	display: flex;
+flex-direction: row;
+/* justify-content: space-around; */
+justify-content: center;
+margin : 4px;
+margin-left : 4px;
+
+
+}

@@ -15,7 +15,8 @@
     <div id="wrapper">
         <!-- 헤더(메뉴, 로고) -->
         <header>
-            <p>메인메뉴</p>
+            <!-- 임시메인 -->
+            <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
         </header>
         <!-- 모바일용 서브 메뉴버튼 -->
         <div id='openMenuDiv'>

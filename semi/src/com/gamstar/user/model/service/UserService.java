@@ -16,7 +16,6 @@ public class UserService {
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){
 				
-
 			User userData=new UserDao().selectUser(conn,user);
 				
 			return userData;
@@ -335,5 +334,99 @@ public class UserService {
 		
 		return userList;
 	}
+	
+	//유저로그인
+		public User loginCheck(User u) {
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheck(conn, u);
+			close(conn);
+			return data;
+		}
+		
+		//네이버유저로그인
+		public User loginCheckNaver(User u) {
+			System.out.println("서비스는 왔니? 네이년 서블릿");
+			Connection conn = getConnection();
+			User data = new UserDao().loginCheckNaver(conn, u);
+			close(conn);
+			return data;
+		}
+		
+		//가입아이디 중복체크
+		public User userIdChk(User user){
+			Connection conn=getConnection();
+			
+			User data = new UserDao().loginCheck(conn,user);
+			
+			close(conn);
+			return data;
+		}
+		
+		//회원가입 TB_USER
+		public int insertUser(User u) {
+			Connection conn = getConnection();
+			int newUserNo = new UserDao().selectNextNewUserNo(conn);
+			u.setNo(newUserNo);//get SEQ_USER_NO.NEXTVAL
+			System.out.println("다음 시퀀스 : "+newUserNo);
+			int result = new UserDao().insertUser(conn, u);
+			
+			if(result>0)//입력성공
+			{
+				//commit(conn);
+			}
+			else{
+				//rollback(conn);
+			}
+			close(conn);
+			
+			return result;
+		}
+		
+		//회원가입 TB_BASIC_USER
+		public int insertUserBasic(User u) {
+			Connection conn = getConnection();			
+			
+			int tbUserResult = insertUser(u);
+			System.out.println("상위 : "+tbUserResult);
+			//int nowUserNo = new UserDao().selectNowUserNo(conn);
+//			u.setNo(nowUserNo);//get SEQ_USER_NO.CURRVAL  //안써도 될듯.
+			System.out.println("basic에 지금 시퀀스 : "+u.getNo());
+			int result = new UserDao().insertUserBasic(conn, u);
+			System.out.println("하위 : "+result);
+			if(result > 0 && tbUserResult > 0)
+			{
+				commit(conn);
+				return result;
+			}
+			else
+			{
+				rollback(conn);
+				return -1;
+			}			
+			 
+		}
+		
+		//회원가입 TB_NAVER_USER
+		public int insertUserNaver(User u) {
+			Connection conn = getConnection();			
+			
+			int tbUserResult = insertUser(u);
+			System.out.println("in naver 상위 : "+tbUserResult);
 
+			System.out.println("basic에 지금 시퀀스 : "+u.getNo());
+			
+			int result = new UserDao().insertUserNaver(conn, u);
+			System.out.println("in naver 하위 : "+result);
+			if(result > 0 && tbUserResult > 0)
+			{
+				commit(conn);
+				return result;
+			}
+			else
+			{
+				rollback(conn);
+				return -1;
+			}			
+			 
+		}
 }

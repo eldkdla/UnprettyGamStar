@@ -1,3 +1,5 @@
+<!-- 관리자용  -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
@@ -9,6 +11,7 @@
 	
 	if(userNo<0){
 %>
+
 <%@ include file="view/admin/common/header.jsp" %>
 <%} else{%>
 <!DOCTYPE html>
