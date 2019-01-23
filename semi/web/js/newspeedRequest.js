@@ -1010,6 +1010,7 @@ var isActiveContainerBtn = false;
                     console.log('성공입니다!!!!');
                 },
                 error:function(request,status,error){
+                	console.log('아직 응답페이지를 안들었어요..');
                     
                 }
 
