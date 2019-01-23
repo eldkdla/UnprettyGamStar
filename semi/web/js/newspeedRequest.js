@@ -176,7 +176,7 @@ var isActiveContainerBtn = false;
         }
         function addElement() {
         	
-            for (var i = 0; i < fileList.length; i++) {
+            for (var i = 0; i < fileList.length; i++) 	{
                 var imageNum = 0;
 
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list').append($('<div/>', {
@@ -325,6 +325,9 @@ var isActiveContainerBtn = false;
                     value: data.commentList[j].userNo
                 }));
             }
+            
+            $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(0)').attr('class','newspeedview_media_select');
+
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper').append($('<div/>', {
                 class: 'newspeedview_icon_wrapper'
@@ -561,7 +564,7 @@ var isActiveContainerBtn = false;
 
                 }
 
-                $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')');
+                
             }
             
       
@@ -574,6 +577,7 @@ var isActiveContainerBtn = false;
             if(fileList.length < 2) {
             	$('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .medialist_right_btn').css('display','none');
             }
+            $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(0)').attr('class','newspeedview_media_select');
 
             $('.newspeedview_list:eq(' + length5 + ')').append($('<div/>', {
                 class: 'newspeedview_all_content_wrapper'
@@ -754,16 +758,12 @@ var isActiveContainerBtn = false;
         var left2 = $('#newspeedview_list_wrapper > div').width();
         var length2 =$('#newspeedview_list_wrapper > .newspeedview_list_select').prevAll().length;
         
-        console.log(left2);
-        console.log('야반갑다!!!!!!!!!');
-        console.log(length2);
-        console.log('하하하하하');
         
         $('#newspeedview_list_wrapper > div').css('left',-(left2 * length2));
         
         $('.newspeedview_list_select .newspeedview_media_list > div').css('left', -(left * length));
         
-        console.log($('.newspeedview_list_select .newspeedview_media_list > div').css('left'));
+     
     }
 
     function resizeIcon() {
@@ -782,18 +782,13 @@ var isActiveContainerBtn = false;
         $('#container-left-btnnnn').off('click').on('click', function (e) {
             e.stopPropagation();
             
-            console.log('왼쪽으로 출발합니다!!');
-            
+ 
             if (isActiveContainerBtn) {
                 return;
             }
   
             var selList = $('.newspeedview_list_select').prevAll().length;
             var prevSel = $(selectedTag).prev();
-            
-            console.log(selList);
-            console.log('방가방가');
-            console.log(prevSel);
             
 
             if (selList != 0) {
@@ -802,8 +797,6 @@ var isActiveContainerBtn = false;
                 removeRightBtn();
                 removeLeftBtn();
             } else if (typeof $(prevSel).attr('value') != "undefined"){
-            	console.log('추가해야돼!!');
-            	
             	selectedTag = prevSel;
             	requestNewspeedInfoBefore($(selectedTag).attr('value'));
                 removeRightBtn();
@@ -826,12 +819,6 @@ var isActiveContainerBtn = false;
         var index = $('.newspeedview_list_select').prevAll().length;
         var select = $('.newspeedview_list_select');
         
-        console.log('여긴 왼쪽으로 움직여');
-        console.log(select);
-        console.log('반가워!!');
-        console.log(select.prev());
-        console.log(Number($('.newspeedview_list').css('left').replace("px", "")));
-        console.log(Number($('.newspeedview_list').width()));
 
         $('#newspeedview_list_wrapper > div').animate({
             left: (Number($('.newspeedview_list_select').css('left').replace("px", "")) + Number($('.newspeedview_list_select').width()))
