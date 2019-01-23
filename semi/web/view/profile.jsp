@@ -1419,7 +1419,6 @@
 			    progressBar=document.getElementById('storyProgressBar');
 			    
 			    <%if(userStory.getPath()!=""){%> //스토리있으면 테두리 추가
-			    	console.log("스토리있대");
 			    	$('#profilePhoto').css({'background-image': 'linear-gradient(white, white), radial-gradient(circle at top left, #FAED7D,#F361DC)','background-origin': 'border-box','background-clip': 'content-box, border-box'});
 			    <%}%>
 		});

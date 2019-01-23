@@ -10,7 +10,8 @@
 	<script src="http://code.jquery.com/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
         rel="stylesheet">
-
+	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 
 </head>
 <body>
@@ -52,12 +53,11 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이름</label>
-                            <input type="text" class="modifyInput" name="name" value='<%=user.getName() %>' style="background-color: rgb(219, 219, 219);border-color: rgb(219, 219, 219);"
-                                readonly="readonly" />
+                            <input type="text" class="modifyInput" id=modifyName name="name" value='<%=user.getName() %>' required /><!-- style="background-color: rgb(219, 219, 219);border-color: rgb(219, 219, 219);" readonly="readonly" -->
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이메일</label>
-                            <input type="email" class="modifyInput" id='modifiyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;" required />
+                            <input type="email" class="modifyInput" id='modifyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;" required />
                             <div class="chkEmailPhonePw" id="chkEmail"></div>
                         </div>
                         <div class="modifyInputDiv">
@@ -95,7 +95,7 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>이전 비밀번호</label>
-                            <input type="password" class="modifyInput" name="beforePw" id="beforePw" minlength="8" maxlength="20" required />
+                            <input type="password" class="modifyInput" name="beforePw" id="beforePw"  minlength="8" maxlength="20" required />
                             <div class="chkEmailPhonePw" id="chkBeforePw"></div>
                         </div>
                         <div class="modifyInputDiv2">
@@ -124,11 +124,10 @@
                             <input type="password" class="modifyInput" name="chkPw" id="chkPw" maxlength="15" required />
                             <div class="chkEmailPhonePw" id="chkPwDv"></div>
                         </div>
-
+                        
                         <br>
-
-                        <input type="submit" id='unregister' value="회원탈퇴 하기" disabled='true'  />
-
+                        
+                        <button type="button" id='unregister' disabled='true'>회원탈퇴</button>
 
                     </div>
                 </form>
@@ -137,6 +136,7 @@
         </div>
 
     <script>
+    
         //모바일인지 웹인지 확인해서 css 적용
         $(document).ready(function(){
         var filter = "win16|win32|win64|mac|macintel"; 
@@ -210,23 +210,42 @@
     </script>
 
     <script>
-        //이메일 중복확인+한글입력안되게
-        $('#modifiyEmail').keyup(function (event) {
-        	reg = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/g;
-            v = $(this).val();
-                  
-            if (reg.test(v)) {
-	            $(this).val(v.replace(reg, ''));
+    	//이름입력시 변경 활성화
+    	$('#modifyName').keyup(function(){
+    		reg = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
+    		
+    		if(reg.test($(this).val())){
+    			$(this).val($(this).val().replace(reg,''));
+    			$(this).focus();
+    		}
+    		else{
+	    		if($('#modifyName').val()!=""){
+	    			$('#modifyButton').css('background-color', 'cornflowerblue');
+	            	$('#modifyButton').removeProp('disabled');
+	    		}
+	    		else{
+	    			$('#modifyButton').css('background-color', 'gray');
+	                $('#modifyButton').prop('disabled', 'true');
+	    		}
+    		}
+    	});
+    	
+        //이메일 중복확인+한글+@를뺀 특수문자 입력안되게
+        $('#modifyEmail').keyup(function (event) {
+        	reg =/[^a-zA-Z0-9|@|.]/gi;
+ 
+            if (reg.test($(this).val())) {
+	            $(this).val($(this).val().replace(reg, ''));
 	            $(this).focus();
             }
             else{
-	        	if($('#modifiyEmail').val()==""){
+	        	if($('#modifyEmail').val()==""){
 	        		$('#chkEmail').html("");
 	        	}else{
 	            	$.ajax({
 	            		url:'<%=request.getContextPath()%>/view/chkPhone',
 	            		type:"POST",
-	            		data:{"chkEmail":$('#modifiyEmail').val()},
+	            		data:{"chkEmail":$('#modifyEmail').val()},
 	            		success:function(data){
 	            			if(data=="true"){
 	            				$('#chkEmail').html("이메일 중복").css('color', 'red');
@@ -418,6 +437,18 @@
 	    			
 	    		});
     		}
+    	});
+      
+    	$('#unregister').click(function(){
+    		$('body').alertBox({
+			        title: '회원탈퇴 하시겠습니까?',
+			        lTxt: '아니요',
+			        lCallback: function(){},
+			        rTxt: '네',
+			        rCallback: function(){
+						 $('#form3').submit();
+			        }
+			      });
     	});
 
     </script>

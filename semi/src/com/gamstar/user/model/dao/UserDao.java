@@ -171,7 +171,7 @@ public class UserDao {
 			}
 			return blockDataArray;
 		}
-		//스토리 확인
+		//스토리 선택
 		public NewspeedMedia selectStory(Connection conn, User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
@@ -214,7 +214,8 @@ public class UserDao {
 				pstmt.setString(3,user.getEmail());
 				pstmt.setString(4,user.getPhone());
 				pstmt.setInt(5,user.getDisclosure());
-				pstmt.setInt(6,user.getNo());
+				pstmt.setString(6, user.getName());
+				pstmt.setInt(7,user.getNo());
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {
@@ -308,6 +309,26 @@ public class UserDao {
 				close(pstmt);
 			}
 			return result;
+		}
+		//스토리추가
+		public int insertStory(Connection conn,NewspeedMedia newUserStory,User user){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("insertStory");
+			int result=0;
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				pstmt.setInt(2, 1);
+				pstmt.setString(3, newUserStory.getPath());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+			
 		}
 		//스토리변경
 		public int updateStory(Connection conn,NewspeedMedia newUserStory,User user){

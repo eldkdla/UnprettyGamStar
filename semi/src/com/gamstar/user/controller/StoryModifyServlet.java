@@ -42,9 +42,7 @@ public class StoryModifyServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
-			
-			Connection conn=getConnection();
-			
+
 			String msg="";
 			String loc="";
 			
@@ -53,11 +51,13 @@ public class StoryModifyServlet extends HttpServlet {
 			System.out.println("path: "+path);
 			
 			if(ServletFileUpload.isMultipartContent(request)){
+				Connection conn=getConnection();
+				
 				int maxSize=1024*1024*100;//100MB
 				MultipartRequest multi = new MultipartRequest(request, path,maxSize,"utf-8", new DefaultFileRenamePolicy());
 			
 				User user=new User();
-				user.setNo(Integer.parseInt(multi.getParameter("storyUserNo")));
+				user.setNo((int)request.getSession().getAttribute("userNo"));			
 				
 				int result=0;
 				NewspeedMedia newUserStoy=new NewspeedMedia();
@@ -65,7 +65,12 @@ public class StoryModifyServlet extends HttpServlet {
 				
 				if(multi.getFilesystemName("uploadProfileStory")!=null){
 					newUserStoy.setPath("upload/story/"+multi.getFilesystemName("uploadProfileStory"));
-					result=new UserService().updateStory(conn,newUserStoy,user);
+					if(oldUserStory.getPath()==""){
+						result=new UserService().insertStory(conn,newUserStoy,user);
+					}
+					else{
+						result=new UserService().updateStory(conn,newUserStoy,user);
+					}
 				}
 				
 				if(result!=0){
@@ -77,13 +82,12 @@ public class StoryModifyServlet extends HttpServlet {
 						}
 					msg="스토리 변경 성공";
 					loc="/view/profile";
-					System.out.println("스토리 변경 성공");
 				}
 				else{
 					msg="스토리 변경 실패";
 					loc="/view/profile";
 				}
-				
+				close(conn);
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", loc);
 				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
@@ -93,16 +97,13 @@ public class StoryModifyServlet extends HttpServlet {
 				response.sendRedirect("profile");
 			}
 			
-			close(conn);
-			
 		}
 		else{
 			request.setAttribute("msg", "잘못된 접근");
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
-		
-		
+	
 	}
 
 	/**
