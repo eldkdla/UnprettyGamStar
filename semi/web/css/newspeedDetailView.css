@@ -22,6 +22,7 @@
             width:auto;
             min-width: 60px;
             height:17px;
+            border:500px solid red;
 	        background: rgba(0,0,0,0.3);
             content:"임태완";
             border-radius: 10px;
@@ -166,26 +167,28 @@
         }
         
         #container-right-btn2{
-            display:inline-block;
-            position: absolute;
-            top:45%;
-            right:0;
-            box-sizing: border-box;
-            background-image:url('../img/newspeeddetailview/newspeed_next_icon.png');
-            background-size:cover;
-            width:500px;
-            height:80px;
-            opacity: 0.5;
-            z-index:300000000;
-        }
-        
+	            display:inline-block;
+	            position: absolute;
+	            top:45%;
+	            right:0;
+	            box-sizing: border-box;
+	            background-image:url('../img/newspeeddetailview/newspeed_next_icon.png');
+	            background-size:cover;
+	            width:500px;
+	            height:80px;
+	            opacity: 0.5;
+	            z-index:300000000;
+	        }
+	        
 
         #container-right-btnnnn:hover{
             cursor: pointer;
+            opacity:0.8;
         }
 
         #container-left-btnnnn:hover{
             cursor: pointer;
+            opacity:0.8;
         }
 
         .medialist_left_btn{

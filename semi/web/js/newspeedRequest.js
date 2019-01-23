@@ -215,11 +215,11 @@ var isActiveContainerBtn = false;
                 	console.log(tagList[j]);
                 	console.log('요기임당');
                 	
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > img').append($('<div/>', {
+                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > img').append($('<p/>', {
                         class: 'balloons',
                         text: tagList[j].userName,
-                        left: (300),
-                        top: (300)
+                        left: (150),
+                        top: (150)
                     }));
 
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
@@ -756,6 +756,7 @@ var isActiveContainerBtn = false;
 
     $(window).resize(function () {
         resizeNewspeedview();
+        onClickLike();
     });
 
     function resizeNewspeedview() {
@@ -993,7 +994,13 @@ var isActiveContainerBtn = false;
     function onClickBackground() {
         $('#newspeedview_btn_wrapper').off().on('click', function (e) {
             e.stopPropagation();
+            
             $(this).slideToggle();
+        });
+        
+        $('#newspeedview_btn_wrapper *').on('click', function (e) {
+            e.stopPropagation();
+            
         });
 
     }
@@ -1001,32 +1008,115 @@ var isActiveContainerBtn = false;
     function onClickLike() {
         $('.newspeed_like_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
+            var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+            console.log(newspeedNo);
+            var div = $(this);
 
             $.ajax({
                 url: '../newspeed/newspeedlike',
                 type: "POST",
                 data: { "newspeedNo": newspeedNo },
                 success: function (data) {
-                    console.log('성공입니다!!!!');
+                	console.log(data);
+                    if (data != "error") {
+                    	$(div).removeClass();
+                    	$(div).addClass(data);
+                    
+                    }
+                    onClickLike();
                 },
                 error:function(request,status,error){
                 	console.log('아직 응답페이지를 안들었어요..');
                     
                 }
-
      
             });
             
         });
+        
+        $('.newspeed_like_active_icon_wrapper').off('click').on('click', function (e) {
+            e.stopPropagation();
+            var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+            console.log(newspeedNo);
+            var div = $(this);
+
+            $.ajax({
+                url: '../newspeed/newspeedlike',
+                type: "POST",
+                data: { "newspeedNo": newspeedNo },
+                success: function (data) {
+                	console.log(data);
+                    if (data != "error") {
+                    	$(div).removeClass();
+                    	$(div).addClass(data);
+                    
+                    }
+                    onClickLike();
+                },
+                error:function(request,status,error){
+                	console.log('아직 응답페이지를 안들었어요..');
+                    
+                }
+     
+            });
+            
+        });
+       
     }
 
     function onClickStore() {
         $('.newspeed_store_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo + '번게시물');
+            console.log(newspeedNo);
+            var div = $(this);
 
-            showMiniModal('저장');
+            $.ajax({
+                url: '../newspeed/newspeedstore',
+                type: "POST",
+                data: { "newspeedNo": newspeedNo },
+                success: function (data) {
+                	console.log(data);
+                    if (data != "error") {
+                    	$(div).removeClass();
+                    	$(div).addClass(data);
+                    
+                    }
+                    onClickStore();
+                },
+                error:function(request,status,error){
+                	console.log('아직 응답페이지를 안들었어요..');
+                    
+                }
+            });
+
+        });
+        
+        
+        $('.newspeed_store_active_icon_wrapper').off('click').on('click', function (e) {
+            e.stopPropagation();
+            var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+            console.log(newspeedNo);
+            var div = $(this);
+
+            $.ajax({
+                url: '../newspeed/newspeedstore',
+                type: "POST",
+                data: { "newspeedNo": newspeedNo },
+                success: function (data) {
+                	console.log(data);
+                    if (data != "error") {
+                    	$(div).removeClass();
+                    	$(div).addClass(data);
+                    
+                    }
+                    onClickStore();
+                },
+                error:function(request,status,error){
+                	console.log('아직 응답페이지를 안들었어요..');
+                    
+                }
+            });
 
         });
     }
@@ -1074,7 +1164,11 @@ var isActiveContainerBtn = false;
 
                 console.log('전송데스요');
             }
-        })
+        });
+        
+        function writeNewspeedComment(newspeedNo, commentContent) {
+        	
+        }
     }
 
     function showMiniModal(message, left, top) {
