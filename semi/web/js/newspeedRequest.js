@@ -665,9 +665,18 @@ var isActiveContainerBtn = false;
                 class: 'newspeedview_icon_wrapper'
             }));
 
+            
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
                 class: 'newspeed_like_icon_wrapper'
             }));
+            
+            console.log(data.isLike);
+            
+            if (data.isLike == "false") {
+            	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper .newspeed_like_icon_wrapper').css('background','url(../img/newspeeddetailview/newspeed_like_active.png)');
+            } else if (data.isLike == "false") {
+            	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper .newspeed_like_icon_wrapper').css('background','url(../img/newspeeddetailview/newspeed_like.png)');
+            }
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
                 class: 'newspeed_report_icon_wrapper'
