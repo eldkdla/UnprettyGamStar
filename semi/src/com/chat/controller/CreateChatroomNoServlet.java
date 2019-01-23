@@ -37,7 +37,7 @@ public class CreateChatroomNoServlet extends HttpServlet {
 			System.out.println(otherUserNo[i]);
 		}
 		String previewMsg="";
-		int myNo=10;
+		int myNo=1;
 		int chatroomNo=new CreateChatroomNoService().callPreviewMessage(otherUserNo,myNo);
 		System.out.println("서블릿프리뷰:"+previewMsg);
 		JSONArray previewMessage=new JSONArray();

@@ -116,7 +116,7 @@
     	var naverLogin = new naver.LoginWithNaverId(
     			{
     				clientId: "fqOHJi8WFN9_xpysEVQG",
-    				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
+    				callbackUrl: "http://192.168.20.242:9090/GamStar/view/ncallback.jsp",
     				isPopup: true, /* 팝업을 통한 연동처리 여부 */
     				callbackHandle: true,
     				loginButton: {color: "green", type: 2, height: 30 } /* 로그인 버튼의 타입을 지정 */
