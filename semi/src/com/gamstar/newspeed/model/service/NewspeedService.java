@@ -57,6 +57,27 @@ public class NewspeedService {
 			return tagContentDataArray;
 			}
 			
+			//게시물 삭제
+			public int deleteNewspeed(Newspeed newspeed){
+				Connection conn=getConnection();
+				
+				int result=new NewspeedDAO().deleteNewspeed(conn,newspeed);
+				
+				try {
+					if(result!=0){
+						conn.commit();				
+					}else{
+						conn.rollback();
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				close(conn);
+					
+				return result;
+			}
+			
 			//저장게시물 삭제
 			public int deleteStoredNewspeed(Newspeed newspeed){
 				Connection conn=getConnection();

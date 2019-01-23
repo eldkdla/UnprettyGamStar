@@ -121,6 +121,28 @@ public class NewspeedDAO {
 				return tagContentDataArray;
 			} 
 			
+			//게시물 삭제
+			public int deleteNewspeed(Connection conn,Newspeed newspeed){
+				PreparedStatement pstmt=null;
+				String sql=prop.getProperty("deleteNewspeed");
+				int result=0;
+				
+				try{
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setInt(1, newspeed.getNo());
+					pstmt.setInt(2, newspeed.getUserNo());
+					
+					result=pstmt.executeUpdate();
+					
+				}catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					close(pstmt);
+				}
+				
+				return result;
+			}
+			
 			//저장 게시물 삭제
 			public int deleteStoredNewspeed(Connection conn,Newspeed newspeed){
 				PreparedStatement pstmt=null;

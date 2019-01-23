@@ -859,6 +859,46 @@
                   		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
               	    <%}%>
                 }));
+            	 
+            	 <%if(user.getNo()==(int)request.getSession().getAttribute("userNo")){%>
+            	 $('#profileContent1>div:nth-child(<%=i+1%>)').append($('<button/>',{
+  					class:'contentCancelBt',
+  					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
+  				 }));
+            	 
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
+            	 
+  				 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
+  				 e.stopPropagation(); //부모 이벤트 실행 안되게
+  				 var deleteNewspeedDiv1=$(this).parent();
+  				 var storedNewspeedNo1=$(this).parent().attr("value");
+  				 $('body').alertBox({
+  				        title:'게시물을 지우시겠습니까?',
+  				        lTxt: '아니요',
+  				        lCallback: function(){},
+  				        rTxt: '네',
+  				        rCallback: function(){
+  							 $.ajax({
+  								url:'<%=request.getContextPath()%>/view/deletenewspeed',
+  								type:"POST",
+  								data:{"storedNewspeedNo1":storedNewspeedNo1},
+  								success:function(){
+  									deleteNewspeedDiv1.remove();
+  								}
+  							}); 
+  				        }
+  				      });
+  				 });
+  				 
+  				$('#profileContent1>:eq(<%=i%>)').hover(function(){
+  					 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","");
+  				},function(){
+  					$(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+  				});
+  				<%}%>
+  				
             	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
          		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
