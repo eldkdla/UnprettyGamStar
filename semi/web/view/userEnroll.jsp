@@ -113,8 +113,8 @@ align-items: center; */
 
     //비밀번호 정규식
     $('#userPw').on('change keyup paste', (function () {
-        if (regExp_pw.test($(this).val())) {
-        	//if (1) {
+        //if (regExp_pw.test($(this).val())) {
+        	if (1) {
             console.log('pw참참')
             $("#pw_check").text('');
         }

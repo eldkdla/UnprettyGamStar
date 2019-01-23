@@ -16,7 +16,6 @@ public class UserService {
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){
 				
-
 			User userData=new UserDao().selectUser(conn,user);
 				
 			return userData;
