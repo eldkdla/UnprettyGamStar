@@ -377,6 +377,11 @@
             background-image:url('../img/newspeeddetailview/newspeed_like.png');
             left:2%;
         }
+        
+         .newspeedview_icon_wrapper .newspeed_like_active_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_like_active.png');
+            left:2%;
+        }
 
         .newspeedview_icon_wrapper .newspeed_comment_icon_wrapper{
             background-image:url('../img/newspeeddetailview/newspeed_stored_active.png');
@@ -389,6 +394,11 @@
         }
         .newspeedview_icon_wrapper .newspeed_store_icon_wrapper{
             background-image:url('../img/newspeeddetailview/newspeed_store_icon.png');
+            left:75%;
+        }
+        
+                .newspeedview_icon_wrapper .newspeed_store_active_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_store_active_icon.png');
             left:75%;
         }
 
@@ -423,6 +433,12 @@
 
         .newspeedview_media_image{
             position: relative;
+            top:50%;
+            transform:translateY(-50%);
+        }
+        
+        .newspeedview_media_image_wrapper{
+        	position: relative;
             top:50%;
             transform:translateY(-50%);
         }

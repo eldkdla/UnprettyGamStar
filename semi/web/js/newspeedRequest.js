@@ -74,8 +74,6 @@ var isActiveContainerBtn = false;
         console.log(length5);
         
         $('#newspeedview_list_wrapper > div').css('left', (left-width));
-        
-        console.log('이제 뉴스피드 번호를 더하자!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<input/>', {
             type: 'hidden',
@@ -83,7 +81,6 @@ var isActiveContainerBtn = false;
             value: newspeedNo
         }));
 
-        console.log('이제 미디어를 감싸야지!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<div/>', {
             class: 'newspeedview_media_list_wrapper'
@@ -332,18 +329,31 @@ var isActiveContainerBtn = false;
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper').append($('<div/>', {
                 class: 'newspeedview_icon_wrapper'
             }));
-
+            
+            var iconClass = 'newspeed_like_icon_wrapper';
+            
+            console.log(data.isLike);
+            
+            if (data.isLike) {
+            	iconClass = 'newspeed_like_active_icon_wrapper';
+            }
+            
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
-                class: 'newspeed_like_icon_wrapper'
+                class: iconClass
             }));
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
                 class: 'newspeed_report_icon_wrapper'
             }));
 
+            iconClass = 'newspeed_store_icon_wrapper';
+            
+            if (data.isStore){
+            	iconClass = 'newspeed_store_active_icon_wrapper'
+            }
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
-                class: 'newspeed_store_icon_wrapper'
+                class:iconClass
             }));
 
 
@@ -665,26 +675,30 @@ var isActiveContainerBtn = false;
                 class: 'newspeedview_icon_wrapper'
             }));
 
-            
-            $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
-                class: 'newspeed_like_icon_wrapper'
-            }));
+            var iconClass = 'newspeed_like_icon_wrapper';
             
             console.log(data.isLike);
             
-            if (data.isLike == "false") {
-            	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper .newspeed_like_icon_wrapper').css('background','url(../img/newspeeddetailview/newspeed_like_active.png)');
-            } else if (data.isLike == "false") {
-            	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper .newspeed_like_icon_wrapper').css('background','url(../img/newspeeddetailview/newspeed_like.png)');
+            if (data.isLike) {
+            	iconClass = 'newspeed_like_active_icon_wrapper';
             }
+            
+            $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
+                class: iconClass
+            }));
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
                 class: 'newspeed_report_icon_wrapper'
             }));
 
+            iconClass = 'newspeed_store_icon_wrapper';
+            
+            if (data.isStore){
+            	iconClass = 'newspeed_store_active_icon_wrapper'
+            }
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_icon_wrapper').append($('<div/>', {
-                class: 'newspeed_store_icon_wrapper'
+                class:iconClass
             }));
 
 
@@ -988,12 +1002,20 @@ var isActiveContainerBtn = false;
         $('.newspeed_like_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
 
-            var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo + '번게시물');
+            $.ajax({
+                url: '../newspeed/newspeedlike',
+                type: "POST",
+                data: { "newspeedNo": newspeedNo },
+                success: function (data) {
+                    console.log('성공입니다!!!!');
+                },
+                error:function(request,status,error){
+                    
+                }
 
-            console.log(e.pageX);
-
-            showMiniModal('좋아요', e.pageX, e.pageY);
+     
+            });
+            
         });
     }
 
