@@ -51,7 +51,7 @@ public class PreviewChatLisitServlet extends HttpServlet {
 			System.out.println("메세지 보낸 유저 번호 : "+previewlist.get(i).getMessageUserNo());
 		}*/
 		JSONArray previewChatarr=new JSONArray();
-		SimpleDateFormat datefm=new SimpleDateFormat("hh:mm");
+		SimpleDateFormat datefm=new SimpleDateFormat("HH:mm");
 		for (int j = 0; j < previewlist.size(); j++) {
 			datefm.format(previewlist.get(j).getMessageTime());
 			JSONObject previewChat=new JSONObject();

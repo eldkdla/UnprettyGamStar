@@ -36,6 +36,7 @@ public class PreviewChatListDao {
 		PreparedStatement pstmt2=null;
 		PreparedStatement pstmt3=null;
 		PreparedStatement pstmt4=null;
+		Timestamp timestamp = Timestamp.valueOf("2000-10-10 00:00:00.0");
 		ArrayList<PreiviewChatList> previewlist=new ArrayList<PreiviewChatList>();
 		boolean flag=true;
 		String sql = prop.getProperty("callPreviewChatroomNo");
@@ -97,7 +98,7 @@ public class PreviewChatListDao {
 				}
 				else {
 					preview.setChatPreview("");
-					preview.setMessageTime(new Timestamp(0));
+					preview.setMessageTime(timestamp);
 					preview.setMessageUserNo(0);
 					preview.setReadState(0);
 					previewlist.add(preview);
