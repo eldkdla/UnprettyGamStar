@@ -51,6 +51,8 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		if (isError(request)) {
 
 		}
+		
+		System.out.println(request.getServletContext().getRealPath("/") +"절대");
 
 		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
 		int userNo = (int)request.getSession(false).getAttribute("userNo");
@@ -107,13 +109,13 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		JSONObject json = new JSONObject();
 		JSONArray commentListJSONArray = null;
 		JSONObject fileListJSON = null;
-
+		
+		json = getFileListJSON(newspeed, newspeedMediaList, newspeedMediaTagList);
 		inputNewspeedWriterInJSON(writer, json);
 		commentListJSONArray = getCommentListJSONArray(commentList);
-		fileListJSON = getFileListJSON(newspeed, newspeedMediaList, newspeedMediaTagList);
+		
 		
 		json.put("commentList", commentListJSONArray);
-		json.put("fileList", fileListJSON);
 		
 		return json;
 	}
@@ -156,6 +158,8 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		}
 
 		newspeedJSONObject.put("fileList", mediaListJSONArray);
+		
+		System.out.println("야야양ㅁ"+newspeedJSONObject);
 
 		return newspeedJSONObject;
 	}
@@ -167,8 +171,15 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 
 		for (int i = 0; i < tagList.size(); i++) {
 			NewspeedMediaTag tag = tagList.get(i);
-			if (index == tag.getNewspeedNo()) {
-				tagListJSONArray.add(tag);
+			JSONObject tagJSON = new JSONObject();
+			if (index == tag.getMediaIndex()) {
+				tagJSON.put("mediaIndex", index);
+				tagJSON.put("newspeedNo", tag.getNewspeedNo());
+				tagJSON.put("X", tag.getX());
+				tagJSON.put("Y", tag.getY());
+				tagJSON.put("userNo", tag.getUserNo());
+				tagJSON.put("userName", tag.getUserName());
+				tagListJSONArray.add(tagJSON);
 			}
 		}
 		// "fileList":[{"mediaIndex":1,"fileName":"btn_add_media.png","tagList":[{"tagIndex":0,"mediaIndex":1,"x":"0.03350970017636689","y":"0.4192790451074912","userNo":"6",

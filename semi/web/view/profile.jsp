@@ -21,7 +21,7 @@
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
-	
+	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
@@ -43,7 +43,175 @@
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
-    
+	
+	<div id="newspeedview_btn_wrapper">
+
+        <div id="container-left-btnnnn"></div>
+        <div id="newspeedview_container">
+
+            <div id="newspeedview_list_wrapper">
+                <div class="newspeedview_list_select">
+                    <input type="hidden" class="newspeedNo" value="1">
+
+                    <div class="newspeedview_media_list_wrapper">
+                        <div class="medialist_left_btn"></div>
+
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="userNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="medialist_right_btn"></div>
+
+                    </div>
+
+
+
+                    <div class="newspeedview_all_content_wrapper">
+                        <div class="newspeedview_writer_wrapper">
+                            <div class="newspeedview_writer_content_wrapper">
+                                <div class="newspeedview_profilephoto">
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                                <div class="newspeedview_writername">
+                                    <h4>임태완</h4>
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_content_wrapper">
+                            <div>
+                                <div class="newspeed_username">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_comment_wrapper">
+                            <div>
+                                <div class="newspeed_comment_user">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+
+                        </div>
+
+
+                        <div class="newspeedview_icon_wrapper">
+                            <div class="newspeed_like_icon_wrapper">
+
+                            </div>
+                            <div class="newspeed_store_icon_wrapper">
+
+                            </div>
+
+                        </div>
+                        <hr class="newspeed_content_hr">
+                        <div class="newspeedview_commentwrite_wrapper">
+                            <input type="text" class="newspeedview_comment_write">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+
+                </div>
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="container-right-btnnnn"></div>
+    </div>
+
+
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -144,10 +312,10 @@
        		<label>게시글을 보려면 팔로우하세요</label>
        	</div>
        	</div>
-        <div id="profileContent1"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
+        <div id="profileContent1" class="profileContent"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
         <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent3"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent4"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent3" class="profileContent"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent4" class="profileContent"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         <form action="mypage.jsp" method="post">
         	<div id="profileContent5"></div>		<!-- 팔로우 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followerId" value="followerId"/>
@@ -159,6 +327,8 @@
 
     </div>
     
+    
+      
    
 
     <script>
@@ -593,11 +763,15 @@
             function profileMenuChange(){
                // console.log($('#profileMenuRbt1').is(':checked'));
                //console.log($(event).get(0)==$('#profileMenuRbt1').get(0));
+               
+  
                 
                  if($('#profileMenuRbt1:checked').val()){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt1').css('background','url(<%=request.getContextPath()%>/img/profileMenu1.png) no-repeat');
-                    $('#profileContent1').css('display','block');  
+                    $('#profileContent1').css('display','block');
+                    selectedTab = 0;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt1:checked').val())){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"none");
@@ -608,6 +782,7 @@
                     $('#profileMenuRbt2').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt2').css('background','url(<%=request.getContextPath()%>/img/profileMenu2.png) no-repeat');
                     $('#profileContent2').css('display','block'); 
+                   
                  }
                  else if(!($('#profileMenuRbt2:checked').val())){
                     $('#profileMenuRbt2').parents('li').css('borderTop',"none");
@@ -619,6 +794,8 @@
                     $('#profileMenuRbt3').parents('li').css('borderTop',"3px solid black");  
                     $('#profileMenuRbt3').css('background','url(<%=request.getContextPath()%>/img/profileMenu3.png) no-repeat');
                     $('#profileContent3').css('display','block');  
+                    selectedTab = 1;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt3:checked').val())){
                     $('#profileMenuRbt3').parents('li').css('borderTop',"none");
@@ -628,7 +805,9 @@
                  if($('#profileMenuRbt4:checked').val()){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt4').css('background','url(<%=request.getContextPath()%>/img/profileMenu4.png) no-repeat');
-                    $('#profileContent4').css('display','block');    
+                    $('#profileContent4').css('display','block');   
+                    selectedTab = 2;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt4:checked').val())){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"none");
@@ -682,7 +861,11 @@
                 }));
             	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value"));
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+            		 
+            		 
             	 });
 
              <%}%>  
@@ -740,7 +923,12 @@
   				<%}%>
             	 
             	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+            		 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+
+            	
              	 });
             	 
              <%}%> 
@@ -760,7 +948,9 @@
              	}));
             	 
             	 $('#profileContent4>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength , $(this));  
               	 });
             	 
              <%}%>  
