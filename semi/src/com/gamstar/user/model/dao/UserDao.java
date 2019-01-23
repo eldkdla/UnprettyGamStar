@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -545,5 +546,210 @@ public class UserDao {
 		}
 		return userData;
 	}
+	
+	//유저로그인
+			public User loginCheck(Connection conn, User u) {
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = prop.getProperty("loginCheck");
+				User data = null;
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, u.getId());
+					rs = pstmt.executeQuery();
+					if(rs.next())
+					{
+						data = new User();
+						data.setNo(rs.getInt("USER_NO"));
+						data.setId(rs.getString("USER_ID"));
+						data.setPw(rs.getString("USER_PASSWORD"));
+						//System.out.println(data.getNo());
+						//조인해서 나머지 유저 데이터 추가
+						//후에 로그인에서 TB_USER에서 state참조하여 차단로그인 체크.
+						
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				finally {
+					close(rs);
+					close(pstmt);
+					
+				}
+				return data;
+			}
+			
+			//네이버유저로그인
+			public User loginCheckNaver(Connection conn, User u) {
+				System.out.println("다오는 왔닌?");
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = prop.getProperty("loginCheckNaver");
+				User data = null;
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, u.getId());
+					rs = pstmt.executeQuery();
+					System.out.println("펑펑"+rs);
+					
+					if(rs.next())
+					{
+						data = new User();
+						data.setNo(rs.getInt("USER_NO"));
+						data.setId(rs.getString("NAVER_USER_ID"));
+						//System.out.println(data.getNo());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					System.out.println("다오가 터졌니?");
+				}
+				finally {
+					close(rs);
+					close(pstmt);
+					
+				}
+				return data;
+			}
+		
+		
+
+		
+		//TB_user insert
+		public int insertUser(Connection conn, User u)
+		{
+			System.out.println("DAO:597 go");
+			PreparedStatement pstmt = null;
+			int result = 0;
+			String sql = prop.getProperty("insertUser");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				
+				
+				//INSERT INTO TB_USER (USER_NO, USER_NAME,USER_EMAIL,USER_PHONE, USER_LINK_TYPE) 
+				//VALUES (SEQ_USER_NO.CURRVAL, '네이버', 'shinetia@naver.com','01077784442', 1);
+				
+				pstmt.setInt(1, u.getNo());
+				pstmt.setString(2, u.getName());
+				pstmt.setString(3, u.getEmail());
+				pstmt.setString(4, u.getPhone());
+				pstmt.setInt(5, u.getLinkType());
+					
+				result=pstmt.executeUpdate();						
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("설마 너뉘...?");
+			}
+			finally {
+				close(pstmt);
+			}
+			
+			return result;		
+			
+		}
+		
+		//TB_BASIC_USER insert
+		public int insertUserBasic(Connection conn, User u) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertUserBasic");
+			System.out.println("짜증"+u.getNo());
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, u.getNo());
+				pstmt.setString(2, u.getId());
+				pstmt.setString(3, u.getPw());
+
+				result=pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+		}
+
+		//TB_NAVER_USER insert
+		public int insertUserNaver(Connection conn, User u) {
+			int result = 0;
+			PreparedStatement pstmt = null;
+			String sql = prop.getProperty("insertUserNaver");
+			System.out.println("짜증"+u.getNo());
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, u.getNo());
+				pstmt.setString(2, u.getId());
+
+				result=pstmt.executeUpdate();
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+		}
+		
+		//getNewUserNo
+			public int selectNextNewUserNo(Connection conn)
+			{
+				int result = 0;
+				String sql = prop.getProperty("selectNextNewUserNo");
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next())
+					{
+						result = rs.getInt(1);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return -1;
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+				
+				return result;
+			}
+			
+			//getNowUserNo
+			public int selectNowUserNo(Connection conn)
+			{
+				int result = 0;
+				String sql = prop.getProperty("selectNowUserNo");					
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					rs = pstmt.executeQuery();
+					
+					if(rs.next())
+					{
+						result = rs.getInt(1);
+						System.out.println("DAO:689 - "+result);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+					return -1;
+				} finally {
+					close(rs);
+					close(pstmt);
+				}
+				
+				return result;
+			}
 
 }
