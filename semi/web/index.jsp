@@ -23,7 +23,7 @@
 
 <%
 String login="";
-if(request.getSession().getAttribute("userNo")==null)
+if(request.getSession().getAttribute("userNo") == null)
 {
 	response.sendRedirect(request.getContextPath()+"/view/login.jsp");
 }else

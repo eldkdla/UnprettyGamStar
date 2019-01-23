@@ -35,17 +35,20 @@
 			naverLogin.getLoginStatus(function (status) {
 				if (status) {
 					var email = naverLogin.user.getEmail();/* 필수적으로 받아야하는 프로필 정보가 있다면 callback처리 시점에 체크 */
-					if( email == undefined || email == null) {
-						alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
+					var name = naverLogin.user.getName();
+					
+					if( (email == undefined || email == null) || (name == undefined || name == null)) {
+						alert("필수정보제공을 동의해주세요.");
 						
 						naverLogin.reprompt();		/* 사용자 정보 재동의를 위하여 다시 네아로 동의페이지로 이동함 */
 						
 						return;
 					}
+	
 					
 					if (status) {
 					var email = naverLogin.user.getEmail();
-					var name = naverLogin.user.getNickName();
+					var name = naverLogin.user.getName();
 					var profileImage = naverLogin.user.getProfileImage();
 					var birthday = naverLogin.user.getBirthday();
 					var uniqId = naverLogin.user.getId();
@@ -59,7 +62,7 @@
 					opener.test(aaa);
 					
 					//alert("한박자쉬고");
-					opener.setNaverData(uniqId, email, window);
+					opener.setNaverData(uniqId, email, name, window);
 					console.log("자식창은 언제 빠이빠이?")
 					//console.log("정보 : "+email+" : "+name+" : "+profileImage+" : "+birthday+" : "+uniqId+" : "+age+"끗");
 					//console.log(email);
@@ -94,6 +97,7 @@
 				} else {
 					console.log("callback 처리에 실패하였습니다.");
 				}
+				window.close();
 			});
 			
 		});
