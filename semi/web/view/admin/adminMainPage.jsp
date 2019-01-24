@@ -167,7 +167,7 @@
 				<tr>
 					<td><%=s.getSupportBoardWriterId() %></td>
 					<td><a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>">
-					<%if (s.getSupportBoardTitle().length()>10) { %><%=s.getSupportBoardTitle().substring(9) %>..<%}
+					<%if (s.getSupportBoardTitle().length()>12) { %><%=s.getSupportBoardTitle().substring(1,11) %>..<%}
 						else {%><%=s.getSupportBoardTitle() %><%} %></a></td>
 					<td><%=s.getSupportBoardDate() %></td>
 				</tr>
