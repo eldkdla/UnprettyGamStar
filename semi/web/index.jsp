@@ -336,7 +336,8 @@ var data1;
 var data2;
 
     function chatting(obj) {
-       clearInterval(timer2); 
+       clearInterval(timer2);
+       $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
        var name = $($(obj).children()[1]).text();
        //console.log($($($(obj).children()[2]).children()[0]).attr('value'));
        var img= $($(obj).children()[0]).attr('src');
@@ -358,7 +359,7 @@ var data2;
             $('#messagecontent').children().remove();
              var json = eval("(" + data + ")");
                 console.log(json);
-                data1=json[json.length-1]["chatDate"];
+                data1=json[json.length-1]["chatMessage"];
                 console.log("data1"+data1);
                 console.log("data2"+data2);
 
@@ -423,10 +424,12 @@ var data2;
                             })); 
                        }
                    if(data1!=data2){
-               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);}
+               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
+               //clearInterval(timer2);
+                   }
                
                    }
-                   data2=json[json.length-1]["chatDate"];
+                   data2=json[json.length-1]["chatMessage"];
                 },
                 error:function(xhr,status){
             alert(xhr+" : "+status);   
@@ -739,3 +742,4 @@ var f=0;
        })
     })
 
+</script>
