@@ -304,6 +304,7 @@
                     <input type="radio" name="profileMenuRbt" id="profileMenuRbt2" onclick='profileMenuChange();'>
                     <label for="profileMenuRbt2" class="profileMenuLb">차단됨</label>
                 </li>
+                
             </ul>
         </div>
        	<div id=disclosure>
