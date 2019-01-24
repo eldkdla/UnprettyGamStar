@@ -17,7 +17,16 @@
 	font-family: 'Gothic A1', sans-serif;
 }
 
-asdasdasdiv {
+div#mainDiv{
+border : 1px dotted red;
+
+width : 600px;
+margin : 0 auto;
+}
+
+div .userRegFrm {
+
+border : 1px solid orange;
 	/* justify-content: center;
 width: 600px;
 min-width: 300px;
@@ -32,37 +41,38 @@ align-items: center; */
 
 <body>
 
+	<div id=mainDiv>
     <p>닝겐의 가입을 환영한다요</p>
     <form action="<%=request.getContextPath()%>/userenroll" method="post">
         <!-- 아이디 -->
         <div class="userRegFrm">
             <label for="userId">아이디</label><br>
-            <input type="text" class="regControl" id="userId" name="userId" placeholder="아이디 입력" maxlength='20' required>
+            <input type="text" class="regControl" id="userId" name="userId" placeholder="  아이디 입력" maxlength='20' required>
             <div class="checkMsg" id="id_check"></div>
         </div>
         <!-- 비밀번호 -->
         <div class="userRegFrm">
             <label for="userPw">비밀번호</label>
             <sub></sub><br>
-            <input type="password" class="regControl" id="userPw" name="userPw" placeholder="비밀번호 " maxlength='20' required>
+            <input type="password" class="regControl" id="userPw" name="userPw" placeholder="  비밀번호 " maxlength='20' required>
             <div class="checkMsg" id="pw_check"></div>
         </div>
         <!-- 비밀번호 재확인 -->
         <div class="userRegFrm">
             <label for="userPw2">비밀번호 확인</label><br>
-            <input type="password" class="regControl" id="userPw2" name="userPw2" placeholder="비밀번호 확인" maxlength='20' required>
+            <input type="password" class="regControl" id="userPw2" name="userPw2" placeholder="  비밀번호 확인" maxlength='20' required>
             <div class="checkMsg" id="pw2_check"></div>
         </div>
         <!-- 유저 이름 -->
         <div class="userRegFrm">
             <label for="userName">이름</label><br>
-            <input type="text" class="regControl" id="userName" name="userName" placeholder="이름 입력 (한글 2-6자)" maxlength='20' required>
+            <input type="text" class="regControl" id="userName" name="userName" placeholder="  이름 입력 (한글 2-6자)" maxlength='20' required>
             <div class="checkMsg" id="name_check"></div>
         </div>        
         <!-- 본인확인 이메일 -->
         <div class="userRegFrm">
             <label for="userEmail">이메일</label><br>
-            <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="E-mail" required>
+            <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail" required>
             <!-- <input type="text" style="margin-top: 5px;"class="email_form" name="email_confirm" id="email_confirm" placeholder="인증번호를 입력해주세요!" required>
                             <button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="confirm_email()">
                                 <i class="fa fa-envelope"></i>&nbsp;인증
@@ -75,7 +85,7 @@ align-items: center; */
         <!-- 휴대전화 -->
         <div class="userRegFrm">
             <label for="userPhone">휴대전화 ('-' 없이 번호만 입력해주세요)</label><br>
-            <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="휴대전화 번호"  maxlength='11' required>
+            <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="  휴대전화 번호"  maxlength='11' required>
             <div class="checkMsg" id="phone_check"></div>
         </div>
         
@@ -90,6 +100,7 @@ align-items: center; */
                 <i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기</button> --%>
         </div>
     </form>
+   </div>
 </body>
 
 
@@ -122,15 +133,15 @@ align-items: center; */
 
     //비밀번호 정규식
     $('#userPw').on('change keyup paste', (function () {
-        //if (regExp_pw.test($(this).val())) {
-        	if (1) {
+        if (regExp_pw.test($(this).val())) {
+        	//if (1) {
             console.log('pw참참')
             $("#pw_check").text('');
         }
         else {
             //$('#pw_check').text('비밀번호를 확인해주세요');
             $('#pw_check').css('color', 'red');
-            $('#pw_check').html('비밀번호를 확인해주세요<br><sub>( 알파벳 소,대문자 그리고 숫자, 특수기호가 각각 한글자이상 포함하여 8~20자 )</sub>');
+            $('#pw_check').html('비밀번호를 확인해주세요.<br><sub>- 영어 대,소문자 그리고 숫자, 특수기호를 <br>- 각각 한글자이상 포함하여 8 ~ 20 글자 </sub>');
             
         }
 

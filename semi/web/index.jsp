@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>임시메인</title>
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
@@ -56,8 +56,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="chatroomStatus" onmousedown="startDrag(event, document.getElementById('chatroom'))">
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> x
-            </button> 
+            <button id="chatroomcloseBtn" onclick="removechatlist()"> x </button> 
         </div>
         
         <div id="addchatlist">
@@ -76,9 +75,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="friendlistStatus" onmousedown="startDrag(event, document.getElementById('chatroomfriendroom'))">
             <span style="color: white; font-size: 11px; position: relative; left: 5px;top:2px;">대화상대 선택</span>
-            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';">
-                x
-            </button>
+            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';"> x </button>
         </div>
         <div id="selectfriend">
             <div id="findfriend">
