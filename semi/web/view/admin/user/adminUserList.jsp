@@ -9,6 +9,31 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
+	.modal{
+		display:none;
+		position: fixed; 
+        z-index: 1; 
+        left: 0;
+        top: 0;
+        width: 100%; 
+        height: 100%; 
+        /* overflow: auto;  */
+        background-color: rgba(0,0,0,0.3);
+	}
+	.modal-content {
+		/* background-color: #fefefe; */
+       /*  padding: 20px;
+        border-radius:10px;  */    
+		position:relative;
+		max-width:1000px;
+        width: 100%; 
+        height:100%;
+        text-align: center;                       
+    }
+	.userId>a{
+		text-decoration: none;
+		color:rgba(0, 0, 0, 0.7);
+	}
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -325,8 +350,12 @@
                  <input type='checkbox' class='checks' onclick='checkTr(this)'/>
                  <input type='hidden' name='hiddenUserNo' class='hiddenUserNo' value='<%=m.getNo() %>'/>
              </td>
-             <td class='userId'><%=m.getId() %></td>
-             <td class='userName'><%=m.getName() %></td>
+             <td class='userId'>
+             	<a href='javascript:void(0);' onclick='openModal(<%=m.getNo() %>); return false;'>
+             		<%=m.getId() %>
+             	</a>
+             </td>
+             <td class='userName'><%= m.getName() %></td>
              <td><%=m.getGender()%></td>
              <td><%=m.getEmail() %></td>
              <td><%=m.getPhone() %></td>
@@ -370,6 +399,14 @@
      <br/>
      <div class='pageChange' style="clear:both;">
          <%=pageBar %>
+     </div>
+     
+     <!-- 유저 아이디 누르면 나오는 (해당 유저의 정보) 모달창 -->
+     <div id='userPageModal' class='modal'>
+     	<div class='modal-content' style='width:100%;height:100%;'>
+     		<div id='showUserPage' style='width:100%;height:100%;'>	</div>
+     		<div onClick="close_pop();">확인</div>
+     	</div>
      </div>
  </section>
 </div>
@@ -485,7 +522,27 @@
    		}
     	return result;
     }
-    //한 페이지당 갯수
+
+	//유저 모달창
+	function openModal(no){
+		urlStr='<%=request.getContextPath() %>/view/profile?uu='+no;
+		console.log(urlStr);
+    	$.ajax({
+    		type:'post',
+    		url:urlStr,
+    		dataType:'html',
+    		success:function(data){
+    			$('#showUserPage').html(data);
+            }
+    				
+	    });
+    	$('#userPageModal').show();
+	}
+
+	function close_pop() {
+		$('#showUserPage').html('');
+        $('#userPageModal').hide();
+        };  
 </script>
 </body>
 </html>
