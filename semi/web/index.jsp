@@ -740,3 +740,11 @@ var f=0;
     })
 
 </script>
+
+
+<script>
+	//어드민 모바일 메뉴 열기 위한 함수
+	function openAdminMobileMenu(){
+	    $('nav').toggle();
+	}
+</script>
