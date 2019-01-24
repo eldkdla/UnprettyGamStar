@@ -15,7 +15,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class UserEnrollServlet
  */
-@WebServlet("/userenroll")
+@WebServlet(name="UserEnrollServlet",urlPatterns="/userenroll")
 public class UserEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
