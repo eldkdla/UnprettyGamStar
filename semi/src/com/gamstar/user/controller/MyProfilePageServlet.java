@@ -41,8 +41,7 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		
+	
 		if(request.getSession().getAttribute("userNo")!=null){
 			//관리자의페이지면 돌려보내기
 			if(request.getParameter("uu")!=null&&(Integer.parseInt(request.getParameter("uu")))<=0){

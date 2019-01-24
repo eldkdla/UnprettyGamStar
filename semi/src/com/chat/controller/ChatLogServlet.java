@@ -45,6 +45,7 @@ public class ChatLogServlet extends HttpServlet {
 		ArrayList<ChatLog> logarr=new ArrayList<ChatLog>();
 		logarr=new ChatLogService().callChatLog(chatno,myNo);
 		JSONArray chatlogarr= new JSONArray();
+		
 		SimpleDateFormat datefm=new SimpleDateFormat("HH:mm");
 		if(logarr.get(0).getUserNo()!=0) {
 		for(int i=0;i<logarr.size();i++) {

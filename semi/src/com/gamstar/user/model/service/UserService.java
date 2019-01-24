@@ -235,6 +235,7 @@ public class UserService {
 			close(conn);
 			return chkEmail;
 		}
+
 		//전화번호 중복 확인
 		public boolean chkPhone(User user){
 			Connection conn=getConnection();
@@ -265,6 +266,7 @@ public class UserService {
 			close(conn);
 			return result;
 		}
+		
 		//팔로우 삭제
 		public int deleteFollow(User user,int myname){
 			Connection conn=getConnection();
@@ -306,6 +308,7 @@ public class UserService {
 			close(conn);
 			return result;
 		}
+		
 		//차단목록 삭제
 		public int deleteBlockUser(User user,int myname){
 			Connection conn=getConnection();
@@ -335,10 +338,12 @@ public class UserService {
 		return userList;
 	}
 	
-	//유저로그인
+			//유저로그인
 			public User loginCheck(User u) {
 				Connection conn = getConnection();
 				User data = new UserDao().loginCheck(conn, u);
+				
+				data = new UserDao().selectUser(conn, data);
 				close(conn);
 				return data;
 			}

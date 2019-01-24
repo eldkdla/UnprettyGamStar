@@ -53,7 +53,7 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이름</label>
-                            <input type="text" class="modifyInput" id=modifyName name="name" value='<%=user.getName() %>' required /><!-- style="background-color: rgb(219, 219, 219);border-color: rgb(219, 219, 219);" readonly="readonly" -->
+                            <input type="text" class="modifyInput" id=modifyName name="name" value='<%=user.getName() %>' minlength=2 maxlength=6 placeholder=" 이름 입력 (한글 2-6자)" required />
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이메일</label>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>전화번호</label>
-                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getPhone()%>" style='ime-mode:disabled;' required/>
+                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getPhone()%>" placeholder=" '-' 없이 번호만 입력해주세요" style='ime-mode:disabled;' required/>
                              <div class="chkEmailPhonePw" id="chkPhone"></div>
                         </div>
                         <div class="modifyInputDiv">
@@ -212,7 +212,7 @@
     <script>
     	//이름입력시 변경 활성화
     	$('#modifyName').on('keyup',(function(){
-    		reg = /^[가-힣]{2,6}$/;
+    		reg = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
     		
     		if(reg.test($(this).val())){
     			$(this).val($(this).val().replace(reg,''));
@@ -232,7 +232,7 @@
     	
         //이메일 중복확인+한글+@를뺀 특수문자 입력안되게
         $('#modifyEmail').on('keyup',(function (event) {
-        	reg =/^[\w\-]+@(?:(?:[\w\-]{2,}\.)+[a-zA-Z]{2,})$/;
+        	reg =/[^a-zA-Z0-9|@|.]/gi;
  
             if (reg.test($(this).val())) {
 	            $(this).val($(this).val().replace(reg, ''));
@@ -272,7 +272,7 @@
      
         //전화번호 숫자체크+중복확인
         $("#modifyPhone").on('keyup',(function(e) {
-       		reg = /^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
+        	reg = /[^0-9]/gi;
             v = $(this).val();
                   
             if (reg.test(v)) {

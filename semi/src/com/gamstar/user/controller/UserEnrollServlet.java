@@ -65,7 +65,7 @@ public class UserEnrollServlet extends HttpServlet {
 		
 		if(result>0)
 		{
-			msg="회원가입이<br>완료되었습니다!";
+			msg="감스타<br>가입을 환영합니다. :)<br>회원가입이<br>완료되었습니다!";
 			loc="/view/login.jsp";
 		}
 		else

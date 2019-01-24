@@ -42,7 +42,7 @@
 					
 					<tr>
 						<td colspan="3">
-						<a class="loginLabel" href="#" style="margin-right: 50px">아이디/비밀번호 찾기</a> <a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
+						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 50px">아이디/비밀번호 찾기</a> <a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
 						</td>
 					</tr>
 				</table>

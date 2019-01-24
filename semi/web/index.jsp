@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>임시메인</title>
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
@@ -56,6 +56,8 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="chatroomStatus" onmousedown="startDrag(event, document.getElementById('chatroom'))">
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
+
+            <button id="alarmset" onclick='alarmOnOff()'></button>
             <button id="chatroomcloseBtn" onclick="removechatlist()"> x
             </button> 
         </div>
@@ -76,9 +78,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="friendlistStatus" onmousedown="startDrag(event, document.getElementById('chatroomfriendroom'))">
             <span style="color: white; font-size: 11px; position: relative; left: 5px;top:2px;">대화상대 선택</span>
-            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';">
-                x
-            </button>
+            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';"> x </button>
         </div>
         <div id="selectfriend">
             <div id="findfriend">
@@ -110,6 +110,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
     <div id="chattingscreen" class="chatscreen" onclick="zindexchange(this)">
         <div id="chattingStatus" onmousedown="startDrag(event, document.getElementById('chattingscreen'))">
+        
             <button id="chattingcloseBtn" onclick='closeChatting()'>
                 x
             </button>
@@ -133,8 +134,18 @@ if(request.getSession().getAttribute("userNo") == null)
 
 
 <script>
+
+
    var timer;
-   
+   var audiosetting=1;
+  
+   var audio = new Audio('audio/alarm.mp3');
+   var audioflag1;
+   var audioflag2;
+   var audioflagc1;
+   var audioflagc2;
+   var audioflagm1;
+   var audioflagm2;
 
     function chat() {
         timer = setInterval( function () {
@@ -152,9 +163,15 @@ if(request.getSession().getAttribute("userNo") == null)
                 var json = eval("(" + data + ")");
                 //console.log(typeof(json));
                 //console.log(json);
+                	  audioflag1=json[0]["previewMessage"];
+                      audioflagc1=json[0]["chatNo"];
+                      audioflagm1=json[0]["mili"];
+                
                 for(var i=0;i<json.length;i++){
+                	
                   //console.log(key+":"+json[i][key]);
                   //console.log(json[i]["otherName"]);
+                  
                   if(json[i]["otherNo"]==json[i]["previewMessageUserNo"]&&json[i]["readState"]==0)
                   {
                      $('#addchatlist').append($('<div/>',{
@@ -185,20 +202,22 @@ if(request.getSession().getAttribute("userNo") == null)
                        }));
                      $('#fchatlistdiv'+i).append($('<span/>',{
                              text:json[i]["previewMessageTime"],
-                             style:'position:relative; font-size:7px; left:12px;color:gray;'
+                             style:'position:relative; font-size:7px ;top:1px;left:19.5px; color:gray;'
                             
                          }));
                      $('#fchatlistdiv'+i).append($('<img/>',{
                            src: 'img/alarm.png',
                            class:'alarm',
-                           style:'position: relative; width: 15px; height: 15px; top:30px; left: 10px;'
+                           style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
                           
                        }));
-                     $('#fchatlistdiv'+i).append($('<button/>',{
+                     
+                    /*  $('#fchatlistdiv'+i).append($('<button/>',{
                            class:'deletechatBtn',
                            text : 'x'
                           
-                       }));
+                       })); */
+                     
                      $('#fchatlistdiv'+i).off("dblclick").on("dblclick",function(){
                         
                         //console.log("클릭 : "+username2);
@@ -235,11 +254,11 @@ if(request.getSession().getAttribute("userNo") == null)
                            value: json[i]["chatNo"],
                           text:json[i]["previewMessage"]
                        }));
-                     $('#fchatlistdiv'+i).append($('<button/>',{
+                     /* $('#fchatlistdiv'+i).append($('<button/>',{
                            class:'deletechatBtn',
                            text : 'x'
                           
-                       }));
+                       })); */
                      
                      
                      $('#fchatlistdiv'+i).off("dblclick").on("dblclick",function(){
@@ -249,20 +268,37 @@ if(request.getSession().getAttribute("userNo") == null)
                         }); 
                      $('#fchatlistdiv'+i).append($('<span/>',{
                         text:json[i]["previewMessageTime"],
-                             style:'position:relative; font-size:7px; left:5px; color:gray;'
+                             style:'position:relative; font-size:7px; left:12px; top:6.5px; color:gray;'
                             
                          }));
                          f++; 
                   }
-                     
+                console.log("audioflag1"+audioflag1);
+              	console.log("audioflag2"+audioflag2);
+              	console.log("audioflagc1"+audioflagc1);
+              	console.log("audioflagc2"+audioflagc2);
+                      console.log("audiosetting?"+audiosetting);
+              	
+                   if(audioflag1!=audioflag2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0
+                		  ||audioflagc1!=audioflagc2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0
+                		  ||audioflagm1!=audioflagm2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0){
+                      audio.play();
+                      } 
+                  audioflag2=json[0]["previewMessage"];
+                  audioflagc2=json[0]["chatNo"];
+                  audioflagm2=json[0]["mili"];
                 
-                }},
+                }
+                  
+                
+         },
                
             error:function(xhr,status){
             alert(xhr+" : "+status);   
             }
        });
         }, 1000);
+        
         document.getElementById('chatroom').style.display = 'block';
         document.getElementById('chatroom').style.left = "100px";
         document.getElementById('chatroom').style.top = "50px";
@@ -336,7 +372,8 @@ var data1;
 var data2;
 
     function chatting(obj) {
-       clearInterval(timer2); 
+       clearInterval(timer2);
+       $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
        var name = $($(obj).children()[1]).text();
        //console.log($($($(obj).children()[2]).children()[0]).attr('value'));
        var img= $($(obj).children()[0]).attr('src');
@@ -358,7 +395,7 @@ var data2;
             $('#messagecontent').children().remove();
              var json = eval("(" + data + ")");
                 console.log(json);
-                data1=json[json.length-1]["chatDate"];
+                data1=json.length;
                 console.log("data1"+data1);
                 console.log("data2"+data2);
 
@@ -423,10 +460,12 @@ var data2;
                             })); 
                        }
                    if(data1!=data2){
-               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);}
+               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
+               //clearInterval(timer2);
+                   }
                
                    }
-                   data2=json[json.length-1]["chatDate"];
+                   data2=json.length;
                 },
                 error:function(xhr,status){
             alert(xhr+" : "+status);   
@@ -464,6 +503,22 @@ var data2;
     function closeChatting(){
        document.getElementById('chattingscreen').style.display='none';
        clearInterval(timer2); 
+    }
+    var callaudio=1;
+    function alarmOnOff(){
+    	console.log("callaudio"+callaudio);
+    	if(callaudio%2==1){
+    	audiosetting=0;
+    	callaudio++;
+    	$('#alarmset').css('background',' url("img/alarmon.png") no-repeat');
+    	}
+    	else if(callaudio%2==0) {
+    	audiosetting=1;
+    	callaudio++;
+    	$('#alarmset').css('background','url("img/alarmoff.png") no-repeat');
+
+    	}
+    	
     }
 //채팅프리뷰     
 var f=0;
@@ -543,11 +598,11 @@ var f=0;
             value: data,
            text:""
         }));
-      $('#chatlistdiv'+f).append($('<button/>',{
+      /* $('#chatlistdiv'+f).append($('<button/>',{
             class:'deletechatBtn',
             text : 'x'
            
-        }));
+        })); */
       username3=arr;
       userimg3=$(user[imgnum]).prevAll('img').first().attr("src");
       chatno3=data;
