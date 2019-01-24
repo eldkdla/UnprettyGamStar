@@ -121,6 +121,28 @@ public class NewspeedDAO {
 				return tagContentDataArray;
 			} 
 			
+			//게시물 삭제
+			public int deleteNewspeed(Connection conn,Newspeed newspeed){
+				PreparedStatement pstmt=null;
+				String sql=prop.getProperty("deleteNewspeed");
+				int result=0;
+				
+				try{
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setInt(1, newspeed.getNo());
+					pstmt.setInt(2, newspeed.getUserNo());
+					
+					result=pstmt.executeUpdate();
+					
+				}catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					close(pstmt);
+				}
+				
+				return result;
+			}
+			
 			//저장 게시물 삭제
 			public int deleteStoredNewspeed(Connection conn,Newspeed newspeed){
 				PreparedStatement pstmt=null;
@@ -472,5 +494,114 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		
 		return false;
 	}
+	
+	
+	public int insertNewspeedLike(Connection conn, int userNo, int newspeedNo) {
+		String sql = prop.getProperty("insertNewspeedLike");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		System.out.println(sql + "왜오류남?");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, newspeedNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewspeedStore(Connection conn, int userNo, int newspeedNo) {
+		String sql = prop.getProperty("insertNewspeedStore");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, newspeedNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	public int deleteNewspeedLike(Connection conn, int userNo, int newspeedNo) {
+		String sql = prop.getProperty("deleteNewspeedLike");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, newspeedNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteNewspeedStore(Connection conn, int userNo, int newspeedNo) {
+		String sql = prop.getProperty("deleteNewspeedStore");
+		PreparedStatement pstmt = null;
+	
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(1, newspeedNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertNewspeedComment(Connection conn, NewspeedComment newspeedComment) {
+		String sql = prop.getProperty("deleteNewspeedStore");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 
 }

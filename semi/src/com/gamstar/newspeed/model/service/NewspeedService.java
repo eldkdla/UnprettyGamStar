@@ -25,6 +25,12 @@ public class NewspeedService {
 	public static final int NEWSPEED_MEDIA_INSERT_ERROR = -200;
 	public static final int NEWSPEED_MEDIA_TAG_INSERT_ERROR = -300;
 	
+	public static final int NEWSPEED_LIKE_INSERT_OK = 200;
+	public static final int NEWSPEED_LIKE_DELETE_OK = 300;
+	
+	public static final int NEWSPEED_STORE_INSERT_OK = 400;
+	public static final int NEWSPEED_STORE_DELETE_OK = 500;
+	
 	private NewspeedDAO newspeedDAO;
 	private UserDao userDAO;
 
@@ -55,6 +61,27 @@ public class NewspeedService {
 			ArrayList<NewspeedMedia> tagContentDataArray=new NewspeedDAO().selectTagContent(conn,user);
 
 			return tagContentDataArray;
+			}
+			
+			//게시물 삭제
+			public int deleteNewspeed(Newspeed newspeed){
+				Connection conn=getConnection();
+				
+				int result=new NewspeedDAO().deleteNewspeed(conn,newspeed);
+				
+				try {
+					if(result!=0){
+						conn.commit();				
+					}else{
+						conn.rollback();
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}
+				
+				close(conn);
+					
+				return result;
 			}
 			
 			//저장게시물 삭제
@@ -173,6 +200,8 @@ public class NewspeedService {
 	public boolean isLiked(int userNo,int newspeedNo) {
 		Connection conn = getConnection();
 		boolean result = newspeedDAO.isLikeNewspeed(conn, userNo, newspeedNo);
+		
+		close(conn);
 				
 		return result;
 	}
@@ -180,7 +209,75 @@ public class NewspeedService {
 	public boolean isStored(int userNo,int newspeedNo) {
 		Connection conn = getConnection();
 		boolean result = newspeedDAO.isStoreNewspeed(conn, userNo, newspeedNo);
+		
+		close(conn);
 				
+		return result;
+	}
+	
+	public int insertLike(int userNo, int newspeedNo) {
+		Connection conn = getConnection();
+		boolean result = newspeedDAO.isLikeNewspeed(conn, userNo, newspeedNo);
+		int res = 0;
+		
+		if (!result) {
+			res = newspeedDAO.insertNewspeedLike(conn, userNo, newspeedNo);
+			res = NewspeedService.NEWSPEED_LIKE_INSERT_OK;
+			System.out.println("정신차리자...");
+		} else {
+			res = newspeedDAO.deleteNewspeedLike(conn, userNo, newspeedNo);
+			res = NewspeedService.NEWSPEED_LIKE_DELETE_OK;
+			System.out.println("너도....");
+		}
+		
+		if (res < 1) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return res;
+	}
+	
+	public int insertStore(int userNo, int newspeedNo) {
+		Connection conn = getConnection();
+		boolean result = newspeedDAO.isStoreNewspeed(conn, userNo, newspeedNo);
+		int res = 0;
+		
+		if (!result) {
+			res = newspeedDAO.insertNewspeedStore(conn, userNo, newspeedNo);
+			res = NewspeedService.NEWSPEED_STORE_INSERT_OK;
+		} else {
+			res = newspeedDAO.deleteNewspeedStore(conn, userNo, newspeedNo);
+			res = NewspeedService.NEWSPEED_STORE_DELETE_OK;
+		}
+		
+		if (res < 1) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return res;
+		
+	}
+	
+	public int insertNewspeedComment(NewspeedComment newspeedComment) {
+		Connection conn = getConnection();
+		int result = newspeedDAO.insertNewspeedComment(conn,newspeedComment);
+	
+		if (result < 1) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
 		return result;
 	}
 	

@@ -116,6 +116,7 @@
     	var naverLogin = new naver.LoginWithNaverId(
     			{
     				clientId: "fqOHJi8WFN9_xpysEVQG",
+
     				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
     				isPopup: true, /* 팝업을 통한 연동처리 여부 */
     				callbackHandle: true,
