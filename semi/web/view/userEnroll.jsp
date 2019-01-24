@@ -6,20 +6,27 @@
 <meta charset="UTF-8">
 <title>굄성 - UnprettyGamStar - 가입페이지다요/</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+<link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean" rel="stylesheet">
 </head>
 
 <style>
-asdasdasdiv{
-/* justify-content: center;
+*{
+	font-size: 15px;
+	font-weight: bold;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+asdasdasdiv {
+	/* justify-content: center;
 width: 600px;
 min-width: 300px;
 border: 1px solid red;
 display: flex;
 flex-direction: column;
 align-items: center; */
-
+	
 }
-
 </style>
 
 
@@ -71,9 +78,11 @@ align-items: center; */
             <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="휴대전화 번호"  maxlength='11' required>
             <div class="checkMsg" id="phone_check"></div>
         </div>
+        
         <div class="reg_button">
-			<input type="reset" value="취소"/>&emsp;&emsp;
-        <input type="submit" value="가입"/>
+		<input type="reset" value="취소"/>&emsp;&emsp;
+        <input type="submit" id="reg_submit" value="가입"/>
+        
             <%-- <a class="btn btn-danger px-3" href="${pageContext.request.contextPath}">
                 <i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
             </a>&emsp;&emsp;
@@ -158,7 +167,7 @@ align-items: center; */
     //이메일 정규식
     $('#userEmail').on('change keyup paste', (function () {
         if (regExp_email.test($(this).val())) {
-            console.log('pw참참')
+            console.log('email참참')
             $("#email_check").text('');
             inval_Arr[3] = true;
         }
@@ -172,7 +181,7 @@ align-items: center; */
     //핸드폰 정규식
     $('#userPhone').on('change keyup paste', (function () {
         if (regExp_phone.test($(this).val())) {
-            console.log('pw참참')
+            console.log('phone참참')
             $("#phone_check").text('');
             inval_Arr[4] = true;
         }
@@ -207,8 +216,7 @@ align-items: center; */
       		}
   			
    		});
-		}
-	}));
+	}}));
     
     //전송 체크
     $('#reg_submit').click(function(){
@@ -222,13 +230,40 @@ align-items: center; */
 		}
 		
 		if(validAll){ // 유효성 모두 통과
-			alert('감스타 가입을 환영합니다.');
+			//profileAlert("");
+    
+			return true;
 			
 		} else{
-			alert('입력한 정보들을 다시 한번 확인해주세요 :)')
-			
+			profileAlert("입력한 정보들을 다시 한번 확인해주세요 :)");
+    return false;
 		}
 	});    
-
+	
+  
+	//공용 Alert 모달창
+    function profileAlert(alertMsg){
+       $('#myModal').remove();
+       $('body').append($('<div/>',{
+          id:'myModal',
+          class:'modal'
+       }));
+       $('#myModal').append($('<div/>',{
+          class:'modal-content'
+       }));
+       $('.modal-content').append($('<p/>',{
+          text:alertMsg
+       }));
+       $('.modal-content').append($('<div/>',{
+          onclick:'close_pop()',
+          text:'확인'
+       }));
+       
+    }
+    //모달창 닫기
+    function close_pop(){
+       $('#myModal').css("display","none");
+    }
+	
 </script>
 </html>
