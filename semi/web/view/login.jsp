@@ -66,6 +66,22 @@
 </section>
 
 <script>
+	//Caps
+	$('#pw').on('change keyup paste', (function () {
+    if (!event.getModifierState("CapsLock")) {
+    	$("#caps").text('');
+        
+    }
+    else {
+    	//capslockAlert.style.display = "block"
+    	$("#caps").text('대문자?').css({'color' : 'red', 'fontWeight': 'bold'});
+        //$('#email_check').text('입력한 이메일 주소를 확인해주세요');
+        //$('#email_check').css('color', 'red');
+        //inval_Arr[3] = false;
+    }
+	}));
+
+
 	/*      var pwInput = document.getElementById("pw");
 	 var capslockAlert = document.getElementById("capslock");
 	 pwInput.addEventListener("keyup", function (event) {
@@ -116,7 +132,6 @@
     	var naverLogin = new naver.LoginWithNaverId(
     			{
     				clientId: "fqOHJi8WFN9_xpysEVQG",
-
     				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
     				isPopup: true, /* 팝업을 통한 연동처리 여부 */
     				callbackHandle: true,
