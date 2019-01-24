@@ -48,7 +48,6 @@ public class SupportAnswerServlet extends HttpServlet {
 		
 			int no=Integer.parseInt(request.getParameter("no"));
 			SupportBoard s=new SupportService().selectSupportOne(no);
-			System.out.println("supportAnswerServlet"+s);
 			
 			String view="";
 			

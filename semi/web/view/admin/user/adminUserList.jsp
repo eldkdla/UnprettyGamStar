@@ -9,36 +9,9 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
-	.modal{
-		display:none;
-		position: fixed; 
-        z-index: 1; 
-        left: 0;
-        top: 0;
-        width: 100%; 
-        height: 100%; 
-        /* /* overflow: auto;  */ */
-        background-color: rgba(0,0,0,0.3);
+	td.userID, td.userName{
+		cursor: pointer;
 	}
-	.modal-content {
-		/* background-color: #fefefe; */
-       /*  padding: 20px;
-        border-radius:10px;  */    
-		position:relative;
-		max-width:1000px;
-        width: 100%; 
-        height:100%;
-        text-align: center;    
-        color:rgba(0,0,0,0.7);                   
-    }
-	.userId>a{
-		text-decoration: none;
-		color:rgba(0, 0, 0, 0.7);
-	}
-	#showUserPage{
-		background-color:white;
-	}
-	
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -355,12 +328,8 @@
                  <input type='checkbox' class='checks' onclick='checkTr(this)'/>
                  <input type='hidden' name='hiddenUserNo' class='hiddenUserNo' value='<%=m.getNo() %>'/>
              </td>
-             <td class='userId'>
-             	<a href='javascript:void(0);' onclick='openModal(<%=m.getNo() %>); return false;'>
-             		<%=m.getId() %>
-             	</a>
-             </td>
-             <td class='userName'><%= m.getName() %></td>
+             <td class='userId' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%=m.getId() %></td>
+             <td class='userName' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%= m.getName() %></td>
              <td><%=m.getGender()%></td>
              <td><%=m.getEmail() %></td>
              <td><%=m.getPhone() %></td>
@@ -373,7 +342,7 @@
              	<input type='hidden' name='rDay' class='rDay' value='<%=m.getRemainingDay() %>'/>
              </td>
          </tr>
-         <%} %>
+       <%} %>
      </table>
      <div id='memberState-container' style='float:left; margin-top: 3px;'>
      	<button class='deleteBtn' onclick='deleteMember();'>탈퇴</button>
@@ -405,13 +374,6 @@
      <div class='pageChange' style="clear:both;">
          <%=pageBar %>
      </div>
-     
-     <!-- 유저 아이디 누르면 나오는 (해당 유저의 정보) 모달창 -->
-     <div id='userPageModal' class='modal'>
-     	<div class='modal-content' style='width:100%;height:100%;'>
-     		<div id='showUserPage' style='width:100%;height:100%;'></div>
-     	</div>
-     </div>
  </section>
 </div>
 <script>
@@ -433,7 +395,7 @@
     	if(thisTr[0]!=null)
    		{
     		thisTr.each(function(){
-        		chosenId+=$(this).children('.userName').text()+'('+$(this).children('.userId').text()+') ';
+        		chosenId+=$(this).children('.userName').text().trim()+'('+$(this).children('.userId').text()+') ';
         		chosenNo+=$(this).children('td:first-of-type').children('.hiddenUserNo').val()+' ';
         	});
     		chosenId.trim();
@@ -467,8 +429,19 @@
     		$('#hiddenFrmRDay').val(chosenTime);
     		
     		selectTime=prompt("정지 일수를 입력해 주세요(일)");
+    		selectTimeInt=Math.round(selectTime);
     		
-    		if(selectTime!=null&&selectTime>0)
+    		if(selectTime!=selectTimeInt)
+   			{
+    			alert("정수를 입력해 주세요.");
+   				$('#memberStateFrm').reset();
+   			}
+    		else if(selectTime<0)
+   			{
+    			alert("양수를 입력해 주세요.");
+   				$('#memberStateFrm').reset();
+   			}
+    		else if(selectTime!=null&&selectTime.trim()!="")
     		{
     			$('#hiddenFrmTime').val(selectTime);
             	$('#memberStateFrm').submit();
@@ -478,7 +451,6 @@
     			alert("숫자를 입력해 주세요");
    				$('#memberStateFrm').reset();
    			}
-    		
    		}
     }
     
@@ -527,21 +499,6 @@
     	return result;
     }
 
-	//유저 모달창
-	function openModal(no){
-		urlStr='<%=request.getContextPath() %>/view/profile?uu='+no;
-		console.log(urlStr);
-    	$.ajax({
-    		type:'post',
-    		url:urlStr,
-    		dataType:'html',
-    		success:function(data){
-    			$('#showUserPage').html(data);
-            }
-    				
-	    });
-    	$('#userPageModal').show();
-	}
 </script>
 </body>
 </html>
