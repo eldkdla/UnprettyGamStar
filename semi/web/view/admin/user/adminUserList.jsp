@@ -17,7 +17,7 @@
         top: 0;
         width: 100%; 
         height: 100%; 
-        /* overflow: auto;  */
+        /* /* overflow: auto;  */ */
         background-color: rgba(0,0,0,0.3);
 	}
 	.modal-content {
@@ -28,12 +28,17 @@
 		max-width:1000px;
         width: 100%; 
         height:100%;
-        text-align: center;                       
+        text-align: center;    
+        color:rgba(0,0,0,0.7);                   
     }
 	.userId>a{
 		text-decoration: none;
 		color:rgba(0, 0, 0, 0.7);
 	}
+	#showUserPage{
+		background-color:white;
+	}
+	
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -404,8 +409,7 @@
      <!-- 유저 아이디 누르면 나오는 (해당 유저의 정보) 모달창 -->
      <div id='userPageModal' class='modal'>
      	<div class='modal-content' style='width:100%;height:100%;'>
-     		<div id='showUserPage' style='width:100%;height:100%;'>	</div>
-     		<div onClick="close_pop();">확인</div>
+     		<div id='showUserPage' style='width:100%;height:100%;'></div>
      	</div>
      </div>
  </section>
@@ -538,11 +542,6 @@
 	    });
     	$('#userPageModal').show();
 	}
-
-	function close_pop() {
-		$('#showUserPage').html('');
-        $('#userPageModal').hide();
-        };  
 </script>
 </body>
 </html>
