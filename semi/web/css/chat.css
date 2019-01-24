@@ -17,6 +17,7 @@
         left:0px; top:0px;
         position: absolute;
         cursor: pointer;
+        user-select: none;
         
     }
     #messagecontent {
@@ -192,6 +193,7 @@
         width: 326px; top:0px;
         position: absolute;
         cursor: pointer;
+        user-select: none;
         
     }
     #selectfriend{
@@ -355,6 +357,7 @@
         left:0px; top:0px;
         position: absolute;
         cursor: pointer;
+        user-select: none;
         
     }
     /*채팅방 만들기 +버튼*/
