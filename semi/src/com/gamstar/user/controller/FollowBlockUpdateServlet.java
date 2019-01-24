@@ -1,7 +1,9 @@
 package com.gamstar.user.controller;
 
 import java.io.IOException;
-
+import java.sql.Connection;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.*;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +47,7 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 				}
 			}
 			
+			
 			int userNo=(int)request.getSession().getAttribute("userNo");
 			System.out.println("sdfsadfasd : "+request.getParameter("uu"));
 			int blockFllowNo=Integer.parseInt(request.getParameter("uu"));
@@ -57,8 +60,10 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 			if(request.getParameter("follow")!=null){
 			System.out.println(request.getParameter("follow"));
 				if(request.getParameter("follow").equals("팔로우됨")){
+					Connection conn=getConnection();
 					//상대를 내 팔로우 목록에 추가 ,나를 상대 팔로워 목록에 추가
-					result=new UserService().insertFollow(user,userNo);
+					result=new UserService().insertFollow(conn,user,userNo);
+					close(conn);
 				}
 				else{
 					//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제

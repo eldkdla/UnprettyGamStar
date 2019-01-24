@@ -1,6 +1,6 @@
 package com.gamstar.user.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.sql.Connection;
@@ -200,6 +200,57 @@ public class UserDao {
 				close(pstmt);
 			}
 			return oldUserStory;
+		}
+		
+		//팔로우요청목록 선택
+		public ArrayList<User> selectRequestFollow(Connection conn,User user){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql=prop.getProperty("selectRequestFollow");
+			ArrayList<User> requestFollowDataArray=new ArrayList<User>();
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()){
+					User requestFollowUser=new User();
+					requestFollowUser.setNo(rs.getInt("USER_NO"));
+					requestFollowUser.setName(rs.getString("USER_NAME"));
+					requestFollowUser.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+					requestFollowUser.setIswatch(rs.getInt("FOLLOW_REQUEST_ISWATCH"));
+					
+					requestFollowDataArray.add(requestFollowUser);
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+			return requestFollowDataArray;
+			
+		}
+		//팔로우요청목록 삭제
+		public int deleteRequestFollowuser(Connection conn,User user){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("deleteRequestFollowuser");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
 		}
 
 		//유저 정보 수정

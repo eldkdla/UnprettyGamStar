@@ -10,6 +10,20 @@ public class User {
 	private int no;
 	private String id;
 	private String pw;
+
+
+	public static int getStateNormal() {
+		return STATE_NORMAL;
+	}
+
+	public static int getStateBanned() {
+		return STATE_BANNED;
+	}
+
+	public static int getStateOut() {
+		return STATE_OUT;
+	}
+
 	private String name;
 	private int linkType;
 	private String gender;
@@ -21,7 +35,15 @@ public class User {
 	private Date enrollDate;
 	private int remainingDay;
 	private int disclosure;
+	private int iswatch;
+	
+	public int getIswatch() {
+		return iswatch;
+	}
 
+	public void setIswatch(int iswatch) {
+		this.iswatch = iswatch;
+	}
 	public int getDisclosure() {
 		return disclosure;
 	}

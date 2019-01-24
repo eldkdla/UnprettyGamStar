@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
+	<script src="../js/report.js"></script>
 </head>
 <body>
 	
@@ -33,6 +34,7 @@
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
+	   ArrayList<User> requestfollowDataArray=(ArrayList<User>)request.getAttribute("requestfollowDataArray");
 	   ArrayList<NewspeedMedia> content1DataArray=(ArrayList<NewspeedMedia>)request.getAttribute("content1DataArray");
 	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
@@ -304,7 +306,10 @@
                     <input type="radio" name="profileMenuRbt" id="profileMenuRbt2" onclick='profileMenuChange();'>
                     <label for="profileMenuRbt2" class="profileMenuLb">차단됨</label>
                 </li>
-                
+                <li class="profileMenuLi" id="requestFollow">
+                    <input type="radio" name="profileMenuRbt" id="profileMenuRbt7" onclick='profileMenuChange();'>
+                    <label for="profileMenuRbt7" class="profileMenuLb">요청됨</label>
+                </li>
             </ul>
         </div>
        	<div id=disclosure>
@@ -325,6 +330,7 @@
         	<div id="profileContent6"></div>		<!-- 차단됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followId" value="followId"/>
         </form>  
+        <div id="profileContent7" class="profileContent"></div>
 
     </div>
     
@@ -406,6 +412,7 @@
          		$('#profileBackgroundPhoto').removeAttr("onclick");
          		$('#profileBackgroundPhoto').css("cursor","default");
          		$('#blockMenu').css("display","none");
+         		$('#requestFollow').css("display","none");
          	
          		<%if(isFollowed){%>
 	         		$('#profileFollowBt>label').text("팔로우됨");
@@ -835,6 +842,16 @@
                     $('#profileMenuRbt6').css('background','url(<%=request.getContextPath()%>/img/profileMenu66.png) no-repeat');
                     $('#profileContent6').css('display','none'); 
                 }
+                if($('#profileMenuRbt7:checked').val()){
+                    $('#profileMenuRbt7').parents('li').css('borderTop',"3px solid black");
+                    $('#profileMenuRbt7').css('background','url(<%=request.getContextPath()%>/img/profileMenu6.png) no-repeat');
+                    $('#profileContent7').css('display','block'); 
+                 }
+                 else if(!($('#profileMenuRbt7:checked').val())){
+                    $('#profileMenuRbt7').parents('li').css('borderTop',"none");
+                    $('#profileMenuRbt7').css('background','url(<%=request.getContextPath()%>/img/profileMenu66.png) no-repeat');
+                    $('#profileContent7').css('display','none'); 
+                }
             }
             
     </script>
@@ -1116,7 +1133,7 @@
 	               
 	            }));
 	            $('#profileContent6>#<%=followDataArray.get(i).getNo()%>>label').text('<%=followDataArray.get(i).getName()%>');
-	           <%}%>
+	           <%}%> 
 
 
 			 //2.차단됨 컨텐츠
@@ -1166,8 +1183,128 @@
 				      });
 			 });
 			 <%}%> 
+			 
+			//7.팔로우요청 컨텐츠
+             $('#profileMenuRbt7').on("click",function(){
+	              $.ajax({
+	            		url:"<%=request.getContextPath()%>/view/selectrequestfollow",
+	            		type:"POST",
+	            		data:{"userNo":<%=user.getNo()%>},
+	            		success:function(data){
+	            			
+	            			$('#profileContent7>*').remove();
+	            			
+	            			 for(var i=0;i<data.length;i++){ 				
+	 							    var no=data[i]["no"];
+	 								var name=data[i]["name"];
+	 								var profilePhoto=data[i]["profilePhoto"]; 
+	 								$('#profileContent7').append($('<div/>',{
+	 					                class:'profileFollowDv',
+	 					                id:no
+	 					             }));
+	 					             $('#profileContent7>#1').on("click",function(){
+	 					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+	 					             });
+	 					             
+	 					             $('#profileContent7>#'+no).append($('<img/>',{
+	 					            	 src: '<%=request.getContextPath()%>/'+profilePhoto
+	 					             }));
+	 					            
+	 					             $('#profileContent7>#'+no).append($('<label/>',{
+	 					                text:name
+	 					             }));
+	 					             
+	 					             $('#profileContent7>#'+no).append($('<button/>',{
+	 					            	text:'거절'
+	 					             }));
+	 					           
+	 					             $('#profileContent7>#'+no).append($('<button/>',{
+	 					            	text:'수락'
+	 					             }));
+	 					            $('#profileContent7>#'+no+'>button:eq(0)').on("click",function(e){
+	 					            	e.stopPropagation();
+	 					            	var requestFollowUserNoDiv=$(this).parent();
+	 					            	var requestFollowUserNo=$(this).parent().attr("id");
+	 					            	$.ajax({
+	 					            		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+	 					            		type:'POST',
+	 					            		data:{'requestFollowUserNo':requestFollowUserNo},
+	 					            		success:function(data){
+	 					            			requestFollowUserNoDiv.remove();
+	 					            		},
+	 					            		error:function(xhr,status){
+	 					            			alert(xhr+" : "+status);
+	 					            		}
+	 					            		
+	 					            	});
+	 					            });
+	 					           $('#profileContent7>#'+no+'>button:eq(1)').on("click",function(e){
+	 					            	e.stopPropagation();
+	 					            	var requestFollowUserNoDiv=$(this).parent();
+	 					            	var requestFollowUserNo=$(this).parent().attr("id");
+	 					            	$.ajax({
+	 					            		url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					            		type:'POST',
+	 					            		data:{'requestFollowUserNo':requestFollowUserNo},
+	 					            		success:function(data){
+	 					            			requestFollowUserNoDiv.remove();
+	 					            		},
+	 					            		error:function(xhr,status){
+	 					            			alert(xhr+" : "+status);
+	 					            		}
+	 					            		
+	 					            	});
+	 					            });
+	 					            $('#profileContent7>#'+no+'>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
+	 					            $('#profileContent7>#'+no+'>button:eq(1)').css({'background-color':'#59DA50'}); 
+	 				 		}	
+	            		},
+	            		error:function(xhr,status){
+	            			alert(xhr+" : "+status);
+	            		}
+	            	});  
+             	});
 				
         });
+        
+      //페이지 로딩시 팔로우요청 가져오기
+        <%for(int i=0;i<requestfollowDataArray.size();i++){%>
+        $('#profileContent7').append($('<div/>',{
+           class:'profileFollowDv',
+           id:'<%=requestfollowDataArray.get(i).getNo()%>'
+        }));
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<img/>',{
+           src: '<%=request.getContextPath()%>/<%=requestfollowDataArray.get(i).getProfilePhoto()%>'
+        }));
+       
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').on("click",function(){
+        	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+        });
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<label/>',{
+           
+        }));
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>label').text('<%=requestfollowDataArray.get(i).getName()%>');
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<button/>',{
+         	text:'거절'
+          }));
+        
+          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<button/>',{
+         	text:'수락'
+          }));
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').on("click",function(e){
+         	e.stopPropagation();
+         });
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').on("click",function(e){
+         	e.stopPropagation();
+         });
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').css({'background-color':'#59DA50'}); 
+         
+       <%}%> 
+       
 			 
     </script> 
 
@@ -1440,6 +1577,12 @@
 			 $('#uploadProfileStory').click(); 	//hidden 인풋 실행 
 	     });
 		 $("#updatePhotoContent>button:nth-last-child(1)").click(function(){  //스토리 보기
+			 
+			 if($("#storyContent>div>video").prop('muted', false)){
+				 $("#storyContent>div>video").prop('muted', true);
+				 $("#storyContent>div>img").attr("src","<%=request.getContextPath() %>/img/soundOff.png");
+			 }
+		 
 			 $("#storyContent").fadeIn();
 				updateBar=setInterval(update,10);
 				if(!$('#storyProgressBar').width()==0){
@@ -1499,11 +1642,13 @@
 		 
 		$(document).keyup(function(e) {  //esc누르면 스토리 꺼짐
 		    if (e.keyCode == 27) { 
+		    	$("#storyContent>div>video").prop('muted', true);
 		    	$("#storyContent").fadeOut();
 		   }
 		});
 		 
 		$("#storyContent").click(function(e){   //스토리밖 클릭시 스토리 꺼짐
+			$("#storyContent>div>video").prop('muted', true);
 			$("#storyContent").fadeOut();
 		});
 		
