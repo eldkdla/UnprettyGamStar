@@ -172,4 +172,13 @@ public class ReportService {
 			close(conn);
 			return result;
 		}
+		
+		//메인용 - 처리되지 않은  신고
+		public int selectUnckReportNum()
+		{
+			Connection conn=getConnection();
+			int result=new ReportDao().selectUnckReportNum(conn);
+			close(conn);
+			return result;
+		}
 }

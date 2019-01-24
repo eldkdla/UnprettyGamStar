@@ -260,6 +260,9 @@
     .deleteBtn:focus{
         outline: none;
     }
+    .genderTh,.phoneTh,.emailTh{
+    	display:none;
+    }
 
 } 
     </style>
@@ -308,9 +311,9 @@
              </th>
              <th style="width:7%;">Id</th>
              <th style="width:14%;">Name</th>
-             <th style="width:7%;">Gender</th>
-             <th style="width:14%;">Email</th>
-             <th style="width:10%;">Phone</th>
+             <th style="width:7%;" class='genderTh'>Gender</th>
+             <th style="width:14%;" class='emailTh'>Email</th>
+             <th style="width:10%;" class='phoneTh'>Phone</th>
              <th style="width:13%;">EnrollDate</th>
              <th style="width:7%;">State</th>
          </tr>
@@ -327,11 +330,11 @@
                  <input type='checkbox' class='checks' onclick='checkTr(this)'/>
                  <input type='hidden' name='hiddenUserNo' class='hiddenUserNo' value='<%=m.getNo() %>'/>
              </td>
-             <td class='userId'><%=m.getId() %></td>
-             <td class='userName'><%=m.getName() %></td>
-             <td><%=m.getGender()%></td>
-             <td><%=m.getEmail() %></td>
-             <td><%=m.getPhone() %></td>
+             <td class='userId' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%=m.getId() %></td>
+             <td class='userName' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%= m.getName() %></td>
+			 <td class='genderTh'><%=m.getGender()%></td>
+             <td class='emailTh'><%=m.getEmail() %></td>
+             <td class='phoneTh'><%=m.getPhone() %></td>
              <td><%=m.getEnrollDate() %></td>
              <td>
              	<%if(m.getState()==0){ }

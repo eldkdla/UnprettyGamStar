@@ -275,6 +275,9 @@
 		text-decoration: none;
 		color: rgba(0,0,0,0.6);
 	}
+	.mobileDel{
+		display:none;
+	}
 } 
     </style>
 <%@include file='/view/admin/common/header.jsp' %>
@@ -316,13 +319,13 @@
      <!-- 문의사항 리스트 -->
      <table class='type' style='clear: both;'>
          <tr>
-         	 <th style="width:5%;"></th>
+         	 <th style="width:5%;" class='mobileDel'></th>
              <th style="width:7%;">Id</th>
              <th style="width:14%;">Name</th>
-             <th style="width:14%;">Email</th>
+             <th style="width:14%;" class='mobileDel'>Email</th>
              <th style="width:14%;">Phone</th>
-             <th style="width:13%;">EnrollDate</th>
-             <th style="width:5%;"></th>
+             <th style="width:13%;" class='mobileDel'>EnrollDate</th>
+             <th style="width:5%;" ></th>
          </tr>
          <% if(list==null|| list.isEmpty()) { %>
          <tr>
@@ -333,14 +336,14 @@
         	<%}
          for(User m:list) { %>
          <tr>
-         	 <td>
+         	 <td class='mobileDel'>
          	 	<input type='hidden' class='hiddenAdminNo' value='<%=m.getNo() %>'/>
          	 </td>
              <td><%=m.getId() %></td>
              <td><%=m.getName() %></td>
-             <td><%=m.getEmail() %></td>
+             <td class='mobileDel'><%=m.getEmail() %></td>
              <td><%=m.getPhone() %></td>
-             <td><%=m.getEnrollDate() %></td>
+             <td class='mobileDel'><%=m.getEnrollDate() %></td>
              <td>            	
              	<button class='deleteBtn' onclick='delAdmin(this);'>삭제</button>
              </td>
