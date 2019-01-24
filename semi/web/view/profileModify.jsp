@@ -211,8 +211,8 @@
 
     <script>
     	//이름입력시 변경 활성화
-    	$('#modifyName').keyup(function(){
-    		reg = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
+    	$('#modifyName').on('keyup',(function(){
+    		reg = /^[가-힣]{2,6}$/;
     		
     		if(reg.test($(this).val())){
     			$(this).val($(this).val().replace(reg,''));
@@ -228,11 +228,11 @@
 	                $('#modifyButton').prop('disabled', 'true');
 	    		}
     		}
-    	});
+    	}));
     	
         //이메일 중복확인+한글+@를뺀 특수문자 입력안되게
-        $('#modifyEmail').keyup(function (event) {
-        	reg =/[^a-zA-Z0-9|@|.]/gi;
+        $('#modifyEmail').on('keyup',(function (event) {
+        	reg =/^[\w\-]+@(?:(?:[\w\-]{2,}\.)+[a-zA-Z]{2,})$/;
  
             if (reg.test($(this).val())) {
 	            $(this).val($(this).val().replace(reg, ''));
@@ -267,12 +267,12 @@
 	        	}
             }
             
-        });
+        }));
         
      
         //전화번호 숫자체크+중복확인
-        $("#modifyPhone").keyup(function(e) {
-       		reg = /[^0-9]/gi;
+        $("#modifyPhone").on('keyup',(function(e) {
+       		reg = /^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
             v = $(this).val();
                   
             if (reg.test(v)) {
@@ -309,7 +309,7 @@
 	            }
             }
             
-        });
+        }));
 
 
         //성별 바뀌면 버튼 활성화
@@ -378,10 +378,9 @@
 	    		});
     		}
     	});
-    	
-        //비밀번호변경에서 새비밀번호 2개 같은지 비교+버튼활성화
-        $(function () {
-            $('#newPwchk,#newPw').keyup(function () {
+
+            $('#newPwchk,#newPw').on('keyup',(function () {
+            	
                 if ($('#newPwchk').val() != '' && $('#newPw').val() != '') {
 
                     if ($('#newPw').val() != $('#newPwchk').val()) {
@@ -406,19 +405,23 @@
                     $('#psModifyBt').css('background-color', 'gray');
                     $('#psModifyBt').prop('disabled', 'true');
                 }
-            });
-        });
+            }));
         
       //회원탈퇴시 비밀번호 맞는지 알려주기
-    	$('#chkPw').keyup(function(){
+    	$('#chkPw').on('keyup',(function(e){
+    		if(e.key=='Enter'){
+    			e.preventDefault();
+    		}
     		if($('#chkPw').val()==""){
     			$('#chkPwDv').html("");
     		}else{
+    			console.log("eee");
 	    		$.ajax({
 	    			url:'<%=request.getContextPath()%>/view/chkBeforePw',
 	    			type:"POST",
 	    			data:{"beforePw":$('#chkPw').val()},
 	    			success:function(data){
+	    				console.log("파방");
 	    				if(data=="true"){
 	    					$('#chkPwDv').html("비밀번호 일치").css('color', 'green');
 	    					$('#unregister').css('background-color', 'cornflowerblue');                        
@@ -437,7 +440,7 @@
 	    			
 	    		});
     		}
-    	});
+    	}));
       
     	$('#unregister').click(function(){
     		$('body').alertBox({
