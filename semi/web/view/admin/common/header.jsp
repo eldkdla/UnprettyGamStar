@@ -16,7 +16,7 @@
         <!-- 헤더(메뉴, 로고) -->
         <header>
             <!-- 임시메인 -->
-           <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
+            <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
         </header>
         <!-- 모바일용 서브 메뉴버튼 -->
         <div id='openMenuDiv'>

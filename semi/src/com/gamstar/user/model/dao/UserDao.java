@@ -522,6 +522,7 @@ public class UserDao {
 	}
 	
 	
+	
 	public User selectNewspeedWriter(Connection conn,int newspeedNo){
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -750,6 +751,5 @@ public class UserDao {
 				
 				return result;
 			}
-
 
 }

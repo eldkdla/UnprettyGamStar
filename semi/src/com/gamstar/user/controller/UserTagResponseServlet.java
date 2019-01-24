@@ -41,7 +41,7 @@ public class UserTagResponseServlet extends HttpServlet {
 		
 		
 		//int userNo = Integer.parseInt(request.getParameter("userNo"));
-		int userNo = 1;
+		int userNo = (int)request.getSession().getAttribute("userNo");
 		String userName = request.getParameter("userName");
 		List<User> userList = userService.selectFollowLike(userNo, userName);
 		JSONArray userListJSONArray = new JSONArray();

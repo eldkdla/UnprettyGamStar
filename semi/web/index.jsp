@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<meta charset=UTF-8">
+<meta charset="UTF-8">
 <title>임시메인</title>
 <script src="http://code.jquery.com/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
@@ -56,8 +56,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="chatroomStatus" onmousedown="startDrag(event, document.getElementById('chatroom'))">
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> x
-            </button> 
+            <button id="chatroomcloseBtn" onclick="removechatlist()"> x </button> 
         </div>
         
         <div id="addchatlist">
@@ -76,9 +75,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="friendlistStatus" onmousedown="startDrag(event, document.getElementById('chatroomfriendroom'))">
             <span style="color: white; font-size: 11px; position: relative; left: 5px;top:2px;">대화상대 선택</span>
-            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';">
-                x
-            </button>
+            <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';"> x </button>
         </div>
         <div id="selectfriend">
             <div id="findfriend">
@@ -249,7 +246,7 @@ if(request.getSession().getAttribute("userNo") == null)
                         }); 
                      $('#fchatlistdiv'+i).append($('<span/>',{
                         text:json[i]["previewMessageTime"],
-                             style:'position:relative; font-size:7px; left:5px; color:gray;'
+                             style:'position:relative; font-size:7px; left:4.5px; top:6.5px; color:gray;'
                             
                          }));
                          f++; 
@@ -336,7 +333,8 @@ var data1;
 var data2;
 
     function chatting(obj) {
-       clearInterval(timer2); 
+       clearInterval(timer2);
+       $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
        var name = $($(obj).children()[1]).text();
        //console.log($($($(obj).children()[2]).children()[0]).attr('value'));
        var img= $($(obj).children()[0]).attr('src');
@@ -358,7 +356,7 @@ var data2;
             $('#messagecontent').children().remove();
              var json = eval("(" + data + ")");
                 console.log(json);
-                data1=json[json.length-1]["chatDate"];
+                data1=json[json.length-1]["chatMessage"];
                 console.log("data1"+data1);
                 console.log("data2"+data2);
 
@@ -423,10 +421,12 @@ var data2;
                             })); 
                        }
                    if(data1!=data2){
-               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);}
+               $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
+               //clearInterval(timer2);
+                   }
                
                    }
-                   data2=json[json.length-1]["chatDate"];
+                   data2=json[json.length-1]["chatMessage"];
                 },
                 error:function(xhr,status){
             alert(xhr+" : "+status);   
@@ -739,3 +739,4 @@ var f=0;
        })
     })
 
+</script>

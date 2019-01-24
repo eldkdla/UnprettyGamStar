@@ -38,7 +38,7 @@ public class FindFriendServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String inputfriendName=request.getParameter("inputFriendName");
 		//String userId="user10";
-		int myNo=1;
+		int myNo=(int)request.getSession().getAttribute("userNo");;
 		ArrayList<User> arr= new ArrayList<User>();
 		arr=new FindFriendService().findFriend(inputfriendName, myNo);
 		JSONArray friedlistarr=new JSONArray();

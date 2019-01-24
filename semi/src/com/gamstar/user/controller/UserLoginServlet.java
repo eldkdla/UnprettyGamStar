@@ -16,7 +16,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class UserLoginServlet
  */
-@WebServlet("/login")
+@WebServlet(name="UserLoginServlet",urlPatterns="/login")
 public class UserLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +33,9 @@ public class UserLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");

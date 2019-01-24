@@ -14,7 +14,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class CreateNewAdminServlet
  */
-@WebServlet("/admin/manager/createAdmin")
+@WebServlet(name="CreateNewAdminServlet", urlPatterns="/admin/manager/createAdmin")
 public class CreateNewAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
