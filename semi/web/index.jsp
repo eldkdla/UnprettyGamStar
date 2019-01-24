@@ -249,7 +249,7 @@ if(request.getSession().getAttribute("userNo") == null)
                         }); 
                      $('#fchatlistdiv'+i).append($('<span/>',{
                         text:json[i]["previewMessageTime"],
-                             style:'position:relative; font-size:7px; left:5px; color:gray;'
+                             style:'position:relative; font-size:7px; left:4.5px; top:6.5px; color:gray;'
                             
                          }));
                          f++; 
