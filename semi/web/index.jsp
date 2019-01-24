@@ -110,7 +110,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
     <div id="chattingscreen" class="chatscreen" onclick="zindexchange(this)">
         <div id="chattingStatus" onmousedown="startDrag(event, document.getElementById('chattingscreen'))">
-        
+        <span id="chattingroomName" style="color:white; position:relative; left:3px; font-size: 14px;">홍길동</span>
             <button id="chattingcloseBtn" onclick='closeChatting()'>
                 x
             </button>
@@ -148,6 +148,154 @@ if(request.getSession().getAttribute("userNo") == null)
    var audioflagm2;
 
     function chat() {
+    	$.ajax({
+            url:"<%=request.getContextPath()%>/previewlist",
+           type:"get",
+           dataType :'text',
+           cache : false,
+           
+           success:function(data){
+                 $('#addchatlist').children().remove();
+                  //console.log(data);
+                  //var json = JSON.parse(data);
+
+                  var json = eval("(" + data + ")");
+                  //console.log(typeof(json));
+                  //console.log(json);
+                  	  audioflag1=json[0]["previewMessage"];
+                        audioflagc1=json[0]["chatNo"];
+                        audioflagm1=json[0]["mili"];
+                  
+                  for(var i=0;i<json.length;i++){
+                  	
+                    //console.log(key+":"+json[i][key]);
+                    //console.log(json[i]["otherName"]);
+                    
+                    if(json[i]["otherNo"]==json[i]["previewMessageUserNo"]&&json[i]["readState"]==0)
+                    {
+                       $('#addchatlist').append($('<div/>',{
+                             class:'chatlistcontent',
+                             id: 'fchatlistdiv'+i,
+                             
+                         }));
+                       $('#fchatlistdiv'+i).append($('<img/>',{
+                             src: json[i]["otherProfile"],
+                             class:'chatuserimg',
+                             id: 'fchatuserimg'+i
+                            
+                         }));
+                       $('#fchatlistdiv'+i).append($('<span/>',{
+                               text:json[i]["otherName"],
+                             class:'chatusername',
+                            
+                         }));
+                       $('#fchatlistdiv'+i).append($('<div/>',{
+                             style:'position:absolute',
+                             id: 'fchatuserdiv2'+i,
+                            
+                         })); 
+                       $('#fchatuserdiv2'+i).append($('<p/>',{
+                             class:'chatpreview',
+                             value: json[i]["chatNo"],
+                            text:json[i]["previewMessage"]
+                         }));
+                       $('#fchatlistdiv'+i).append($('<span/>',{
+                               text:json[i]["previewMessageTime"],
+                               style:'position:relative; font-size:7px ;top:1px;left:19.5px; color:gray;'
+                              
+                           }));
+                       $('#fchatlistdiv'+i).append($('<img/>',{
+                             src: 'img/alarm.png',
+                             class:'alarm',
+                             style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
+                            
+                         }));
+                       
+                      /*  $('#fchatlistdiv'+i).append($('<button/>',{
+                             class:'deletechatBtn',
+                             text : 'x'
+                            
+                         })); */
+                       
+                       $('#fchatlistdiv'+i).off("click").on("click",function(){
+                          
+                          //console.log("클릭 : "+username2);
+                            chatting(this);
+                          });
+                       
+                           f++; 
+                         }
+                    else{
+                       $('#addchatlist').append($('<div/>',{
+                             class:'chatlistcontent',
+                             id: 'fchatlistdiv'+i,
+                             
+                         }));
+                       $('#fchatlistdiv'+i).append($('<img/>',{
+                             src: json[i]["otherProfile"],
+                             class:'chatuserimg',
+                             id: 'fchatuserimg'+i
+                            
+                         }));
+                       $('#fchatlistdiv'+i).append($('<span/>',{
+                               text:json[i]["otherName"],
+                               
+                             class:'chatusername',
+                            
+                         }));
+                       $('#fchatlistdiv'+i).append($('<div/>',{
+                             style:'position:absolute',
+                             id: 'fchatuserdiv2'+i,
+                            
+                         })); 
+                       $('#fchatuserdiv2'+i).append($('<p/>',{
+                             class:'chatpreview',
+                             value: json[i]["chatNo"],
+                            text:json[i]["previewMessage"]
+                         }));
+                       /* $('#fchatlistdiv'+i).append($('<button/>',{
+                             class:'deletechatBtn',
+                             text : 'x'
+                            
+                         })); */
+                       
+                       
+                       $('#fchatlistdiv'+i).off("click").on("click",function(){
+                          
+                     chatting(this);
+                          
+                          }); 
+                       $('#fchatlistdiv'+i).append($('<span/>',{
+                          text:json[i]["previewMessageTime"],
+                               style:'position:relative; font-size:7px; left:12px; top:6.5px; color:gray;'
+                              
+                           }));
+                           f++; 
+                    }
+                  console.log("audioflag1"+audioflag1);
+                	console.log("audioflag2"+audioflag2);
+                	console.log("audioflagc1"+audioflagc1);
+                	console.log("audioflagc2"+audioflagc2);
+                        console.log("audiosetting?"+audiosetting);
+                	
+                     if(audioflag1!=audioflag2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0
+                  		  ||audioflagc1!=audioflagc2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0
+                  		  ||audioflagm1!=audioflagm2&&json[0]["otherNo"]==json[0]["previewMessageUserNo"]&&json[0]["readState"]==0&&audiosetting==0){
+                        audio.play();
+                        } 
+                    audioflag2=json[0]["previewMessage"];
+                    audioflagc2=json[0]["chatNo"];
+                    audioflagm2=json[0]["mili"];
+                  
+                  }
+                    
+                  
+           },
+                 
+              error:function(xhr,status){
+              alert(xhr+" : "+status);   
+              }
+         });
         timer = setInterval( function () {
         $.ajax({
           url:"<%=request.getContextPath()%>/previewlist",
@@ -218,7 +366,7 @@ if(request.getSession().getAttribute("userNo") == null)
                           
                        })); */
                      
-                     $('#fchatlistdiv'+i).off("dblclick").on("dblclick",function(){
+                     $('#fchatlistdiv'+i).off("click").on("click",function(){
                         
                         //console.log("클릭 : "+username2);
                           chatting(this);
@@ -261,7 +409,7 @@ if(request.getSession().getAttribute("userNo") == null)
                        })); */
                      
                      
-                     $('#fchatlistdiv'+i).off("dblclick").on("dblclick",function(){
+                     $('#fchatlistdiv'+i).off("click").on("click",function(){
                         
                    chatting(this);
                         
@@ -375,6 +523,8 @@ var data2;
        clearInterval(timer2);
        $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
        var name = $($(obj).children()[1]).text();
+       console.log("name!!!!!"+name);
+       $('#chattingroomName').html(name);
        //console.log($($($(obj).children()[2]).children()[0]).attr('value'));
        var img= $($(obj).children()[0]).attr('src');
        var no=$($($(obj).children()[2]).children()[0]).attr('value');
@@ -383,6 +533,88 @@ var data2;
          div.innerHTML = obj;
          div.id='previewchats';
          console.log(div);
+         $.ajax({
+             url:"<%=request.getContextPath()%>/callChatLog",
+             type:"get",
+             data:{"chatNo": no},
+             cache : false,
+             dataType :'text',
+             async:false,
+             success:function(data){
+                $('#messagecontent').children().remove();
+                 var json = eval("(" + data + ")");
+
+                    for(var i=0;i<json.length;i++){
+                       if(json[i]["myNo"]==json[i]["chatUserNo"]){
+                          console.log("시간: "+json[i]["chatDate"]);
+                          $('#messagecontent').append($('<div/>',{
+                                class: "clear",
+                                }));
+                          $('#messagecontent').append($('<div/>',{
+                                class:"from-me",
+                                id:"from-me"+i
+                                }));
+                            $('#from-me'+i).append($('<div/>',{
+                                class: "sendDiv",
+                                id:"sendDiv"+i
+                                }));
+                            $('#sendDiv'+i).append($('<p/>',{
+                                class: "myMsg",
+                                text: json[i]["chatMessage"]
+                                }));
+                            $('#from-me'+i).append($('<span/>',{
+                                class: "sendDate",
+                                text: json[i]["chatDate"]
+                                }));
+                            
+                           
+                       }
+                       else{
+                          //console.log("다를 때: "+json[i]["chatMessage"]);
+                          $('#messagecontent').append($('<div/>',{
+                                class: "clear",
+                                }));
+                          $('#messagecontent').append($('<div/>',{
+                                class:"from-them",
+                                id:"from-them"+i
+                                }));
+                            $('#from-them'+i).append($('<div/>',{
+                                class: "receiveUser",
+                                id:"receiveUser"+i
+                                }));
+                            $('#receiveUser'+i).append($('<img/>',{
+                                class: "receiveUserImg",
+                                src: img
+                                }));
+                            $('#receiveUser'+i).append($('<span/>',{
+                                class: "receiveUserName",
+                                text:name
+                                }));
+                            $('#from-them'+i).append($('<div/>',{
+                                class: "receiveDiv",
+                                id: "receiveDiv"+i
+                                }));
+
+                            $('#receiveDiv'+i).append($('<p/>',{
+                                class: "receiveMsg",
+                                text: json[i]["chatMessage"]
+                                }));           
+                            $('#from-them'+i).append($('<span/>',{
+                                class: "receiveDate",
+                                text: json[i]["chatDate"]
+                                })); 
+                           }
+                     
+                   $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
+                   //clearInterval(timer2);
+                       
+                   
+                       }
+                    },
+                    error:function(xhr,status){
+                alert(xhr+" : "+status);   
+             }
+          });
        timer2 = setInterval( function () {
          $.ajax({
          url:"<%=request.getContextPath()%>/callChatLog",
@@ -606,7 +838,7 @@ var f=0;
       username3=arr;
       userimg3=$(user[imgnum]).prevAll('img').first().attr("src");
       chatno3=data;
-      $('#chatlistdiv'+f).off("dblclick").on("dblclick",function(){
+      $('#chatlistdiv'+f).off("click").on("click",function(){
          
            chatting(this);
         }); 
