@@ -19,8 +19,8 @@ import common.encrypt.EncryptWrapper;
 				"ChkBeforePw",
 				"UnregisterServlet",
 				"UserLoginServlet",
-				"UserEnrollServlet"
-				
+				"UserEnrollServlet",
+				"CreateNewAdminServlet"
 		}
 		)
 public class EncryptFilter implements Filter {
