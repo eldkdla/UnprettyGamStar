@@ -1,0 +1,458 @@
+
+    .chatscreen{
+        display: none;
+        position: absolute;
+        width: 320px;
+        height: 470px;
+        left:0px; top:0px;
+        border: 1.1px solid black;
+        box-shadow: 0px 0px 5px 1px rgb(146, 146, 146);
+        background-color: rgb(255, 255, 255);
+        
+    }
+    #chattingStatus {
+        background-color: black;
+        height: 20px;
+        width: 320px;
+        left:0px; top:0px;
+        position: absolute;
+        cursor: pointer;
+        
+    }
+    #messagecontent {
+        margin-top: 20px;
+        height: 380px;
+        max-width: 320px;
+        font-size: 12px;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+    }
+    #messagecontent::-webkit-scrollbar {
+
+        display:none;
+
+    }
+    
+    
+    #chattingbottom{
+        position: relative;
+        height: 59px;
+        width: 320px;
+        background-color: white;
+        border-top: 1px solid rgb(207, 207, 207);
+
+    }
+    #messageoption{
+        height: 35px;
+
+    }
+    #chatinput{
+        height: 65px;
+
+    }
+
+    #inputchattext{
+        margin-top: 6px;
+        margin-left: 6px;
+        height: 50px;
+        width: 245px;
+        resize: none;
+    }
+    #submitchattextBtn{
+        border: none;
+        cursor: pointer;
+        position: relative;
+        bottom: 23px;
+        width: 50px;
+        height: 50px;
+        background-color: rgb(236, 236, 236);
+    }
+    #submitchattextBtn:hover{
+        background-color: rgb(253, 252, 251);
+    }
+    .clear {
+        max-width: 220px;
+      word-wrap: break-word;
+      margin-bottom: 15px;
+      line-height: 15px;
+      clear: both;
+    }
+    
+    .sendDiv {
+      max-width: 220px;
+      word-wrap: break-word;
+      margin-bottom: 5px;
+      line-height: 15px;
+      position: relative;
+      right: 10px;
+      padding: 1px 8px;
+      color: white;
+      background: #0B93F6;
+      border-radius: 8px;
+      float: right;
+    }
+    
+    .receiveDiv {
+        top: 4px;
+        max-width: 220px;
+      word-wrap: break-word;
+      margin-bottom: 5px;
+      line-height: 15px;
+        left:10px;
+      position: relative;
+      padding: 1px 8px;
+      background: #E5E5EA;
+      border-radius: 8px;
+      color: black;
+      float: left;
+    }
+    .receiveUser{
+        position: relative;
+        left: 10px;
+        width: 180px;
+        height: 30px;
+    }
+    .receiveUserImg{
+        float: left;
+        width: 30px; height: 30px; border-radius: 50%;
+        position: relative;
+    }
+    .receiveUserName{
+        left: 7px;
+        top: 5px;
+        position: relative;
+        font-size: 12.6px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+
+    }
+    .receiveDate{
+        position: relative;
+        left: 15px;
+        top: 5px;
+        font-size: 7px;
+        color: rgb(185, 185, 185);
+    }
+    .sendDate{
+        position: relative;
+        float: right;
+        right: 15px;
+        top: 5px;
+        font-size: 7px;
+        color: rgb(185, 185, 185);
+    }
+
+
+
+    /*친구창*/
+    
+    .friendcheck{
+        position: relative;
+        float: right;
+        right: 5px;
+        top: 20px;
+        cursor: pointer;
+    }
+    .frienduserimg{
+        position: relative;
+        float: left;
+        top: 10px;
+        left: 10px;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+    }
+    .friendusername{
+        display: block;
+        position: relative;
+        float: left;
+        top: 23px;
+        left: 24px;
+        width: 95px;
+        height: 20px;
+        font-size: 13.7px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .chatroomfriend{
+        display: none;
+        position: absolute;
+        width: 325px;
+        height: 350px;
+        left:0px; top:0px;
+        border: 1.1px solid black;
+        box-shadow: 0px 0px 5px 1px rgb(146, 146, 146);
+        background-color: white;
+    }
+
+    #friendlistStatus {
+        background-color: black;
+        height: 20px;
+        width: 326px; top:0px;
+        position: absolute;
+        cursor: pointer;
+        
+    }
+    #selectfriend{
+        position: relative;
+        width: 205px;
+        height: 330px;
+        top: 20px;
+        border-right: 1px solid rgb(66, 66, 66);
+    }
+    #selectedfriend{
+        position: relative;
+        left: 205px;
+        bottom: 310px;
+        width: 120px;
+        height: 330px;
+        user-select: none;
+
+    }
+    #selectedfriendtext{
+        position: relative;
+        text-align: center;
+        height: 20px;
+        width: 118px;
+        top: 10px;
+        left: 2px;
+        font-size: 12px;
+        color: gray;
+        border-bottom: 1px solid rgb(207, 207, 207);
+
+        font-family: 'Gothic A1', sans-serif;
+    }
+    #selectedfriendlist{
+        position: relative;
+        top: 10px;
+        width: 118px;
+        left: 2px;
+        height: 250px;
+        border-bottom: 1px solid rgb(207, 207, 207);
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+    }
+    #selectedfriendlist::-webkit-scrollbar {
+
+        display:none;
+
+    }
+    #selectedfriendbutton{
+        position: relative;
+        top: 10px;
+        left: 2px;
+        width: 118px;
+        height: 48px;
+        text-align: center;
+    }
+    #selectedFriendOkBtn{
+        position: relative;
+        top: 10px;
+        font-size: 11px;
+        font-family: 'Gothic A1', sans-serif;
+        height: 22px;
+        width: 45px;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        background-color: rgb(68, 68, 68);
+        color: white;
+        cursor: pointer;
+    }
+    #selectedFriendCancelBtn{
+        position: relative;
+        top: 10px;
+        font-size: 11px;
+        font-family: 'Gothic A1', sans-serif;
+        height: 22px;
+        width: 45px;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        background-color: rgb(228, 228, 228);
+        color: rgb(0, 0, 0);
+        cursor: pointer;
+    }
+    #findfriend{
+        position: relative;
+        width: 205px;
+        height: 30px;
+        border-bottom: 1px solid rgb(207, 207, 207);
+    }
+    #inputFriendName{
+        position: relative;
+        left: 8px;
+        top: 5px;
+        width: 186px;
+    }
+    
+    #friendlistdiv{
+        position: relative;
+        width: 205px;
+        height: 300px;
+        overflow: scroll;
+        -ms-overflow-style: none;
+        user-select: none;
+    }
+    #friendlistdiv::-webkit-scrollbar {
+
+        display:none;
+
+    }
+    .friend{
+        height: 60px;
+        border-bottom: 1px solid rgb(207, 207, 207);
+        cursor: pointer;
+    }
+    .friend:hover{
+        background-color: #fefff2;
+    }
+   
+
+
+
+    /*채팅방 설정*/
+    .chatroomMain {
+        overflow: hidden;
+        display: none;
+        position: absolute;
+        width: 310px;
+        height: 500px;
+        left:0px; top:0px;
+        border: 1.1px solid black;
+        background-color: white;
+        box-shadow: 0px 0px 5px 1px rgb(146, 146, 146);
+        
+    }
+
+    /*채팅방 닫기버튼*/
+    #chatroomcloseBtn,#friendlistcloseBtn,#chattingcloseBtn{
+        background-color: transparent !important;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        float: right;
+        width: 28px;
+        height: 20px;
+        font-size: 17px;
+        color: rgb(221, 221, 221);
+        user-select: none;
+        cursor: pointer;
+
+
+    }
+    #chatroomcloseBtn,#friendlistcloseBtn,#chattingcloseBtn:hover {
+        color:rgb(255, 255, 255);
+    }
+
+
+    /*채팅방 상태바*/
+    #chatroomStatus {
+        background-color: black;
+        height: 22px;
+        width: 310px;
+        left:0px; top:0px;
+        position: absolute;
+        cursor: pointer;
+        
+    }
+    /*채팅방 만들기 +버튼*/
+    #plusfriendBtn{
+        background: url("../img/plusbtn.png") no-repeat;
+        border: none;
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+        position: absolute;
+        left: 260px;
+        top:450px;
+    }
+    #plusfriendBtn:hover{
+        background: url("../img/plusbtnhover.png") no-repeat;
+    }
+
+
+    /*채팅방 사람 목록*/
+    
+    
+
+    /*채팅방 탭*/
+    #chatlist,#addchatlist{
+        position: absolute;
+        margin-top: 22.3px;
+        width: 310px;
+        height: 474px;
+        overflow-y: scroll;
+        -ms-overflow-style: none;
+        text-align: center;
+        user-select: none;
+    }
+    
+    #chatlist,#addchatlist::-webkit-scrollbar {
+
+        display:none;
+
+    }
+
+    /*채팅방 목록*/
+    .chatlistcontent{
+        height: 70px;
+        border-bottom: 0.5px solid rgb(224, 224, 224);
+        cursor: pointer;
+
+    }
+    .chatlistcontent:hover{
+        background-color: #fefff2;
+    }
+    .deletechatBtn{
+        float: right;
+        background-color: transparent !important;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        cursor: pointer;
+
+    }
+    .deletechatBtn:hover{
+        color: red;
+        
+    }
+
+    .chatuserimg{
+        position: relative;
+        float: left;
+        top: 8px;
+        left: 10px;
+        height: 52px;
+        width: 52px;
+        border-radius: 50%;
+    }
+
+    .chatusername{
+        position: relative;
+        float: left;
+        top: 14px;
+        left: 22px;
+        width: 190px;
+        text-align: left;
+        font-size: 14.5px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+        overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .chatpreview{
+        position: relative;
+        float: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-align: left;
+        font-size: 12px;
+        top: 27px;
+        width: 195px;
+        height: 14px;;
+        font-family: 'Gothic A1', sans-serif;
+        left: 74px;
+
+    }

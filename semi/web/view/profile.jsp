@@ -10,7 +10,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>사람정보창</title>
 
 	<!-- <script src="http://code.jquery.com/jquery.min.js"></script>  -->
 	<script src="../js/jquery-3.3.1.js"></script>
@@ -21,7 +21,7 @@
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
-	
+	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
@@ -43,7 +43,175 @@
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
-    
+	
+	<div id="newspeedview_btn_wrapper">
+
+        <div id="container-left-btnnnn"></div>
+        <div id="newspeedview_container">
+
+            <div id="newspeedview_list_wrapper">
+                <div class="newspeedview_list_select">
+                    <input type="hidden" class="newspeedNo" value="1">
+
+                    <div class="newspeedview_media_list_wrapper">
+                        <div class="medialist_left_btn"></div>
+
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="userNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="medialist_right_btn"></div>
+
+                    </div>
+
+
+
+                    <div class="newspeedview_all_content_wrapper">
+                        <div class="newspeedview_writer_wrapper">
+                            <div class="newspeedview_writer_content_wrapper">
+                                <div class="newspeedview_profilephoto">
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                                <div class="newspeedview_writername">
+                                    <h4>임태완</h4>
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_content_wrapper">
+                            <div>
+                                <div class="newspeed_username">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_comment_wrapper">
+                            <div>
+                                <div class="newspeed_comment_user">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+
+                        </div>
+
+
+                        <div class="newspeedview_icon_wrapper">
+                            <div class="newspeed_like_icon_wrapper">
+
+                            </div>
+                            <div class="newspeed_store_icon_wrapper">
+
+                            </div>
+
+                        </div>
+                        <hr class="newspeed_content_hr">
+                        <div class="newspeedview_commentwrite_wrapper">
+                            <input type="text" class="newspeedview_comment_write">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+
+                </div>
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="container-right-btnnnn"></div>
+    </div>
+
+
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -64,13 +232,29 @@
             </div>
         </div>
  		
- 		<div id="updatePhoto">
- 			<div id="updatePhotoContent">
+ 		<div class="updatePhoto" id="updatePhoto">
+ 			<div class="updatePhotoContent" id="updatePhotoContent">
  				<button>프로필사진 변경</button>
  				<button>스토리 변경</button>
  				<button>스토리 보기</button>
  			</div>
  		</div>
+ 		
+ 		<div class="updatePhoto" id="userPhotoMenu">
+ 			<div class="updatePhotoContent" id="userPhotoMenuContent">
+ 				<button>스토리 보기</button>
+ 				<button>신고하기</button>
+ 			</div>
+ 		</div>
+ 		
+ 		<form action="" method="post" enctype="multipart/form-data">
+ 		<div class="reportBgk" id="reportBgk">
+ 			<div class="reportContent" id="reportContent">
+ 				<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
+ 				<input type="file" multiple="multiple"><button type="button">신고하기</button>
+ 			</div>
+ 		</div>	
+ 		</form>
  		
  		<div id="storyContent">
 			<div>
@@ -128,10 +312,10 @@
        		<label>게시글을 보려면 팔로우하세요</label>
        	</div>
        	</div>
-        <div id="profileContent1"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
+        <div id="profileContent1" class="profileContent"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
         <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent3"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent4"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent3" class="profileContent"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent4" class="profileContent"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         <form action="mypage.jsp" method="post">
         	<div id="profileContent5"></div>		<!-- 팔로우 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followerId" value="followerId"/>
@@ -143,6 +327,8 @@
 
     </div>
     
+    
+      
    
 
     <script>
@@ -226,43 +412,74 @@
 	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
 	        		$('#profileFollowBt').css("color","white"); 
         		
-	        		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-	        		//프사 선택시 스토리 열리게 
-		        		 $('#profilePhotoBt').click(function(){
-		        			 $("#storyContent").fadeIn();
-		     				updateBar=setInterval(update,500);
-		     				if(!$('#storyProgressBar').width()==0){
-		     					myMovie.currentTime=0;
-		     					progressBar.style.width='0px';
-		     				    window.clearInterval(updateBar);
-		     				}
-		     				if(myMovie.paused){
-		     					myMovie.play();
-		     				}
-		            	 });
-		        		 $('#profilePhotoBt').css("cursor","pointer");
-	        		<%}
-	        		else{%> //스토리 없으면
-	        			$('#profilePhotoBt').off("click");
-	             		$('#profilePhotoBt').css("cursor","default");
-	        		<%}%>
+	        		$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+	        			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	 		        			 $("#storyContent").fadeIn();
+	 		     				updateBar=setInterval(update,500);
+	 		     				if(!$('#storyProgressBar').width()==0){
+	 		     					myMovie.currentTime=0;
+	 		     					progressBar.style.width='0px';
+	 		     				    window.clearInterval(updateBar);
+	 		     				}
+	 		     				if(myMovie.paused){
+	 		     					myMovie.play();
+	 		     				}
+	 		            	
+	 	        		<%}
+	 	        		else{%> //스토리 없으면
+	 	        			profileAlert("스토리가 없습니다");
+	 	        		<%}%> 
+       				 });
+	        		
         		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
             		$('#profileFollowBt').css("background-color","#F6F6F6"); 
             		$('#profileFollowBt').css("color","black");
-            		$('#profilePhotoBt').off("click");
-             		$('#profilePhotoBt').css("cursor","default");
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
             		$('#profileMenuDiv').css("display","none");
-            		$('#disclosure').css("display","block");
-            		
+            		$('#disclosure').css("display","block");            		 
             		<%}%>
+            		
+            		$("#userPhotoMenuContent>button:nth-child(1)").css("background-color","rgba(50,50,50,0.2)");
+           			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+           			
         		<%}%>
-         		
+        		
+	        		 $('#profilePhotoBt').click(function(){
+	        			 $("#userPhotoMenu").fadeIn();
+	     				
+	            	 });
+	        		 $('#userPhotoMenu').click(function(){
+	        			$('#userPhotoMenu').fadeOut(); 
+	        		 });	 
+	            	 
+	            	 $("#userPhotoMenuContent>button:nth-child(2)").click(function(){
+	            		 $('#reportBgk').fadeIn();
+	            	 });
+	            	 $('#reportBgk').click(function(){
+	            		$('#reportBgk').fadeOut(); 
+	            	 });
+	            	 $('#reportContent').click(function(e){
+	            		 e.stopPropagation();
+	            	 });
+	            	 
+	            	 //신고창에서 신고보내기
+	            	 $('#reportContent>button').click(function(){
+	      				if($('#reportContent>textarea').val()!=""){
+	      					/* $.ajax({
+	      						url='',
+	      						type='POST'
+	      						
+	      					}); */
+	      				}
+	     	 			else{
+	     	 				profileAlert("신고내용 입력");
+	     	 			}
+	      			});
          		
          	<%}%>
          	
@@ -426,27 +643,31 @@
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
     		
-    		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-    		//프사 선택시 스토리 열리게 
-        		 $('#profilePhotoBt').click(function(){
-        			 $("#storyContent").fadeIn();
-     				updateBar=setInterval(update,500);
-     				if(!$('#storyProgressBar').width()==0){
-     					myMovie.currentTime=0;
-     					progressBar.style.width='0px';
-     				    window.clearInterval(updateBar);
-     				}
-     				if(myMovie.paused){
-     					myMovie.play();
-     				}
-            	 });
-        		 $('#profilePhotoBt').css("cursor","pointer");
-    		<%}
-    		else{%> //스토리 없으면
-        		$('#profilePhotoBt').off("click");
-         		$('#profilePhotoBt').css("cursor","default");
-    		<%}%>
-    		
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled",false);
+   			$("#userPhotoMenuContent>button:nth-child(1)").hover(function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgb(193,193,193)","color":"white"});
+   			},function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			});
+   			$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+   			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	        			 $("#storyContent").fadeIn();
+	     				updateBar=setInterval(update,500);
+	     				if(!$('#storyProgressBar').width()==0){
+	     					myMovie.currentTime=0;
+	     					progressBar.style.width='0px';
+	     				    window.clearInterval(updateBar);
+	     				}
+	     				if(myMovie.paused){
+	     					myMovie.play();
+	     				}
+	            	
+        		<%}
+        		else{%> //스토리 없으면
+        			profileAlert("스토리가 없습니다");
+        		<%}%> 
+				 });
     	}
     	else{
     		$('#profileFollowBt>label').text("팔로우");
@@ -454,8 +675,9 @@
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
     		
-    		$('#profilePhotoBt').off("click");
-     		$('#profilePhotoBt').css("cursor","default");
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgba(50,50,50,0.2)","color":"gray"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+   		
     	}
 		
 		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
@@ -541,11 +763,15 @@
             function profileMenuChange(){
                // console.log($('#profileMenuRbt1').is(':checked'));
                //console.log($(event).get(0)==$('#profileMenuRbt1').get(0));
+               
+  
                 
                  if($('#profileMenuRbt1:checked').val()){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt1').css('background','url(<%=request.getContextPath()%>/img/profileMenu1.png) no-repeat');
-                    $('#profileContent1').css('display','block');  
+                    $('#profileContent1').css('display','block');
+                    selectedTab = 0;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt1:checked').val())){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"none");
@@ -556,6 +782,7 @@
                     $('#profileMenuRbt2').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt2').css('background','url(<%=request.getContextPath()%>/img/profileMenu2.png) no-repeat');
                     $('#profileContent2').css('display','block'); 
+                   
                  }
                  else if(!($('#profileMenuRbt2:checked').val())){
                     $('#profileMenuRbt2').parents('li').css('borderTop',"none");
@@ -567,6 +794,8 @@
                     $('#profileMenuRbt3').parents('li').css('borderTop',"3px solid black");  
                     $('#profileMenuRbt3').css('background','url(<%=request.getContextPath()%>/img/profileMenu3.png) no-repeat');
                     $('#profileContent3').css('display','block');  
+                    selectedTab = 1;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt3:checked').val())){
                     $('#profileMenuRbt3').parents('li').css('borderTop',"none");
@@ -576,7 +805,9 @@
                  if($('#profileMenuRbt4:checked').val()){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt4').css('background','url(<%=request.getContextPath()%>/img/profileMenu4.png) no-repeat');
-                    $('#profileContent4').css('display','block');    
+                    $('#profileContent4').css('display','block');   
+                    selectedTab = 2;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt4:checked').val())){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"none");
@@ -628,9 +859,53 @@
                   		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
               	    <%}%>
                 }));
+            	 
+            	 <%if(user.getNo()==(int)request.getSession().getAttribute("userNo")){%>
+            	 $('#profileContent1>div:nth-child(<%=i+1%>)').append($('<button/>',{
+  					class:'contentCancelBt',
+  					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
+  				 }));
+            	 
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
+            	 
+  				 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
+  				 e.stopPropagation(); //부모 이벤트 실행 안되게
+  				 var deleteNewspeedDiv1=$(this).parent();
+  				 var storedNewspeedNo1=$(this).parent().attr("value");
+  				 $('body').alertBox({
+  				        title:'게시물을 지우시겠습니까?',
+  				        lTxt: '아니요',
+  				        lCallback: function(){},
+  				        rTxt: '네',
+  				        rCallback: function(){
+  							 $.ajax({
+  								url:'<%=request.getContextPath()%>/view/deletenewspeed',
+  								type:"POST",
+  								data:{"storedNewspeedNo1":storedNewspeedNo1},
+  								success:function(){
+  									deleteNewspeedDiv1.remove();
+  								}
+  							}); 
+  				        }
+  				      });
+  				 });
+  				 
+  				$('#profileContent1>:eq(<%=i%>)').hover(function(){
+  					 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","");
+  				},function(){
+  					$(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+  				});
+  				<%}%>
+  				
             	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value"));
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+            		 
+            		 
             	 });
 
              <%}%>  
@@ -688,7 +963,12 @@
   				<%}%>
             	 
             	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+            		 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+
+            	
              	 });
             	 
              <%}%> 
@@ -708,7 +988,9 @@
              	}));
             	 
             	 $('#profileContent4>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength , $(this));  
               	 });
             	 
              <%}%>  
@@ -1141,6 +1423,8 @@
 		$(document).keyup(function(e) {	//esc누르면 프로필 메뉴 닫기
 		    if (e.keyCode == 27) { 
 		    	$('#updatePhoto').fadeOut();
+		    	$('#userPhotoMenu').fadeOut();
+		    	/* $('#reportBgk').fadeOut(); */
 		   }
 		});
 		
@@ -1175,7 +1459,6 @@
 			    progressBar=document.getElementById('storyProgressBar');
 			    
 			    <%if(userStory.getPath()!=""){%> //스토리있으면 테두리 추가
-			    	console.log("스토리있대");
 			    	$('#profilePhoto').css({'background-image': 'linear-gradient(white, white), radial-gradient(circle at top left, #FAED7D,#F361DC)','background-origin': 'border-box','background-clip': 'content-box, border-box'});
 			    <%}%>
 		});

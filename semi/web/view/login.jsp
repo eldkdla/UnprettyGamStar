@@ -22,7 +22,6 @@
 		<div id="xxx">
 			<img id="welcome" src="<%=request.getContextPath()%>/img/login/login.png" width="200px" height="200px">
 			<h1 class="loginLogo">\ 굄-성 /<br>- UnprettyGamStar -</h1>
-			<div id="caps"></div>
 
 			<form id="loginFrm" action="<%=request.getContextPath() %>/login" method="POST">
 				<table id="loginTable">
@@ -31,10 +30,8 @@
 						<label for="pw" class="loginLabel">PW : </label>
 						</td>
 						
-						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID/Email/Phone??" required />
-<!-- 						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID/Email/Phone??" required onkeypress="javascript:capsLock(this);" /> -->
-						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" />
-						<!-- <input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" onkeypress="javascript:capsLock(this);" /> -->
+						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID/Email/Phone??" required onkeypress="javascript:capsLock(this);" />
+						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" onkeypress="javascript:capsLock(this);" />
 						<p id="capslock" style="color: red; font-weight: bold; display: none">Caps Lock키가 눌려있습니다.</p>
 						
 						</td>
@@ -69,8 +66,8 @@
 </section>
 
 <script>
-//Caps
-$('#pw').on('change keyup paste', (function () {
+	//Caps
+	$('#pw').on('change keyup paste', (function () {
     if (!event.getModifierState("CapsLock")) {
     	$("#caps").text('');
         
@@ -82,8 +79,10 @@ $('#pw').on('change keyup paste', (function () {
         //$('#email_check').css('color', 'red');
         //inval_Arr[3] = false;
     }
-}));
-	/*var pwInput = document.getElementById("pw");
+	}));
+
+
+	/*      var pwInput = document.getElementById("pw");
 	 var capslockAlert = document.getElementById("capslock");
 	 pwInput.addEventListener("keyup", function (event) {
 
@@ -109,7 +108,7 @@ $('#pw').on('change keyup paste', (function () {
            $('#myModal').remove();
            $('body').append($('<div/>',{
               id:'myModal',
-              clsat:'modal'
+              class:'modal'
            }));
            $('#myModal').append($('<div/>',{
               class:'modal-content'
@@ -134,7 +133,6 @@ $('#pw').on('change keyup paste', (function () {
     			{
     				clientId: "fqOHJi8WFN9_xpysEVQG",
     				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
-    				/* callbackUrl: "http://192.168.20.225:9090/GamStar/view/ncallback.jsp", */
     				isPopup: true, /* 팝업을 통한 연동처리 여부 */
     				callbackHandle: true,
     				loginButton: {color: "green", type: 2, height: 30 } /* 로그인 버튼의 타입을 지정 */

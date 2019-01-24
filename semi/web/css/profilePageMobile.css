@@ -176,7 +176,7 @@
       z-index: 5;
     }
     
-    #updatePhoto{
+    .updatePhoto{
 		display:none;
 		position:fixed;
 		width:100%;
@@ -187,7 +187,7 @@
 	    top: 0;
 		z-index:200;
 		}
-		#updatePhotoContent{
+		.updatePhotoContent{
 		position:relative;
 		margin: 100px auto;
 		width:340px;
@@ -196,7 +196,7 @@
 		border: none;
 		text-align: center;
 		}
-		#updatePhotoContent>button{
+		.updatePhotoContent>button{
 		width:60%;
 		height: 80px;
 		font-size: 17px;
@@ -209,11 +209,82 @@
 		box-shadow: 0 0 5px 1px;
 		outline:none;
 		}
-		#updatePhotoContent>button:hover{
+		.updatePhotoContent>button:hover{
 		background-color: rgb(193,193,193);
 		color: white;
 		}
 		
+		.reportBgk{
+			display:none;
+			position:fixed;
+			width:100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.6);
+			overflow:hidden;
+			left: 0;
+		    top: 0;
+			z-index:2100002000;
+		}
+		.reportContent{
+			position:relative;
+			margin: 100px auto; 
+			width:600px;
+			height: 500px;
+			background-color:white;
+			border-radius:10px;
+			border:none;
+		}
+		.reportContent>textarea{
+			width:595px;
+			height:430px;
+			resize: none;
+			border-bottom:1px solid rgba(213,213,213,50);
+			border-radius:10px;
+			outline: none;
+			font-family: 'Gothic A1', sans-serif;
+			font-size: 20px;
+			margin-bottom: 10px;
+		}
+		.reportContent>input[type=file]{
+			position: relative;
+			float: left;
+			margin-left: 10px;
+			outline:none;
+			border:none;
+		}
+		.reportContent>button{
+		   position: relative;
+	       outline: none;
+	       border: none;
+	       border-radius: 5px;
+	       background-color: gray;
+	       color:white;
+	       font-weight: bolder;
+	       width: 70px;
+	       height: 30px;
+	       font-size: 15px;
+	       float: right;
+	       margin-right:10px;
+	       cursor: pointer;
+	       font-family: 'Gothic A1', sans-serif;
+		}
+		
+		.reportContent>button{
+			background-color: cornflowerblue;
+		}
+		
+		@media all and (max-width:600px){
+			.reportContent{
+				width: 99%;
+			}
+			.reportContent>textarea{
+				width: 100%;
+			}
+			.reportContent>button{
+			    width: 65px;
+		        font-size: 12px;
+			}
+		}  
 	
 			#storyContent{
 				display:none;
