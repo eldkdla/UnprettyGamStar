@@ -33,22 +33,23 @@ public class UserDao {
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectUser");
-			User userData=new User();
+			//User userData=new User();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setInt(1,user.getNo());
 				rs=pstmt.executeQuery();
 				if(rs.next()){
-					userData.setNo(rs.getInt("USER_NO"));
-					userData.setName(rs.getString("USER_NAME"));
-					userData.setGender(rs.getString("USER_GENDER"));
-					userData.setState(rs.getInt("USER_STATE"));
-					userData.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
-					userData.setProfileBackgroundPhoto(rs.getString("USER_BACKGROUND_PHOTO"));
-					userData.setEmail(rs.getString("USER_EMAIL"));
-					userData.setPhone(rs.getString("USER_PHONE"));
-					userData.setDisclosure(rs.getInt("USER_DISCLOSURE"));
+					user.setNo(rs.getInt("USER_NO"));
+					user.setName(rs.getString("USER_NAME"));
+					user.setGender(rs.getString("USER_GENDER"));
+					user.setState(rs.getInt("USER_STATE"));
+					user.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+					user.setProfileBackgroundPhoto(rs.getString("USER_BACKGROUND_PHOTO"));
+					user.setEmail(rs.getString("USER_EMAIL"));
+					user.setPhone(rs.getString("USER_PHONE"));
+					user.setDisclosure(rs.getInt("USER_DISCLOSURE"));
+					user.setRemainingDay(rs.getInt("USER_REMAINING_DAY"));
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -56,7 +57,7 @@ public class UserDao {
 				close(rs);
 				close(pstmt);
 			}
-			return userData;
+			return user;
 		}
 		
 		//팔로우상태 확인
