@@ -56,13 +56,10 @@ if(request.getSession().getAttribute("userNo") == null)
 
         <div id="chatroomStatus" onmousedown="startDrag(event, document.getElementById('chatroom'))">
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
-<<<<<<< HEAD
+
             <button id="alarmset" onclick='alarmOnOff()'></button>
             <button id="chatroomcloseBtn" onclick="removechatlist()"> x
             </button> 
-=======
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> x </button> 
->>>>>>> branch 'test4' of https://github.com/eldkdla/UnprettyGamStar.git
         </div>
         
         <div id="addchatlist">
@@ -113,6 +110,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
     <div id="chattingscreen" class="chatscreen" onclick="zindexchange(this)">
         <div id="chattingStatus" onmousedown="startDrag(event, document.getElementById('chattingscreen'))">
+        
             <button id="chattingcloseBtn" onclick='closeChatting()'>
                 x
             </button>
