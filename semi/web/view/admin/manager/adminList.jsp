@@ -90,6 +90,11 @@
     .deleteBtn:focus{
         outline: none;
     }
+    /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -174,6 +179,11 @@
     .deleteBtn:focus{
         outline: none;
     }
+    /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -258,18 +268,14 @@
     .deleteBtn:focus{
         outline: none;
     }
-
+	/* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 } 
     </style>
 <%@include file='/view/admin/common/header.jsp' %>
-<script>
-// 전체 체크용 기능
-    $(document).ready(function(){
-        $('.checkAll').click(function(){
-            $('.checks').trigger("click");
-        });
-    });
-</script>
     <!-- 콘텐츠 -->
  <section>
      <br/>
@@ -277,33 +283,25 @@
      <br/>
      <br/>
      <br/>
-    <%--  <div id="numPerPage-container" style="text-align: right;">
-		<small>정렬</small> 
-		<form name="pageTypeFrm" id="pageTypeFrm" 
-		action="<%=request.getContextPath()%>/admin/memberListOrderType" style="display: inline-block;">
-			<select name="orderType" id="orderType" onchange='submit();'>
-				<option value="name-desc">이름↓</option>
-				<option value="name-asc" >이름↑</option>
-				<option value="id-desc">아이디↓</option>
-				<option value="id-asc" >아이디↑</option>
-			</select>
-		<small>페이지당 회원수 :</small> 
-			<select name="numPerPage" id="numPerPage" onchange='submit();'>
-				<option value="10" <%=numPerPage==10?"selected":"" %> >10</option>
-				<option value="5" <%=numPerPage==5?"selected":"" %> >5</option>
-				<option value="3" <%=numPerPage==3?"selected":"" %> >3</option>					
-			</select>
-		</form>			
-	</div>		 --%>
+     <div id='orderTypeSelect-container' style="float:left; ">
+   		<small>
+   			<!-- 선택된걸 누르면 반대로 가니까, 모양은 desc, 표시는 asc -->
+    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollAsc&class=enroll' class='enroll' style="color: rgba(0,0,0,0.8);">
+    		가입일↓</a>
+    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=idDesc&class=selId' class='selId'>
+    		아이디</a>
+   		</small>
+     </div>
      <!-- 문의사항 리스트 -->
-     <table class='type'>
+     <table class='type' style='clear: both;'>
          <tr>
-         	 <th style="width:10%;"></th>
+         	 <th style="width:5%;"></th>
              <th style="width:7%;">Id</th>
              <th style="width:14%;">Name</th>
              <th style="width:14%;">Email</th>
+             <th style="width:14%;">Phone</th>
              <th style="width:13%;">EnrollDate</th>
-             <th style="width:10%;"></th>
+             <th style="width:5%;"></th>
          </tr>
          <% if(list==null|| list.isEmpty()) { %>
          <tr>
@@ -320,6 +318,7 @@
              <td><%=m.getId() %></td>
              <td><%=m.getName() %></td>
              <td><%=m.getEmail() %></td>
+             <td><%=m.getPhone() %></td>
              <td><%=m.getEnrollDate() %></td>
              <td>            	
              	<button class='deleteBtn' onclick='delAdmin(this);'>삭제</button>
@@ -407,7 +406,6 @@
    		}
     	return false;
     }
-    //한 페이지당 갯수
 </script>
 </body>
 </html>

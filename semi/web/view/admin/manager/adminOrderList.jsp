@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.gamstar.user.model.vo.User" %>
 <%
+	String orderType=(String)request.getAttribute("orderType");
+	String orderTypeClass=(String)request.getAttribute("orderTypeClass");
 	List<User> list=(List)request.getAttribute("list");
-	String searchType=request.getParameter("searchType");
-	String searchKeyword=request.getParameter("searchKeyword");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
 %>
@@ -92,6 +92,11 @@
     .deleteBtn:focus{
         outline: none;
     }
+    /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -176,6 +181,11 @@
     .deleteBtn:focus{
         outline: none;
     }
+    /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -260,18 +270,14 @@
     .deleteBtn:focus{
         outline: none;
     }
-
+	/* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 } 
     </style>
 <%@include file='/view/admin/common/header.jsp' %>
-<script>
-// 전체 체크용 기능
-    $(document).ready(function(){
-        $('.checkAll').click(function(){
-            $('.checks').trigger("click");
-        });
-    });
-</script>
     <!-- 콘텐츠 -->
  <section>
      <br/>
@@ -279,8 +285,36 @@
      <br/>
      <br/>
      <br/>
-    
-     <table class='type'>
+     <div id='orderTypeSelect-container' style="float:left; ">
+   		<small>
+   			<!-- 선택된걸 누르면 반대로 가니까, 모양은 desc, 표시는 asc -->
+   			<% if(orderTypeClass.equals("enroll")) {%>
+	    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollAsc&class=enroll' class='enroll' 
+	    			<%=orderType.equals("enrollDesc")?"style='color: rgba(0,0,0,0.8);'":"style='display:none;'" %>>
+	    		가입일↓</a>
+	    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollDesc&class=enroll' class='enroll'
+	    			<%=orderType.equals("enrollAsc")?"style='color: rgba(0,0,0,0.8);'":"style='display:none;'" %>>
+	    		가입일↑</a>
+	    	<%} else { %>
+	   			<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollDesc&class=enroll' class='enroll'>
+	    		가입일&nbsp;&nbsp;</a>
+    		<%} %>
+    		
+    		<% if(orderTypeClass.equals("selId")) {%>
+	    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=idAsc&class=selId' class='selId'
+	    			<%=orderType.equals("idDesc")? "style='color: rgba(0,0,0,0.8);'":"style='display:none;'" %>>
+	    		아이디↓</a>
+	    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=idDesc&class=selId' class='selId'
+	    			<%=orderType.equals("idAsc")? "style='color: rgba(0,0,0,0.8);'":"style='display:none;'" %>>
+	    		아이디↑</a>
+	    	<%} else { %>
+	    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=idDesc&class=selId' class='selId'>
+	    		아이디&nbsp;&nbsp;</a>
+	    	<%} %>
+   		</small>
+     </div>
+     <!-- 문의사항 리스트 -->
+     <table class='type' style='clear: both;'>
          <tr>
          	 <th style="width:5%;"></th>
              <th style="width:7%;">Id</th>
@@ -292,8 +326,8 @@
          </tr>
          <% if(list==null|| list.isEmpty()) { %>
          <tr>
-         	<td colspan='8' align='center'>
-         		"<%=searchKeyword %>"로 검색되는 관리자가 없습니다.
+         	<td colspan='7' align='center'>
+         		등록된 관리자가 없습니다.
         		</td>
         	</tr>
         	<%}
@@ -302,7 +336,7 @@
          	 <td>
          	 	<input type='hidden' class='hiddenAdminNo' value='<%=m.getNo() %>'/>
          	 </td>
-              <td><%=m.getId() %></td>
+             <td><%=m.getId() %></td>
              <td><%=m.getName() %></td>
              <td><%=m.getEmail() %></td>
              <td><%=m.getPhone() %></td>
@@ -393,7 +427,6 @@
    		}
     	return false;
     }
-    //한 페이지당 갯수
 </script>
 </body>
 </html>

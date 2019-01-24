@@ -271,8 +271,9 @@ public class SupportDao {
 			System.out.println("supportDao cPage, numPerPage"+cPage+" "+numPerPage);
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+searchKeyword+"%");
-			pstmt.setInt(2,(cPage-1)*numPerPage+1);
-			pstmt.setInt(3,cPage*numPerPage);
+			pstmt.setString(2, "%"+searchKeyword+"%");
+			pstmt.setInt(3,(cPage-1)*numPerPage+1);
+			pstmt.setInt(4,cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next())

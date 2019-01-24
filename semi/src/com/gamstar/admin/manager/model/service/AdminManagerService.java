@@ -98,5 +98,23 @@ public class AdminManagerService {
 		close(conn);
 		return result;
 	}
+	
+	//정렬
+	
+	public List<User> selectOrderAdminList(int cPage, int numPerPage, String orderType)
+	{
+		Connection conn=getConnection();
+		List<User> list=null;
+		switch(orderType)
+		{
+			case "enrollAsc" : list=new AdminManagerDao().orderAdminByEA(conn, cPage, numPerPage);break;
+			case "enrollDesc" :list=new AdminManagerDao().selectAdminList(conn, cPage, numPerPage);break;
+			case "idAsc" : list=new AdminManagerDao().orderAdminByIA(conn, cPage, numPerPage);break;
+			case "idDesc" :list=new AdminManagerDao().orderAdminByID(conn, cPage, numPerPage);break;
+		}
+		
+		close(conn);
+		return list;
+	}
 
 }

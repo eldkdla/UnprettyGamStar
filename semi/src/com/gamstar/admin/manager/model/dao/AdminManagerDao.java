@@ -321,6 +321,126 @@ public class AdminManagerDao {
 		return result;
 	}
 	
+	public List<User> orderAdminByEA(Connection conn, int cPage, int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<User> list=new ArrayList();
+		String sql=prop.getProperty("orderByEnrollAsc");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				User userData=new User();
+				
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setId(rs.getString("USER_Id"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setState(rs.getInt("USER_STATE"));
+				userData.setEnrollDate(rs.getDate("USER_ENROLL_DATE"));
+				userData.setEmail(rs.getString("USER_EMAIL"));
+				userData.setPhone(rs.getString("USER_PHONE"));
+				
+				list.add(userData);	
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("adminOrderEnrollAsc Dao");
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
-
+	public List<User> orderAdminByIA(Connection conn, int cPage, int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<User> list=new ArrayList();
+		String sql=prop.getProperty("orderByIdAsc");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				User userData=new User();
+				
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setId(rs.getString("USER_Id"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setState(rs.getInt("USER_STATE"));
+				userData.setEnrollDate(rs.getDate("USER_ENROLL_DATE"));
+				userData.setEmail(rs.getString("USER_EMAIL"));
+				userData.setPhone(rs.getString("USER_PHONE"));
+				
+				list.add(userData);	
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("adminOrderEnrollAsc Dao");
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+	
+	public List<User> orderAdminByID(Connection conn, int cPage, int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<User> list=new ArrayList();
+		String sql=prop.getProperty("orderByIdDesc");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				User userData=new User();
+				
+				userData.setNo(rs.getInt("USER_NO"));
+				userData.setId(rs.getString("USER_Id"));
+				userData.setName(rs.getString("USER_NAME"));
+				userData.setState(rs.getInt("USER_STATE"));
+				userData.setEnrollDate(rs.getDate("USER_ENROLL_DATE"));
+				userData.setEmail(rs.getString("USER_EMAIL"));
+				userData.setPhone(rs.getString("USER_PHONE"));
+				
+				list.add(userData);	
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("adminOrderEnrollAsc Dao");
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

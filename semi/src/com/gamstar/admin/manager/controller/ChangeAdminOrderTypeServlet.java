@@ -1,4 +1,4 @@
-package com.gamstar.admin.user.controller;
+package com.gamstar.admin.manager.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.admin.user.model.service.AdminUserService;
+import com.gamstar.admin.manager.model.service.AdminManagerService;
 import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class UserOrderedListAdminServlet
+ * Servlet implementation class ChangeAdminOrderTypeServlet
  */
-@WebServlet("/admin/userOrderedList")
-public class UserOrderedListAdminServlet extends HttpServlet {
+@WebServlet("/admin/manager/orderType")
+public class ChangeAdminOrderTypeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserOrderedListAdminServlet() {
+    public ChangeAdminOrderTypeServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,7 +45,9 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 		}
 		else
 		{
-			String orderType=request.getParameter("orderType");
+		
+			String orderType=request.getParameter("type");
+			String orderTypeClass=request.getParameter("class");
 			
 			//페이징처리
 			int cPage;
@@ -67,9 +69,10 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 			}
 			
 			
-			List<User> list=new AdminUserService().orderUserList(cPage,numPerPage,orderType);
+			List<User> list=new AdminManagerService().selectOrderAdminList(cPage,numPerPage,orderType);
 			
-			int totalMember=new AdminUserService().selectMemberCount();
+			
+			int totalMember=new AdminManagerService().selectAdminCount();
 			int totalPage=(int)Math.ceil((double)totalMember/numPerPage);
 			String pageBar="";
 			
@@ -83,7 +86,7 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo-1)
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)
 						+"&numPerPage="+numPerPage+"'><</button>";
 			}
 			
@@ -95,7 +98,7 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo)
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo)
 							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
@@ -103,16 +106,17 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			
+			request.setAttribute("orderType",orderType);
+			request.setAttribute("orderTypeClass",orderTypeClass);
 			request.setAttribute("list", list);
 			request.setAttribute("cPage", cPage);
 			request.setAttribute("numPerPage", numPerPage);
 			request.setAttribute("pageBar", pageBar);
-			request.setAttribute("orderType", orderType);
-			request.getRequestDispatcher("/view/admin/user/adminUserOrderList.jsp").forward(request, response);
+			request.getRequestDispatcher("/view/admin/manager/adminOrderList.jsp").forward(request, response);
 		}
 	}
 

@@ -116,7 +116,7 @@ public class UserFindListServlet extends HttpServlet {
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' href='"+request.getContextPath()+"/admin/userList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			System.out.println("널이 뭐냐1"+searchType+" "+searchKeyword+" "+list+" "+cPage+" "+numPerPage+" "+pageBar);
