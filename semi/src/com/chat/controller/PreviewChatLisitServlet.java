@@ -52,9 +52,11 @@ public class PreviewChatLisitServlet extends HttpServlet {
 		}*/
 		JSONArray previewChatarr=new JSONArray();
 		SimpleDateFormat datefm=new SimpleDateFormat("HH:mm");
+		SimpleDateFormat datefm2 =new SimpleDateFormat("mm:ss.SSS");
 		for (int j = 0; j < previewlist.size(); j++) {
 			datefm.format(previewlist.get(j).getMessageTime());
 			JSONObject previewChat=new JSONObject();
+			System.out.println("밀리세컨포맷:"+datefm2.format(previewlist.get(j).getMessageTime()));
 			previewChat.put("chatNo", previewlist.get(j).getChatroomNo());
 			previewChat.put("otherNo", previewlist.get(j).getOtherNo());
 			previewChat.put("otherProfile", previewlist.get(j).getUserProfilePhoto());
@@ -63,6 +65,7 @@ public class PreviewChatLisitServlet extends HttpServlet {
 			previewChat.put("previewMessageTime", datefm.format(previewlist.get(j).getMessageTime()));
 			previewChat.put("previewMessageUserNo", previewlist.get(j).getMessageUserNo());
 			previewChat.put("readState", previewlist.get(j).getReadState());
+			previewChat.put("mili", datefm2.format(previewlist.get(j).getMessageTime()));
 			previewChatarr.add(previewChat);
 		}
 		
