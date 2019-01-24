@@ -28,7 +28,7 @@ public class UserDao {
 
 	}
 
-	//유저정보 선택
+	//유저정보 선택 - 객체 생성부분 삭제 기존 파라메터에 추가로 값 넣어줌
 		public User selectUser(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;

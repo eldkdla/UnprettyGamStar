@@ -69,7 +69,11 @@ public class UserNaverLoginServlet extends HttpServlet {
 		}
 		else//신규 가입인경우임
 		{
-			System.out.println("신규일땐?");
+			
+			//기존 가입자인지 확인 추가
+			
+			
+			System.out.println("우완전 신상일떈? 신규일땐?");
 			int result = new UserService().insertUserNaver(u); //Naver user insert
 
 
