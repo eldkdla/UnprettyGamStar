@@ -860,7 +860,7 @@
               	    <%}%>
                 }));
             	 
-            	 <%if(user.getNo()==(int)request.getSession().getAttribute("userNo")){%>
+            	 <%if((user.getNo()==(int)request.getSession().getAttribute("userNo"))||(user.getNo()<0)){%>
             	 $('#profileContent1>div:nth-child(<%=i+1%>)').append($('<button/>',{
   					class:'contentCancelBt',
   					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
