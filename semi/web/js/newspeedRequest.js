@@ -30,8 +30,7 @@ var isActiveContainerBtn = false;
     function removeRightBtn() {
     	$('#container-right-btnnnn').css('display','inline-block');
     	
-    	console.log('오른쪽 제거시도');
-    	
+
         var nextSel =  $(selectedTag).next();
         
         console.log(nextSel);
@@ -39,7 +38,6 @@ var isActiveContainerBtn = false;
         
         if (typeof $(nextSel).attr('value') == "undefined") {
         	$('#container-right-btnnnn').css('display','none');
-        	console.log('오른쪽 제거');
         	return;
         }
     }
@@ -68,10 +66,6 @@ var isActiveContainerBtn = false;
         
         var left = Number($('.newspeedview_list_select').css('left').replace("px","")); 
         var width = Number($('#newspeedview_list_wrapper > .newspeedview_list_select').width());
-        console.log(left + '여기선 무스닝ㄹ이 일어나나요?');
-        console.log(width);
-        console.log(newspeedNo);
-        console.log(length5);
         
         $('#newspeedview_list_wrapper > div').css('left', (left-width));
 
@@ -115,9 +109,7 @@ var isActiveContainerBtn = false;
   
             var randomMedia;
             
-            console.log(mediaReadIndex + '왜 지랄이세요진짜로?');
-            console.log(imageLength + '지랄좀작작하자....');
-            
+
            	if(mediaReadIndex == fileList.length){    
                 addElement();
             	if (typeof callback == "function") {
@@ -127,25 +119,18 @@ var isActiveContainerBtn = false;
             }
             
             if (fileList[mediaReadIndex].mediaType == 0) {
-            	console.log('이건이미지에요!' + mediaReadIndex);
             	
                 randomMedia = new Image();
-                console.log(images.length + '으응으으응ㅇ');
-                images[images.length] = randomMedia;
-                console.log(images.length + '야야야야야야야야야애');
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
+                images[images.length] = randomMedia;
                 
-                console.log('너뭐하는사람이세요');
-                
-                
+                console.log('뭐좀나와바라');
+          
                 randomMedia.onload = function(e) {
-                	console.log('도와줘제발......')
                 	
-                	console.log(randomMedia.width);
-                	console.log(randomMedia.height);
-                	
-                    
+                	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ');
                     if (mediaReadIndex < fileList.length) {
+                    	
                     	mediaReadIndex++;
                         setMedia();
                     } else if(mediaReadIndex == fileList.length){
@@ -160,7 +145,9 @@ var isActiveContainerBtn = false;
                 }
              
             } else {
-            	console.log('이건동영상이에요!' + mediaReadIndex);
+
+            	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ 혹시여기야?????????? 진짜여기만오는거임?');
+        
             	if (mediaReadIndex < fileList.length) {
             		mediaReadIndex++;
             	} else if(mediaReadIndex == fileList.length){    
@@ -184,34 +171,26 @@ var isActiveContainerBtn = false;
                     class: 'newspeedview_media'
                 }));
 
-            
-
                 if (fileList[i].mediaType == 0) {
-                	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+                	 var maxWidth = 603.644;
                 	 var imgRate = images[imageNum].width / images[imageNum].height;
                 	 var widthRate;
                 	 var imgTag = document.createElement('img');
                 	 imgTag.src = '../' + fileList[i].fileName;
                 	 $(imgTag).addClass('newspeedview_media_image');
-                    
-                    $
+            
 
-                    if(images[imageNum].width >= maxWidth){
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                        widthRate = 100;
-                    } else {
-                        var rate = images[imageNum].width/ maxWidth * 100;
-                        
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                        widthRate = rate;
-                    }
+                	 if(imgTag.width >= maxWidth){
+                         widthRate = 100;
+                      } else {
+               
+                         widthRate = imgTag.width/ maxWidth * 100;
+                      }    
                     
-                                
-                   
+              
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
-                        class: 'newspeedview_media_image_wrapper'
+                        class: 'newspeedview_media_image_wrapper',
+                        width:widthRate + '%'
                         
         
                     }));
@@ -245,8 +224,7 @@ var isActiveContainerBtn = false;
                     	'top': (tagList[j].Y * 100) + '%'
                     });
                     
-                    console.log(tagList[j].X);
-                    console.log(tagList[j].Y);
+            
 
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
                         class: 'tagUserNo',
@@ -361,9 +339,7 @@ var isActiveContainerBtn = false;
             }));
             
             var iconClass = 'newspeed_like_icon_wrapper';
-            
-            console.log(data.isLike);
-            
+        
             if (data.isLike) {
             	iconClass = 'newspeed_like_active_icon_wrapper';
             }
@@ -405,11 +381,10 @@ var isActiveContainerBtn = false;
             // "commentList":[{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commentContent":"날씨가 너무 춥네요~", "commentIndex":1},
 
             if ($('.newspeedview_list_select').length == 0) {
-            	console.log('바꿉니당!!!!!!!!!!!!!!!111');
+
             	$('.newspeedview_list:eq(' + length5 + ')').attr('class', 'newspeedview_list_select');
             } else {
-            	console.log('바꿉니당!!!!!!!!!!!!!!!111저두요!!!!!!!!!!!!!!!!');
-            	console.log($('.newspeedview_list:eq(' + length5 + ')'));
+ 
             	$('.newspeedview_list:eq(' + length5 + ')').attr('class', 'newspeedview_list');
 
             }
@@ -429,26 +404,18 @@ var isActiveContainerBtn = false;
         var userNo = data.userNo;
         var newspeedNo = data.newspeedNo;
         
-        console.log(data);
-        console.log('이렇게 옵니다');
-        
-        console.log(newspeedNo);
-        console.log(length5);
-        
+
  
         $('#newspeedview_list_wrapper').append($('<div/>', {
             class: 'newspeedview_list'
         }));
         
-        console.log('이제 뉴스피드 번호를 더하자!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<input/>', {
             type: 'hidden',
             class: 'newspeedNo',
             value: newspeedNo
         }));
-
-        console.log('이제 미디어를 감싸야지!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<div/>', {
             class: 'newspeedview_media_list_wrapper'
@@ -470,14 +437,12 @@ var isActiveContainerBtn = false;
         var imageLength = 0;
 
         for (var k = 0; k < fileList.length; k++) {
-        	console.log(fileList[k].mediaType + "은무엇?");
             if (fileList[k].mediaType == 0){
                 imageLength++;
             }
         }
         
-        console.log(imageLength + '이미지몇개임?');
-
+     
         var mediaReadIndex = 0;
         var images = [];
         setMedia();
@@ -485,10 +450,7 @@ var isActiveContainerBtn = false;
         function setMedia() {
   
             var randomMedia;
-            
-            console.log(mediaReadIndex + '왜 지랄이세요진짜로?');
-            console.log(imageLength + '지랄좀작작하자....');
-            
+    
            	if(mediaReadIndex == fileList.length){    
                 addElement();
             	if (typeof callback == "function") {
@@ -501,12 +463,18 @@ var isActiveContainerBtn = false;
             	console.log('이건이미지에요!' + mediaReadIndex);
             	
                 randomMedia = new Image();
-                images[images.length] = randomMedia;
+     
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
                 
-                
                 randomMedia.onload = function(e) {
-                	console.log('도와줘제발......')
+                	images[images.length] = this;
+                	images[images.length-1].width = randomMedia.width;
+                	images[images.length-1].height = randomMedia.height;
+                	
+                	
+                	
+                	console.log('도와줘제발......');
+                	console.log(images[images.length - 1]);
                 	
                 	console.log(randomMedia.width);
                 	console.log(randomMedia.height);
@@ -555,47 +523,49 @@ var isActiveContainerBtn = false;
               
 
                 if (fileList[i].mediaType == 0) {
-               	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+               	 var maxWidth = 603.644;
             	 var imgRate = images[imageNum].width / images[imageNum].height;
             	 var widthRate;
             	 var imgTag = document.createElement('img');
             	 imgTag.src = '../' + fileList[i].fileName;
             	 $(imgTag).addClass('newspeedview_media_image');
-                
-                $
 
-                if(images[imageNum].width >= maxWidth){
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    widthRate = 100;
-                } else {
-                    var rate = images[imageNum].width/ maxWidth * 100;
-                    
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    widthRate = rate;
-                }
-                
-                            
+   
+            	 if(imgTag.width >= maxWidth){
+                     widthRate = 100;
+                  } else {
+           
+                     widthRate = imgTag.width/ maxWidth * 100;
+                  }                      
                
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
-                    class: 'newspeedview_media_image_wrapper'
-                    
-    
+                    class: 'newspeedview_media_image_wrapper',
+                    width:widthRate + '%'
                 }));
                 
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append(imgTag);
-         
                 
                 imageNum++;
+                
                 } else {
+                	
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<video/>', {
                         class: 'newspeedview_media_video',
                         src:'../' + fileList[i].fileName
                     }));
-
+                    
+                
+                    
+                    var video = $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > video');    
+                    console.log(video);
+                    console.log($(video).width());
+                    console.log($(video).height());
+                    console.log($(video).css('width'));
+                
+                    
                     $('.newspeedview_media_video').attr('controls',true);
                 }
+          
 
                 var tagList = fileList[i].tagList;
                 
@@ -793,6 +763,7 @@ var isActiveContainerBtn = false;
     });
 
     function onBindEvent() {
+    	 onClickReport();
         onClickLeftContainer();
         onClickRightContainer();
         onClickLeftMediaBtn();
@@ -803,7 +774,8 @@ var isActiveContainerBtn = false;
         onClickTagUser();
         onClickCommentUser();
         onClickBackground();
-        onClickReport();
+       
+        
         onClickNewspeedMediaImage();
     }
 
@@ -932,10 +904,7 @@ var isActiveContainerBtn = false;
             	requestNewspeedInfoAfter($(selectedTag).attr('value'));
             	removeRightBtn();
             	removeLeftBtn();
-            	console.log('안녕?');
             } 
-            
-            console.log('안녕?');
         });     
     }
     
@@ -1279,7 +1248,7 @@ var isActiveContainerBtn = false;
     function onClickNewspeedMediaImage() {
     	$('.newspeedview_media_image').off('click').on('click', function(e){
     		e.stopPropagation();
-    		$('.newspeedview_media_select .balloons').fadeToggle(500);
+    		$('.newspeedview_list_select .newspeedview_media_select .balloons').fadeToggle(500);
     	})
     	
     }

@@ -30,9 +30,10 @@
 						<label for="pw" class="loginLabel">PW : </label>
 						</td>
 						
-						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID/Email/Phone??" required onkeypress="javascript:capsLock(this);" />
+						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID" required onkeypress="javascript:capsLock(this);" />
 						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" onkeypress="javascript:capsLock(this);" />
-						<p id="capslock" style="color: red; font-weight: bold; display: none">Caps Lock키가 눌려있습니다.</p>
+<!-- 						<p id="capslock" style='color: red; display: none; font-weight: bold;'>Caps Lock키가 눌려있습니다.</p> -->
+						
 						
 						</td>
 						<td>
@@ -41,8 +42,10 @@
 					</tr>
 					
 					<tr>
-						<td colspan="3">
-						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 50px">아이디/비밀번호 찾기</a> <a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
+						<td colspan="2">
+						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 10px">아이디/비밀번호 찾기</a> <a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
+						</td>
+						<td><div id="naverIdLogin" style ="display: inline-block;"></div>
 						</td>
 					</tr>
 				</table>
@@ -53,13 +56,13 @@
 		
 		<div id="plus_login">
 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
-<div id="naverIdLogin"></div>
+
 <!-- //네이버아이디로로그인 버튼 노출 영역 -->
-		<div id="plus">
+		<%-- <div id="plus">
 			<a id="gnbLogin" href="<%=request.getContextPath()%>">HOME-INDEX</a> 
-			<input type="button" value="페이스북" id="222">
+			<!-- <input type="button" value="페이스북" id="222">
 			<input type="button" value="다음" id="333">
-			<input type="button" value="구글" id="444"></div>
+			<input type="button" value="구글" id="444"> --></div> --%>
 		</div>
 	</div>
 	
@@ -67,19 +70,19 @@
 
 <script>
 	//Caps
-	$('#pw').on('change keyup paste', (function () {
+	/* $('#pw').on('change keyup paste', (function () {
     if (!event.getModifierState("CapsLock")) {
-    	$("#caps").text('');
+    	//$("#caps").text('');
         
     }
     else {
     	//capslockAlert.style.display = "block"
-    	$("#caps").text('대문자?').css({'color' : 'red', 'fontWeight': 'bold'});
+    	//$("#caps").text('대문자?').css({'color' : 'red', 'fontWeight': 'bold'});
         //$('#email_check').text('입력한 이메일 주소를 확인해주세요');
         //$('#email_check').css('color', 'red');
         //inval_Arr[3] = false;
     }
-	}));
+	})); */
 
 
 	/*      var pwInput = document.getElementById("pw");
@@ -94,9 +97,9 @@
 	 });*/
 
 	function capsLock(e) {
-		console.log(event.getModifierState("CapsLock"));
+		console.log(event.getModifierState("Capslock"));
 		var capslockAlert = document.getElementById("capslock");
-		if (event.getModifierState("CapsLock")) {
+		if (event.getModifierState("Capslock")) {
 			capslockAlert.style.display = "block";
 		} else {
 			capslockAlert.style.display = "none"

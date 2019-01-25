@@ -7,9 +7,16 @@ $(function(){
 });
 
 function onClickReportBtn(targetUserNo, targetNewspeedNo, url) {
-	$('#reportContent button').off('click').on('click', function(e){
-		requestReport(targetUserNo, targetNewspeedNo, url);
-	}) 
+	$('#reportBgk').off('click').on('click', function(e){
+		e.stopPropagation();
+		$('#reportBgk').fadeToggle(700);
+	});
+	
+	
+	$('#reportContent').off('click').on('click', function(e){
+		e.stopPropagation();
+	});
+	
 }
 
 
@@ -40,11 +47,12 @@ function requestReport(targetUserNo, targetNewspeedNo, mapping) {
                 contentType: false, 
                 success: function(data, textStatus, jqXHR)
                 {
-                	
+                	$('#reportBgk').fadeOut(700);
                 }, error: function(jqXHR, textStatus, errorThrown)
                 {
                     console.log('ERRORS: ' + textStatus);
                     console.log(errorThrown);
+                    $('#reportBgk').fadeOut(700);
                 }
         	});
 

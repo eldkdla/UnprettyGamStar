@@ -11,96 +11,95 @@
 </head>
 
 <style>
-*{
-	font-size: 15px;
-	font-weight: bold;
-	font-family: 'Gothic A1', sans-serif;
-}
-
-div#mainDiv{
-border : 1px dotted red;
-
-width : 600px;
-margin : 0 auto;
+    *{
+        font-size: 15px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+    }
+    
+    div#mainDiv{
+    /* border : 1px dotted red; */
+    
+    width : 410px;
+    min-width: 310px;
+    margin : 0 auto;
 }
 
 div .userRegFrm {
-
-border : 1px solid orange;
-	/* justify-content: center;
-width: 600px;
-min-width: 300px;
-border: 1px solid red;
-display: flex;
-flex-direction: column;
-align-items: center; */
-	
-}
-</style>
-
-
-<body>
-
-	<div id=mainDiv>
-    <p>닝겐의 가입을 환영한다요</p>
-    <form action="<%=request.getContextPath()%>/userenroll" method="post">
-        <!-- 아이디 -->
-        <div class="userRegFrm">
-            <label for="userId">아이디</label><br>
-            <input type="text" class="regControl" id="userId" name="userId" placeholder="  아이디 입력" maxlength='20' required>
-            <div class="checkMsg" id="id_check"></div>
-        </div>
-        <!-- 비밀번호 -->
-        <div class="userRegFrm">
-            <label for="userPw">비밀번호</label>
-            <sub></sub><br>
-            <input type="password" class="regControl" id="userPw" name="userPw" placeholder="  비밀번호 " maxlength='20' required>
-            <div class="checkMsg" id="pw_check"></div>
-        </div>
-        <!-- 비밀번호 재확인 -->
-        <div class="userRegFrm">
-            <label for="userPw2">비밀번호 확인</label><br>
-            <input type="password" class="regControl" id="userPw2" name="userPw2" placeholder="  비밀번호 확인" maxlength='20' required>
-            <div class="checkMsg" id="pw2_check"></div>
-        </div>
-        <!-- 유저 이름 -->
-        <div class="userRegFrm">
-            <label for="userName">이름</label><br>
-            <input type="text" class="regControl" id="userName" name="userName" placeholder="  이름 입력 (한글 2-6자)" maxlength='20' required>
-            <div class="checkMsg" id="name_check"></div>
-        </div>        
-        <!-- 본인확인 이메일 -->
-        <div class="userRegFrm">
-            <label for="userEmail">이메일</label><br>
-            <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail" required>
-            <!-- <input type="text" style="margin-top: 5px;"class="email_form" name="email_confirm" id="email_confirm" placeholder="인증번호를 입력해주세요!" required>
-                            <button type="button" class="btn btn-outline-danger btn-sm px-3" onclick="confirm_email()">
-                                <i class="fa fa-envelope"></i>&nbsp;인증
-                            </button>&nbsp;
-                            <button type="button" class="btn btn-outline-info btn-sm px-3">
-                                <i class="fa fa-envelope"></i>&nbsp;확인
-                            </button>&nbsp; -->
-            <div class="checkMsg" id="email_check"></div>
-        </div>
-        <!-- 휴대전화 -->
-        <div class="userRegFrm">
-            <label for="userPhone">휴대전화 ('-' 없이 번호만 입력해주세요)</label><br>
-            <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="  휴대전화 번호"  maxlength='11' required>
-            <div class="checkMsg" id="phone_check"></div>
-        </div>
+    /*
+    border : 1px solid orange;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width:300px;
+    min-width: 300px;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center; */
         
-        <div class="reg_button">
-		<input type="reset" value="취소"/>&emsp;&emsp;
-        <input type="submit" id="reg_submit" value="가입"/>
-        
-            <%-- <a class="btn btn-danger px-3" href="${pageContext.request.contextPath}">
-                <i class="fa fa-rotate-right pr-2" aria-hidden="true"></i>취소하기
-            </a>&emsp;&emsp;
-            <button class="btn btn-primary px-3" id="reg_submit">
-                <i class="fa fa-heart pr-2" aria-hidden="true"></i>가입하기</button> --%>
-        </div>
-    </form>
-   </div>
+    }
+    </style>
+
+
+<div id=mainDiv>
+        <fieldset>
+            <legend>&nbsp; - UnprettyGamStar - &nbsp;</legend>
+            <p>안뇽? 가입을 환영한다요./</p>
+            <form action="<%=request.getContextPath()%>/userenroll" method="post">
+                <!-- 아이디 -->
+                <div class="userRegFrm">
+                    <label for="userId">아이디</label><br>
+                    <input type="text" class="regControl" id="userId" name="userId" placeholder="  아이디 입력" maxlength='20'
+                        autofocus size="49" required>
+                    <div class="checkMsg" id="id_check"></div>
+                </div>
+                <!-- 비밀번호 -->
+                <div class="userRegFrm">
+                    <label for="userPw">비밀번호</label>
+                    <sub></sub><br>
+                    <input type="password" class="regControl" id="userPw" name="userPw" placeholder="  비밀번호 " maxlength='20'
+                        autofocus size="49" required>
+                    <div class="checkMsg" id="pw_check"></div>
+                </div>
+                <!-- 비밀번호 재확인 -->
+                <div class="userRegFrm">
+                    <label for="userPw2">비밀번호 확인</label><br>
+                    <input type="password" class="regControl" id="userPw2" name="userPw2" placeholder="  비밀번호 확인"
+                        maxlength='20' autofocus size="49" required>
+                    <div class="checkMsg" id="pw2_check"></div>
+                </div>
+                <!-- 유저 이름 -->
+                <div class="userRegFrm">
+                    <label for="userName">이름</label><br>
+                    <input type="text" class="regControl" id="userName" name="userName" placeholder="  이름 입력 (한글 2-6자)"
+                        maxlength='20' autofocus size="49" required>
+                    <div class="checkMsg" id="name_check"></div>
+                </div>
+                <!-- 본인확인 이메일 -->
+                <div class="userRegFrm">
+                    <label for="userEmail">이메일</label><br>
+                    <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail"
+                        autofocus size="49" required>
+                    <div class="checkMsg" id="email_check"></div>
+                </div>
+                <!-- 휴대전화 -->
+                <div class="userRegFrm">
+                    <label for="userPhone">휴대전화 ('-' 없이 번호만 입력해주세요.)</label><br>
+                    <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="  휴대전화 번호"
+                        maxlength='11' autofocus size="49" required>
+                    <div class="checkMsg" id="phone_check"></div>
+                </div>
+
+                <div class="reg_button">
+                    <input type="reset" onclick="pageBack();"value="취소" />&emsp;&emsp;
+                    <input type="submit" id="reg_submit" value="가입" />
+
+                    <!--  -->
+                </div>
+            </form>
+        </fieldset>
+    </div>
 </body>
 
 
@@ -274,6 +273,11 @@ align-items: center; */
     //모달창 닫기
     function close_pop(){
        $('#myModal').css("display","none");
+    }
+    
+    function pageBack(){
+        location.href="<%=request.getContextPath()%>/view/login.jsp";
+        history.back();
     }
 	
 </script>

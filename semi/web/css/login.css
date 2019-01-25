@@ -48,7 +48,7 @@ section#login-container {
 }
 
 table, th, tr, td {
-	border: 1px solid red;
+	border: 1px dotted gray;
 }
 
 #loginTable {

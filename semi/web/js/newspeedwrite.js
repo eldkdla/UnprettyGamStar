@@ -57,11 +57,12 @@
                 }
 
                 function checkFile() {
-                    for (var i = 0; i < uploadFiles.length; i++) {
-                        var file = uploadFiles[i];
+                    for (var i = 0; i < uploadFiless.length; i++) {
+                        var file = uploadFiless[i];
                         var fileExt = getFileExt(file.name);
                         
                         console.log('파일을 체크해요!');
+                        console.log('fileExt');
                         
                         if (!isImage(fileExt) && ! isVideo(fileExt)) {
                             return false;
@@ -110,8 +111,8 @@
                     	thumbnailMedia.setAttribute('src', result);
                     	$(thumbnailMediaWrapper).css('background-image', "url(" + result + ")");
                     } else {
-                    	thumbnailMedia.setAttribute('src', "/PostingEx/img/postwrite/videopreview.png");
-                    	$(thumbnailMediaWrapper).css('background-image', "url(/PostingEx/img/postwrite/videopreview.png)");
+       
+                    	$(thumbnailMediaWrapper).css('background-image', "url(../img/postwrite/videopreview.png)");
                     }
 
                     
