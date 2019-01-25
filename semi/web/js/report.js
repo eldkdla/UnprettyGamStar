@@ -12,10 +12,16 @@ function onClickReportBtn(targetUserNo, targetNewspeedNo, url) {
 		$('#reportBgk').fadeToggle(700);
 	});
 	
+	$('#reportBgk button').off('click').on('click', function(e){
+		e.stopPropagation();
+		requestReport(targetUserNo, targetNewspeedNo, url);
+	});
 	
 	$('#reportContent').off('click').on('click', function(e){
 		e.stopPropagation();
 	});
+	
+	
 	
 }
 
