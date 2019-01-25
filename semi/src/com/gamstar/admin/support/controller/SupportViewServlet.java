@@ -95,6 +95,8 @@ public class SupportViewServlet extends HttpServlet {
 				request.setAttribute("msg", "게시물이 없습니다");
 			}
 			
+			int cPage=Integer.parseInt(request.getParameter("cPage"));
+			request.setAttribute("cPage",cPage);
 			request.setAttribute("nextNo", nextNo);
 			request.setAttribute("prevNo", prevNo);
 			System.out.println(view);

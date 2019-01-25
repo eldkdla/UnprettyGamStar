@@ -79,6 +79,8 @@ public class SupportAnswerServlet extends HttpServlet {
 				request.setAttribute("msg", "게시물이 없습니다");
 			}
 			
+			int cPage=Integer.parseInt(request.getParameter("cPage"));
+			request.setAttribute("cPage",cPage);
 			System.out.println(view);
 			request.getRequestDispatcher(view).forward(request, response);
 		}

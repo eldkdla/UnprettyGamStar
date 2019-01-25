@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gamstar.admin.support.model.vo.SupportBoard, com.gamstar.admin.support.model.vo.SupportBoardMedia, java.util.*" %>
 <%
+	int cPage=(int)request.getAttribute("cPage");
 	int nextNo=(Integer)request.getAttribute("nextNo");
 	int prevNo=(Integer)request.getAttribute("prevNo");
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
@@ -190,7 +191,7 @@
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
                     &nbsp;
-                    <a href="<%=request.getContextPath()%>/admin/supportList">
+                    <a href="<%=request.getContextPath()%>/admin/supportList?cPage=<%=cPage%>">
                         <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                         <small>목록</small>
                     </a>

@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gamstar.admin.support.model.vo.SupportBoard, com.gamstar.admin.support.model.vo.SupportBoardMedia, java.util.*" %>
 <%
+	int cPage=(int)request.getAttribute("cPage");
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
 	List<SupportBoardMedia> mlist=(List<SupportBoardMedia>)request.getAttribute("supportBoardMedia");
 	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");
@@ -221,6 +222,7 @@ textarea#supportAnswer{
                                 </th>
                             </tr>
                         </table>
+                        	<input type="hidden" name="cPage" value='<%=cPage %>'/>
                     </form>
                 </td>
             </tr>

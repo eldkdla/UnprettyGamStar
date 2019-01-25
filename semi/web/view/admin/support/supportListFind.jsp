@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*, com.gamstar.admin.support.model.vo.SupportBoard" %>
 <%
+	int cPage=(int)request.getAttribute("cPage");
 	List<SupportBoard> list = (List<SupportBoard>)request.getAttribute("list");
 	String searchType=request.getParameter("searchType");
 	String searchKeyword=request.getParameter("searchKeyword");
@@ -51,7 +52,7 @@
                 <tr>
                     <td><%=s.getSupportBoardNo() %></td>
                     <td class="sCon">
-                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>">
+                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>">
                     		<%if(s.getSupportBoardTitle().length()>20) {%>
                     			<%=s.getSupportBoardTitle().substring(0, 19) %>...
                     		<%}else{ %>
