@@ -97,7 +97,11 @@ public class UserFindListServlet extends HttpServlet {
 			else
 			{
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"'><</button>";
+						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+			}
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'>1</span></small>";
 			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
@@ -109,7 +113,7 @@ public class UserFindListServlet extends HttpServlet {
 				else
 				{
 					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
+							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

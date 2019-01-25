@@ -84,10 +84,13 @@ public class SearchAdminServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/manager/adminList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo-1)
+						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
 			}
-			
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'>1</span></small>";
+			}
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
@@ -96,15 +99,15 @@ public class SearchAdminServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/manager/adminList?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo)
+							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' href='"+request.getContextPath()+"/admin/manager/adminList?cPage="+pageNo
+				pageBar+="<button id='next' href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			
