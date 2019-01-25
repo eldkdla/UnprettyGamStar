@@ -326,6 +326,15 @@ public class NewspeedService {
 		return newspeedCommentList;
 	}
 	
+	public List<NewspeedComment> selectNewspeedCommentList(int newspeedNo, int userNo) {
+		Connection conn = getConnection();
+		List<NewspeedComment> newspeedCommentList = newspeedDAO.selectNewspeedCommentList(conn, newspeedNo, userNo);
+		
+		close(conn);
+		
+		return newspeedCommentList;
+	}
+	
 	public boolean isLiked(int userNo,int newspeedNo) {
 		Connection conn = getConnection();
 		boolean result = newspeedDAO.isLikeNewspeed(conn, userNo, newspeedNo);

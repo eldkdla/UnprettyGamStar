@@ -723,6 +723,41 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		return newspeedCommentList;
 	}
 	
+	
+
+//SELECT * FROM TB_NEWSPEED_COMMENT N JOIN TB_USER U ON (N.USER_NO = U.USER_NO) WHERE NEWSPEED_NO = ? AND COMMENT_ENABLE = 1 AND U.USER_NO NOT IN(SELECT IGNORE_USER_NO FROM TB_USER_IGNORE WHERE USER_NO = ?) AND U.USER_NO NOT IN(SELECT USER_NO FROM TB_USER_IGNORE WHERE IGNORE_USER_NO = ?);
+
+	
+	public List<NewspeedComment> selectNewspeedCommentList(Connection conn,int newspeedNo, int userNo) {
+		List<NewspeedComment> newspeedCommentList = new ArrayList<NewspeedComment>();
+		String sql = prop.getProperty("selectNewspeedCommentIgnoreFilter");
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedNo);
+			pstmt.setInt(2, userNo);
+			pstmt.setInt(3, userNo);
+			rs = pstmt.executeQuery();
+			
+			
+			while (rs.next()) {
+				NewspeedComment newspeedComment= getNewspeedComment(rs);
+				newspeedCommentList.add(newspeedComment);
+			}
+
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return newspeedCommentList;
+	}
+	
 	private NewspeedComment getNewspeedComment(ResultSet rs) throws SQLException{
 		NewspeedComment newspeedComment = new NewspeedComment();
 		newspeedComment.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
