@@ -6,8 +6,6 @@
 	List<ReportBoard> list=(List)request.getAttribute("list");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
-	
-	
 %>
     <style>
     @media all and (min-width:1067px){

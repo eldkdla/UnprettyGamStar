@@ -47,11 +47,16 @@ public class DeleteAdminServlet extends HttpServlet {
 			int adminNo=Integer.parseInt(request.getParameter("stateFrmAdminNo"));
 			int result=0;
 			
-			result=new AdminManagerService().deleteAdmin(adminNo);
-			
 			String view="/view/common/msg.jsp";
 			String msg="";
 			String loc="";
+			
+			int noOfAdmin=new AdminManagerService().selectAdminCount();
+			
+			if(noOfAdmin>1) {
+				result=new AdminManagerService().deleteAdmin(adminNo);
+			}
+			
 			
 			if(result>0)
 			{
@@ -61,6 +66,9 @@ public class DeleteAdminServlet extends HttpServlet {
 			else
 			{
 				msg="관리자 삭제 실패";
+				if(noOfAdmin==1) {
+					msg="관리자는 1명 이상이어야 합니다";
+				}
 				loc="/admin/manager/adminList";
 			}
 			

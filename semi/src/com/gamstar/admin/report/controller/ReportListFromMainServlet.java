@@ -1,7 +1,9 @@
-package com.gamstar.admin.support.controller;
+package com.gamstar.admin.report.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +11,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.admin.support.model.service.SupportService;
-import com.gamstar.admin.support.model.vo.SupportBoard;
+import com.gamstar.admin.report.model.service.ReportService;
+import com.gamstar.admin.report.model.vo.ReportBoard;
+import com.gamstar.admin.report.model.vo.ReportBoardMedia;
 
 /**
- * Servlet implementation class SupportShowServlet
+ * Servlet implementation class ReportListFromMainServlet
  */
-@WebServlet("/admin/support/show.do")
-public class SupportShowServlet extends HttpServlet {
+@WebServlet(description = "/admin/reportView", urlPatterns = { "/ReportListFromMainServlet" })
+public class ReportListFromMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SupportShowServlet() {
+    public ReportListFromMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +33,7 @@ public class SupportShowServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
@@ -44,10 +47,9 @@ public class SupportShowServlet extends HttpServlet {
 			return;
 		}
 		else
-		{
-			String selectType=request.getParameter("showSupport");
+		{//페이징 처리
+			int showReportNo=Integer.parseInt(request.getParameter("show"));
 			
-			//페이징처리
 			int cPage;
 			try {
 				cPage=Integer.parseInt(request.getParameter("cPage"));
@@ -66,23 +68,32 @@ public class SupportShowServlet extends HttpServlet {
 				numPerPage=10;
 			}
 			
-			List<SupportBoard> list=new SupportService().selectTypeSupportList(cPage,numPerPage,selectType);
+			List<ReportBoard> list=new ReportService().selectReportList(cPage,numPerPage);
+			Map<Integer,List<ReportBoardMedia>> mediaMap=new HashMap<Integer,List<ReportBoardMedia>>();
 			
-			int totalSupport=new SupportService().selectSupportTypeCount(selectType);
-			int totalPage=(int)Math.ceil((double)totalSupport/numPerPage);
+			for(ReportBoard rb : list)
+			{
+					int reportNo=rb.getReportBoardNo();
+					List<ReportBoardMedia> mediaList = new ReportService().selectReportMediaList(reportNo);
+					mediaMap.put(reportNo,mediaList);
+			}
+			
+			int totalReport=new ReportService().selectReportCount();
+			int totalPage=(int)Math.ceil((double)totalReport/numPerPage);
 			String pageBar="";
 			
 			int pageBarSize=5;
 			int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
 			int pageEnd=pageNo+pageBarSize-1;
 			
+			
 			if(pageNo==1)
 			{
-				pageBar+="<button id='back' disabled='disabled' href='#'><</button>";
+				pageBar+="<button id='back' disabled='disabled' href='#'><</button>"; 
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/supportList?cPage="+(pageNo-1)
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/reportList?cPage="+(pageNo-1)
 						+"&numPerPage="+numPerPage+"'><</button>";
 			}
 			
@@ -94,7 +105,7 @@ public class SupportShowServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/supportList?cPage="+pageNo
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/reportList?cPage="+(pageNo)
 							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
@@ -102,16 +113,17 @@ public class SupportShowServlet extends HttpServlet {
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/supportList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/reportList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			
+			request.setAttribute("mediaList", mediaMap);
 			request.setAttribute("list", list);
 			request.setAttribute("cPage", cPage);
 			request.setAttribute("numPerPage", numPerPage);
 			request.setAttribute("pageBar", pageBar);
-			request.setAttribute("selectType", selectType);
-			request.getRequestDispatcher("/view/admin/support/supportListType.jsp").forward(request, response);
+			request.setAttribute("openTr", showReportNo);
+			request.getRequestDispatcher("/view/admin/report/reportListAdmin.jsp").forward(request, response);
 		}
 	}
 
