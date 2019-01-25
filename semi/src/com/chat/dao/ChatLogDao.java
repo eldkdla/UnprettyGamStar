@@ -82,7 +82,7 @@ public class ChatLogDao {
 					//System.out.println(rs2.getInt("user_no"));
 */					
 				log.setMyNo(myNo);
-				
+				System.out.println("myNo"+myNo);
 				log.setChatNo(chatNo);
 				log.setUserNo(rs.getInt("user_no"));
 				log.setChatroomMessage(rs.getString("chatroom_message"));
@@ -93,8 +93,9 @@ public class ChatLogDao {
 			}
 			if(a==0) {
 				log=new ChatLog();
-				log.setChatNo(0);
-				log.setUserNo(0);
+				log.setMyNo(myNo);
+				log.setChatNo(chatNo);
+				log.setUserNo(myNo);
 				log.setChatroomMessage("");
 				log.setSend_date(new Timestamp(0));
 				//System.out.println(log);
@@ -109,6 +110,7 @@ public class ChatLogDao {
 		{
 			close(pstmt);
 		}
+		System.out.println("logarr"+logarr);
 		return logarr;
 	}
 }

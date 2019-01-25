@@ -64,10 +64,10 @@ public class ChatLogServlet extends HttpServlet {
 			chatlog.put("chatDate", datefm.format(logarr.get(i).getSend_date()));
 			chatlogarr.add(chatlog);
 		}
-		/*for(int j=0;j<chatlogarr.size();j++) {
+		for(int j=0;j<chatlogarr.size();j++) {
 			System.out.println("====채팅로그서블릿제이슨======");
 			System.out.println(chatlogarr.get(j));
-		}*/
+		}
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().println(chatlogarr);}
 	}
