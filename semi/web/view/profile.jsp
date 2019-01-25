@@ -680,18 +680,15 @@
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
 		var beforeFollowBtLabel="";
-		var afterFollowBtLabel="";
 		if(($('#profileFollowBt>label').text())==("팔로우")){
 			beforefollowBtLabel="팔로우";
 			<%if(user.getDisclosure()==0){%>  //비공개
-					afterFollowBtLabel="팔로우요청";
 					$('#profileFollowBt>label').text("팔로우요청");
           			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
             		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
             		$('#profileFollowBt').css("color","white");
           	<%}
           	else{%>
-          	afterFollowBtLabel="팔로우됨";
 			$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
@@ -731,7 +728,7 @@
     		else if(($('#profileFollowBt>label').text())==("팔로우됨")){
     			beforeFollowBtLabel="팔로우됨";
     		}
-    		afterFollowBtLabel="팔로우";
+    		
     		
     		$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
@@ -746,7 +743,7 @@
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel,"afterFollowBtLabel":afterFollowBtLabel},
+    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
     		success:function(data){
     			
     			<%if(user.getDisclosure()==0){%>
