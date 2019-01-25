@@ -30,8 +30,7 @@ var isActiveContainerBtn = false;
     function removeRightBtn() {
     	$('#container-right-btnnnn').css('display','inline-block');
     	
-    	console.log('오른쪽 제거시도');
-    	
+
         var nextSel =  $(selectedTag).next();
         
         console.log(nextSel);
@@ -39,7 +38,6 @@ var isActiveContainerBtn = false;
         
         if (typeof $(nextSel).attr('value') == "undefined") {
         	$('#container-right-btnnnn').css('display','none');
-        	console.log('오른쪽 제거');
         	return;
         }
     }
@@ -68,10 +66,6 @@ var isActiveContainerBtn = false;
         
         var left = Number($('.newspeedview_list_select').css('left').replace("px","")); 
         var width = Number($('#newspeedview_list_wrapper > .newspeedview_list_select').width());
-        console.log(left + '여기선 무스닝ㄹ이 일어나나요?');
-        console.log(width);
-        console.log(newspeedNo);
-        console.log(length5);
         
         $('#newspeedview_list_wrapper > div').css('left', (left-width));
 
@@ -115,9 +109,7 @@ var isActiveContainerBtn = false;
   
             var randomMedia;
             
-            console.log(mediaReadIndex + '왜 지랄이세요진짜로?');
-            console.log(imageLength + '지랄좀작작하자....');
-            
+
            	if(mediaReadIndex == fileList.length){    
                 addElement();
             	if (typeof callback == "function") {
@@ -127,24 +119,17 @@ var isActiveContainerBtn = false;
             }
             
             if (fileList[mediaReadIndex].mediaType == 0) {
-            	console.log('이건이미지에요!' + mediaReadIndex);
             	
                 randomMedia = new Image();
-                console.log(images.length + '으응으으응ㅇ');
+
                 images[images.length] = randomMedia;
-                console.log(images.length + '야야야야야야야야야애');
+
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
                 
-                console.log('너뭐하는사람이세요');
-                
+    
                 
                 randomMedia.onload = function(e) {
-                	console.log('도와줘제발......')
-                	
-                	console.log(randomMedia.width);
-                	console.log(randomMedia.height);
-                	
-                    
+                
                     if (mediaReadIndex < fileList.length) {
                     	mediaReadIndex++;
                         setMedia();
@@ -160,7 +145,7 @@ var isActiveContainerBtn = false;
                 }
              
             } else {
-            	console.log('이건동영상이에요!' + mediaReadIndex);
+        
             	if (mediaReadIndex < fileList.length) {
             		mediaReadIndex++;
             	} else if(mediaReadIndex == fileList.length){    
@@ -187,31 +172,28 @@ var isActiveContainerBtn = false;
             
 
                 if (fileList[i].mediaType == 0) {
-                	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+                	 var maxWidth = 603.644;
                 	 var imgRate = images[imageNum].width / images[imageNum].height;
                 	 var widthRate;
                 	 var imgTag = document.createElement('img');
                 	 imgTag.src = '../' + fileList[i].fileName;
                 	 $(imgTag).addClass('newspeedview_media_image');
                     
-                    $
+                    
 
                     if(images[imageNum].width >= maxWidth){
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                        widthRate = 100;
+                       widthRate = 100;
                     } else {
-                        var rate = images[imageNum].width/ maxWidth * 100;
-                        
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                        widthRate = rate;
+                      
+                       widthRate = images[imageNum].width/ maxWidth * 100;
                     }
                     
-                                
-                   
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image_wrapper:eq(' + imageNum +')').css('width',widthRate + '%');
+                    
+              
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
-                        class: 'newspeedview_media_image_wrapper'
+                        class: 'newspeedview_media_image_wrapper',
+                        width:widthRate + '%'
                         
         
                     }));
@@ -555,31 +537,31 @@ var isActiveContainerBtn = false;
               
 
                 if (fileList[i].mediaType == 0) {
-               	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+               	 var maxWidth = 603.644;
             	 var imgRate = images[imageNum].width / images[imageNum].height;
             	 var widthRate;
             	 var imgTag = document.createElement('img');
             	 imgTag.src = '../' + fileList[i].fileName;
             	 $(imgTag).addClass('newspeedview_media_image');
-                
-                $
-
-                if(images[imageNum].width >= maxWidth){
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    widthRate = 100;
-                } else {
-                    var rate = images[imageNum].width/ maxWidth * 100;
+            	 
+            	 console.log(maxWidth + '뭐니');
+            	 
+            	 var curRate = maxWidth / 600;
+            	 
+            	 if(images[imageNum].width >= maxWidth){
+                     widthRate = 100;
+                  } else {
                     
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    widthRate = rate;
-                }
-                
+                     widthRate = images[imageNum].width/ maxWidth * 100;
+                  }
+                  
+                  $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image_wrapper:eq(' + imageNum +')').css('width',widthRate + '%');
+              
                             
                
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
-                    class: 'newspeedview_media_image_wrapper'
+                    class: 'newspeedview_media_image_wrapper',
+                    width:widthRate + '%'
                     
     
                 }));
@@ -793,6 +775,7 @@ var isActiveContainerBtn = false;
     });
 
     function onBindEvent() {
+    	 onClickReport();
         onClickLeftContainer();
         onClickRightContainer();
         onClickLeftMediaBtn();
@@ -803,7 +786,8 @@ var isActiveContainerBtn = false;
         onClickTagUser();
         onClickCommentUser();
         onClickBackground();
-        onClickReport();
+       
+        
         onClickNewspeedMediaImage();
     }
 
@@ -1279,7 +1263,7 @@ var isActiveContainerBtn = false;
     function onClickNewspeedMediaImage() {
     	$('.newspeedview_media_image').off('click').on('click', function(e){
     		e.stopPropagation();
-    		$('.newspeedview_media_select .balloons').fadeToggle(500);
+    		$('.newspeedview_list_select .newspeedview_media_select .balloons').fadeToggle(500);
     	})
     	
     }
