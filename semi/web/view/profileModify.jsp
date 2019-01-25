@@ -101,10 +101,11 @@
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호</label>
                             <input type="password" class="modifyInput" name="newPw" id="newPw" minlength="8" maxlength="20" placeholder=' 대소문자 +숫자+특수문자 8~20자 입력해주세요' required />
+                        	<div class="chkEmailPhonePw" id="chkConditionPw"></div>
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호 확인</label>
-                            <input type="password" class="modifyInput" name="newPwchk" id="newPwchk" minlength="8" maxlength="20" required>
+                            <input type="password" class="modifyInput" name="newPwchk" id="newPwchk" minlength="8" maxlength="20" placeholder=' 대소문자 +숫자+특수문자 8~20자 입력해주세요' required>
                             <div class="chkEmailPhonePw" id="chkPwDiv"></div>
                         </div>
 
@@ -159,6 +160,13 @@
                 }));
             } 
         }
+        
+        <%if(user.getLinkType()!=0){%> //네이버같은 연동로그인이면 이메일 변경 막기
+			$('#modifyEmail').attr('readonly',true);
+			$('#modifyEmail').css({"background-color":"rgb(207,207,207)","outline":"none","border":"none"});
+			$('#modifyEmail').off('keyup');
+			$('#chkEmail').css('display','none');
+		<%}%>
 
         });
     </script>
@@ -212,7 +220,7 @@
     <script>
     	//이름입력시 변경 활성화
     	$('#modifyName').on('keyup',(function(){
-    		reg = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
+    		reg = /([^가-힣ㅣ\x20])/i;
     		
     		if(reg.test($(this).val())){
     			$(this).val($(this).val().replace(reg,''));
@@ -228,6 +236,7 @@
 	                $('#modifyButton').prop('disabled', 'true');
 	    		}
     		}
+    		
     	}));
     	
         //이메일 중복확인+한글+@를뺀 특수문자 입력안되게
@@ -355,7 +364,7 @@
 	    			success:function(data){
 	    				if(data=="true"){
 	    					$('#chkBeforePw').html("비밀번호 일치").css('color', 'green');
-	    					if($('#chkPwDiv').html()=="비밀번호 일치"){
+	    					if($('#chkPwDiv').html()=="비밀번호 일치"&&$('#chkConditionPw').html()=="비밀번호 사용가능"){
 	    						$('#psModifyBt').css('background-color', 'cornflowerblue');                        
 	                        	$('#psModifyBt').removeProp('disabled');
 	    					}
@@ -380,7 +389,7 @@
     	});
 			//새로운 비밀번호 체크 
             $('#newPwchk,#newPw').on('keyup',(function () {
-            	
+					
                 if ($('#newPwchk').val() != '' && $('#newPw').val() != '') {
 
                     if ($('#newPw').val() != $('#newPwchk').val()) {
@@ -390,7 +399,7 @@
                     }
                     else {
                         $('#chkPwDiv').html("비밀번호 일치").css('color', 'green');
-                        if($('#chkBeforePw').html()=="비밀번호 일치"){
+                        if($('#chkBeforePw').html()=="비밀번호 일치"&&$('#chkConditionPw').html()=="비밀번호 사용가능"){
                        		$('#psModifyBt').css('background-color', 'cornflowerblue');                        
                         	$('#psModifyBt').removeProp('disabled');
                         }
@@ -405,6 +414,20 @@
                     $('#psModifyBt').css('background-color', 'gray');
                     $('#psModifyBt').prop('disabled', 'true');
                 }
+            }));
+			
+            $('#newPw').on('keyup',(function () {
+            	reg=/^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/ //대소문자 +숫자 8~20 패스;
+					
+            		if ($('#newPw').val() == '') {
+            			$('#chkConditionPw').html("");
+            		}
+            		else if (reg.test($(this).val())) {
+    			         $('#chkConditionPw').html("비밀번호 사용가능").css('color','green');
+    			    }
+    			    else {
+    			    	$('#chkConditionPw').html("비밀번호 부적합").css('color','red');
+    			    }		
             }));
         
       //회원탈퇴시 비밀번호 맞는지 알려주기

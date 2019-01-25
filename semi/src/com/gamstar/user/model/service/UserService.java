@@ -172,6 +172,26 @@ public class UserService {
 			close(conn);
 			return result;
 		}
+		//공개로 수정시 팔로우요청 없애주는 트리거
+		public int updateDisclosureTrigger(int myNo){
+			Connection conn=getConnection();
+			
+			int result=new UserDao().updateDisclosureTriggerInsert(conn,myNo);
+			int result1=new UserDao().updateDisclosureTriggerDelete(conn,myNo);
+			try {
+				if(result!=0&&result1!=0){
+					conn.commit();	
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			
+			close(conn);
+			return result;
+		}
 		
 		//유저 이전비밀번호 확인
 		public User chkBeforePw(User user){

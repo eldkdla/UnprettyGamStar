@@ -475,8 +475,17 @@
          		else if(isRequestFollow){%>
 	         		$('#profileFollowBt>label').text("팔로우요청");
 	      			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
-	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+	        		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
 	        		$('#profileFollowBt').css("color","white");
+	        		<%if(user.getDisclosure()==0){
+		            	System.out.println("비공개임");
+		            	%>
+		            	$('#profileMenuDiv').css("display","none");
+		            	$('#disclosure').css("display","block");            		 
+	            	<%}%>
+	            		
+	            	$("#userPhotoMenuContent>button:nth-child(1)").css("background-color","rgba(50,50,50,0.2)");
+	           		$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
          		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
@@ -685,7 +694,7 @@
 			<%if(user.getDisclosure()==0){%>  //비공개
 					$('#profileFollowBt>label').text("팔로우요청");
           			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
-            		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+            		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
             		$('#profileFollowBt').css("color","white");
           	<%}
           	else{%>
@@ -946,7 +955,7 @@
   				 $('body').alertBox({
   				        title:'게시물을 지우시겠습니까?',
   				        lTxt: '아니요',
-  				        lCallback: function(){},
+  				        lCallback: function(){}, 
   				        rTxt: '네',
   				        rCallback: function(){
   							 $.ajax({
@@ -955,6 +964,7 @@
   								data:{"storedNewspeedNo1":storedNewspeedNo1},
   								success:function(){
   									deleteNewspeedDiv1.remove();
+  									location.reload();
   								}
   							}); 
   				        }
@@ -962,7 +972,7 @@
   				 });
   				 
   				$('#profileContent1>:eq(<%=i%>)').hover(function(){
-  					 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","");
+  					 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","block");
   				},function(){
   					$(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
   				});
@@ -998,10 +1008,8 @@
   					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
   				 }));
             	 
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
-            	 
+            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css({"display":"none","width":"20px","height":"20.5px"});
+            	
   				 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
   				 e.stopPropagation(); //부모 이벤트 실행 안되게
   				 var deleteNewspeedDiv=$(this).parent();
@@ -1018,6 +1026,7 @@
   								data:{"storedNewspeedNo":storedNewspeedNo},
   								success:function(){
   									deleteNewspeedDiv.remove();
+  									location.reload();
   								}
   							}); 
   				        }
