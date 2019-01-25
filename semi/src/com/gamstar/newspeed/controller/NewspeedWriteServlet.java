@@ -63,7 +63,6 @@ public class NewspeedWriteServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String root = getServletContext().getRealPath("/") + "upload/newspeed/";
 	
-		String path = root + "upload/newspeed/";
 		int userNo = Integer.parseInt(request.getSession().getAttribute("userNo").toString());
 		int result = -1;
 		

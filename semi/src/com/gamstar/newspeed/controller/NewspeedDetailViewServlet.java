@@ -23,6 +23,8 @@ import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
 import com.gamstar.user.model.service.UserService;
 import com.gamstar.user.model.vo.User;
 
+import common.HtmlSpecialChar;
+
 /**
  * Servlet implementation class NewspeedDetailViewServlet
  */
@@ -136,7 +138,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 			NewspeedComment newspeedComment = commentList.get(i);
 			json.put("userNo", newspeedComment.getUserNo());
 			json.put("userName", newspeedComment.getUserName());
-			json.put("commentContent", newspeedComment.getContent());
+			json.put("commentContent", HtmlSpecialChar.getHtmlStr(newspeedComment.getContent()));
 
 			commentListJSONArray.add(json);
 		}
@@ -149,7 +151,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		JSONObject newspeedJSONObject = new JSONObject();
 		JSONArray mediaListJSONArray = new JSONArray();
 
-		newspeedJSONObject.put("content", newspeed.getContent());
+		newspeedJSONObject.put("content", HtmlSpecialChar.getHtmlStr(newspeed.getContent()));
 		newspeedJSONObject.put("userNo", newspeed.getUserNo());
 		newspeedJSONObject.put("newspeedNo", newspeed.getNo());
 

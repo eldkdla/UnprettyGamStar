@@ -25,6 +25,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
+	<script src="../js/report.js"></script>
 </head>
 <body>
 	

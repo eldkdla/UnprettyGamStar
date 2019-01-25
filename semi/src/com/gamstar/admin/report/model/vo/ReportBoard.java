@@ -2,7 +2,12 @@ package com.gamstar.admin.report.model.vo;
 
 import java.sql.Date;
 
+
 public class ReportBoard {
+	public static int TYPE_USER = 0;
+	public static int TYPE_NEWSPEED = 1;
+	public static int TYPE_COMMENT = 2;
+	public static int TYPE_CHATTING = 3;
 	
 	private int reportBoardNo;
 	private int reportBoardType;
