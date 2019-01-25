@@ -62,6 +62,69 @@ public class UserService {
 			return oldUserStory;
 		}
 		
+		// 팔로우요청목록 선택
+		public ArrayList<User> selectRequestFollow(Connection conn,User user){
+			
+			ArrayList<User> requestFollowDataArray = new UserDao().selectRequestFollow(conn,user);
+			
+			return requestFollowDataArray;
+		}
+		//팔로우요청목록 삭제
+		public int deleteRequestFollowuser(Connection conn,User user,int myUserNo){
+			
+			int result=new UserDao().deleteRequestFollowuser(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			return result;
+		}
+		//팔로우요청하기
+		public int insertRequestFollow(User user,int myUserNo){
+			Connection conn= getConnection();
+			
+			int result=new UserDao().insertRequestFollow(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			close(conn);
+			return result;
+		}
+		//팔로우요청 보류
+		public int reserveRequestFollow(User user,int myUserNo){
+			Connection conn= getConnection();
+			
+			int result=new UserDao().reserveRequestFollow(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			close(conn);
+			return result;
+		}
+		
 		
 		//팔로우상태 확인
 		public boolean isFollowed(Connection conn,User user,int myname){
@@ -247,8 +310,7 @@ public class UserService {
 		}
 		
 		//팔로우 추가
-		public int insertFollow(User user,int myname){
-			Connection conn=getConnection();
+		public int insertFollow(Connection conn,User user,int myname){
 			
 			int result=new UserDao().insertFollow(conn,user,myname);
 			
@@ -263,7 +325,6 @@ public class UserService {
 					e.printStackTrace();
 			}
 			
-			close(conn);
 			return result;
 		}
 		

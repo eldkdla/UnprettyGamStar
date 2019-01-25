@@ -100,7 +100,7 @@
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호</label>
-                            <input type="password" class="modifyInput" name="newPw" id="newPw" minlength="8" maxlength="20" required />
+                            <input type="password" class="modifyInput" name="newPw" id="newPw" minlength="8" maxlength="20" placeholder=' 대소문자 +숫자+특수문자 8~20자 입력해주세요' required />
                         </div>
                         <div class="modifyInputDiv2">
                             <label class='modifyInputLb2'>새 비밀번호 확인</label>
@@ -121,7 +121,7 @@
                     <div class="modifyScreenMainTop">
                         <div class="modifyInputDiv3">
                             <label class='modifyInputLb3'>비밀번호 확인</label>
-                            <input type="password" class="modifyInput" name="chkPw" id="chkPw" maxlength="15" required />
+                            <input type="password" class="modifyInput" name="chkPw" id="chkPw" minlength="8" maxlength="15" required />
                             <div class="chkEmailPhonePw" id="chkPwDv"></div>
                         </div>
                         
@@ -378,7 +378,7 @@
 	    		});
     		}
     	});
-
+			//새로운 비밀번호 체크 
             $('#newPwchk,#newPw').on('keyup',(function () {
             	
                 if ($('#newPwchk').val() != '' && $('#newPw').val() != '') {

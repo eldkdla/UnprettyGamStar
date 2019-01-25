@@ -218,7 +218,7 @@ if(request.getSession().getAttribute("userNo") == null)
                          })); */
                        
                        $('#fchatlistdiv'+i).off("click").on("click",function(){
-                          
+                    	   console.log("눌렷냐");
                           //console.log("클릭 : "+username2);
                             chatting(this);
                           });
@@ -261,7 +261,7 @@ if(request.getSession().getAttribute("userNo") == null)
                        
                        
                        $('#fchatlistdiv'+i).off("click").on("click",function(){
-                          
+                    	   console.log("눌렷냐");
                      chatting(this);
                           
                           }); 
@@ -542,9 +542,12 @@ var data2;
              async:false,
              success:function(data){
                 $('#messagecontent').children().remove();
+                console.log("채팅 데이터 "+data);
                  var json = eval("(" + data + ")");
-
+						console.log("json[0]메세지"+json[0]["chatMessage"]);
+					if(json[0]["chatMessage"].length>0){
                     for(var i=0;i<json.length;i++){
+                    	console.log("들어온 json[0]메세지"+json[0]["chatMessage"]);
                        if(json[i]["myNo"]==json[i]["chatUserNo"]){
                           console.log("시간: "+json[i]["chatDate"]);
                           $('#messagecontent').append($('<div/>',{
@@ -609,7 +612,7 @@ var data2;
                    //clearInterval(timer2);
                        
                    
-                       }
+                       }}
                     },
                     error:function(xhr,status){
                 alert(xhr+" : "+status);   
@@ -630,7 +633,7 @@ var data2;
                 data1=json.length;
                 console.log("data1"+data1);
                 console.log("data2"+data2);
-
+                if(json[0]["chatMessage"].length>0){
                 for(var i=0;i<json.length;i++){
                    if(json[i]["myNo"]==json[i]["chatUserNo"]){
                       console.log("시간: "+json[i]["chatDate"]);
@@ -697,7 +700,7 @@ var data2;
                    }
                
                    }
-                   data2=json.length;
+                   data2=json.length;}
                 },
                 error:function(xhr,status){
             alert(xhr+" : "+status);   
@@ -839,7 +842,7 @@ var f=0;
       userimg3=$(user[imgnum]).prevAll('img').first().attr("src");
       chatno3=data;
       $('#chatlistdiv'+f).off("click").on("click",function(){
-         
+         console.log("눌렷냐");
            chatting(this);
         }); 
         f++;    

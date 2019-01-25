@@ -362,6 +362,7 @@
         border: none;
         right: 17px;
         z-index: 7;
+        border:1px solid red;
         transform: scale(1);
     }
     @media all and (max-width:560px){  
@@ -565,3 +566,38 @@
         width: 99%;
         text-align: left;
     }
+    #profileContent7{
+        display: none;
+        margin: auto;
+        width: 99%;
+        text-align: left;
+    }
+    #profileContent7>div>button{
+    	position: relative;
+    	width:52px;
+    	height:25px;
+    	font-size: 15px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+        float: right;
+        margin-top: 50px;
+        margin-right: 5px;
+        cursor: pointer;
+        color:white;
+        border-radius: 5px;
+		border:none;
+    } 
+    #profileContent7>div>button:hover{
+    	opacity: 0.6;
+    }
+    @media all and (max-width:700px){
+		#profileContent7>div>button{
+			display:none;
+		}
+		
+	}
+	 @media all and (max-width:650px){
+		 #requestFollow{
+			display:none;
+		}
+	 }
