@@ -236,14 +236,54 @@ public class UserDao {
 			
 		}
 		//팔로우요청목록 삭제
-		public int deleteRequestFollowuser(Connection conn,User user){
+		public int deleteRequestFollowuser(Connection conn,User user,int myUserNo){
 			PreparedStatement pstmt=null;
 			String sql=prop.getProperty("deleteRequestFollowuser");
 			int result=0;
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setInt(1, user.getNo());
+				pstmt.setInt(1, myUserNo);
+				pstmt.setInt(2, user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+		}
+		//팔로우요청 하기
+		public int insertRequestFollow(Connection conn, User user,int myUserNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("insertRequestFollow");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,myUserNo);
+				pstmt.setInt(2,user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+			
+		}
+		//팔로우요청 보류
+		public int reserveRequestFollow(Connection conn, User user,int myUserNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("reserveRequestFollow");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,myUserNo);
+				pstmt.setInt(2,user.getNo());
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {

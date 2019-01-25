@@ -1,10 +1,6 @@
 package com.gamstar.user.controller;
 
-import static common.JDBCTemplate.getConnection;
-import static common.JDBCTemplate.*;
 import java.io.IOException;
-import java.sql.Connection;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +11,16 @@ import com.gamstar.user.model.service.UserService;
 import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class DeleteRequestFollowUserServlet
+ * Servlet implementation class InsertRequestFollowServlet
  */
-@WebServlet("/view/deleterequestfollowuser")
-public class DeleteRequestFollowUserServlet extends HttpServlet {
+@WebServlet("/view/insertrequestfollow")
+public class InsertRequestFollowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteRequestFollowUserServlet() {
+    public InsertRequestFollowServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,17 +32,13 @@ public class DeleteRequestFollowUserServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
-			
-		Connection conn=getConnection();
-		
+		if(request.getSession().getAttribute("userNo")!=null){
+				
 		User user=new User();
-		user.setNo(Integer.parseInt(request.getParameter("requestFollowUserNo")));
+		user.setNo(Integer.parseInt(request.getParameter("requestUserNo")));
 		int myUserNo=(int)request.getSession().getAttribute("userNo");
 		
-		int result=new UserService().deleteRequestFollowuser(conn,user,myUserNo);
-		
-		close(conn);
+		int result = new UserService().insertRequestFollow(user,myUserNo);
 		
 		}
 		else{
@@ -54,6 +46,7 @@ public class DeleteRequestFollowUserServlet extends HttpServlet {
 			request.setAttribute("loc", "");
 			request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

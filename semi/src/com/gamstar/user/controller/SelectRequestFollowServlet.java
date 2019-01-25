@@ -53,7 +53,18 @@ public class SelectRequestFollowServlet extends HttpServlet {
 			User user=new User();
 			user.setNo(Integer.parseInt(request.getParameter("userNo")));
 			
-			ArrayList<User> requestFollowDataArray=new UserService().selectRequestFollow(conn,user);		
+			ArrayList<User> requestFollowDataArray=new UserService().selectRequestFollow(conn,user);
+			/*ArrayList<User> requestFollowDataArray=new ArrayList<User>();
+			for(int i=0;i<requestFollowDataArray1.size();i++){
+				if(requestFollowDataArray1.get(i).getIswatch()==1){
+					user=new User();
+					user.setNo(requestFollowDataArray1.get(i).getNo());
+					user.setName(requestFollowDataArray1.get(i).getName());
+					user.setProfilePhoto(requestFollowDataArray1.get(i).getProfilePhoto());
+					
+					requestFollowDataArray.add(user);
+				}
+			}*/
 
 			close(conn);
 			

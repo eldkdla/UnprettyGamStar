@@ -384,7 +384,7 @@
                         type:'text/css',
                         href:'<%=request.getContextPath()%>/css/profilePage.css'
                     }));
-                } 
+                }
             }
     
             });
@@ -400,6 +400,37 @@
             	 $('#profilePhotoBt').click(function(){
             		 showProfilePhotoMenu();
             	 });
+            	 <%for(int i=0;i<requestfollowDataArray.size();i++){
+            		 if(requestfollowDataArray.get(i).getIswatch()==0){%>
+            		 $('body').alertBox({
+            		        title: "'<%=requestfollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
+            		        lTxt: '보류',
+            		        lCallback: function(){
+            		        	$.ajax({
+            	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
+            	            		type:"POST",
+            	            		data:{"requestFollowUserNo":<%=requestfollowDataArray.get(i).getNo()%>},
+            	            		success:function(data){},
+            	            		error:function(xhr,status){
+            	            			alert(xhr+" : "+status);	
+            	            		}
+            	            		});
+            		        },
+            		        rTxt: '수락',
+            		        rCallback: function(){
+	 					        $.ajax({
+	 					            url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					            type:'POST',
+	 					            data:{'requestFollowUserNo':<%=requestfollowDataArray.get(i).getNo()%>},
+	 					            success:function(data){},
+            	            		error:function(xhr,status){
+            	            			alert(xhr+" : "+status);	
+            	            		}
+            	            	});
+            		        }
+            		      });
+            		 <%}
+            		 }%>
          	<%}
          	else{//다른사람 페이지
          		System.out.println("다른사람 페이지네");
@@ -1194,10 +1225,11 @@
 	            			
 	            			$('#profileContent7>*').remove();
 	            			
-	            			 for(var i=0;i<data.length;i++){ 				
+	            			 for(var i=0;i<data.length;i++){ 		
 	 							    var no=data[i]["no"];
 	 								var name=data[i]["name"];
 	 								var profilePhoto=data[i]["profilePhoto"]; 
+	 								if(data[i]["iswatch"]==1){
 	 								$('#profileContent7').append($('<div/>',{
 	 					                class:'profileFollowDv',
 	 					                id:no
@@ -1257,7 +1289,8 @@
 	 					            });
 	 					            $('#profileContent7>#'+no+'>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
 	 					            $('#profileContent7>#'+no+'>button:eq(1)').css({'background-color':'#59DA50'}); 
-	 				 		}	
+	 				 		}
+	 						}
 	            		},
 	            		error:function(xhr,status){
 	            			alert(xhr+" : "+status);
@@ -1268,7 +1301,8 @@
         });
         
       //페이지 로딩시 팔로우요청 가져오기
-        <%for(int i=0;i<requestfollowDataArray.size();i++){%>
+        <%for(int i=0;i<requestfollowDataArray.size();i++){
+        	if(requestfollowDataArray.get(i).getIswatch()==1){%>
         $('#profileContent7').append($('<div/>',{
            class:'profileFollowDv',
            id:'<%=requestfollowDataArray.get(i).getNo()%>'
@@ -1303,7 +1337,7 @@
          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').css({'background-color':'#59DA50'}); 
          
-       <%}%> 
+       <%}}%> 
        
 			 
     </script> 
