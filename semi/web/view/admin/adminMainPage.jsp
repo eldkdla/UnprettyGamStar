@@ -41,10 +41,24 @@
 	}
 	div#adminFunctionBtn-container div{
 		width : 20%;
+		height:50%;
 		text-align: center;
+		cursor:pointer;
+	}
+	div#adminFunctionBtn-container div label{
+		display:block;
+		width:100%;
+		height:100%;
+		text-align:center;
+	}
+	div#adminFunctionBtn-container div:hover img{
+		opacity: 1.5;
 	}
 	div#adminFunctionBtn-container div img{
 		display:block;
+		margin:auto;
+		text-align: center;
+		opacity:0.5;
 	}
 	div#adminBoardContent-container{
 		width:100%;
@@ -103,6 +117,7 @@
 	.reportTr{
 		cursor:pointer;
 	}
+	
 
 @media all and (min-width:1067px){
 	nav {
@@ -162,19 +177,19 @@
 		<br/>
 		<div id='adminFunctionBtn-container'>
 			<div id='userBtn'>
-				<img src='<%=request.getContextPath() %>/img/adminImg/member.png' />
+				<img src='<%=request.getContextPath() %>/img/adminImg/member.png' onclick="location.href='<%=request.getContextPath()%>/admin/userList'";/>
 				<label>회원관리</label>
 			</div>
 			<div id='supportBtn'>
-				<img src='<%=request.getContextPath() %>/img/adminImg/send.png'/>
+				<img src='<%=request.getContextPath() %>/img/adminImg/send.png' onclick="location.href='<%=request.getContextPath()%>/admin/supportList'";/>
 				<label>문의확인</label>
 			</div>
 			<div id='reportBtn'>
-				<img src='<%=request.getContextPath() %>/img/adminImg/stop.png'/>
+				<img src='<%=request.getContextPath() %>/img/adminImg/stop.png' onclick="location.href='<%=request.getContextPath()%>/admin/reportList'";/>
 				<label>신고처리</label>
 			</div>
 			<div id='managerBtn'>
-				<img src='<%=request.getContextPath() %>/img/adminImg/admin.png' />
+				<img src='<%=request.getContextPath() %>/img/adminImg/admin.png'  onclick="location.href='<%=request.getContextPath()%>/admin/manager/adminList'";/>
 				<label>관리자</label>
 			</div>
 		</div>
