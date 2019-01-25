@@ -121,16 +121,16 @@ var isActiveContainerBtn = false;
             if (fileList[mediaReadIndex].mediaType == 0) {
             	
                 randomMedia = new Image();
-
-                images[images.length] = randomMedia;
-
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
+                images[images.length] = randomMedia;
                 
-    
-                
+                console.log('뭐좀나와바라');
+          
                 randomMedia.onload = function(e) {
-                
+                	
+                	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ');
                     if (mediaReadIndex < fileList.length) {
+                    	
                     	mediaReadIndex++;
                         setMedia();
                     } else if(mediaReadIndex == fileList.length){
@@ -145,6 +145,8 @@ var isActiveContainerBtn = false;
                 }
              
             } else {
+
+            	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ 혹시여기야?????????? 진짜여기만오는거임?');
         
             	if (mediaReadIndex < fileList.length) {
             		mediaReadIndex++;
@@ -169,8 +171,6 @@ var isActiveContainerBtn = false;
                     class: 'newspeedview_media'
                 }));
 
-            
-
                 if (fileList[i].mediaType == 0) {
                 	 var maxWidth = 603.644;
                 	 var imgRate = images[imageNum].width / images[imageNum].height;
@@ -178,17 +178,14 @@ var isActiveContainerBtn = false;
                 	 var imgTag = document.createElement('img');
                 	 imgTag.src = '../' + fileList[i].fileName;
                 	 $(imgTag).addClass('newspeedview_media_image');
-                    
-                    
+            
 
-                    if(images[imageNum].width >= maxWidth){
-                       widthRate = 100;
-                    } else {
-                      
-                       widthRate = images[imageNum].width/ maxWidth * 100;
-                    }
-                    
-                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image_wrapper:eq(' + imageNum +')').css('width',widthRate + '%');
+                	 if(imgTag.width >= maxWidth){
+                         widthRate = 100;
+                      } else {
+               
+                         widthRate = imgTag.width/ maxWidth * 100;
+                      }    
                     
               
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
@@ -227,8 +224,7 @@ var isActiveContainerBtn = false;
                     	'top': (tagList[j].Y * 100) + '%'
                     });
                     
-                    console.log(tagList[j].X);
-                    console.log(tagList[j].Y);
+            
 
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
                         class: 'tagUserNo',
@@ -343,9 +339,7 @@ var isActiveContainerBtn = false;
             }));
             
             var iconClass = 'newspeed_like_icon_wrapper';
-            
-            console.log(data.isLike);
-            
+        
             if (data.isLike) {
             	iconClass = 'newspeed_like_active_icon_wrapper';
             }
@@ -387,11 +381,10 @@ var isActiveContainerBtn = false;
             // "commentList":[{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commentContent":"날씨가 너무 춥네요~", "commentIndex":1},
 
             if ($('.newspeedview_list_select').length == 0) {
-            	console.log('바꿉니당!!!!!!!!!!!!!!!111');
+
             	$('.newspeedview_list:eq(' + length5 + ')').attr('class', 'newspeedview_list_select');
             } else {
-            	console.log('바꿉니당!!!!!!!!!!!!!!!111저두요!!!!!!!!!!!!!!!!');
-            	console.log($('.newspeedview_list:eq(' + length5 + ')'));
+ 
             	$('.newspeedview_list:eq(' + length5 + ')').attr('class', 'newspeedview_list');
 
             }
@@ -411,26 +404,18 @@ var isActiveContainerBtn = false;
         var userNo = data.userNo;
         var newspeedNo = data.newspeedNo;
         
-        console.log(data);
-        console.log('이렇게 옵니다');
-        
-        console.log(newspeedNo);
-        console.log(length5);
-        
+
  
         $('#newspeedview_list_wrapper').append($('<div/>', {
             class: 'newspeedview_list'
         }));
         
-        console.log('이제 뉴스피드 번호를 더하자!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<input/>', {
             type: 'hidden',
             class: 'newspeedNo',
             value: newspeedNo
         }));
-
-        console.log('이제 미디어를 감싸야지!');
 
         $('.newspeedview_list:eq(' + length5 + ')').append($('<div/>', {
             class: 'newspeedview_media_list_wrapper'
@@ -452,14 +437,12 @@ var isActiveContainerBtn = false;
         var imageLength = 0;
 
         for (var k = 0; k < fileList.length; k++) {
-        	console.log(fileList[k].mediaType + "은무엇?");
             if (fileList[k].mediaType == 0){
                 imageLength++;
             }
         }
         
-        console.log(imageLength + '이미지몇개임?');
-
+     
         var mediaReadIndex = 0;
         var images = [];
         setMedia();
@@ -467,10 +450,7 @@ var isActiveContainerBtn = false;
         function setMedia() {
   
             var randomMedia;
-            
-            console.log(mediaReadIndex + '왜 지랄이세요진짜로?');
-            console.log(imageLength + '지랄좀작작하자....');
-            
+    
            	if(mediaReadIndex == fileList.length){    
                 addElement();
             	if (typeof callback == "function") {
@@ -483,12 +463,18 @@ var isActiveContainerBtn = false;
             	console.log('이건이미지에요!' + mediaReadIndex);
             	
                 randomMedia = new Image();
-                images[images.length] = randomMedia;
+     
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
                 
-                
                 randomMedia.onload = function(e) {
-                	console.log('도와줘제발......')
+                	images[images.length] = this;
+                	images[images.length-1].width = randomMedia.width;
+                	images[images.length-1].height = randomMedia.height;
+                	
+                	
+                	
+                	console.log('도와줘제발......');
+                	console.log(images[images.length - 1]);
                 	
                 	console.log(randomMedia.width);
                 	console.log(randomMedia.height);
@@ -543,41 +529,43 @@ var isActiveContainerBtn = false;
             	 var imgTag = document.createElement('img');
             	 imgTag.src = '../' + fileList[i].fileName;
             	 $(imgTag).addClass('newspeedview_media_image');
-            	 
-            	 console.log(maxWidth + '뭐니');
-            	 
-            	 var curRate = maxWidth / 600;
-            	 
-            	 if(images[imageNum].width >= maxWidth){
+
+   
+            	 if(imgTag.width >= maxWidth){
                      widthRate = 100;
                   } else {
-                    
-                     widthRate = images[imageNum].width/ maxWidth * 100;
-                  }
-                  
-                  $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image_wrapper:eq(' + imageNum +')').css('width',widthRate + '%');
-              
-                            
+           
+                     widthRate = imgTag.width/ maxWidth * 100;
+                  }                      
                
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
                     class: 'newspeedview_media_image_wrapper',
                     width:widthRate + '%'
-                    
-    
                 }));
                 
                 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append(imgTag);
-         
                 
                 imageNum++;
+                
                 } else {
+                	
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<video/>', {
                         class: 'newspeedview_media_video',
                         src:'../' + fileList[i].fileName
                     }));
-
+                    
+                
+                    
+                    var video = $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > video');    
+                    console.log(video);
+                    console.log($(video).width());
+                    console.log($(video).height());
+                    console.log($(video).css('width'));
+                
+                    
                     $('.newspeedview_media_video').attr('controls',true);
                 }
+          
 
                 var tagList = fileList[i].tagList;
                 
@@ -916,10 +904,7 @@ var isActiveContainerBtn = false;
             	requestNewspeedInfoAfter($(selectedTag).attr('value'));
             	removeRightBtn();
             	removeLeftBtn();
-            	console.log('안녕?');
             } 
-            
-            console.log('안녕?');
         });     
     }
     

@@ -66,8 +66,24 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 					close(conn);
 				}
 				else if(request.getParameter("follow").equals("팔로우")){
-					//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
-					result=new UserService().deleteFollow(user,userNo);
+					System.out.println(request.getParameter("beforeFollowBtLabel"));
+					if(request.getParameter("beforeFollowBtLabel").equals("팔로우됨")){
+						//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
+						result=new UserService().deleteFollow(user,userNo);
+					}
+					else if(request.getParameter("beforeFollowBtLabel").equals("팔로우요청")){
+						//팔로우요청 목록에서 삭제
+						Connection conn=getConnection();
+						int temp;
+						temp=user.getNo();
+						user.setNo(userNo);
+						userNo=temp;
+						result=new UserService().deleteRequestFollowuser(conn, user, userNo);
+						temp=user.getNo();
+						user.setNo(userNo);
+						userNo=temp;
+						close(conn);
+					}
 				}
 				else if(request.getParameter("follow").equals("팔로우요청")){
 					//팔로우 요청 -> 요청목록에 default 로 추가

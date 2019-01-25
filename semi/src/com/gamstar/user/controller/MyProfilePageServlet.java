@@ -100,13 +100,21 @@ public class MyProfilePageServlet extends HttpServlet {
 				ArrayList<User> blockDataArray=new UserService().selectBlock(conn,user);
 				request.setAttribute("blockDataArray", blockDataArray);
 				
-				//팔로우요청정보 가져오기
+				//팔로우요청목록 가져오기
 				ArrayList<User> requestfollowDataArray=new UserService().selectRequestFollow(conn,user);
 				request.setAttribute("requestfollowDataArray", requestfollowDataArray);
 				
 				//상대방페이지일때 팔로우 되어있는지 확인하기
 				boolean isFollowed=new UserService().isFollowed(conn,user,myNo);
 				request.setAttribute("isFollowed", isFollowed);
+				
+				//상대방페이지일때 팔로우요청 중인지 확인하기
+				boolean isRequestFollow=new UserService().isRequestFollowPage(conn,user,myNo);
+				request.setAttribute("isRequestFollow", isRequestFollow);
+				
+				//팔로우요청 있는지 확인
+				ArrayList<User> isRequestFollowDataArray=new UserService().isRequestFollow(conn,user);
+				request.setAttribute("isRequestFollowDataArray", isRequestFollowDataArray);
 				
 				close(conn);
 				
