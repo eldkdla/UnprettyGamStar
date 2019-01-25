@@ -15,6 +15,16 @@ import com.gamstar.user.model.dao.UserDao;
 import com.gamstar.user.model.vo.User;
 
 public class UserService {
+	
+	public List<User> selectFeedUser(List<String> peedNo){ //피드유저DB 리스트로 받아오기
+		
+		Connection conn = getConnection();
+		
+		List<User> userData = new UserDao().selectFeedUser(conn, peedNo);
+		
+		close(conn);
+		return userData;
+	}
 
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){

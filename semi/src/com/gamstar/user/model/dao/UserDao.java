@@ -27,6 +27,39 @@ public class UserDao {
 		}
 
 	}
+		
+	public List<User> selectFeedUser(Connection conn, List<String> peedNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectFeedUser");
+		
+		List<User> listDB = new ArrayList();
+		User data = null;
+		try {
+			
+			for(int i=0; i<peedNo.size(); i++) {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, peedNo.get(i));
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					data = new User();
+					
+					data.setName(rs.getString("user_name"));
+					data.setProfilePhoto(rs.getString("user_profile_photo"));
+					
+					listDB.add(data);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listDB;
+	}
 
 	//유저정보 선택 - 객체 생성부분 삭제 기존 파라메터에 추가로 값 넣어줌
 		public User selectUser(Connection conn,User user){

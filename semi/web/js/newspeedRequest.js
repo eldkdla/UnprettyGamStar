@@ -204,6 +204,23 @@ var isActiveContainerBtn = false;
                         class: 'newspeedview_media_video',
                         src:'../' + fileList[i].fileName
                     }));
+                    
+                    
+                    var video = $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > video')[0];    
+                   
+                    video.onloadeddata = function(e) {
+                    	var vWidth = $(video).width();
+                    	var vHeight = $(video).height();
+                    	
+                    	if (vWidth > vHeight) {
+                       	 $(video).css('width', '100%');
+                       	 $(video).css('height', 'auto');
+                        } else {
+                       	 $(video).css('width', 'auto');
+                       	 $(video).css('height', '100%');
+                        }
+          
+                    };
 
                     $('.newspeedview_media_video').attr('controls',true);
                 }
@@ -556,11 +573,21 @@ var isActiveContainerBtn = false;
                     
                 
                     
-                    var video = $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > video');    
-                    console.log(video);
-                    console.log($(video).width());
-                    console.log($(video).height());
-                    console.log($(video).css('width'));
+                    var video = $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > video')[0];    
+                         
+                    video.onloadeddata = function(e) {
+                    	var vWidth = $(video).width();
+                    	var vHeight = $(video).height();
+                    	
+                    	if (vWidth > vHeight) {
+                       	 $(video).css('width', '100%');
+                       	 $(video).css('height', 'auto');
+                        } else {
+                       	 $(video).css('width', 'auto');
+                       	 $(video).css('height', '100%');
+                        }
+               
+                    };
                 
                     
                     $('.newspeedview_media_video').attr('controls',true);
@@ -763,7 +790,7 @@ var isActiveContainerBtn = false;
     });
 
     function onBindEvent() {
-    	 onClickReport();
+    	
         onClickLeftContainer();
         onClickRightContainer();
         onClickLeftMediaBtn();
@@ -771,8 +798,10 @@ var isActiveContainerBtn = false;
         onClickLike();
         onClickStore();
         onEnterCommentWrite();
+        onClickCommentWriteSubmit()
         onClickTagUser();
         onClickCommentUser();
+        onClickReport();
         onClickBackground();
        
         
@@ -1192,8 +1221,8 @@ var isActiveContainerBtn = false;
             	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
             	var content = $(this).val(); 
             	
-            	if(content.length < 10) {
-            		alert('10글자 이상 입력하세용');
+            	if(content.trim().length < 5) {
+            		alert('띄어쓰기를 제외하고 5글자 이상 입력하세요');
             		return;
             	}
             	
@@ -1207,25 +1236,29 @@ var isActiveContainerBtn = false;
     }
     
     function onClickCommentWriteSubmit() {
-    	 $('.newspeedview_comment_write').off().on('click', function (e) {
+    	 $('.newspeedview_comment_write_submit').off('click').on('click', function (e) {
  
              	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-             	var content = $(this).val(); 
+             	var content = $('.newspeedview_list_select .newspeedview_comment_write').val();
              	
-             	console.log(content + '왜안나오냐?');
+             	console.log(content + '왜그러세요?');
+             	
+             	if(content.trim().length < 5) {
+            		alert('띄어쓰기를 제외하고 5글자 이상 입력하세요');
+            		return;
+            	}
              	
                 writeNewspeedComment(newspeedNo, 0, content);
+                
+                $('.newspeedview_list_select .newspeedview_comment_write').val('');
+                $('.newspeedview_list_select .newspeedview_comment_write').text('');
 
          });
     }
     
     
     function writeNewspeedComment(newspeedNo, rootCommentNo ,commentContent) {
-    	if (commentContent.length < 5) {
-    		console.log('ㅇㅇㅇㅇㅇㅇㅇㅇ');
-    	}
-    	
-    	
+   
         $.ajax({
             url: '../newspeed/newspeedcommentwrite',
             type: "POST",
@@ -1233,8 +1266,6 @@ var isActiveContainerBtn = false;
             	     "rootCommentNo": rootCommentNo,
             	     "commentContent": commentContent},
             success: function (data) {
-            	console.log('성공');
-            	console.log(JSON.parse(data));
             	reloadCommentList(JSON.parse(data));
             },
             error:function(request,status,error){

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gamstar.admin.report.model.vo.ReportBoard;
+import com.gamstar.filecontroller.FileController;
 import com.gamstar.filecontroller.NewspeedMediaReNamePolicy;
 import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedMedia;
@@ -42,7 +43,7 @@ public class ReportRequestServlet extends HttpServlet {
 		}
 		
 		String root = getServletContext().getRealPath("/") + "upload/report/";
-		
+		FileController fileCont = new FileController();
 	
 		int userNo = Integer.parseInt(request.getSession().getAttribute("userNo").toString());
 		int result = -1;
@@ -62,6 +63,8 @@ public class ReportRequestServlet extends HttpServlet {
 		report.setReportBoardType(ReportBoard.TYPE_NEWSPEED);
 		report.setReportBoardTargetNo(targetUserNo);
 		report.setReportBoardWriterNo(userNo);
+		
+		fileCont.getFileNameList(mr, "reportmedia[]");
 		
 		response.getWriter().println("success");
 	}
