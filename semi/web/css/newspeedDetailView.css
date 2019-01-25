@@ -17,14 +17,13 @@
 
         .balloons {
 	        position: absolute;
-            left:50%;
-            top:10%;
-            width:auto;
-            min-width: 60px;
-            height:17px;
-            border:500px solid red;
-	        background: rgba(0,0,0,0.3);
-            content:"임태완";
+	        display:none;
+	        height:17px;
+	        text-align:center;
+	        white-space:no-wrap;
+	        min-width:40px;
+	        max-width:80px;
+	        background-color:rgba(0,0,0,0.8);
             border-radius: 10px;
             color:#efefef;
             font-size:11px;
@@ -274,7 +273,6 @@
             border-radius: 200px;
             background-size: cover;
             background-position: center;
-            background-image:url('../img/newspeeddetailview/basic_profile_photo.png');
         }
 
         .newspeedview_writer_wrapper .newspeedview_writername {
@@ -310,7 +308,8 @@
             height:0px;
             padding-top:-5px;
             white-space: normal;
-            word-break: break-all;  
+            word-break: break-all;
+            word-wrap:break-word;  
         }
         .newspeedview_content_wrapper > div {
             position: relative;
@@ -318,18 +317,23 @@
             text-align:left;
             white-space: normal;
             word-break: break-all;
+            word-wrap:break-word; 
             font-size:14.5px;
         }
 
 
         .newspeedview_comment_wrapper{
             height:50%;
-            overflow: auto;
+            overflow-x: hidden;
+            overflow-y:auto;
+            
         }
         
         .newspeedview_comment_wrapper > div {
             text-align:left;
             white-space: normal;
+                        word-break: break-all;
+            word-wrap:break-word; 
             font-size:14.5px;
             margin-left : 10px;
             margin-right: 10px;
@@ -343,6 +347,8 @@
         .newspeedview_comment_wrapper > div > *{
             display:inline-block;
             height:0px;
+                        word-break: break-all;
+            word-wrap:break-word; 
             white-space: normal;
         }
 
@@ -353,6 +359,8 @@
         .newspeed_comment {
             display:inline-block;
             white-space: normal;
+                        word-break: break-all;
+            word-wrap:break-word; 
         }
        
 
@@ -433,17 +441,25 @@
             width:30px;
             height:30px;
         }
+        
+        .newspeedview_comment_write_submit:hover{
+        	cursor:pointer;
+        }
 
         .newspeedview_media_image{
             position: relative;
-            top:50%;
-            transform:translateY(-50%);
+           	width:100%;
+           	height:auto;
+           	background-color:rgba(255,255,255,1);
         }
         
+
         .newspeedview_media_image_wrapper{
         	position: relative;
             top:50%;
             transform:translateY(-50%);
+            width:100%;
+            height:auto;
         }
 
         .newspeedview_media_video{

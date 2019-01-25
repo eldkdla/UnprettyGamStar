@@ -705,8 +705,6 @@
    
             }
 
-
-
             $(window).resize(function () {
                 resizing();
                 drawImage(lastImg);

@@ -130,8 +130,12 @@ var isActiveContainerBtn = false;
             	console.log('이건이미지에요!' + mediaReadIndex);
             	
                 randomMedia = new Image();
+                console.log(images.length + '으응으으응ㅇ');
                 images[images.length] = randomMedia;
+                console.log(images.length + '야야야야야야야야야애');
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
+                
+                console.log('너뭐하는사람이세요');
                 
                 
                 randomMedia.onload = function(e) {
@@ -180,24 +184,41 @@ var isActiveContainerBtn = false;
                     class: 'newspeedview_media'
                 }));
 
-               
+            
 
                 if (fileList[i].mediaType == 0) {
                 	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+                	 var imgRate = images[imageNum].width / images[imageNum].height;
+                	 var widthRate;
+                	 var imgTag = document.createElement('img');
+                	 imgTag.src = '../' + fileList[i].fileName;
+                	 $(imgTag).addClass('newspeedview_media_image');
                     
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<img/>', {
-                        class: 'newspeedview_media_image',
-                        src:'../' + fileList[i].fileName
-                    }));
+                    $
 
                     if(images[imageNum].width >= maxWidth){
                         $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
                         $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
+                        widthRate = 100;
                     } else {
                         var rate = images[imageNum].width/ maxWidth * 100;
+                        
                         $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
                         $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
+                        widthRate = rate;
                     }
+                    
+                                
+                   
+                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
+                        class: 'newspeedview_media_image_wrapper'
+                        
+        
+                    }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append(imgTag);
+             
+                    
                     imageNum++;
                 } else {
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<video/>', {
@@ -212,15 +233,20 @@ var isActiveContainerBtn = false;
                 
                 
                 for (var j = 0; j < tagList.length; j++) {
-                	console.log(tagList[j]);
-                	console.log('요기임당');
                 	
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > img').append($('<p/>', {
+                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append($('<div/>', {
                         class: 'balloons',
                         text: tagList[j].userName,
-                        left: (150),
-                        top: (150)
+
                     }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper > .balloons:eq(' + j +')').css({
+                    	'left': (tagList[j].X * 100) + '%',
+                    	'top': (tagList[j].Y * 100) + '%'
+                    });
+                    
+                    console.log(tagList[j].X);
+                    console.log(tagList[j].Y);
 
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
                         class: 'tagUserNo',
@@ -255,8 +281,12 @@ var isActiveContainerBtn = false;
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper').append($('<div/>', {
                 class: 'newspeedview_profilephoto',
-                background: 'url(../' + data.profilephoto + ')'
+               
             }));
+            
+
+            $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper .newspeedview_profilephoto').css('background-image','url(../' + data.profilephoto + ')');
+            
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper .newspeedview_profilephoto').append($('<input/>', {
                 type: 'hidden',
@@ -312,7 +342,7 @@ var isActiveContainerBtn = false;
             }));
 
             for (var j = 0; j < data.commentList.length; j++) {
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').prepend($('<div/>', {
                     html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent
                 }));
 
@@ -525,24 +555,39 @@ var isActiveContainerBtn = false;
               
 
                 if (fileList[i].mediaType == 0) {
-                    var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list_wrapper').width();
-                    console.log(maxWidth + "너왜뭐안나옴?");
-                    console.log(images[imageNum].width + "너도왜안나옴?");
-                   
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<img/>', {
-                        class: 'newspeedview_media_image',
-                        src:'../' + fileList[i].fileName
-                    }));
+               	 var maxWidth = $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media').width();
+            	 var imgRate = images[imageNum].width / images[imageNum].height;
+            	 var widthRate;
+            	 var imgTag = document.createElement('img');
+            	 imgTag.src = '../' + fileList[i].fileName;
+            	 $(imgTag).addClass('newspeedview_media_image');
+                
+                $
 
-                    if(images[imageNum].width >= maxWidth){
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    } else {
-                        var rate = images[imageNum].width/ maxWidth * 100;
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
-                        $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
-                    }
-                    imageNum++;
+                if(images[imageNum].width >= maxWidth){
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width','100%');
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
+                    widthRate = 100;
+                } else {
+                    var rate = images[imageNum].width/ maxWidth * 100;
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('width',rate + '%');
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_media_list > div:eq(' + i +  ') .newspeedview_media_image:eq(' + imageNum +')').css('height','auto');
+                    widthRate = rate;
+                }
+                
+                            
+               
+                $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<div/>', {
+                    class: 'newspeedview_media_image_wrapper'
+                    
+    
+                }));
+                
+                $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append(imgTag);
+         
+                
+                imageNum++;
                 } else {
                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ')').append($('<video/>', {
                         class: 'newspeedview_media_video',
@@ -556,22 +601,25 @@ var isActiveContainerBtn = false;
                 
                 
                 for (var j = 0; j < tagList.length; j++) {
-                	console.log(tagList[j]);
-                	console.log('요기임당');
-                	
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') > img').append($('<div/>', {
-                        class: 'balloons',
-                        text: tagList[j].userName,
-                        left: (300),
-                        top: (300)
-                    }));
+                	 $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper').append($('<div/>', {
+                         class: 'balloons',
+                         text: tagList[j].userName,
 
-                    $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
-                        class: 'tagUserNo',
-                        value: tagList[j].userNo,
-                        type: 'hidden'
-                    }));
+                     }));
+                     
+                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .newspeedview_media_image_wrapper > .balloons:eq(' + j +')').css({
+                     	'left': (tagList[j].X * 100) + '%',
+                     	'top': (tagList[j].Y * 100) + '%'
+                     });
+                     
+                     console.log(tagList[j].X);
+                     console.log(tagList[j].Y);
 
+                     $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
+                         class: 'tagUserNo',
+                         value: tagList[j].userNo,
+                         type: 'hidden'
+                     }));
                 }
 
                 
@@ -603,8 +651,11 @@ var isActiveContainerBtn = false;
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper').append($('<div/>', {
                 class: 'newspeedview_profilephoto',
-                background: 'url(../' + data.profilephoto + ')'
+                
             }));
+            
+            $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper .newspeedview_profilephoto').css('background-image','url(../' + data.profilephoto + ')');
+            
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_writer_wrapper .newspeedview_writer_content_wrapper .newspeedview_profilephoto').append($('<input/>', {
                 type: 'hidden',
@@ -660,7 +711,7 @@ var isActiveContainerBtn = false;
             }));
 
             for (var j = 0; j < data.commentList.length; j++) {
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').prepend($('<div/>', {
                     html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent
                 }));
 
@@ -732,6 +783,7 @@ var isActiveContainerBtn = false;
             onBindEvent();
             resizeMediaList();
             resizeMedia();
+            resizeNewspeedview();
         }
     }
 
@@ -751,7 +803,8 @@ var isActiveContainerBtn = false;
         onClickTagUser();
         onClickCommentUser();
         onClickBackground();
-        resizeNewspeedview();
+        onClickReport();
+        onClickNewspeedMediaImage();
     }
 
     $(window).resize(function () {
@@ -764,6 +817,7 @@ var isActiveContainerBtn = false;
         resizeMediaList();
         resizeIcon();
         resizeNewspeedList();
+
     }
 
     function resizeMedia() {
@@ -774,7 +828,8 @@ var isActiveContainerBtn = false;
     function resizeNewspeedList() {
 
     }
-
+    
+ 
     function resizeMediaList() {
         var left = Number($('.newspeedview_list_select .newspeedview_media_list > div').width());
         var length = $('.newspeedview_list_select .newspeedview_media_list > .newspeedview_media_select').prevAll().length;
@@ -1120,6 +1175,7 @@ var isActiveContainerBtn = false;
 
         });
     }
+    
 
     function onClickTagUser() {
         $('.balloons').off().on('click', function (e) {
@@ -1145,31 +1201,110 @@ var isActiveContainerBtn = false;
     }
 
     function onClickReport() {
-
+    	
+    	$('.newspeed_report_icon_wrapper').on('click',function(e){
+        	var targetUserNo = $('.newspeedview_list_select .newspeedview_writer_content_wrapper .userNo').val();
+        	var targetNewspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+        	
+        	console.log(targetUserNo + '안녕?');
+        	console.log(targetNewspeedNo + '나두!');
+        	$('#reportBgk').fadeIn(700);
+        	
+        	onClickReportBtn(targetUserNo, targetNewspeedNo, '../report/reportrequest');
+    	});
+    
     }
 
-    function onClickMedia() {
-
-    }
 
     function onEnterCommentWrite() {
         $('.newspeedview_comment_write').off().on('keyup', function (e) {
-            e.stopPropagation();
-
-            console.log($(this).val());
+            e.stopPropagation();            
             if (e.key == 'Enter') {
-                if ($(this).text().length < 5) {
-                    return;
-                }
-
-                console.log('전송데스요');
+            	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+            	var content = $(this).val(); 
+            	
+            	if(content.length < 10) {
+            		alert('10글자 이상 입력하세용');
+            		return;
+            	}
+            	
+               writeNewspeedComment(newspeedNo, 0, content);
+               
+               $(this).val('');
+          	   $(this).text('');
+              
             }
         });
-        
-        function writeNewspeedComment(newspeedNo, commentContent) {
-        	
-        }
     }
+    
+    function onClickCommentWriteSubmit() {
+    	 $('.newspeedview_comment_write').off().on('click', function (e) {
+ 
+             	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+             	var content = $(this).val(); 
+             	
+             	console.log(content + '왜안나오냐?');
+             	
+                writeNewspeedComment(newspeedNo, 0, content);
+
+         });
+    }
+    
+    
+    function writeNewspeedComment(newspeedNo, rootCommentNo ,commentContent) {
+    	if (commentContent.length < 5) {
+    		console.log('ㅇㅇㅇㅇㅇㅇㅇㅇ');
+    	}
+    	
+    	
+        $.ajax({
+            url: '../newspeed/newspeedcommentwrite',
+            type: "POST",
+            data: { "newspeedNo": newspeedNo,
+            	     "rootCommentNo": rootCommentNo,
+            	     "commentContent": commentContent},
+            success: function (data) {
+            	console.log('성공');
+            	console.log(JSON.parse(data));
+            	reloadCommentList(JSON.parse(data));
+            },
+            error:function(request,status,error){
+            	console.log(error);
+            }
+
+ 
+        });
+    }
+    
+    function onClickNewspeedMediaImage() {
+    	$('.newspeedview_media_image').off('click').on('click', function(e){
+    		e.stopPropagation();
+    		$('.newspeedview_media_select .balloons').fadeToggle(500);
+    	})
+    	
+    }
+    
+    
+    function reloadCommentList(data) {
+    	$('.newspeedview_list_select .newspeedview_comment_wrapper > div').remove();
+    	
+    	console.log(data);
+    	console.log(data.length);
+    	
+    	for (var i = 0; i < data.length; i++) {
+    		 $('.newspeedview_list_select .newspeedview_comment_wrapper').prepend($('<div/>', {
+    	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent
+    	        }));
+
+    	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div').append($('<input/>', {
+    	            type: 'hidden',
+    	            class: 'userNo',
+    	            value: data[i].userNo
+    	        }));
+    	}
+    	
+    }
+    
 
     function showMiniModal(message, left, top) {
         $('#miniModal').text(message);
@@ -1253,6 +1388,7 @@ var isActiveContainerBtn = false;
             }
         });
     }
+    
     
     
     
