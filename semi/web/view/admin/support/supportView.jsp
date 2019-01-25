@@ -132,9 +132,17 @@
                	<% if(mlist!=null) {%>
                         <div class='showMedia'>
                             <div class='scrollWrapper'>
-                            	<% for(SupportBoardMedia m : mlist) { %>
+                            	<% for(SupportBoardMedia m : mlist) { 
+                            		if(m.getSupportBoardMediaType()==0){%>
                                 	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
-                                <%} %>
+                                <%}else if(m.getSupportBoardMediaType()==1) {%>
+		                                <video width="400" controls height=100%;>
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/ogg">
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/webm" />
+										</video>
+                            		<%}
+                            		} %>
                             </div>
                         </div>
 				<%} %>
@@ -181,12 +189,12 @@
             </table>
             <div class='answeringBtn'>
                 <div style='float:left;'>
-                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>&cPage=<%=cPage%>'>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/back.png'/>
 		                <small>다음</small>
 		            </a>
 		            &nbsp;
-		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>'>
+		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>'>
 		                <small>이전</small>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
@@ -197,21 +205,21 @@
                     </a>
                 </div>
                 <div style="float:right;">
-                	<a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=s.getSupportBoardNo() %>" class='doConfirm'>
+                	<a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>" class='doConfirm'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/del.png'/>
                         <small>문의삭제</small>
                     </a>
 				<% if(answer!=null) { %>
-                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>수정</small>
                     </a>
-                    <a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=answer.getSupportBoardNo() %>" class='doConfirm'>
+                    <a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=answer.getSupportBoardNo() %>&cPage=<%=cPage%>" class='doConfirm'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/del.png'/>
                         <small>답변삭제</small>
                     </a>
                  <%} else{%>
-                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>'>
+                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>답변하기</small>
                     </a>

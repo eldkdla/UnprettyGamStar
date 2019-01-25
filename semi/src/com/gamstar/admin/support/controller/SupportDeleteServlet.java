@@ -65,7 +65,8 @@ public class SupportDeleteServlet extends HttpServlet {
 				request.setAttribute("msg", "문의 삭제 실패");
 			}
 			
-			System.out.println(view);
+			int cPage=Integer.parseInt(request.getParameter("cPage"));
+			request.setAttribute("cPage",cPage);
 			request.getRequestDispatcher(view).forward(request, response);
 		}
 		

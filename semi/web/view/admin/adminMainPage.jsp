@@ -213,11 +213,11 @@
 			<%}else{
 				
 				for(ReportBoard r : rList) {%>
-					<tr class='reportTr' onclick='goReport(<%=r.getReportBoardNo()%>);'>
+					<tr class='reportTr' onclick="location.href='<%=request.getContextPath()%>/admin/reportList';">
 						<td><%=r.getReportBoardTargetId() %></td>
 						<td><%if (r.getReportBoardType()==0){%>USER<%}else if(r.getReportBoardType()==1) {%>NEWSPEED<%} %>
 						</td>
-						<td><%if (r.getReportBoardContent().length()>13) {%><%=r.getReportBoardContent().substring(0, 12) %><%}
+						<td><%if (r.getReportBoardContent().length()>8) {%><%=r.getReportBoardContent().substring(0, 7) %>..<%}
 								else{%><%=r.getReportBoardContent() %><%} %>
 						</td>
 						<td><%=r.getReportBoardDate() %></td>
@@ -248,8 +248,8 @@
 				<%for(SupportBoard s : sList) {%>
 					<tr>
 						<td><%=s.getSupportBoardWriterName() %>(<%=s.getSupportBoardWriterId() %>)</td>
-						<td><a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>">
-						<%if (s.getSupportBoardTitle().length()>14) { %><%=s.getSupportBoardTitle().substring(1,13) %>..<%}
+						<td><a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=1">
+						<%if (s.getSupportBoardTitle().length()>8) { %><%=s.getSupportBoardTitle().substring(0,7) %>..<%}
 							else {%><%=s.getSupportBoardTitle() %><%} %></a></td>
 						<td><%=s.getSupportBoardDate() %></td>
 					</tr>

@@ -203,6 +203,31 @@ public class SupportDao {
 		}
 		return result;
 	}
+	//수정
+	//답변 넣기
+		public int editAnswer(Connection conn, SupportBoard supportAnswer)
+		{
+			PreparedStatement pstmt=null;
+			int result=0;
+			String sql=prop.getProperty("editAnswer");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, supportAnswer.getSupportBoardContent());
+				pstmt.setInt(2, supportAnswer.getSupportBoardWriterNo());
+				pstmt.setInt(3, supportAnswer.getSupportBoardNo());
+				result=pstmt.executeUpdate();
+			}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				close(pstmt);
+			}
+			return result;
+		}
 	
 	//answer의 No를 찾아준다 (rootBoard의 root_no를 answer의 no로 바꿔주기 위해서)
 	public int findAnswerNo(Connection conn, int rootNo)

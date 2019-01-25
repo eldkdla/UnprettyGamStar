@@ -65,7 +65,7 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			int maxSize=1024*1024*10;
 			
 			
-			MultipartRequest mr=new MultipartRequest(request, saveDir, maxSize, "UTF-8", new MyFileRenamePolicy());
+			MultipartRequest mr=new MultipartRequest(request, saveDir, maxSize, "UTF-8");
 			
 			SupportBoard supportAnswer=new SupportBoard();
 			supportAnswer.setSupportBoardNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo"))*(-1));
@@ -73,23 +73,39 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			supportAnswer.setSupportBoardRootNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
 			supportAnswer.setSupportBoardWriterNo((Integer)request.getSession().getAttribute("userNo"));
 			
-			int result=new SupportService().insertAnswer(supportAnswer);
+			
+			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
+			
+			int result=0;
+
+			if(temp.getSupportBoardRootNo()!=0) {
+				result=new SupportService().editAnswer(supportAnswer);
+			}
+			else {
+				result=new SupportService().insertAnswer(supportAnswer);				
+			}
+			
 			
 			String view="";
 			String msg="";
 			String loc="";
 			
+			
+			int cPage=Integer.parseInt(request.getParameter("cPage"));
+			
+			
 			if(result>0)
 			{
-				view="/admin/supportView?no="+supportAnswer.getSupportBoardRootNo();
+				view="/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
 			}
 			else
 			{
 				view="/view/common/msg.jsp";
 				msg="답변 등록 실패";
-				loc="/view/admin/supportView?no="+supportAnswer.getSupportBoardRootNo();
+				loc="/view/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
 				request.setAttribute("msg", msg);
 			}
+			request.setAttribute("cPage", cPage);
 			request.setAttribute("view", view);
 			request.getRequestDispatcher(view).forward(request, response);
 		}

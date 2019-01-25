@@ -627,7 +627,8 @@
                        		String linkStr="";
                        		switch(type)
                        		{
-                       		case 0: typeStr="user"; linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";break;
+                       		case 0: typeStr="user"; 
+                       				linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";break;
                        		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
                        		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
                        		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	

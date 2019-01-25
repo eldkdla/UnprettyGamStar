@@ -49,6 +49,8 @@ public class SupportAnswerServlet extends HttpServlet {
 			int no=Integer.parseInt(request.getParameter("no"));
 			SupportBoard s=new SupportService().selectSupportOne(no);
 			
+			/*int cPage=Integer.parseInt(request.getParameter("cPage"));*/
+			
 			String view="";
 			
 			if(s!=null)
@@ -75,13 +77,12 @@ public class SupportAnswerServlet extends HttpServlet {
 			else
 			{
 				view="/view/common/msg.jsp";
-				request.setAttribute("loc", request.getContextPath()+"/admin/supportList");
+				request.setAttribute("loc", request.getContextPath()+"/admin/supportList?"/*+"cPage="+cPage*/);
 				request.setAttribute("msg", "게시물이 없습니다");
 			}
 			
-			int cPage=Integer.parseInt(request.getParameter("cPage"));
-			request.setAttribute("cPage",cPage);
-			System.out.println(view);
+			
+			/*request.setAttribute("cPage",cPage);*/
 			request.getRequestDispatcher(view).forward(request, response);
 		}
 		

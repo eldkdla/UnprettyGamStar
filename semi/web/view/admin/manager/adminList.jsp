@@ -9,6 +9,26 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
+	div#adminInsert-Modal{
+		display:none;
+		position:fixed;
+		z-index:1;
+		left:0;
+		top:0;
+		width:100%;
+		height:100%;
+		overflow:auto;
+		text-align:center;
+		background-color:rgba(0,0,0,0.2);
+	}
+	div#adminInsert-container{
+		background-color:#ffffff;
+		margin:auto;
+		border-radius:5px;
+		width:40%;
+		text-align:center;
+	}
+	
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -336,14 +356,14 @@
 	     		action='<%=request.getContextPath() %>/admin/manager/deleteAdmin' onsubmit='return adminDel_val();'>
 	     		<input type='hidden' name='stateFrmAdminNo' id='stateFrmAdminNo' value=''/>
 	     	</form>
-	     	<form id='adminCreateFrm' name='adminCreate' style='display:none;'
+	     	<%-- <form id='adminCreateFrm' name='adminCreate' style='display:none;'
 	     	    action='<%=request.getContextPath() %>/admin/manager/createAdmin' onsubmit='return createAdmin_val();'>
 	     	    <input type='hidden' name='userId' id='userId' value=''/>
 	     	    <input type='hidden' name='userName' id='userName' value=''/>
 	     	    <input type='hidden' name='userPw' id='userPw' value=''/>
 	     	    <input type='hidden' name='userEmail' id='userEmail' value=''/>
 	     	    <input type='hidden' name='userPhone' id='userPhone' value=''/>
-     	    </form>
+     	    </form> --%>
      	</div>
      	<div class='userSearch' style='float:right;' >
          	<form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/manager/searchAdmin">    
@@ -359,6 +379,21 @@
      <br/>
      <div class='pageChange' style='clear:both;'>
          <%=pageBar %>
+     </div>
+     
+     <div id='adminInsert-Modal' onclick='hideAdmin();'>
+     	<div id='adminInsert-container'>
+     		<form id='adminInsertFrm' name='adminInsertFrm' action='<%=request.getContextPath() %>/admin/manager/createAdmin' 
+     			onsubmit='return createAdmin_val();'>
+     			<input type='text' name='userId' id='userId' required/>
+	     	    <input type='text' name='userName' id='userName' required/>
+	     	    <input type='text' name='userPw' id='userPw' required/>
+	     	    <input type='email' name='userEmail' id='userEmail' required/>
+	     	    <input type='tel' name='userPhone' id='userPhone' required/>
+	     	    <input type='submit' value='등록'/>
+	     	    <input type='reset' value='취소'/>
+     		</form>
+     	</div>
      </div>
  </section>
 </div>
@@ -383,13 +418,19 @@
     }
     
     function createAdmin(){
-    	$('#userId').val(prompt('아이디?'));
-    	$('#userPw').val(prompt('비밀번호?'));
-    	$('#userName').val(prompt('이름?'));
-    	$('#userEmail').val(prompt('이메일?'));
-    	$('#userPhone').val(prompt('전화번호?'));
-    	$('#adminCreateFrm').submit();
+    	$('#adminInsert-Modal').show();
     }
+    
+   function hideAdmin(){
+   		$('#adminInsert-Modal').hide();	   
+   }
+   $(function(){
+	  $('adminInsert-Modal').click(function(){
+		  return false;
+	  }) ;
+   });
+   
+   
     function createAdmin_val(){
     	if($('#userId').val()!=null)
    		{

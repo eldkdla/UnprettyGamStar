@@ -629,9 +629,13 @@
                        		int type=r.getReportBoardType();
                        		String typeStr="";
                        		String linkStr="";
+                       		String selfLink="";
                        		switch(type)
                        		{
-                       		case 0: typeStr="user"; linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";break;
+                       		case 0: typeStr="user";
+               						linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";
+               						selfLink=request.getContextPath()+"/admin/reportList";
+               						break;
                        		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
                        		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
                        		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
@@ -646,7 +650,7 @@
                         </td>
                         <td class='reportedTargetName'><%=r.getReportBoardTargetId() %></td>
                         <td><%=typeStr %></td>
-                        <td class='reportedLink' onclick="<%=linkStr %>" ><a href=''>go</a></td>
+                        <td class='reportedLink'><a href='<%=selfLink %>' onclick="<%=linkStr %>;" >go</a></td>
                         <td>
                         	<a onclick='openNextTr(this);'>
                         		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {

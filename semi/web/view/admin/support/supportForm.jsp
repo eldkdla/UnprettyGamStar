@@ -3,7 +3,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gamstar.admin.support.model.vo.SupportBoard, com.gamstar.admin.support.model.vo.SupportBoardMedia, java.util.*" %>
 <%
-	int cPage=(int)request.getAttribute("cPage");
+	/* int cPage=(int)request.getAttribute("cPage"); */
+	int cPage=Integer.parseInt(request.getParameter("cPage"));
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
 	List<SupportBoardMedia> mlist=(List<SupportBoardMedia>)request.getAttribute("supportBoardMedia");
 	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");
@@ -155,9 +156,17 @@ textarea#supportAnswer{
                	<% if(mlist!=null) {%>
                         <div class='showMedia'>
                             <div class='scrollWrapper'>
-                            	<% for(SupportBoardMedia m : mlist) { %>
+                            	<% for(SupportBoardMedia m : mlist) { 
+                            		if(m.getSupportBoardMediaType()==0){%>
                                 	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
-                                <%} %>
+                                <%}else if(m.getSupportBoardMediaType()==1) {%>
+		                                <video width="400" controls height=100%;>
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/ogg">
+										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/webm" />
+										</video>
+                            		<%}
+                            		} %>
                             </div>
                         </div>
 				<%} %>
@@ -198,6 +207,7 @@ textarea#supportAnswer{
                         <table id='supportInnerTable'>
                             <tr>
                                 <th>
+                                	<input type='hidden' name='cPage' value='<%=cPage %>'/>
                                     <label>
                                         <small>내용</small>
                                     </label>
@@ -229,7 +239,7 @@ textarea#supportAnswer{
         </table>
         <div class='answeringBtn' style='width:100%;'>
             <div style="float: left;">
-            <a href="<%=request.getContextPath()%>/admin/supportList">
+            <a href="<%=request.getContextPath()%>/admin/supportList?cPage=<%=cPage%>">
                 <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                 <small>목록</small>
             </a>
@@ -241,7 +251,7 @@ textarea#supportAnswer{
                 <small>등록</small>
             </a>
             &nbsp;
-            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>'>
+            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>'>
                 <small>취소</small>
             </a>
             </div>
