@@ -22,6 +22,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
+	<link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
