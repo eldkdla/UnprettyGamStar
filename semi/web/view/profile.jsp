@@ -213,7 +213,6 @@
         <div id="container-right-btnnnn"></div>
     </div>
 
-
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -221,7 +220,7 @@
             <div class="profileTopPhoto">
                 <button id='profilePhotoBt'>
                     <div id="profilePhotoHover"><img src="<%=request.getContextPath()%>/img/camera20.png" alt="" ><label >업데이트</label></div>
-                    <img id='profilePhoto' src="<%=request.getContextPath()%>/<%=user.getProfilePhoto() %>" alt="사진이 안나와요ㅠㅜ" >
+                    <img id='profilePhoto' src="<%=request.getContextPath()%>/<%=user.getProfilePhoto()%>" alt="사진이 안나와요ㅠㅜ" >
                 </button>
             </div>
             <div class="profileTopContent">
@@ -390,9 +389,8 @@
             });
             
              //내정보창에 들어온게 나인지 다른사람인지 확인하고 ui수정
-            <% HttpSession se=request.getSession();
-             
-            if(user.getNo()==(int)se.getAttribute("userNo")){  //내 페이지
+           
+             <% if(user.getNo()==(int)request.getSession().getAttribute("userNo")){  //내 페이지
             	System.out.println("아이디 같네");
             	%>
             	 $('#profileFollowBt').css("display","none");
@@ -444,7 +442,7 @@
          		$('#profileBackgroundPhoto').css("cursor","default");
          		$('#blockMenu').css("display","none");
          		$('#requestFollow').css("display","none");
-         	
+         		
          		<%if(isFollowed){%>
 	         		$('#profileFollowBt>label').text("팔로우됨");
 	        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
@@ -469,7 +467,6 @@
 	 	        			profileAlert("스토리가 없습니다");
 	 	        		<%}%> 
        				 });
-	        		
         		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
@@ -537,12 +534,8 @@
                 });
             });
 
-            /* //프로필사진 바꾸기
-            function changePhoto() {
-                $('#uploadProfilePhoto1').click();  //프로필사진 클릭시 숨겨둔 input file 실행                   
-            } */
+            //프로필사진 바꾸기
  
-            
             function readURL1(input) { //들어온파일 가져와서 e.taget.result로 이미지 받아서 #modifyScreenMainPhoto 사진속성 바꿔주기
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -677,7 +670,15 @@
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
 		if(($('#profileFollowBt>label').text())==("팔로우")){
-    		$('#profileFollowBt>label').text("팔로우됨");
+			<%if(user.getDisclosure()==0){%>  //비공개
+          			$('#profileFollowBt>label').text("팔로우요청");
+          			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+            		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+            		$('#profileFollowBt').css("color","white");
+          	<%}
+          	else{%>
+          	
+			$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
@@ -685,7 +686,7 @@
     		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
    			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled",false);
    			$("#userPhotoMenuContent>button:nth-child(1)").hover(function(){
-   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgb(193,193,193)","color":"white"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgb(193,193,193)","color":"white"});
    			},function(){
    				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
    			});
@@ -707,6 +708,7 @@
         			profileAlert("스토리가 없습니다");
         		<%}%> 
 				 });
+   			<%}%>
     	}
     	else{
     		$('#profileFollowBt>label').text("팔로우");
@@ -719,7 +721,6 @@
    		
     	}
 		
-		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",

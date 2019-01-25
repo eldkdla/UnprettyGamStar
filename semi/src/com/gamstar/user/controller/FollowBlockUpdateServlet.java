@@ -39,7 +39,7 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 		if(request.getSession().getAttribute("userNo")!=null){
 			
 			//관리자페이지면 돌려보내기
-			if(request.getParameter("uu")!=null){  
+			if(request.getParameter("uu")!=null){
 				if((Integer.parseInt(request.getParameter("uu")))<=0){
 					request.setAttribute("msg", "잘못된 접근");
 					request.setAttribute("loc", "");
@@ -65,9 +65,13 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 					result=new UserService().insertFollow(conn,user,userNo);
 					close(conn);
 				}
-				else{
+				else if(request.getParameter("follow").equals("팔로우")){
 					//상대를 내 팔로우 목록에 삭제 ,나를 상대 팔로워 목록에 삭제
 					result=new UserService().deleteFollow(user,userNo);
+				}
+				else if(request.getParameter("follow").equals("팔로우요청")){
+					//팔로우 요청 -> 요청목록에 default 로 추가
+					result=new UserService().insertRequestFollow(user, userNo);
 				}
 			}
 			else if(request.getParameter("block")!=null){
