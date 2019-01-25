@@ -156,10 +156,11 @@ public class ReportService {
 		{
 			Connection conn=getConnection();
 			List<ReportBoard> list= null;
+			System.out.println("searchTYpe받아옴"+searchType);
 			switch(searchType)
 			{
 			case "id" : list=new ReportDao().selectIdReportList(conn,cPage,numPerPage,searchKeyword);break;
-//			case "type" :list=new ReportDao().selectIdReportList(conn,cPage,numPerPage,searchKeyword);break;
+			case "content" :list=new ReportDao().selectConReportList(conn,cPage,numPerPage,searchKeyword);break;
 			}
 			
 			close(conn);
@@ -168,7 +169,13 @@ public class ReportService {
 		public int selectReportListCount(String searchType, String searchKeyword)
 		{
 			Connection conn=getConnection();
-			int result=new ReportDao().selectIdReportCount(conn,searchKeyword);
+
+			int result=0;
+			switch(searchType)
+			{
+			case "id" : result=new ReportDao().selectIdReportCount(conn,searchKeyword);break;
+			case "content" :result=new ReportDao().selectConReportCount(conn,searchKeyword);break;
+			}
 			close(conn);
 			return result;
 		}

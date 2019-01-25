@@ -96,7 +96,7 @@ public class UserFindListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo-1)
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo-1)
 						+"&numPerPage="+numPerPage+"'><</button>";
 			}
 			
@@ -108,7 +108,7 @@ public class UserFindListServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo)
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo)
 							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
@@ -116,7 +116,7 @@ public class UserFindListServlet extends HttpServlet {
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userFindList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			System.out.println("널이 뭐냐1"+searchType+" "+searchKeyword+" "+list+" "+cPage+" "+numPerPage+" "+pageBar);

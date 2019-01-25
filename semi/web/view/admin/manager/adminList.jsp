@@ -23,10 +23,16 @@
 	}
 	div#adminInsert-container{
 		background-color:#ffffff;
-		margin:auto;
+		margin:15% auto;
 		border-radius:5px;
 		width:40%;
 		text-align:center;
+	}
+	form#adminInsertFrm label{
+		display : block;
+		width:100%;
+		text-align:center;
+		padding:auto;
 	}
 	
     @media all and (min-width:1067px){
@@ -381,17 +387,31 @@
          <%=pageBar %>
      </div>
      
-     <div id='adminInsert-Modal' onclick='hideAdmin();'>
+     <div id='adminInsert-Modal'>
      	<div id='adminInsert-container'>
      		<form id='adminInsertFrm' name='adminInsertFrm' action='<%=request.getContextPath() %>/admin/manager/createAdmin' 
      			onsubmit='return createAdmin_val();'>
-     			<input type='text' name='userId' id='userId' required/>
-	     	    <input type='text' name='userName' id='userName' required/>
-	     	    <input type='text' name='userPw' id='userPw' required/>
-	     	    <input type='email' name='userEmail' id='userEmail' required/>
-	     	    <input type='tel' name='userPhone' id='userPhone' required/>
+     			<br/>
+     			<h3>관리자 등록</h3>
+     			<br/>
+     			<label>id : 
+	     			<input type='text' name='userId' id='userId' required/>
+     			</label>
+     			<label>name : 
+		     	    <input type='text' name='userName' id='userName' required/>
+     			</label>
+     			<label>password : 
+		     	    <input type='password' name='userPw' id='userPw' required/>
+     			</label>
+     			<label>email : 
+		     	    <input type='email' name='userEmail' id='userEmail' required/>
+     			</label>
+     			<label>phone : 
+		     	    <input type='tel' name='userPhone' id='userPhone' required/>
+     			</label>
+     			<br/>
 	     	    <input type='submit' value='등록'/>
-	     	    <input type='reset' value='취소'/>
+	     	    <input type='reset' onclick='$("#adminInsert-Modal").hide();' value='취소'/>
      		</form>
      	</div>
      </div>
@@ -420,17 +440,7 @@
     function createAdmin(){
     	$('#adminInsert-Modal').show();
     }
-    
-   function hideAdmin(){
-   		$('#adminInsert-Modal').hide();	   
-   }
-   $(function(){
-	  $('adminInsert-Modal').click(function(){
-		  return false;
-	  }) ;
-   });
-   
-   
+
     function createAdmin_val(){
     	if($('#userId').val()!=null)
    		{

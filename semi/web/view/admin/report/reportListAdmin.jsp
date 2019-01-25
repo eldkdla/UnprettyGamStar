@@ -713,7 +713,7 @@
                 <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/reportSearch' method='post'>
                     <select name='searchType'>
                         <option value='id'>아이디</option>
-                        <option value='type'>내용</option>
+                        <option value='content'>내용</option>
                     </select>
                     <input type='text' name='searchKeyword'/>
                     <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>

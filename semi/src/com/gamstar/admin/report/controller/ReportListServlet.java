@@ -94,6 +94,10 @@ public class ReportListServlet extends HttpServlet {
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/reportList?cPage="+(pageNo-1)
 						+"&numPerPage="+numPerPage+"'><</button>";
 			}
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'>1</span></small>";
+			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
