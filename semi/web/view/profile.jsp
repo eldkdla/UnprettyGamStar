@@ -38,7 +38,9 @@
 	   ArrayList<NewspeedMedia> content1DataArray=(ArrayList<NewspeedMedia>)request.getAttribute("content1DataArray");
 	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
+	   ArrayList<User> isRequestFollowDataArray=(ArrayList<User>)request.getAttribute("isRequestFollowDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
+	   boolean isRequestFollow=(boolean)request.getAttribute("isRequestFollow");
 	%>
 	
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
@@ -398,16 +400,17 @@
             	 $('#profilePhotoBt').click(function(){
             		 showProfilePhotoMenu();
             	 });
-            	 <%for(int i=0;i<requestfollowDataArray.size();i++){
-            		 if(requestfollowDataArray.get(i).getIswatch()==0){%>
+            	 <%if(isRequestFollowDataArray.size()!=0){
+            		 for(int i=0;i<isRequestFollowDataArray.size();i++){
+            		 %>
             		 $('body').alertBox({
-            		        title: "'<%=requestfollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
+            		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
             		        lTxt: '보류',
             		        lCallback: function(){
             		        	$.ajax({
             	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
             	            		type:"POST",
-            	            		data:{"requestFollowUserNo":<%=requestfollowDataArray.get(i).getNo()%>},
+            	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
             	            		success:function(data){},
             	            		error:function(xhr,status){
             	            			alert(xhr+" : "+status);	
@@ -419,7 +422,7 @@
 	 					        $.ajax({
 	 					            url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
 	 					            type:'POST',
-	 					            data:{'requestFollowUserNo':<%=requestfollowDataArray.get(i).getNo()%>},
+	 					            data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
 	 					            success:function(data){},
             	            		error:function(xhr,status){
             	            			alert(xhr+" : "+status);	
@@ -468,6 +471,12 @@
 	 	        		<%}%> 
        				 });
         		<%}
+         		else if(isRequestFollow){%>
+	         		$('#profileFollowBt>label').text("팔로우요청");
+	      			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
+	        		$('#profileFollowBt').css("color","white");
+         		<%}
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
@@ -669,15 +678,19 @@
 	function followClick(){
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
+		var beforeFollowBtLabel="";
+		var afterFollowBtLabel="";
 		if(($('#profileFollowBt>label').text())==("팔로우")){
+			beforefollowBtLabel="팔로우";
 			<%if(user.getDisclosure()==0){%>  //비공개
-          			$('#profileFollowBt>label').text("팔로우요청");
+					afterFollowBtLabel="팔로우요청";
+					$('#profileFollowBt>label').text("팔로우요청");
           			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
             		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
             		$('#profileFollowBt').css("color","white");
           	<%}
           	else{%>
-          	
+          	afterFollowBtLabel="팔로우됨";
 			$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
@@ -711,6 +724,14 @@
    			<%}%>
     	}
     	else{
+    		if(($('#profileFollowBt>label').text())==("팔로우요청")){
+    			beforeFollowBtLabel="팔로우요청";
+    		}
+    		else if(($('#profileFollowBt>label').text())==("팔로우됨")){
+    			beforeFollowBtLabel="팔로우됨";
+    		}
+    		afterFollowBtLabel="팔로우";
+    		
     		$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
@@ -724,7 +745,7 @@
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>},
+    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel,"afterFollowBtLabel":afterFollowBtLabel},
     		success:function(data){
     			
     			<%if(user.getDisclosure()==0){%>
@@ -1234,7 +1255,7 @@
 	 					                class:'profileFollowDv',
 	 					                id:no
 	 					             }));
-	 					             $('#profileContent7>#1').on("click",function(){
+	 					             $('#profileContent7>#'+no).on("click",function(){
 	 					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
 	 					             });
 	 					             
@@ -1329,10 +1350,38 @@
          	text:'수락'
           }));
          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').on("click",function(e){
-         	e.stopPropagation();
+        	 e.stopPropagation();
+          	var requestFollowUserNoDiv=$(this).parent();
+          	var requestFollowUserNo=$(this).parent().attr("id");
+          	$.ajax({
+          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+          		type:'POST',
+          		data:{'requestFollowUserNo':requestFollowUserNo},
+          		success:function(data){
+          			requestFollowUserNoDiv.remove();
+          		},
+          		error:function(xhr,status){
+          			alert(xhr+" : "+status);
+          		}
+          		
+          	});
          });
         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').on("click",function(e){
-         	e.stopPropagation();
+        	e.stopPropagation();
+         	var requestFollowUserNoDiv=$(this).parent();
+         	var requestFollowUserNo=$(this).parent().attr("id");
+         	$.ajax({
+         		url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+         		type:'POST',
+         		data:{'requestFollowUserNo':requestFollowUserNo},
+         		success:function(data){
+         			requestFollowUserNoDiv.remove();
+         		},
+         		error:function(xhr,status){
+         			alert(xhr+" : "+status);
+         		}
+         		
+         	});
          });
          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').css({'background-color':'#59DA50'}); 

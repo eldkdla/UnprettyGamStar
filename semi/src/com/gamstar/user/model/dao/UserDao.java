@@ -243,8 +243,8 @@ public class UserDao {
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setInt(1, myUserNo);
-				pstmt.setInt(2, user.getNo());
+				pstmt.setInt(1, user.getNo());
+				pstmt.setInt(2, myUserNo);
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {
@@ -282,8 +282,8 @@ public class UserDao {
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
-				pstmt.setInt(1,myUserNo);
-				pstmt.setInt(2,user.getNo());
+				pstmt.setInt(1,user.getNo());
+				pstmt.setInt(2,myUserNo);
 				
 				result=pstmt.executeUpdate();
 			}catch (Exception e) {
@@ -292,6 +292,61 @@ public class UserDao {
 				close(pstmt);
 			}
 			return result;
+		}
+		//팔로우요청 상태 있는지 확인 [내정보창]
+		public ArrayList<User> isRequestFollow(Connection conn, User user){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql=prop.getProperty("isRequestFollow");
+			ArrayList<User> isRequestFollowDataArray=new ArrayList<User>();
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,user.getNo());
+				System.out.println(user.getNo());
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()){
+					User user1 = new User();
+					user1.setNo(rs.getInt("USER_NO"));
+					user1.setName(rs.getString("USER_NAME"));
+					
+					isRequestFollowDataArray.add(user1);
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+			return isRequestFollowDataArray;
+			
+			
+		}
+		//팔로우요청 페이지인지 [다른유저페이지]
+		public boolean isRequestFollowPage(Connection conn,User user,int myNo){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql=prop.getProperty("isRequestFollowPage");
+			boolean isRequestFollowPage=false;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, myNo);
+				pstmt.setInt(2, user.getNo());
+				
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()){
+					isRequestFollowPage=true;
+				}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+			return isRequestFollowPage;
 		}
 
 		//유저 정보 수정

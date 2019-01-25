@@ -45,7 +45,17 @@ public class AllowRequestFollowUserServlet extends HttpServlet {
 		User user=new User();
 		user.setNo(Integer.parseInt(request.getParameter("requestFollowUserNo")));
 		
+		//insert팔로우 서비스,다오 다시 안쓰려고 순서 바꿔줌
+		int temp=user.getNo();
+		user.setNo(myUserNo);
+		myUserNo=temp;
+		
 		int result=new UserService().insertFollow(conn,user,myUserNo);
+		
+		//insert팔로우 서비스,다오 다시 안쓰려고 순서 바꿔줌
+		temp=user.getNo();
+		user.setNo(myUserNo);
+		myUserNo=temp;
 		result=new UserService().deleteRequestFollowuser(conn, user,myUserNo);
 		
 		close(conn);

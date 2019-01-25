@@ -1,6 +1,9 @@
 package com.gamstar.user.model.service;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -123,6 +126,20 @@ public class UserService {
 			}
 			close(conn);
 			return result;
+		}
+		//팔로우요청 상태 있는지 확인 [내정보창]
+		public ArrayList<User> isRequestFollow(Connection conn,User user){
+			
+			ArrayList<User> isRequestFollowDataArray=new UserDao().isRequestFollow(conn, user);
+			
+			return isRequestFollowDataArray;
+		}
+		//팔로우요청 페이지인지 [다른유저페이지]
+		public boolean isRequestFollowPage(Connection conn,User user,int myNo){
+			
+			boolean isRequestFollowPage = new UserDao().isRequestFollowPage(conn,user,myNo);
+			
+			return isRequestFollowPage;
 		}
 		
 		
