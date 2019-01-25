@@ -1,4 +1,4 @@
-package com.gamstar.admin.support.controller;
+package com.gamstar.admin;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gamstar.admin.report.model.service.ReportService;
+import com.gamstar.admin.report.model.vo.ReportBoard;
 import com.gamstar.admin.support.model.service.SupportService;
 import com.gamstar.admin.support.model.vo.SupportBoard;
-import com.gamstar.admin.support.model.vo.SupportBoardMedia;
 
 /**
- * Servlet implementation class SupportAnswerServlet
+ * Servlet implementation class AdminMainServlet
  */
-@WebServlet("/admin/supportAnswer")
-public class SupportAnswerServlet extends HttpServlet {
+@WebServlet("/admin/goAdminMain")
+public class AdminMainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SupportAnswerServlet() {
+    public AdminMainServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,6 +33,7 @@ public class SupportAnswerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
@@ -45,44 +47,22 @@ public class SupportAnswerServlet extends HttpServlet {
 		}
 		else
 		{
-		
-			int no=Integer.parseInt(request.getParameter("no"));
-			SupportBoard s=new SupportService().selectSupportOne(no);
+			int cPage=1;
+			int numPerPage=5;
 			
-			String view="";
+			List<ReportBoard> mainReportList = new ReportService().selectReportList(cPage,numPerPage);
+			int uncheckedReport=new ReportService().selectUnckReportNum();
 			
-			if(s!=null)
-			{
-				view="/view/admin/support/supportForm.jsp";
-				request.setAttribute("supportBoard", s);
-				
-				List<SupportBoardMedia> sMedias=new SupportService().selectSupportOneMedia(s.getSupportBoardNo());
-				if(!sMedias.isEmpty())
-				{
-					request.setAttribute("supportBoardMedia", sMedias);
-				}
-				
-				if(s.getSupportBoardRootNo()!=0)
-				{
-					SupportBoard answer=new SupportService().selectSupportOne(s.getSupportBoardRootNo());
-					if(answer!=null)
-					{
-						request.setAttribute("supportBoardAnswer", answer);
-					}
-				}
-				
-			}
-			else
-			{
-				view="/view/common/msg.jsp";
-				request.setAttribute("loc", request.getContextPath()+"/admin/supportList");
-				request.setAttribute("msg", "게시물이 없습니다");
-			}
+			List<SupportBoard> mainSupportList=new SupportService().selectSupportList(cPage, numPerPage);
+			int uncheckedSupport=new SupportService().selectUnckSupportCount();
 			
-			System.out.println(view);
-			request.getRequestDispatcher(view).forward(request, response);
+			request.setAttribute("reportList", mainReportList);
+			request.setAttribute("reportUnck", uncheckedReport);
+			request.setAttribute("supportList", mainSupportList);
+			request.setAttribute("supportUnck", uncheckedSupport);
+			
+			request.getRequestDispatcher("/view/admin/adminMainPage.jsp").forward(request, response);
 		}
-		
 	}
 
 	/**

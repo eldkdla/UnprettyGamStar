@@ -807,4 +807,31 @@ public class SupportDao {
 		}
 		return result;
 	}
+	
+	//메인용
+	public int selectUnckSupportCount(Connection conn) 
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("selectUnckSupportCount");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+				result=rs.getInt("cnt");
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
 }

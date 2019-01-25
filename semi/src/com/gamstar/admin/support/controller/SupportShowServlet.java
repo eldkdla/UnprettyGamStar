@@ -15,7 +15,7 @@ import com.gamstar.admin.support.model.vo.SupportBoard;
 /**
  * Servlet implementation class SupportShowServlet
  */
-@WebServlet("/admin/support/show.do")
+@WebServlet("/admin/supportQuickShow")
 public class SupportShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

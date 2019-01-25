@@ -476,11 +476,15 @@ public class UserService {
 			public int insertUserNaver(User u) {
 				Connection conn = getConnection();			
 				
+				//기존가입 회원인 경우
+				//int chk = new UserDao();
+				
+				
+				
+				//기존가입회원이 아닌경우
 				int tbUserResult = insertUser(u);
 				System.out.println("in naver 상위 : "+tbUserResult);
-
 				System.out.println("basic에 지금 시퀀스 : "+u.getNo());
-				
 				int result = new UserDao().insertUserNaver(conn, u);
 				System.out.println("in naver 하위 : "+result);
 				if(result > 0 && tbUserResult > 0)

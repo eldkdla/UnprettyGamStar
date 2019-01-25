@@ -9,6 +9,9 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
+	td.userID, td.userName{
+		cursor: pointer;
+	}
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -258,6 +261,10 @@
     .deleteBtn:focus{
         outline: none;
     }
+    .genderTh,.phoneTh,.emailTh{
+    	display:none;
+    }
+    
 
 } 
     </style>
@@ -306,9 +313,9 @@
              </th>
              <th style="width:7%;">Id</th>
              <th style="width:14%;">Name</th>
-             <th style="width:7%;">Gender</th>
-             <th style="width:14%;">Email</th>
-             <th style="width:10%;">Phone</th>
+             <th style="width:7%;" class='genderTh'>Gender</th>
+             <th style="width:14%;" class='emailTh'>Email</th>
+             <th style="width:10%;" class='phoneTh'>Phone</th>
              <th style="width:13%;">EnrollDate</th>
              <th style="width:7%;">State</th>
          </tr>
@@ -325,11 +332,11 @@
                  <input type='checkbox' class='checks' onclick='checkTr(this)'/>
                  <input type='hidden' name='hiddenUserNo' class='hiddenUserNo' value='<%=m.getNo() %>'/>
              </td>
-             <td class='userId'><%=m.getId() %></td>
-             <td class='userName'><%=m.getName() %></td>
-             <td><%=m.getGender()%></td>
-             <td><%=m.getEmail() %></td>
-             <td><%=m.getPhone() %></td>
+             <td class='userId' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%=m.getId() %></td>
+             <td class='userName' onclick='window.open("<%=request.getContextPath() %>/view/profile?uu=<%=m.getNo() %>");'><%= m.getName() %></td>
+             <td class='genderTh'><%=m.getGender()%></td>
+             <td class='emailTh'><%=m.getEmail() %></td>
+             <td class='phoneTh'><%=m.getPhone() %></td>
              <td><%=m.getEnrollDate() %></td>
              <td>
              	<%if(m.getState()==0){ }
@@ -339,7 +346,7 @@
              	<input type='hidden' name='rDay' class='rDay' value='<%=m.getRemainingDay() %>'/>
              </td>
          </tr>
-         <%} %>
+       <%} %>
      </table>
      <div id='memberState-container' style='float:left; margin-top: 3px;'>
      	<button class='deleteBtn' onclick='deleteMember();'>탈퇴</button>
@@ -392,7 +399,7 @@
     	if(thisTr[0]!=null)
    		{
     		thisTr.each(function(){
-        		chosenId+=$(this).children('.userName').text()+'('+$(this).children('.userId').text()+') ';
+        		chosenId+=$(this).children('.userName').text().trim()+'('+$(this).children('.userId').text()+') ';
         		chosenNo+=$(this).children('td:first-of-type').children('.hiddenUserNo').val()+' ';
         	});
     		chosenId.trim();
@@ -426,8 +433,19 @@
     		$('#hiddenFrmRDay').val(chosenTime);
     		
     		selectTime=prompt("정지 일수를 입력해 주세요(일)");
+    		selectTimeInt=Math.round(selectTime);
     		
-    		if(selectTime!=null&&selectTime>0)
+    		if(selectTime!=selectTimeInt)
+   			{
+    			alert("정수를 입력해 주세요.");
+   				$('#memberStateFrm').reset();
+   			}
+    		else if(selectTime<0)
+   			{
+    			alert("양수를 입력해 주세요.");
+   				$('#memberStateFrm').reset();
+   			}
+    		else if(selectTime!=null&&selectTime.trim()!="")
     		{
     			$('#hiddenFrmTime').val(selectTime);
             	$('#memberStateFrm').submit();
@@ -437,7 +455,6 @@
     			alert("숫자를 입력해 주세요");
    				$('#memberStateFrm').reset();
    			}
-    		
    		}
     }
     
@@ -485,7 +502,7 @@
    		}
     	return result;
     }
-    //한 페이지당 갯수
+
 </script>
 </body>
 </html>

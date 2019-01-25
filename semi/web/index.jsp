@@ -42,9 +42,9 @@ if(request.getSession().getAttribute("userNo") == null)
 <p><%=login%>가 로그인 한 상태입니다.</p>
 <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
 
-<% if(request.getSession().getAttribute("userNo")!=null&&(Integer)request.getSession().getAttribute("userNo")<0) {%>
-	<%@ include file="view/admin/common/header.jsp" %>
-<%} %>
+<% if(request.getSession().getAttribute("userNo")!=null&&(Integer)request.getSession().getAttribute("userNo")<0) {
+	request.getRequestDispatcher("/admin/goAdminMain").forward(request, response);
+} %>
     
     
      <!--알림버튼(수정해야함)-->
@@ -1026,4 +1026,12 @@ var f=0;
        })
     })
 
+</script>
+
+
+<script>
+	//어드민 모바일 메뉴 열기 위한 함수
+	function openAdminMobileMenu(){
+	    $('nav').toggle();
+	}
 </script>

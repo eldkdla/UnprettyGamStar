@@ -66,9 +66,10 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			
 			
 			MultipartRequest mr=new MultipartRequest(request, saveDir, maxSize, "UTF-8", new MyFileRenamePolicy());
+			
 			SupportBoard supportAnswer=new SupportBoard();
 			supportAnswer.setSupportBoardNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo"))*(-1));
-			supportAnswer.setSupportBoardContent(mr.getParameter("supportContent"));
+			supportAnswer.setSupportBoardContent(mr.getParameter("supportContent").trim());
 			supportAnswer.setSupportBoardRootNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
 			supportAnswer.setSupportBoardWriterNo((Integer)request.getSession().getAttribute("userNo"));
 			

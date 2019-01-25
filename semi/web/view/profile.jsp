@@ -1112,7 +1112,6 @@
 	            		type:"POST",
 	            		data:{"userNo":<%=user.getNo()%>,"isfollow":"follow"},
 	            		success:function(data){
-	            			
 	            			$('#profileContent6>*').remove();
 	            			
 	            			 for(var i=0;i<data.length;i++){							
