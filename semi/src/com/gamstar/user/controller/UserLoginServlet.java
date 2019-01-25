@@ -16,7 +16,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class UserLoginServlet
  */
-@WebServlet("/login")
+@WebServlet(name="UserLoginServlet",urlPatterns="/login")
 public class UserLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,6 +33,9 @@ public class UserLoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -58,6 +61,21 @@ public class UserLoginServlet extends HttpServlet {
 		}
 		else
 		{
+			//정지된 유저임
+			if(data.getState()==1)
+			{
+				System.out.println("정지된게 왔네?");
+				 ;
+				msg="당신의 계정은<br>차단되었습니다!<br>정지기간<br>"+data.getRemainingDay()+"일";
+				view="/view/common/msg.jsp";
+				request.setAttribute("loc", "/view/login.jsp");
+				request.setAttribute("msg", msg);
+
+				RequestDispatcher rd=request.getRequestDispatcher(view);
+				rd.forward(request, response);
+				return;
+			}
+			
 			//아이디가 일단있다
 			if(pw.equals(data.getPw()))
 			{
@@ -77,6 +95,7 @@ public class UserLoginServlet extends HttpServlet {
 			else {
 				//패스워드가 일치하지 않습니다.
 				System.out.println("패스워드가 일치하지 않음");
+				System.out.println(data.getPw());
 				msg="패스워드가<br>일치하지 않습니다!";
 				view="/view/common/msg.jsp";
 				request.setAttribute("loc", "/view/login.jsp");

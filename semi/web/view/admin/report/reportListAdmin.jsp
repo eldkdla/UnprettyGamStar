@@ -606,10 +606,10 @@
                 <thead>
                     <tr>
                         <th id='ck' style="width:3%;"><input type="checkbox" id='rboardCheckAll' class='checkAll'/></th>
-                        <th id='reportId' style="width:8%;">Id</th>
-                        <th style="width:7%;">Type</th>
-                        <th style="width:20%;">Link</th>
-                        <th style="width:30%;">Content</th>
+                        <th id='reportId' style="width:15%;">Id</th>
+                        <th style="width:10%;">Type</th>
+                        <th style="width:10%;">link</th>
+                        <th style="width:35%;">Content</th>
                         <th style="width:15%;">Date</th>
                         <th style="width:20%;">처리</th>
                     </tr>
@@ -617,22 +617,34 @@
                 <tbody>
                 <% if(list==null || list.isEmpty()) { %>
                 	<tr>
-                		<td colspan='7'>
+                		<td colspan='8'>
                 			신고된 내용이 없습니다
                 		</td>
                 	</tr>
                 <%}
                 	else {
-                		for(ReportBoard r : list){ %>
+                		for(ReportBoard r : list){ 
+                       		int type=r.getReportBoardType();
+                       		String typeStr="";
+                       		String linkStr="";
+                       		switch(type)
+                       		{
+                       		case 0: typeStr="user"; linkStr="alert('준비중입니다.')";break;
+                       		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
+                       		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
+                       		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
+                        	}
+                    %>
                     <tr>
                         <td>
                         	<input type="checkbox" class='checks' onclick='checkTr(this)'/>
                         	<input type='hidden' class='reportedTargetNo' value='<%=r.getReportBoardTargetNo()%>'/>
                         	<input type='hidden' class='reportBoardNo' value='<%=r.getReportBoardNo() %>'/>
+                        	<input type='hidden' class='reportedBoardType' value='<%=r.getReportBoardLink() %>'/>
                         </td>
                         <td class='reportedTargetName'><%=r.getReportBoardTargetId() %></td>
-                        <td class='reportedBoardType'><%=r.getReportBoardType() %></td>
-                        <td class='reportedLink'><a href='#'><%=r.getReportBoardLink() %></a></td>
+                        <td><%=typeStr %></td>
+                        <td class='reportedLink' onclick="window.open('<%=request.getContextPath() %>/view/profile?uu=<%=r.getReportBoardLink() %>')"; ><a href=''>go</a></td>
                         <td>
                         	<a onclick='openNextTr(this);'>
                         		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {
@@ -640,7 +652,7 @@
                         			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                 					for(ReportBoardMedia m : mediaList) {%>
                 					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:10%; display:inline-block;"/>
-                        		<%} 
+                        	<%}
                 					if(mediaList.size()>3)
                 					{%>
                 						<br/>

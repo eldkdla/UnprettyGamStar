@@ -271,8 +271,9 @@ public class SupportDao {
 			System.out.println("supportDao cPage, numPerPage"+cPage+" "+numPerPage);
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+searchKeyword+"%");
-			pstmt.setInt(2,(cPage-1)*numPerPage+1);
-			pstmt.setInt(3,cPage*numPerPage);
+			pstmt.setString(2, "%"+searchKeyword+"%");
+			pstmt.setInt(3,(cPage-1)*numPerPage+1);
+			pstmt.setInt(4,cPage*numPerPage);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next())
@@ -798,6 +799,33 @@ public class SupportDao {
 		{
 			e.printStackTrace();
 			System.out.println("(end)supportCount문제");
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	//메인용
+	public int selectUnckSupportCount(Connection conn) 
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("selectUnckSupportCount");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next())
+			{
+				result=rs.getInt("cnt");
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
 		}
 		finally
 		{

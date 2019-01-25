@@ -16,7 +16,7 @@
         <!-- 헤더(메뉴, 로고) -->
         <header>
             <!-- 임시메인 -->
-           <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
+            <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
         </header>
         <!-- 모바일용 서브 메뉴버튼 -->
         <div id='openMenuDiv'>
@@ -25,7 +25,7 @@
         <!-- 서브메뉴 -->
         <nav>
             <br/><br/><br/><br/>
-            <p>
+            <p onclick='goMain();' style='cursor:pointer;'>
                 <img src='<%=request.getContextPath() %>/img/adminImg/admin.png'>
                 <br/>
                 <label><small>관리자메뉴</small></label>
@@ -63,3 +63,13 @@
             	</li>
             </ul>
         </nav>
+<script>
+	//관리자 버튼 누르면 메인으로 이동
+	function goMain(){
+		location.href='<%=request.getContextPath() %>/admin/goAdminMain';
+	}
+	// 모바일 메뉴 열기 위한 함수
+    function openAdminMobileMenu(){
+        $('nav').toggle();
+    }
+</script>

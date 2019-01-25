@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.gamstar.admin.support.model.vo.SupportBoard, com.gamstar.admin.support.model.vo.SupportBoardMedia, java.util.*" %>
 <%
+	int nextNo=(Integer)request.getAttribute("nextNo");
+	int prevNo=(Integer)request.getAttribute("prevNo");
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
 	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");
 	List<SupportBoardMedia> mlist=(List)request.getAttribute("supportBoardMedia");
@@ -135,7 +137,7 @@
                             </div>
                         </div>
 				<%} %>
-                       <p id='supportQuestion'><%=s.getSupportBoardContent() %></p>
+                       <xmp id='supportQuestion'><%=s.getSupportBoardContent() %></xmp>
                        <br/>
                        <br/>
                        <br/>
@@ -168,7 +170,7 @@
                </tr>
                <tr>
                    <td colspan="3"> 
-                        <p id='supportAnswer'><%=answer.getSupportBoardContent() %></p>
+                        <xmp id='supportAnswer'><%=answer.getSupportBoardContent() %></xmp>
                    </td>
                </tr>
                <tr>
@@ -178,12 +180,12 @@
             </table>
             <div class='answeringBtn'>
                 <div style='float:left;'>
-                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo()+1%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>'>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/back.png'/>
 		                <small>다음</small>
 		            </a>
 		            &nbsp;
-		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo()-1%>'>
+		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>'>
 		                <small>이전</small>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
@@ -194,7 +196,7 @@
                     </a>
                 </div>
                 <div style="float:right;">
-                	<a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=s.getSupportBoardNo() %>">
+                	<a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=s.getSupportBoardNo() %>" class='doConfirm'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/del.png'/>
                         <small>문의삭제</small>
                     </a>
@@ -203,7 +205,7 @@
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>수정</small>
                     </a>
-                    <a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=answer.getSupportBoardNo() %>">
+                    <a href="<%=request.getContextPath()%>/admin/supportDelete?no=<%=answer.getSupportBoardNo() %>" class='doConfirm'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/del.png'/>
                         <small>답변삭제</small>
                     </a>
@@ -234,6 +236,9 @@
             $('nav').toggle();
         }
         
+        $('.doConfirm').on('click', function () {
+			return confirm('정말로 삭제하시겠습니까?');
+        });
     </script>
 </body>
 </html>

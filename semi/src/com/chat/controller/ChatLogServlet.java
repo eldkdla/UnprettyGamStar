@@ -38,13 +38,14 @@ public class ChatLogServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String chatNo=request.getParameter("chatNo");
 		String myId="user10";
-		int myNo=1;
+		int myNo=(int)request.getSession().getAttribute("userNo");;
 		System.out.println("에러??"+chatNo);
 		int chatno=Integer.parseInt(chatNo);
 		System.out.println(chatNo);
 		ArrayList<ChatLog> logarr=new ArrayList<ChatLog>();
 		logarr=new ChatLogService().callChatLog(chatno,myNo);
 		JSONArray chatlogarr= new JSONArray();
+		
 		SimpleDateFormat datefm=new SimpleDateFormat("HH:mm");
 		if(logarr.get(0).getUserNo()!=0) {
 		for(int i=0;i<logarr.size();i++) {
@@ -63,10 +64,10 @@ public class ChatLogServlet extends HttpServlet {
 			chatlog.put("chatDate", datefm.format(logarr.get(i).getSend_date()));
 			chatlogarr.add(chatlog);
 		}
-		/*for(int j=0;j<chatlogarr.size();j++) {
+		for(int j=0;j<chatlogarr.size();j++) {
 			System.out.println("====채팅로그서블릿제이슨======");
 			System.out.println(chatlogarr.get(j));
-		}*/
+		}
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().println(chatlogarr);}
 	}

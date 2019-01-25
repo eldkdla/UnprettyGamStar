@@ -1,6 +1,6 @@
 package com.gamstar.user.model.dao;
 
-import static common.JDBCTemplate.*;
+import static common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.sql.Connection;
@@ -28,27 +28,28 @@ public class UserDao {
 
 	}
 
-	//유저정보 선택
+	//유저정보 선택 - 객체 생성부분 삭제 기존 파라메터에 추가로 값 넣어줌
 		public User selectUser(Connection conn,User user){
 			PreparedStatement pstmt=null;
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectUser");
-			User userData=new User();
+			//User userData=new User();
 			
 			try{
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setInt(1,user.getNo());
 				rs=pstmt.executeQuery();
 				if(rs.next()){
-					userData.setNo(rs.getInt("USER_NO"));
-					userData.setName(rs.getString("USER_NAME"));
-					userData.setGender(rs.getString("USER_GENDER"));
-					userData.setState(rs.getInt("USER_STATE"));
-					userData.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
-					userData.setProfileBackgroundPhoto(rs.getString("USER_BACKGROUND_PHOTO"));
-					userData.setEmail(rs.getString("USER_EMAIL"));
-					userData.setPhone(rs.getString("USER_PHONE"));
-					userData.setDisclosure(rs.getInt("USER_DISCLOSURE"));
+					user.setNo(rs.getInt("USER_NO"));
+					user.setName(rs.getString("USER_NAME"));
+					user.setGender(rs.getString("USER_GENDER"));
+					user.setState(rs.getInt("USER_STATE"));
+					user.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+					user.setProfileBackgroundPhoto(rs.getString("USER_BACKGROUND_PHOTO"));
+					user.setEmail(rs.getString("USER_EMAIL"));
+					user.setPhone(rs.getString("USER_PHONE"));
+					user.setDisclosure(rs.getInt("USER_DISCLOSURE"));
+					user.setRemainingDay(rs.getInt("USER_REMAINING_DAY"));
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -56,7 +57,7 @@ public class UserDao {
 				close(rs);
 				close(pstmt);
 			}
-			return userData;
+			return user;
 		}
 		
 		//팔로우상태 확인
@@ -200,6 +201,97 @@ public class UserDao {
 				close(pstmt);
 			}
 			return oldUserStory;
+		}
+		
+		//팔로우요청목록 선택
+		public ArrayList<User> selectRequestFollow(Connection conn,User user){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			String sql=prop.getProperty("selectRequestFollow");
+			ArrayList<User> requestFollowDataArray=new ArrayList<User>();
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, user.getNo());
+				
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()){
+					User requestFollowUser=new User();
+					requestFollowUser.setNo(rs.getInt("USER_NO"));
+					requestFollowUser.setName(rs.getString("USER_NAME"));
+					requestFollowUser.setProfilePhoto(rs.getString("USER_PROFILE_PHOTO"));
+					requestFollowUser.setIswatch(rs.getInt("FOLLOW_REQUEST_ISWATCH"));
+					
+					requestFollowDataArray.add(requestFollowUser);
+				}
+				
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(rs);
+				close(pstmt);
+			}
+			return requestFollowDataArray;
+			
+		}
+		//팔로우요청목록 삭제
+		public int deleteRequestFollowuser(Connection conn,User user,int myUserNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("deleteRequestFollowuser");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, myUserNo);
+				pstmt.setInt(2, user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+		}
+		//팔로우요청 하기
+		public int insertRequestFollow(Connection conn, User user,int myUserNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("insertRequestFollow");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,myUserNo);
+				pstmt.setInt(2,user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+			
+		}
+		//팔로우요청 보류
+		public int reserveRequestFollow(Connection conn, User user,int myUserNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("reserveRequestFollow");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,myUserNo);
+				pstmt.setInt(2,user.getNo());
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
 		}
 
 		//유저 정보 수정

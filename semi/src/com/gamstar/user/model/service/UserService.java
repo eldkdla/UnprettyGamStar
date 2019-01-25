@@ -62,6 +62,69 @@ public class UserService {
 			return oldUserStory;
 		}
 		
+		// 팔로우요청목록 선택
+		public ArrayList<User> selectRequestFollow(Connection conn,User user){
+			
+			ArrayList<User> requestFollowDataArray = new UserDao().selectRequestFollow(conn,user);
+			
+			return requestFollowDataArray;
+		}
+		//팔로우요청목록 삭제
+		public int deleteRequestFollowuser(Connection conn,User user,int myUserNo){
+			
+			int result=new UserDao().deleteRequestFollowuser(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			return result;
+		}
+		//팔로우요청하기
+		public int insertRequestFollow(User user,int myUserNo){
+			Connection conn= getConnection();
+			
+			int result=new UserDao().insertRequestFollow(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			close(conn);
+			return result;
+		}
+		//팔로우요청 보류
+		public int reserveRequestFollow(User user,int myUserNo){
+			Connection conn= getConnection();
+			
+			int result=new UserDao().reserveRequestFollow(conn,user,myUserNo);
+			
+			try {
+				if(result!=0){
+					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			close(conn);
+			return result;
+		}
+		
 		
 		//팔로우상태 확인
 		public boolean isFollowed(Connection conn,User user,int myname){
@@ -235,6 +298,7 @@ public class UserService {
 			close(conn);
 			return chkEmail;
 		}
+
 		//전화번호 중복 확인
 		public boolean chkPhone(User user){
 			Connection conn=getConnection();
@@ -246,8 +310,7 @@ public class UserService {
 		}
 		
 		//팔로우 추가
-		public int insertFollow(User user,int myname){
-			Connection conn=getConnection();
+		public int insertFollow(Connection conn,User user,int myname){
 			
 			int result=new UserDao().insertFollow(conn,user,myname);
 			
@@ -262,9 +325,9 @@ public class UserService {
 					e.printStackTrace();
 			}
 			
-			close(conn);
 			return result;
 		}
+		
 		//팔로우 삭제
 		public int deleteFollow(User user,int myname){
 			Connection conn=getConnection();
@@ -306,6 +369,7 @@ public class UserService {
 			close(conn);
 			return result;
 		}
+		
 		//차단목록 삭제
 		public int deleteBlockUser(User user,int myname){
 			Connection conn=getConnection();
@@ -335,10 +399,12 @@ public class UserService {
 		return userList;
 	}
 	
-	//유저로그인
+			//유저로그인
 			public User loginCheck(User u) {
 				Connection conn = getConnection();
 				User data = new UserDao().loginCheck(conn, u);
+				
+				data = new UserDao().selectUser(conn, data);
 				close(conn);
 				return data;
 			}
@@ -410,11 +476,15 @@ public class UserService {
 			public int insertUserNaver(User u) {
 				Connection conn = getConnection();			
 				
+				//기존가입 회원인 경우
+				//int chk = new UserDao();
+				
+				
+				
+				//기존가입회원이 아닌경우
 				int tbUserResult = insertUser(u);
 				System.out.println("in naver 상위 : "+tbUserResult);
-
 				System.out.println("basic에 지금 시퀀스 : "+u.getNo());
-				
 				int result = new UserDao().insertUserNaver(conn, u);
 				System.out.println("in naver 하위 : "+result);
 				if(result > 0 && tbUserResult > 0)

@@ -8,6 +8,7 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.List;
 
+import com.gamstar.admin.report.model.dao.ReportDao;
 import com.gamstar.admin.support.model.dao.SupportDao;
 import com.gamstar.admin.support.model.vo.SupportBoard;
 import com.gamstar.admin.support.model.vo.SupportBoardMedia;
@@ -239,4 +240,13 @@ public class SupportService {
 		return result;
 		
 	}
+	
+	//메인용 - 답변되지 않은 문의
+		public int selectUnckSupportCount()
+		{
+			Connection conn=getConnection();
+			int result=new SupportDao().selectUnckSupportCount(conn);
+			close(conn);
+			return result;
+		}
 }

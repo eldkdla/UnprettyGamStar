@@ -115,7 +115,7 @@ public class ReportSearchListServlet extends HttpServlet {
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' href='"+request.getContextPath()+"/admin/reportList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/reportList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			

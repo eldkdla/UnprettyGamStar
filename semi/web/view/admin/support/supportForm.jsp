@@ -5,7 +5,7 @@
 <%
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
 	List<SupportBoardMedia> mlist=(List<SupportBoardMedia>)request.getAttribute("supportBoardMedia");
-	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");System.out.println(answer);
+	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");
 %>
 <style>
 /* Support Main Table */
@@ -200,12 +200,9 @@ textarea#supportAnswer{
                                     <label>
                                         <small>내용</small>
                                     </label>
-                                    <input type='hidden' name='oriSupportBoardNo' id='oriSupportBoardNo' value='<%=s.getSupportBoardNo() %>'/>                                    &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <textarea name='supportContent' id='supportContent' rows="20" cols="60" style="width:90%; resize: none;">
-                                    	<% if(answer!=null) {%>
-                                    		<%=answer.getSupportBoardContent().trim() %>
-                                    	<%} %>
-                                    </textarea>
+                                    <input type='hidden' name='oriSupportBoardNo' id='oriSupportBoardNo' value='<%=s.getSupportBoardNo() %>'/>
+                                    <%if(answer!=null) {%><input type='hidden' name='answerSupportBoardNo' value='<%=answer.getSupportBoardNo() %>'/><%} %>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <textarea name='supportContent' id='supportContent' rows="20" cols="60" style="width:90%; resize: none;"><% if(answer!=null) {%><%=answer.getSupportBoardContent()%><%} %></textarea>
                                 </th>
                             </tr>
                             <tr>
@@ -258,7 +255,7 @@ textarea#supportAnswer{
 </div>
 <script>
     function sendSupportAnswwer(){
-        //textArea 안에 있는거 그대로(띄어쓰기, 엔터) html화
+       /*  //textArea 안에 있는거 그대로(띄어쓰기, 엔터) html화
 
         var textBox = $('#supportContent');
         var lines = textBox.val().split("\n");
@@ -270,7 +267,7 @@ textarea#supportAnswer{
         }
         resultString += "</p>";
 
-        console.log(resultString);
+        console.log(resultString); */
 
        $('#supportAnswer').submit();
     }

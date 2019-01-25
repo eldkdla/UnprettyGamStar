@@ -299,7 +299,7 @@
 		#storyContent>div{
 			position:relative;
 			width:500px;
-			height: 760px;
+			height: 87%;
 			max-width:500px;
 			max-height:760px;
 			margin:60px auto;
@@ -309,7 +309,7 @@
 		#storyVideo{
 			border:none;
 			width:500px;
-			height: 760px;
+			height: 100%;
 			max-width:500px;
 			max-height:760px;
 			object-fit:fill;
@@ -525,9 +525,35 @@
         width: 1000px;
         text-align: left;
     }
+    
+    #profileContent7{
+        display: none;
+        margin: auto;
+        width: 1000px;
+        text-align: left;
+    }
+    #profileContent7>div>button{
+    	position: relative;
+    	width:50px;
+    	height:25px;
+    	font-size: 15px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+        float: right;
+        margin-top: 52px;
+        margin-right: 5px;
+        cursor: pointer;
+        color:white;
+        border-radius: 5px;
+		border:none;
+    } 
+    #profileContent7>div>button:hover{
+    	opacity: 0.6;
+    }
+   
+   
  }
  
-
 
 
  /* /////////////////////////999px 이하//////////////////////////////////////////////////////////////// */
@@ -953,6 +979,7 @@
         z-index: 7;
         transform: scale(1);
     }
+
     @media all and (max-width:560px){  
        .profileMenuLi{
             width: 14%;
@@ -1173,4 +1200,41 @@
         width: 99%;
         text-align: left;
     }
+    #profileContent7{
+        display: none;
+        margin: auto;
+        width: 99%;
+        text-align: left;
+    }
+    
+    #profileContent7>div>button{
+    	position: relative;
+    	width:50px;
+    	height:25px;
+    	font-size: 15px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+        float: right;
+        margin-top: 52px;
+        margin-right: 5px;
+        cursor: pointer;
+        color:white;
+        border-radius: 5px;
+		border:none;
+    } 
+    #profileContent7>div>button:hover{
+    	opacity: 0.6;
+    }
+    @media all and (max-width:700px){
+		#profileContent7>div>button{
+			display:none;
+		}
+		
+	}
+	 @media all and (max-width:650px){
+		 #requestFollow{
+			display:none;
+		}
+	 }
+	 
  }

@@ -76,7 +76,7 @@
             <div class='supportSearch' style='margin-top:5px;'>
                 <form name='searchSupport' action="<%=request.getContextPath() %>/admin/supportFind">
                     <select name='searchType'>
-                        <option value='searchSupportId' <%=searchType.equals("searchSupportId")?"selected":"" %>>아이디</option>
+                        <option value='searchSupportId' <%=searchType.equals("searchSupportId")?"selected":"" %>>글쓴이</option>
                         <option value='searchSupportTitle' <%=searchType.equals("searchSupportTitle")?"selected":"" %>>글제목</option>
                         <option value='searchSupportContent' <%=searchType.equals("searchSupportContent")?"selected":"" %>>글내용</option>
                         <option value='searchSupportAll' <%=searchType.equals("searchSupportAll")?"selected":"" %>>전체</option>

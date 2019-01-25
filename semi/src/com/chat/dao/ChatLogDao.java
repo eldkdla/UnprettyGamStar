@@ -1,6 +1,6 @@
 package com.chat.dao;
 
-import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.*;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,7 +36,34 @@ public class ChatLogDao {
 	public ArrayList<ChatLog> callChatLog(Connection conn, int chatNo, int myNo) {
 		PreparedStatement pstmt=null;
 		PreparedStatement pstmt2=null;
+		String sql2=prop.getProperty("updateReadState");
+		int result=0;
+		try 
+		{
+			System.out.println(sql2);
+			pstmt2=conn.prepareStatement(sql2);
+			pstmt2.setInt(1, chatNo);
+			System.out.println("chat NO:" + chatNo);
+			result=pstmt2.executeUpdate();
+			System.out.println("result : "+result);
+			
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(pstmt2);
+		}
+		if(result==0) {
+			rollback(conn);
+			System.out.println("rollback");
+		}
+		else {
+			commit(conn);
+			System.out.println("commit");
 
+		}
 		System.out.println("채팅로그dao");
 		String sql=prop.getProperty("callChatLog");
 		int a=0;
@@ -55,7 +82,7 @@ public class ChatLogDao {
 					//System.out.println(rs2.getInt("user_no"));
 */					
 				log.setMyNo(myNo);
-				
+				System.out.println("myNo"+myNo);
 				log.setChatNo(chatNo);
 				log.setUserNo(rs.getInt("user_no"));
 				log.setChatroomMessage(rs.getString("chatroom_message"));
@@ -66,8 +93,9 @@ public class ChatLogDao {
 			}
 			if(a==0) {
 				log=new ChatLog();
-				log.setChatNo(0);
-				log.setUserNo(0);
+				log.setMyNo(myNo);
+				log.setChatNo(chatNo);
+				log.setUserNo(myNo);
 				log.setChatroomMessage("");
 				log.setSend_date(new Timestamp(0));
 				//System.out.println(log);
@@ -82,6 +110,7 @@ public class ChatLogDao {
 		{
 			close(pstmt);
 		}
+		System.out.println("logarr"+logarr);
 		return logarr;
 	}
 }

@@ -41,9 +41,7 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
-		request.getSession().setAttribute("userNo", 6);
-		
+	
 		if(request.getSession().getAttribute("userNo")!=null){
 			//관리자의페이지면 돌려보내기
 			if(request.getParameter("uu")!=null&&(Integer.parseInt(request.getParameter("uu")))<=0){
@@ -101,6 +99,10 @@ public class MyProfilePageServlet extends HttpServlet {
 				//차단정보 가져오기
 				ArrayList<User> blockDataArray=new UserService().selectBlock(conn,user);
 				request.setAttribute("blockDataArray", blockDataArray);
+				
+				//팔로우요청정보 가져오기
+				ArrayList<User> requestfollowDataArray=new UserService().selectRequestFollow(conn,user);
+				request.setAttribute("requestfollowDataArray", requestfollowDataArray);
 				
 				//상대방페이지일때 팔로우 되어있는지 확인하기
 				boolean isFollowed=new UserService().isFollowed(conn,user,myNo);

@@ -46,8 +46,13 @@ public class SupportViewServlet extends HttpServlet {
 		}
 		else
 		{
-		
+			
 			int no=Integer.parseInt(request.getParameter("no"));
+
+			//이전/다음글 번호
+			int nextNo=0;
+			int prevNo=0;
+			
 			if(no<0)
 			{
 				no=-1*no;
@@ -60,9 +65,11 @@ public class SupportViewServlet extends HttpServlet {
 				view="/view/admin/support/supportView.jsp";
 				request.setAttribute("supportBoard", s);
 				
-				//이전/다음글 번호
-				int nextNo=new SupportService().selectSupportNextNo(s.getSupportBoardNo());
-				int prevNo=new SupportService().selectSupportPrevNo(s.getSupportBoardNo());;
+				
+				//이전/다음글 번호 구하기
+				nextNo=new SupportService().selectSupportNextNo(s.getSupportBoardNo());
+				prevNo=new SupportService().selectSupportPrevNo(s.getSupportBoardNo());
+			
 				
 				
 				List<SupportBoardMedia> sMedias=new SupportService().selectSupportOneMedia(s.getSupportBoardNo());
@@ -88,6 +95,8 @@ public class SupportViewServlet extends HttpServlet {
 				request.setAttribute("msg", "게시물이 없습니다");
 			}
 			
+			request.setAttribute("nextNo", nextNo);
+			request.setAttribute("prevNo", prevNo);
 			System.out.println(view);
 			request.getRequestDispatcher(view).forward(request, response);
 		}
