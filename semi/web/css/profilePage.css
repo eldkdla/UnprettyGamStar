@@ -242,26 +242,57 @@
 			width:600px;
 			height: 500px;
 			background-color:white;
-			border-radius:10px;
-			border:none;
+			border-radius:5px;
+			border:2px solid black;
+			box-shadow: 0 0 7px 2px;
+		}
+		.reportContent>div{
+			position: relative;
+			width:600px;
+			height:20px;
+			background-color: black;
+			border-top-left-radius: 5px;
+			border-top-right-radius: 5px;
+		}
+
+		.reportContent>div>:NTH-CHILD(1){
+			position:absolute;
+			left:580px;
+			bottom:1px;
+			font-weight: bold;
+			color:white;
+			cursor: pointer;
+		} 
+		.reportContent>div>:NTH-CHILD(1):hover{
+			color:gray;
+		}
+		.reportContent>label{
+			position:relative;
+			font-weight: bold;
+        	font-size: 15px;
+       		font-family: 'Gothic A1', sans-serif;
+       		float: left;
+       		margin-top: 15px;
+       		margin-left: 15px;
 		}
 		.reportContent>textarea{
-			width:595px;
-			height:430px;
+			width:490px;
+			height:300px;
 			resize: none;
-			border-bottom:1px solid rgba(213,213,213,50);
-			border-radius:10px;
+			border:1px solid rgba(213,213,213,50);
+			border-radius:5px;
 			outline: none;
 			font-family: 'Gothic A1', sans-serif;
 			font-size: 20px;
 			margin-bottom: 10px;
+			margin-top: 15px;
+			margin-left: -5px;
 		}
 		.reportContent>input[type=file]{
 			position: relative;
 			float: left;
-			margin-left: 10px;
-			outline:none;
-			border:none;
+			margin-left: 13px;
+			margin-top:11px;	
 		}
 		.reportContent>button{
 		   position: relative;
@@ -275,7 +306,8 @@
 	       height: 30px;
 	       font-size: 15px;
 	       float: right;
-	       margin-right:10px;
+	       margin-right:20px;
+	       margin-top:10px;
 	       cursor: pointer;
 	       font-family: 'Gothic A1', sans-serif;
 		}

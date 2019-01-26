@@ -253,9 +253,14 @@
  		
  		<form action="" method="post" enctype="multipart/form-data">
  		<div class="reportBgk" id="reportBgk">
- 			<div class="reportContent" id="reportContent">
- 				<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
- 				<input type="file" name="reportmedia[]" multiple="multiple"><button type="button">신고하기</button>
+ 			<div class="reportContent" id="reportContent">	
+ 				<div><label onclick="closeReport();">&#10005</label></div>
+ 				<h2>신고하기</h2>	
+	 			<label>신고내용</label>
+	 			<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
+ 				<label>첨부파일</label>
+ 				<input type="file" name="reportmedia[]" multiple="multiple">
+ 				<button type="button">신고하기</button>
  			</div>
  		</div>	
  		</form>
@@ -340,6 +345,11 @@
    
 
     <script>
+    		//신고창 닫기 이벤트
+    		function closeReport(){
+    			$('#reportBgk').fadeOut();
+    		}
+    		
     		//공용 Alert 모달창
 		    function profileAlert(alertMsg){
 		    	$('#myModal').remove();
@@ -531,18 +541,20 @@
 	            	 
 	            	 $("#userPhotoMenuContent>button:nth-child(2)").click(function(){
 	            		 $('#reportBgk').fadeIn();
+	            		 $('.reportContent>textarea').val("");
+	      				 $('.reportContent>input[type=file]').val("");
 	            	 });
-	            	 $('#reportBgk').click(function(){
+	            	/*  $('#reportBgk').click(function(){
 	            		$('#reportBgk').fadeOut(); 
 	            	 });
 	            	 $('#reportContent').click(function(e){
 	            		 e.stopPropagation();
-	            	 });
+	            	 }); */
 	            	 
 	            	 //신고창에서 신고보내기
 	            	 $('#reportContent>button').click(function(){
 	      				if($('#reportContent>textarea').val()!=""){
-	      					onClickReportBtn(<%=user.getNo()%>, 0, '<%=request.getContextPath()%>/view/reportuser');
+	      					onClickReportBtn(<%=user.getNo()%>, 0, '<%=request.getContextPath()%>/view/reportuser');	
 	      				}
 	     	 			else{
 	     	 				profileAlert("신고내용 입력");
@@ -691,12 +703,7 @@
 	        		$('#profileBlockBt').css("background-color","rgb(241,95,95)"); 
 	        		$('#profileBlockBt').css("color","white");
 	        	}
-			  	 <%-- else{
-	        		$('#profileBlockBt>label').text("차단하기");
-	        		$('#profileBlockBt>img').attr("src","<%=request.getContextPath()%>/img/blockBtOff.png");
-	        		$('#profileBlockBt').css("background-color","#F6F6F6"); 
-	        		$('#profileBlockBt').css("color","black");
-	        	}  --%>
+			  	
 	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getNo()%>'; 
 	        }
 	      });
