@@ -9,9 +9,9 @@ import com.gamstar.user.support.model.vo.SupportUserData;
 
 public class SupportUserDataService {
 	
-	public void insertSupportUserData(SupportUserData userData, List fileNamelist,List fileOriNamelist, List fileTypelist) {
+	public void insertSupportUserData(SupportUserData userData, List fileNamelist,List fileOriNamelist, int type) {
 		Connection conn=getConnection();
-		new SupportUserDataDao().insertSupportUserData(conn, userData, fileNamelist, fileOriNamelist, fileTypelist);
+		new SupportUserDataDao().insertSupportUserData(conn, userData, fileNamelist, fileOriNamelist, type);
 		
 		close(conn);
 	}

@@ -20,7 +20,6 @@
        
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
@@ -343,7 +342,7 @@
     <script>
     		//공용 Alert 모달창
 		    function profileAlert(alertMsg){
-		    	$('#myModal').remove(); 
+		    	$('#myModal').remove();
 		    	$('body').append($('<div/>',{
 		    		id:'myModal',
 		    		class:'modal'
@@ -405,64 +404,7 @@
             	 <%if(isRequestFollowDataArray.size()!=0){
             		 for(int i=0;i<isRequestFollowDataArray.size();i++){
             		 %>
-     		    	$('body').append($('<div/>',{
-     		    		id:'requestFollow<%=i%>',
-     		    		class:'requestFollowModal'
-     		    	}));
-     		    	$('#requestFollow<%=i%>').append($('<div/>',{
-     		    		class:'requestFollowModal-content'
-     		    	}));
-     		    	$('#requestFollow<%=i%>>div').append($('<p/>',{
-     		    		text:"'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다"
-     		    	}));
-     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
-     		    		text:'보류'
-     		    	}));
-     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
-     		    		text:'수락'
-     		    	}));
-     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
-     		    		text:'거절'
-     		    	}));
-     		    	$('#requestFollow<%=i%>>div>:nth-child(2)').on("click",function(){
-     		    		$('#requestFollow<%=i%>').remove();
-     		    		$.ajax({
-    	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
-    	            		type:"POST",
-    	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
-    	            		success:function(data){},
-    	            		error:function(xhr,status){
-    	            			alert(xhr+" : "+status);	
-    	            		}
-    	            	});
-     		    	});
-     		    	$('#requestFollow<%=i%>>div>:nth-child(3)').on("click",function(){
-     		    		$('#requestFollow<%=i%>').remove();
-     		    		 $.ajax({
-					          url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
-					          type:'POST',
-					          data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
-					          success:function(data){},
-     	            		  error:function(xhr,status){
-     	            		  alert(xhr+" : "+status);	
-     	            		}
-     	            	});
-     		    	});
-     		    	$('#requestFollow<%=i%>>div>:nth-child(4)').on("click",function(){
-     		    		$('#requestFollow<%=i%>').remove();
-     		    		$.ajax({
-     		          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
-     		          		type:'POST',
-     		          		data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
-     		          		success:function(data){
-     		          		},
-     		          		error:function(xhr,status){
-     		          			alert(xhr+" : "+status);
-     		          		}
-     		          		
-     		          	});
-     		    	});
-            		 <%-- $('body').alertBox({
+            		 $('body').alertBox({
             		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
             		        lTxt: '보류',
             		        lCallback: function(){
@@ -488,7 +430,7 @@
             	            		}
             	            	});
             		        }
-            		      }); --%>
+            		      });
             		 <%}
             		 }%>
          	<%}
@@ -1026,7 +968,7 @@
               	    <%}%>
                 }));
             	 
-            	 <%if((user.getNo()==(int)request.getSession().getAttribute("userNo"))||(int)request.getSession().getAttribute("userNo")<0){%>
+            	 <%if((user.getNo()==(int)request.getSession().getAttribute("userNo"))||(user.getNo()<0)){%>
             	 $('#profileContent1>div:nth-child(<%=i+1%>)').append($('<button/>',{
   					class:'contentCancelBt',
   					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"

@@ -179,6 +179,11 @@ function supportBtn() {
 }
 
 $("#userSupportForm").on('submit', function(e){
+	
+	if($('#userSupportForm textArea').val().length!=0||$('#supportTitleInput').val().length!=0){
+		alert("내용 쓰셈")
+	}
+	else{
     e.preventDefault();
     var files = $('#userSupportForm input[type=file]')[0].files;
 		var formData = new FormData();
@@ -209,7 +214,8 @@ $("#userSupportForm").on('submit', function(e){
         
     });
     document.getElementById('supportMainDiv').style.display='none';
-    });
+    }
+});
 </script>
 <script>
 
@@ -988,7 +994,7 @@ var f=0;
     }
     
     //인덱스 변경
-    var count = 1000;
+    var count = 4500000000;
     function zindexchange(test) {
         document.getElementById(test.id).style.zIndex = count++;
     }
