@@ -1,6 +1,7 @@
 package com.gamstar.newspeed.model.service;
 
 import static common.JDBCTemplate.close;
+
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
@@ -15,6 +16,7 @@ import org.json.simple.JSONObject;
 import com.gamstar.newspeed.model.dao.NewspeedDAO;
 import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedComment;
+import com.gamstar.newspeed.model.vo.NewspeedLike;
 import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
 import com.gamstar.user.model.dao.UserDao;
@@ -38,6 +40,133 @@ public class NewspeedService {
 		newspeedDAO = new NewspeedDAO();
 		userDAO = new UserDao();
 	}
+	
+			public List<String> selectNewspeedNo(String userNo,int limite) {
+				
+				Connection conn = getConnection();
+				
+		
+				List<User> user = new ArrayList();
+				
+				List<String> tagNo = new NewspeedDAO().selectTagNo(conn, userNo);
+				List<String> followLikePeed = new NewspeedDAO().selectFollowLikeFeed(conn, userNo);
+				List<String> followNo = new NewspeedDAO().selectFollowNo(conn, userNo);
+		
+				
+				System.out.println("내가 이미지태그된 게시물 피드 넘버 : "+tagNo);
+				System.out.println("내가 팔로우한 사람이 좋아요 눌른 피드넘버 : "+followLikePeed);
+				System.out.println("내가 팔로우 한사람들의 피드넘버 : "+followNo);
+				
+		
+				List<String> peedNo = peedSet(tagNo, followLikePeed, followNo, limite);
+				System.out.println("중복 제거 피드 : "+peedNo);
+				
+				close(conn);
+				System.out.println("서비스 들어옴!");
+				
+				return peedNo;
+			}
+			
+			public List<Newspeed> selectContent(String userNo,int limite){
+				
+				List<String> peedNo = selectNewspeedNo(userNo, limite);
+				Connection conn = getConnection();
+				List<Newspeed> contentList = new NewspeedDAO().selectContent(conn, peedNo); //콘텐트 불러오기
+				close(conn);
+				return contentList;
+			}
+			
+			public List<NewspeedComment> selectComment(String userNo,int limite){
+				
+				List<String> peedNo = selectNewspeedNo(userNo,limite);
+				Connection conn = getConnection();
+				List<NewspeedComment> commentList = new NewspeedDAO().selectComment(conn, peedNo); //코멘트 불러오기
+				close(conn);
+				return commentList;
+			}
+			
+			public List<NewspeedMedia> selectMedia(String userNo,int limite){
+				
+				List<String> peedNo = selectNewspeedNo(userNo,limite);
+				Connection conn = getConnection();
+				List<NewspeedMedia> mediaList = new NewspeedDAO().selectMedia(conn, peedNo); //미디어 불러오기
+				close(conn);
+				return mediaList;
+			}
+			
+			public List<NewspeedLike> selectLike(String userNo,int limite){
+				
+				List<String> peedNo = selectNewspeedNo(userNo,limite);
+				Connection conn = getConnection();
+				List<NewspeedLike> likeList = new NewspeedDAO().selectLike(conn, peedNo); //좋아요 불러오기
+				close(conn);
+				return likeList;
+			}
+			
+			public List<NewspeedMediaTag> selectMediaTag(String userNo,int limite){
+				
+				List<String> peedNo = selectNewspeedNo(userNo,limite);
+				Connection conn = getConnection();
+				List<NewspeedMediaTag> tagList = new NewspeedDAO().selectMediaTag(conn, peedNo); //이미지 태그 불러오기
+				close(conn);
+				return tagList;
+			}
+			
+			
+			
+			
+			
+			public List<String> peedSet(List<String> tagNo, List<String> followLikePeed, List<String> followNo,int limite){ //피드번호 셋팅 메소드
+				
+		
+				List<String> resultList = new ArrayList<String>();
+				System.out.println("들어옴?"+limite);
+				
+				for(int i=0; i<1; i++) {
+					System.out.println("여긴?");
+					tagSet:
+					for(int j=0; j<tagNo.size();j++) {
+						
+						if(resultList.size() >= limite) {
+							break tagSet;
+						}
+						
+						if(!resultList.contains(tagNo.get(j))) {
+							resultList.add(tagNo.get(j));
+						}	
+					}
+				
+					followLikePeedSet:
+					for(int j=0; j<followLikePeed.size();j++) {
+						
+						if(resultList.size() >= limite) {
+							break followLikePeedSet;
+						}
+						
+						if(!resultList.contains(followLikePeed.get(j))) {
+							resultList.add(followLikePeed.get(j));
+						}
+					}
+					
+					followNoSet:
+					for(int j=0; j<followNo.size();j++) {
+						
+						if(resultList.size() >= limite) {
+							break followNoSet;
+						}
+						
+						if(!resultList.contains(followNo.get(j))) {
+							resultList.add(followNo.get(j));
+						}
+					}
+					
+		
+			        System.out.println("중복제거 피드 : "+resultList.size());
+				}	
+		   
+				return resultList;
+			}
+	
 	
 			//게시글(다중) 선택 
 			public ArrayList<NewspeedMedia> selectContent1(Connection conn,User user){

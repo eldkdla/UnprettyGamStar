@@ -15,6 +15,16 @@ import com.gamstar.user.model.dao.UserDao;
 import com.gamstar.user.model.vo.User;
 
 public class UserService {
+	
+	public List<User> selectFeedUser(List<String> peedNo){ //피드유저DB 리스트로 받아오기
+		
+		Connection conn = getConnection();
+		
+		List<User> userData = new UserDao().selectFeedUser(conn, peedNo);
+		
+		close(conn);
+		return userData;
+	}
 
 	//유저정보 선택 
 		public User selectUser(Connection conn,User user){
@@ -161,6 +171,26 @@ public class UserService {
 			try {
 				if(result!=0){
 					conn.commit();				
+				}else{
+					conn.rollback();
+				}
+			} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+			}
+			
+			close(conn);
+			return result;
+		}
+		//공개로 수정시 팔로우요청 없애주는 트리거
+		public int updateDisclosureTrigger(int myNo){
+			Connection conn=getConnection();
+			
+			int result=new UserDao().updateDisclosureTriggerInsert(conn,myNo);
+			int result1=new UserDao().updateDisclosureTriggerDelete(conn,myNo);
+			try {
+				if(result!=0&&result1!=0){
+					conn.commit();	
 				}else{
 					conn.rollback();
 				}

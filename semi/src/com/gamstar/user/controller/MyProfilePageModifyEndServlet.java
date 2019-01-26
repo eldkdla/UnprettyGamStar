@@ -56,6 +56,8 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			user.setNo((int)request.getSession().getAttribute("userNo"));
 			
 			User oldUser=new UserService().selectUser(user);
+			String oldProfilePhoto=oldUser.getProfilePhoto();
+			int oldDisclosure=oldUser.getDisclosure();
 			
 			if(multi.getFilesystemName("uploadPhoto")!=null){
 				user.setProfilePhoto("upload/"+multi.getFilesystemName("uploadPhoto"));
@@ -73,7 +75,7 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			
 			if(result!=0){
 				if(multi.getFilesystemName("uploadPhoto")!=null){//프로필변경후 정보변경 성공시 예전사진 삭제
-					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldUser.getProfilePhoto());
+					File file=new File(request.getSession().getServletContext().getRealPath("/")+oldProfilePhoto);
 					if(file.delete()){
 						System.out.println("삭제성공");
 					}else{
@@ -86,6 +88,10 @@ public class MyProfilePageModifyEndServlet extends HttpServlet {
 			else{
 				msg="정보 변경실패";
 				loc="/view/profile";
+			}
+			
+			if((oldDisclosure!=user.getDisclosure())&&user.getDisclosure()==1){
+				int updateDisclosureTriggerResult = new UserService().updateDisclosureTrigger((int)request.getSession().getAttribute("userNo"));
 			}
 		
 			}

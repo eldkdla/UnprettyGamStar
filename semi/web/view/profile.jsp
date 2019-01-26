@@ -698,6 +698,7 @@
 		var beforeFollowBtLabel="";
 		
 		if(($('#profileFollowBt>label').text())==("팔로우")){
+<<<<<<< HEAD
 
 			beforefollowBtLabel="팔로우";
 			<%if(user.getDisclosure()==0){%>  //비공개
@@ -708,6 +709,18 @@
           	<%}
           	else{%>
 			$('#profileFollowBt>label').text("팔로우됨");
+=======
+
+			beforefollowBtLabel="팔로우";
+			<%if(user.getDisclosure()==0){%>  //비공개
+					$('#profileFollowBt>label').text("팔로우요청");
+          			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+            		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
+            		$('#profileFollowBt').css("color","white");
+          	<%}
+          	else{%>
+			$('#profileFollowBt>label').text("팔로우됨");
+>>>>>>> branch 'test4' of https://github.com/eldkdla/UnprettyGamStar.git
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");

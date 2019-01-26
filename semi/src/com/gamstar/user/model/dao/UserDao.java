@@ -27,6 +27,39 @@ public class UserDao {
 		}
 
 	}
+		
+	public List<User> selectFeedUser(Connection conn, List<String> peedNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectFeedUser");
+		
+		List<User> listDB = new ArrayList();
+		User data = null;
+		try {
+			
+			for(int i=0; i<peedNo.size(); i++) {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, peedNo.get(i));
+				rs=pstmt.executeQuery();
+				
+				if(rs.next()) {
+					data = new User();
+					
+					data.setName(rs.getString("user_name"));
+					data.setProfilePhoto(rs.getString("user_profile_photo"));
+					
+					listDB.add(data);
+				}
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listDB;
+	}
 
 	//유저정보 선택 - 객체 생성부분 삭제 기존 파라메터에 추가로 값 넣어줌
 		public User selectUser(Connection conn,User user){
@@ -50,6 +83,7 @@ public class UserDao {
 					user.setPhone(rs.getString("USER_PHONE"));
 					user.setDisclosure(rs.getInt("USER_DISCLOSURE"));
 					user.setRemainingDay(rs.getInt("USER_REMAINING_DAY"));
+					user.setLinkType(rs.getInt("USER_LINK_TYPE"));
 				}
 			}catch (Exception e) {
 				e.printStackTrace();
@@ -374,6 +408,42 @@ public class UserDao {
 				close(pstmt);
 			}
 			return result;	
+		}
+		//공개로 수정시 팔로우요청 없애주는 트리거 (팔로우테이블에 넣어주기)
+		public int updateDisclosureTriggerInsert(Connection conn,int myNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("updateDisclosureTriggerInsert");
+			int result=0;
+			
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, myNo);
+				
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
+		}
+		//공개로 수정시 팔로우요청 없애주는 트리거 (팔로우요청목록 삭제)
+		public int updateDisclosureTriggerDelete(Connection conn,int myNo){
+			PreparedStatement pstmt=null;
+			String sql=prop.getProperty("updateDisclosureTriggerDelete");
+			int result=0;
+					
+			try{
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, myNo);
+						
+				result=pstmt.executeUpdate();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}finally{
+				close(pstmt);
+			}
+			return result;
 		}
 		
 		//유저 이전비밀번호 확인
