@@ -622,6 +622,7 @@
                 	</tr>
                 <%}
                 	else {
+                		
                 		for(ReportBoard r : list){ 
 	                       		int type=r.getReportBoardType();
 	                       		String typeStr="";
@@ -648,8 +649,10 @@
                         <td><%=typeStr %></td>
                         <td onclick="<%=linkStr %>" ><a href=''>go</a></td>
                         <td>
-                        	<% if(!mList.isEmpty()) {%>
-                        	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:30px; display:block;"/>
+                        	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
+                        	 	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:30px; display:block;"/>
+                        	 <%} else { %>
+                        	 <%}%>
                         </td>
                         <td>
                         	<a onclick='openNextTr(this);'>
@@ -671,7 +674,6 @@
                             	정지(<%=r.getReportEndResult() %>)
                             <%} %>
                         </td>
-                        <%} %>
                     </tr>
                     <tr class='movingTr' style='display:none;width:100%;'>
                     	<td colspan=8 style="background-color:rgba(234, 242, 253, 0.5);">
@@ -693,8 +695,8 @@
                     		</div>
                     	</td>
                     </tr>
-                    <%	} 
-                	} %>
+                    <%	}
+                    }%>
                 </tbody>
             </table>
             <div class='reportSearch'>

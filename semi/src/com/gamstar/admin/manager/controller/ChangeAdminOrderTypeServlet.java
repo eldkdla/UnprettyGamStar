@@ -87,19 +87,23 @@ public class ChangeAdminOrderTypeServlet extends HttpServlet {
 			else
 			{
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"'><</button>";
+						+"'><</button>";
+			}
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
 					pageBar+="<small><a href='"+request.getContextPath()+"/admin/memberList?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
+							+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
@@ -107,7 +111,7 @@ public class ChangeAdminOrderTypeServlet extends HttpServlet {
 			if(pageNo>totalPage)
 			{
 				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/memberList?cPage="+pageNo
-						+"&numPerPage="+numPerPage+"'>></button>";
+						+"'>></button>";
 			}
 			
 			request.setAttribute("orderType",orderType);

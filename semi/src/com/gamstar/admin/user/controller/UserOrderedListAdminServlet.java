@@ -86,12 +86,16 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo-1)
 						+"&numPerPage="+numPerPage+"'><</button>";
 			}
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
+			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{

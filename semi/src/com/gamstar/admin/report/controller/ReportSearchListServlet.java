@@ -96,23 +96,23 @@ public class ReportSearchListServlet extends HttpServlet {
 			else
 			{
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+						+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
-				pageBar+="<small><span class='cPage'>1</span></small>";
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
 					pageBar+="<small><a href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+							+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
@@ -120,7 +120,7 @@ public class ReportSearchListServlet extends HttpServlet {
 			if(pageNo>totalPage)
 			{
 				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/reportSearch?cPage="+pageNo
-						+"&numPerPage="+numPerPage+"'>></button>";
+						+"'>></button>";
 			}
 			
 			

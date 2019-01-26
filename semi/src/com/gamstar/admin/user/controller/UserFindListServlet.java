@@ -101,14 +101,14 @@ public class UserFindListServlet extends HttpServlet {
 			}
 			if(totalPage==0)
 			{
-				pageBar+="<small><span class='cPage'>1</span></small>";
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
@@ -123,7 +123,6 @@ public class UserFindListServlet extends HttpServlet {
 				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userFindList?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
-			System.out.println("널이 뭐냐1"+searchType+" "+searchKeyword+" "+list+" "+cPage+" "+numPerPage+" "+pageBar);
 			
 			request.setAttribute("searchType", searchType);
 			request.setAttribute("searchKeyword", searchKeyword);
