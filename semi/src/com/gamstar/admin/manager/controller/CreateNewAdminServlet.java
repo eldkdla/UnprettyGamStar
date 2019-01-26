@@ -35,7 +35,7 @@ public class CreateNewAdminServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		//no<0 관리자 아니면 못들어옴
-		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>0||(Integer)request.getSession().getAttribute("userNo")<-6)
+		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>=0||(Integer)request.getSession().getAttribute("userNo")<-5)
 		{
 			request.setAttribute("msg", "잘못된 접근입니다");
 			request.setAttribute("loc", "/");
