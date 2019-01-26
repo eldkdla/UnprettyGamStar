@@ -19,7 +19,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class ReportSearchListServlet
  */
-@WebServlet("/admin/reportSearch")
+@WebServlet("/admin/report/search")
 public class ReportSearchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,8 +48,8 @@ public class ReportSearchListServlet extends HttpServlet {
 		}
 		else
 		{
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 
 			//페이징처리
 			int cPage;
@@ -95,8 +95,8 @@ public class ReportSearchListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo-1)
-						+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
+						+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -111,8 +111,8 @@ public class ReportSearchListServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo)
-							+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo)
+							+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

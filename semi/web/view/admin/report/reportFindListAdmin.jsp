@@ -4,8 +4,8 @@
 <%
 	Map<Integer,List<ReportBoardMedia>> mList=(Map<Integer,List<ReportBoardMedia>>)request.getAttribute("mediaList");
 	List<ReportBoard> list=(List)request.getAttribute("list");
-	String searchType=request.getParameter("searchType");
-	String searchKeyword=request.getParameter("searchKeyword");
+	String searchType=request.getParameter("type");
+	String searchKeyword=request.getParameter("keyword");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
 	int cPage=(int)request.getAttribute("cPage");
@@ -636,10 +636,10 @@
                        		{
                        		case 0: typeStr="user";
                						linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";
-               						selfLink=request.getContextPath()+"/admin/reportSearch?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
+               						selfLink=request.getContextPath()+"/admin/report/search?cPage="+cPage+"&type="+searchType+"&keyword="+searchKeyword;
                						break;
                        		case 1 : typeStr="newspeed";linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";
-                       				 selfLink=request.getContextPath()+"/admin/reportSearch?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
+                       				 selfLink=request.getContextPath()+"/admin/report/search?cPage="+cPage+"&type="+searchType+"&keyword="+searchKeyword;
                        				 break;
                        		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
                        		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
@@ -713,12 +713,12 @@
                     <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/reportSearch' method='post'>
-                    <select name='searchType'>
+                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
+                    <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='content'>내용</option>
                     </select>
-                    <input type='text' name='searchKeyword'/>
+                    <input type='text' name='keyword'/>
                     <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>

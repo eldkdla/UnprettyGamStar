@@ -705,12 +705,12 @@
                     <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/reportSearch' method='post'>
-                    <select name='searchType'>
+                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
+                    <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='content'>내용</option>
                     </select>
-                    <input type='text' name='searchKeyword'/>
+                    <input type='text' name='keyword'/>
                     <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>

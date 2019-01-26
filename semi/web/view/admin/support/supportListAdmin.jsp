@@ -21,8 +21,8 @@
             <div id='isAnswered'>
                     <label> 
                         <small>답변상황</small>
-                        <form style='display:inline;' name='showSptFrm' action="<%=request.getContextPath() %>/admin/support/show.do" >
-	                        <select name='showSupport' id='showSupport' onchange="submit();">
+                        <form style='display:inline;' name='showSptFrm' action="<%=request.getContextPath() %>/admin/support/show" >
+	                        <select name='show' id='showSupport' onchange="submit();">
 	                            <option value='all'>모두보기</option>
 	                            <option value='ing'>처리중</option>
 	                            <option value='end'>답변완료</option>
@@ -71,14 +71,14 @@
                 
             </table>
             <div class='supportSearch' style='margin-top:5px;'>
-                <form name='searchSupport' action="<%=request.getContextPath() %>/admin/supportFind">
-                    <select name='searchType'>
-                        <option value='searchSupportId'>아이디</option>
-                        <option value='searchSupportTitle'>글제목</option>
-                        <option value='searchSupportContent'>글내용</option>
-                        <option value='searchSupportAll'>전체</option>
+                <form name='searchSupport' action="<%=request.getContextPath() %>/admin/support/search">
+                    <select name='type'>
+                        <option value='id'>아이디</option>
+                        <option value='title'>글제목</option>
+                        <option value='content'>글내용</option>
+                        <option value='sAll'>전체</option>
                     </select>
-                    <input type='text' name='searchKeyword'/>
+                    <input type='text' name='keyword'/>
                     <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>

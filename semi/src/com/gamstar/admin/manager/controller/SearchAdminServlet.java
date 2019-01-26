@@ -15,7 +15,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class SearchAdminServlet
  */
-@WebServlet("/admin/manager/searchAdmin")
+@WebServlet("/admin/manager/search")
 public class SearchAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,8 +45,8 @@ public class SearchAdminServlet extends HttpServlet {
 		}
 		else
 		{
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 
 			//페이징처리
 			int cPage;
@@ -85,7 +85,7 @@ public class SearchAdminServlet extends HttpServlet {
 			else
 			{
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo-1)
-						+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+						+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -101,7 +101,7 @@ public class SearchAdminServlet extends HttpServlet {
 				else
 				{
 					pageBar+="<small><a href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo)
-							+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+							+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

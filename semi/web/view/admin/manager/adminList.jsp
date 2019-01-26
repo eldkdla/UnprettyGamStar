@@ -372,12 +372,12 @@
      	    </form> --%>
      	</div>
      	<div class='userSearch' style='float:right;' >
-         	<form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/manager/searchAdmin">    
-	             <select name='searchType'>
-	                 <option value='searchId'>아이디</option>
-	                 <option value='searchName'>이름</option>
+         	<form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/manager/search">    
+	             <select name='type'>
+	                 <option value='id'>아이디</option>
+	                 <option value='name'>이름</option>
 	             </select>
-	             <input type='text' name='searchKeyword'/>
+	             <input type='text' name='keyword'/>
 	             <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
 	         </form>
      	</div>

@@ -15,7 +15,7 @@ import com.gamstar.admin.support.model.vo.SupportBoard;
 /**
  * Servlet implementation class SupportShowServlet
  */
-@WebServlet("/admin/support/show.do")
+@WebServlet("/admin/support/show")
 public class SupportShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class SupportShowServlet extends HttpServlet {
 		}
 		else
 		{
-			String selectType=request.getParameter("showSupport");
+			String selectType=request.getParameter("show");
 			
 			//페이징처리
 			int cPage;
@@ -82,8 +82,8 @@ public class SupportShowServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+(pageNo-1)
-						+"&showSupport="+selectType+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/show?cPage="+(pageNo-1)
+						+"&show="+selectType+"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -98,15 +98,15 @@ public class SupportShowServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
-							+"&showSupport="+selectType+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/show?cPage="+pageNo
+							+"&show="+selectType+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/support/show?cPage="+pageNo
 						+"'>></button>";
 			}
 			

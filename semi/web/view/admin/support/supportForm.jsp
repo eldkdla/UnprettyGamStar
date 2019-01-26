@@ -239,7 +239,7 @@ textarea#supportAnswer{
         </table>
         <div class='answeringBtn' style='width:100%;'>
             <div style="float: left;">
-            <a href="<%=request.getContextPath()%>/admin/supportList?cPage=<%=cPage%>">
+            <a href="<%=request.getContextPath()%>/admin/supportList">
                 <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                 <small>목록</small>
             </a>

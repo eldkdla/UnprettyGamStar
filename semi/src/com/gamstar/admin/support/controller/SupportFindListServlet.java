@@ -15,7 +15,7 @@ import com.gamstar.admin.support.model.vo.SupportBoard;
 /**
  * Servlet implementation class SupportFindListServlet
  */
-@WebServlet("/admin/supportFind")
+@WebServlet("/admin/support/search")
 public class SupportFindListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,8 +45,8 @@ public class SupportFindListServlet extends HttpServlet {
 		else
 		{
 		
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 			
 			//페이징처리
 					int cPage;
@@ -71,13 +71,13 @@ public class SupportFindListServlet extends HttpServlet {
 					int totalSupport=0;
 					switch(searchType)
 					{
-						case "searchSupportId" : list=new SupportService().searchIdList(cPage,numPerPage,searchKeyword);
+						case "id" : list=new SupportService().searchIdList(cPage,numPerPage,searchKeyword);
 												 totalSupport=new SupportService().selectSupportCountId(searchKeyword);break;
-						case "searchSupportTitle" : list=new SupportService().searchTitleList(cPage,numPerPage,searchKeyword);
+						case "title" : list=new SupportService().searchTitleList(cPage,numPerPage,searchKeyword);
 						 						    totalSupport=new SupportService().selectSupportCountTitle(searchKeyword);break;
-						case "searchSupportContent" : list=new SupportService().searchContentList(cPage,numPerPage,searchKeyword);
+						case "content" : list=new SupportService().searchContentList(cPage,numPerPage,searchKeyword);
 													  totalSupport=new SupportService().selectSupportCountContent(searchKeyword);break;
-						case "searchSupportAll" : list=new SupportService().searchAllList(cPage,numPerPage,searchKeyword);
+						case "sAll" : list=new SupportService().searchAllList(cPage,numPerPage,searchKeyword);
 												  totalSupport=new SupportService().selectSupportCountAll(searchKeyword);break;
 					}
 		
@@ -94,8 +94,8 @@ public class SupportFindListServlet extends HttpServlet {
 					}
 					else
 					{
-						pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/supportFind?cPage="+(pageNo-1)
-								+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+						pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/search?cPage="+(pageNo-1)
+								+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 					}
 					if(totalPage==0)
 					{
@@ -110,8 +110,8 @@ public class SupportFindListServlet extends HttpServlet {
 						}
 						else
 						{
-							pageBar+="<small><a href='"+request.getContextPath()+"/admin/supportFind?cPage="+pageNo
-									+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+							pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/search?cPage="+pageNo
+									+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 						}
 						pageNo++;
 					}
