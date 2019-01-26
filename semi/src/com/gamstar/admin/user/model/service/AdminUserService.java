@@ -38,13 +38,13 @@ public class AdminUserService {
 			
 			switch(orderType)
 			{
-				case "name-desc" : list=new AdminUserDao().orderUserListND(conn,cPage,numPerPage);break;
-				case "name-asc" : list=new AdminUserDao().orderUserListNA(conn,cPage,numPerPage);break;
-				case "id-desc" : list=new AdminUserDao().orderUserListID(conn,cPage,numPerPage);break;
-				case "id-asc" : list=new AdminUserDao().orderUserListIA(conn,cPage,numPerPage);break;
-				case "enroll-desc" : list=new AdminUserDao().orderUserListED(conn,cPage,numPerPage);break;
-				case "enroll-asc" : list=new AdminUserDao().orderUserListEA(conn,cPage,numPerPage);break;
-				case "state-desc" : list=new AdminUserDao().orderUserListSD(conn,cPage,numPerPage);break;
+				case "nd" : list=new AdminUserDao().orderUserListND(conn,cPage,numPerPage);break;
+				case "na" : list=new AdminUserDao().orderUserListNA(conn,cPage,numPerPage);break;
+				case "ide" : list=new AdminUserDao().orderUserListID(conn,cPage,numPerPage);break;
+				case "ia" : list=new AdminUserDao().orderUserListIA(conn,cPage,numPerPage);break;
+				case "ed" : list=new AdminUserDao().orderUserListED(conn,cPage,numPerPage);break;
+				case "ea" : list=new AdminUserDao().orderUserListEA(conn,cPage,numPerPage);break;
+				case "sde" : list=new AdminUserDao().orderUserListSD(conn,cPage,numPerPage);break;
 			}
 			
 			close(conn);

@@ -15,7 +15,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class UserOrderedListAdminServlet
  */
-@WebServlet("/admin/userOrderedList")
+@WebServlet("/admin/user/reorder")
 public class UserOrderedListAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 		}
 		else
 		{
-			String orderType=request.getParameter("orderType");
+			String orderType=request.getParameter("oType");
 			
 			//페이징처리
 			int cPage;
@@ -83,8 +83,8 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/user/reorder?cPage="+(pageNo-1)
+						+"&numPerPage="+numPerPage+"&oType="+orderType+"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -99,15 +99,15 @@ public class UserOrderedListAdminServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userList?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/user/reorder?cPage="+(pageNo)
+							+"&numPerPage="+numPerPage+"&oType="+orderType+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/userList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/user/reorder?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			

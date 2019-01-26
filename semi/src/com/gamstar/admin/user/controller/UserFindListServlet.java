@@ -15,7 +15,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class UserFindListServlet
  */
-@WebServlet("/admin/userFindList")
+@WebServlet("/admin/user/search")
 public class UserFindListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,8 +45,8 @@ public class UserFindListServlet extends HttpServlet {
 		}
 		else
 		{
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 
 			//페이징처리
 			int cPage;
@@ -73,13 +73,13 @@ public class UserFindListServlet extends HttpServlet {
 			
 			switch(searchType)
 			{
-				case "searchId" : list=new AdminUserService().searchIdList(cPage,numPerPage,searchKeyword);
+				case "id" : list=new AdminUserService().searchIdList(cPage,numPerPage,searchKeyword);
 				totalMember=new AdminUserService().selectMemberCountId(searchKeyword);break;
-				case "searchName" : list=new AdminUserService().searchNameList(cPage,numPerPage,searchKeyword);
+				case "name" : list=new AdminUserService().searchNameList(cPage,numPerPage,searchKeyword);
 				totalMember=new AdminUserService().selectMemberCountName(searchKeyword);break;
-				case "searchEmail" : list=new AdminUserService().searchEmailList(cPage,numPerPage,searchKeyword);
+				case "email" : list=new AdminUserService().searchEmailList(cPage,numPerPage,searchKeyword);
 				totalMember=new AdminUserService().selectMemberCountEmail(searchKeyword);break;
-				case "searchPhone" : list=new AdminUserService().searchPhoneList(cPage,numPerPage,searchKeyword);System.out.println("servlet,검색 들어감");
+				case "phone" : list=new AdminUserService().searchPhoneList(cPage,numPerPage,searchKeyword);System.out.println("servlet,검색 들어감");
 				totalMember=new AdminUserService().selectMemberCountPhone(searchKeyword);break;
 			}
 			
@@ -96,8 +96,8 @@ public class UserFindListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/user/search?cPage="+(pageNo-1)
+						+"&numPerPage="+numPerPage+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -112,8 +112,8 @@ public class UserFindListServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/userFindList?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/user/search?cPage="+(pageNo)
+							+"&numPerPage="+numPerPage+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

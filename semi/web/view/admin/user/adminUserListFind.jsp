@@ -3,8 +3,8 @@
 <%@ page import="java.util.*, com.gamstar.user.model.vo.User" %>
 <%
 	List<User> list=(List)request.getAttribute("list");
-	String searchType=request.getParameter("searchType");
-	String searchKeyword=request.getParameter("searchKeyword");
+	String searchType=request.getParameter("type");
+	String searchKeyword=request.getParameter("keyword");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
 %>
@@ -284,16 +284,16 @@
      
      <div id="numPerPage-container" style="text-align: right; margin:0;">
 		<small>정렬</small> 
-		<form name="pageTypeFrm" id="pageTypeFrm" 
-		action="<%=request.getContextPath()%>/admin/userOrderedList" style="display: inline-block; margin:0;">
-			<select name="orderType" id="orderType" onchange='submit();'>
-				<option value="name-desc">이름↓</option>
-				<option value="name-asc" >이름↑</option>
-				<option value="id-desc">아이디↓</option>
-				<option value="id-asc" >아이디↑</option>
-				<option value="enroll-desc">가입일↓</option>
-				<option value="enroll-asc" >가입일↑</option>
-				<option value="state-desc" >정지일수↓</option>	
+		<form name="orderTypeFrm" id="orderTypeFrm" 
+		action="<%=request.getContextPath()%>/admin/user/reorder" style="display: inline-block;">
+			<select name="oType" id="orderType" onchange='submit();'>
+				<option value="nd" >이름↓</option>
+				<option value="na">이름↑</option>
+				<option value="ide" >아이디↓</option>
+				<option value="ia">아이디↑</option>
+				<option value="ed" >가입일↓</option>
+				<option value="ea" >가입일↑</option>
+				<option value="sde">정지일수↓</option>		
 			</select>
 		<small>페이지당 회원수 :</small> 
 			<select name="numPerPage" id="numPerPage" onchange='submit();'>
@@ -361,14 +361,14 @@
      	</div>
      </div>
      <div class='userSearch' >
-         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/userFindList">    
-             <select name='searchType'>
-                 <option value='searchId' <%=searchType.equals("searchId")?"selected":"" %>>아이디</option>
-                 <option value='searchName' <%=searchType.equals("searchName")?"selected":"" %>>이름</option>
-                 <option value='searchEmail' <%=searchType.equals("searchEmail")?"selected":"" %>>이메일</option>
-                 <option value='searchPhone' <%=searchType.equals("searchPhone")?"selected":"" %>>휴대폰</option>
+         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/serach">    
+             <select name='type'>
+                 <option value='id' <%=searchType.equals("id")?"selected":"" %>>아이디</option>
+                 <option value='name' <%=searchType.equals("name")?"selected":"" %>>이름</option>
+                 <option value='email' <%=searchType.equals("email")?"selected":"" %>>이메일</option>
+                 <option value='phone' <%=searchType.equals("phone")?"selected":"" %>>휴대폰</option>
              </select>
-             <input type='text' name='searchKeyword' value='<%=searchKeyword!=null?searchKeyword:"" %>'/>
+             <input type='text' name='keyword' value='<%=searchKeyword!=null?searchKeyword:"" %>'/>
              <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
          </form>
      </div>
