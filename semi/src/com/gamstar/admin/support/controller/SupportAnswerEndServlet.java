@@ -80,6 +80,20 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			List<String> fileOriName=new FileController().getFileOriNameList(mr, "fileOriName");
 			List<String> fileReName=new FileController().getFileNameList(mr, "fileReName");
 			List<String> fileTypeStr=new FileController().getFileTypeList(mr, "fileTypeStr");
+			int[] fileTypeIndex=new int[fileTypeStr.size()];
+			for(int i=0; i<fileTypeStr.size();i++)
+			{
+				int fileNameIndex=fileTypeStr.get(i).lastIndexOf('.');
+				String fileType=fileTypeStr.get(i).substring(fileNameIndex);
+				if(fileType.equals("jpg")||fileType.equals("jpeg")||fileType.equals("png")||fileType.equals("bmp")||fileType.equals("gif"))
+				{
+					fileTypeIndex[i]=1;
+				}
+				else {
+					fileTypeIndex[i]=0;
+				}
+				
+			}
 			
 			
 			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
