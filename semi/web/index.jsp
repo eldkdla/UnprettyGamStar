@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/chat.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/userSupport.css">
 <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean"
         rel="stylesheet">
 
@@ -16,7 +17,7 @@
 </head>	
 <body>
 <script>
-
+3
 <%-- if(<%=request.getSession().getAttribute("userNo")%>==null)
 	{
 	alert('로긴해~');
@@ -41,12 +42,46 @@ if(request.getSession().getAttribute("userNo") == null)
 <a href="<%=request.getContextPath()%>/view/login.jsp">로그인</a>
 <p><%=login%>가 로그인 한 상태입니다.</p>
 <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
-
+<button onclick="supportBtn()">문의하기</button>
 <% if(request.getSession().getAttribute("userNo")!=null&&(Integer)request.getSession().getAttribute("userNo")<0) {
 	request.getRequestDispatcher("/admin/goAdminMain").forward(request, response);
 } %>
+    <!-- 문의하기 -->
+     <div id="supportMainDiv" class="supportMain" onclick="zindexchange(this)">
+
+            <div id="supportMainStatus" onmousedown="startDrag(event, document.getElementById('supportMainDiv'))">
+                <span style="color: white; font-size: 14px; position: relative; left: 5px; "></span>
+                <button id="chatroomcloseBtn" onclick="document.getElementById('supportMainDiv').style.display='none';"> x
+                </button>
+            </div>
+            <h2 style="text-align: center; position: relative; top:13px;">Q&A</h2>
+            <form action="" method="post" enctype="multipart/form-data" name="" id="userSupportForm">
+            <div id="supportDiv">
+                <div id="supportTitle">
+                    <span id="supportTitleSpan">제목</span>
+                    <input id="supportTitleInput" type="text" name="userSupportTitle"/>
+                </div>
+                <div id="supportContent">
+                    <span id="supportContentSpan">내용</span>
+                    <textarea id="supportContentTextArea" name="userSupportContent"></textarea>
+                </div>
+                <div id="supportFile">
+                    <span id="supportFileSpan">첨부파일</span>
+                       <input type="file" id="supportFileInput" name="supportFileName[]" multiple="multiple">
+                       
+                </div>
+            </div>
+            <div id="supportBottom">
+                <button id="supportSubmit">보내기</button>
+            </div>
+            </form>
+        </div>
     
     
+    
+    
+    
+    <!-- 채팅방 -->
      <!--알림버튼(수정해야함)-->
    <button onclick=" chat()">알림</button>
 
@@ -132,7 +167,50 @@ if(request.getSession().getAttribute("userNo") == null)
     
 </body>
 
+<script>
+//문의하기
+function supportBtn() {
+    $('#userSupportForm textArea').val('');
+    $('#supportTitleInput').val('');
+    $('#supportTitleInput').val('');
+    document.getElementById('supportMainDiv').style.display = 'block';
+    document.getElementById('supportMainDiv').style.left = "300px";
+    document.getElementById('supportMainDiv').style.top = "60px";
+}
 
+$("#userSupportForm").on('submit', function(e){
+    e.preventDefault();
+    var files = $('#userSupportForm input[type=file]')[0].files;
+		var formData = new FormData();
+		var title= $('#supportTitleSpan');
+		var content = $('#userSupportForm textArea');
+		//var texttttt = $(textArea).val();
+		
+		
+		for (var i = 0; i < files.length; i++) {
+			formData.append('file' + i, files[i]);
+		}
+		
+		formData.append('content', $('#userSupportForm textArea').val());
+		formData.append('title', $('#supportTitleInput').val());
+    $.ajax({
+    	
+        type: 'POST',
+        url: "<%=request.getContextPath()%>/userSupportData",
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData:false,
+        success: function(data){
+            
+        },error:function(xhr,status){
+            alert(xhr+" : "+status);   
+        }
+        
+    });
+    document.getElementById('supportMainDiv').style.display='none';
+    });
+</script>
 <script>
 
 

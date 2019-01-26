@@ -33,7 +33,8 @@ public class InputChatServlet extends HttpServlet {
 		int chatNo=Integer.parseInt(chatno);
 		String chatText=request.getParameter("inputChatText");
 		//String userId="user10";
-		int myNo=(int)request.getSession().getAttribute("userNo");;
+		//int myNo=(int)request.getSession().getAttribute("userNo");;
+		int myNo=1;
 		new InputChatService().inputchat(chatText, chatNo, myNo);
 	}
 

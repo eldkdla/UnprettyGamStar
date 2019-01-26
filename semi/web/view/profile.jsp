@@ -20,6 +20,7 @@
        
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
@@ -342,7 +343,7 @@
     <script>
     		//공용 Alert 모달창
 		    function profileAlert(alertMsg){
-		    	$('#myModal').remove();
+		    	$('#myModal').remove(); 
 		    	$('body').append($('<div/>',{
 		    		id:'myModal',
 		    		class:'modal'
@@ -404,7 +405,29 @@
             	 <%if(isRequestFollowDataArray.size()!=0){
             		 for(int i=0;i<isRequestFollowDataArray.size();i++){
             		 %>
-            		 $('body').alertBox({
+     		    	$('body').append($('<div/>',{
+     		    		id:'requestFollow<%=i%>',
+     		    		class:'requestFollowModal'
+     		    	}));
+     		    	$('#requestFollow<%=i%>').append($('<div/>',{
+     		    		class:'requestFollowModal-content'
+     		    	}));
+     		    	$('#requestFollow<%=i%>>div').append($('<p/>',{
+     		    		text:"'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다"
+     		    	}));
+     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+     		    		text:'보류'
+     		    	}));
+     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+     		    		text:'수락'
+     		    	}));
+     		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+     		    		text:'거절'
+     		    	}));
+     		    	$('#requestFollow<%=i%>>div>div').on("click",function(){
+     		    		$('#requestFollow<%=i%>').remove();
+     		    	});
+            		 <%-- $('body').alertBox({
             		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
             		        lTxt: '보류',
             		        lCallback: function(){
@@ -430,7 +453,7 @@
             	            		}
             	            	});
             		        }
-            		      });
+            		      }); --%>
             		 <%}
             		 }%>
          	<%}
