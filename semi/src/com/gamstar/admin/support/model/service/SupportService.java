@@ -81,6 +81,8 @@ public class SupportService {
 		
 		return changeRootResult;
 	}
+	
+		
 	//수정
 	//서포트 게시판 답변 입력하기
 		public int editAnswer(SupportBoard supportAnswer)

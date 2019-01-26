@@ -1,6 +1,7 @@
 package com.gamstar.admin.support.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,9 +13,9 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.gamstar.admin.support.model.service.SupportService;
 import com.gamstar.admin.support.model.vo.SupportBoard;
+import com.gamstar.filecontroller.FileController;
 import com.oreilly.servlet.MultipartRequest;
-
-import common.MyFileRenamePolicy;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
  * Servlet implementation class SupportAnswerEditServlet
@@ -67,13 +68,18 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			int maxSize=1024*1024*10;
 			
 			
-			MultipartRequest mr=new MultipartRequest(request, saveDir, maxSize, "UTF-8");
+			MultipartRequest mr=new MultipartRequest(request, saveDir, maxSize, "UTF-8",new DefaultFileRenamePolicy());
 			
 			SupportBoard supportAnswer=new SupportBoard();
 			supportAnswer.setSupportBoardNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo"))*(-1));
 			supportAnswer.setSupportBoardContent(mr.getParameter("supportContent").trim());
 			supportAnswer.setSupportBoardRootNo(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
 			supportAnswer.setSupportBoardWriterNo((Integer)request.getSession().getAttribute("userNo"));
+			
+			//파일받기
+			List<String> fileOriName=new FileController().getFileOriNameList(mr, "fileOriName");
+			List<String> fileReName=new FileController().getFileNameList(mr, "fileReName");
+			List<String> fileTypeStr=new FileController().getFileTypeList(mr, "fileTypeStr");
 			
 			
 			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
