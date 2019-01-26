@@ -11,11 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gamstar.admin.report.model.vo.ReportBoard;
+import com.gamstar.admin.report.model.vo.ReportBoardMedia;
 import com.gamstar.filecontroller.FileController;
 import com.gamstar.filecontroller.NewspeedMediaReNamePolicy;
 import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedMedia;
 import com.gamstar.newspeed.model.vo.NewspeedMediaTag;
+import com.gamstar.report.model.service.ReportService;
 import com.oreilly.servlet.MultipartRequest;
 
 /**
@@ -59,13 +61,28 @@ public class ReportRequestServlet extends HttpServlet {
 		System.out.println(targetUserNo +   "  "  + targetNewspeedNo);
 		
 		ReportBoard report = new ReportBoard();
-		report.setReportBoardNo(targetNewspeedNo);
+		report.setReportBoardLink(targetNewspeedNo);
 		report.setReportBoardType(ReportBoard.TYPE_NEWSPEED);
 		report.setReportBoardTargetNo(targetUserNo);
 		report.setReportBoardWriterNo(userNo);
+		report.setReportBoardContent(content);
 		
-		fileCont.getFileNameList(mr, "reportmedia[]");
+		List<ReportBoardMedia> reportBoardMediaList = new ArrayList<ReportBoardMedia>();
+		List<String> fileNameList = fileCont.getFileNameList(mr, "reportmedia[]");
 		
+		while(fileNameList.size() > 0) {
+			ReportBoardMedia rBM = new ReportBoardMedia();
+			rBM.setReportBoardMediaPathRe("upload/report/" + fileNameList.get(fileNameList.size() - 1));
+			rBM.setReportBoardMediaPathOri("upload/report/" + fileNameList.remove(fileNameList.size() - 1));
+			rBM.setReportBoardMediaIndex(reportBoardMediaList.size());
+			
+			reportBoardMediaList.add(rBM);
+		}
+		
+		ReportService reportService = new ReportService();
+		
+		reportService.insertReportBoardTypeNewspeed(report, reportBoardMediaList);
+				
 		response.getWriter().println("success");
 	}
 
