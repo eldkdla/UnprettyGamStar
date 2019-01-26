@@ -651,7 +651,7 @@
                         		
                         			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                 					for(ReportBoardMedia m : mediaList) {%>
-                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:10%; display:inline-block;"/>
+                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30px; height:30px; display:inline-block;"/>
                         	<%}
                 					if(mediaList.size()>3)
                 					{%>
@@ -690,7 +690,7 @@
                     				<%  
                     					List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                     					for(ReportBoardMedia m : mediaList) {%>
-                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30%; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
+                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
                     					<%} %>
                    					</div>
                     			</div>
@@ -809,7 +809,7 @@
         function showImg(i){
             var url=i;
             var title='첨부파일';
-            var shape='left=200px, top=100px, width=100%, height=100%';
+            var shape=' width=100%, height=100%';
 
             var popup=open(i,title,shape);
         }
@@ -896,6 +896,10 @@
 	        	$('#stopForm').submit();
 	    	});
 	    }
+		
+		function goSelf(){
+			
+		}
 
     </script>
 </body>

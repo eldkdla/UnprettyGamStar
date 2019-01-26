@@ -8,6 +8,7 @@
 	String searchKeyword=request.getParameter("searchKeyword");
 	int numPerPage=(int)request.getAttribute("numPerPage");
 	String pageBar=(String)request.getAttribute("pageBar");
+	int cPage=(int)request.getAttribute("cPage");
 	
 	
 %>
@@ -634,7 +635,7 @@
                        		{
                        		case 0: typeStr="user";
                						linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";
-               						selfLink=request.getContextPath()+"/admin/reportList";
+               						selfLink=request.getContextPath()+"/admin/reportSearch?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
                						break;
                        		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
                        		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
@@ -657,7 +658,7 @@
                         		
                         			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                 					for(ReportBoardMedia m : mediaList) {%>
-                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:10%; display:inline-block;"/>
+                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30px; height:30px; display:inline-block;"/>
                         	<%}
                 					if(mediaList.size()>3)
                 					{%>
@@ -696,7 +697,7 @@
                     				<%  
                     					List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                     					for(ReportBoardMedia m : mediaList) {%>
-                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30%; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
+                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
                     					<%} %>
                    					</div>
                     			</div>
