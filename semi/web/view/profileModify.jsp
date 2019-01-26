@@ -220,7 +220,7 @@
     <script>
     	//이름입력시 변경 활성화
     	$('#modifyName').on('keyup',(function(){
-    		reg = /([^가-힣ㅣ\x20])/i;
+    		reg = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
     		
     		if(reg.test($(this).val())){
     			$(this).val($(this).val().replace(reg,''));
