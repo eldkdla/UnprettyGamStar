@@ -327,18 +327,9 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
   }
-  #chkBeforePw{
- 	   position: relative;
-       background-color: white;
-       float: right;
-       right: 65px;
-       bottom: 21px;
-       font-size: 14px;
-       font-family: 'Gothic A1', sans-serif;
-       font-weight: bold;
-  }
 
-  #chkPwDiv{
+
+  .chkEmailPhonePw{
        position: relative;
        background-color: white;
        float: right;
@@ -348,16 +339,7 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
    }
-     #chkPwDv{
-      position: relative;
-       background-color: white;
-       float: right;
-       right: 65px;
-       bottom: 21px;
-       font-size: 14px;
-       font-family: 'Gothic A1', sans-serif;
-       font-weight: bold;
- 	 }
+ 
    
  }
  

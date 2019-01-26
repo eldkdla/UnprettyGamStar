@@ -57,7 +57,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		System.out.println(request.getServletContext().getRealPath("/") +"절대");
 
 		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
-		int userNo = (int)request.getSession(false).getAttribute("userNo");
+		int userNo = (int)request.getSession().getAttribute("userNo");
 		NewspeedService nService = new NewspeedService();
 		UserService uService = new UserService();
 		
@@ -68,7 +68,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 			return;
 		}
 		
-		List<NewspeedComment> newspeedCommentList = nService.selectNewspeedCommentList(newspeedNo);
+		List<NewspeedComment> newspeedCommentList = nService.selectNewspeedCommentList(newspeedNo, userNo);
 		List<NewspeedMedia>newspeedMediaList = nService.selectNewspeedMediaList(newspeedNo);
 		List<NewspeedMediaTag>newspeedMediaTagList = nService.selectNespeedMediaTagList(newspeedNo);
 		boolean isLike = nService.isLiked(userNo, newspeedNo);

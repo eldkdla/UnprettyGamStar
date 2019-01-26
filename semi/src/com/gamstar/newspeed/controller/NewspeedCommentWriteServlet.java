@@ -59,7 +59,7 @@ public class NewspeedCommentWriteServlet extends HttpServlet {
 		System.out.println(newspeedComment);
 		
 		int result = nService.insertNewspeedComment(newspeedComment);
-		List<NewspeedComment> newspeedCommentList = nService.selectNewspeedCommentList(newspeedNo);
+		List<NewspeedComment> newspeedCommentList = nService.selectNewspeedCommentList(newspeedNo, userNo);
 		JSONArray commentListJSONArray = new NewspeedDataJSONParser().getNewspeedCommentListJSONArray(newspeedCommentList, userNo);
 		
 		response.getWriter().println(commentListJSONArray.toJSONString());
