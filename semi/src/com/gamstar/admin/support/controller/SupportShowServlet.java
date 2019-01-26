@@ -82,10 +82,13 @@ public class SupportShowServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/supportList?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+(pageNo-1)
+						+"&numPerPage="+numPerPage+"&showSupport="+selectType+"'><</button>";
 			}
-			
+			if(totalPage==0)
+			{
+				pageBar+="<small><span class='cPage'>1</span></small>";
+			}
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
@@ -94,15 +97,15 @@ public class SupportShowServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/supportList?cPage="+pageNo
-							+"&numPerPage="+numPerPage+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
+							+"&numPerPage="+numPerPage+"&showSupport="+selectType+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/supportList?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
 						+"&numPerPage="+numPerPage+"'>></button>";
 			}
 			

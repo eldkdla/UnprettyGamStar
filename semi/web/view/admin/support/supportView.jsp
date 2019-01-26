@@ -19,6 +19,12 @@
 		backToList = request.getContextPath()+"/admin/supportFind?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
 	}
 	
+	if(request.getParameter("showSupport")!=null)
+	{
+		String showSupport=request.getParameter("showSupport");
+		backToList=request.getContextPath()+"/admin/support/show.do?cPage="+cPage+"&showSupport="+showSupport;
+	}
+	
 
 %>
 <style>

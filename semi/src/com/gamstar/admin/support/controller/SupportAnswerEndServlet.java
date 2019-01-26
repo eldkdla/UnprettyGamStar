@@ -50,6 +50,8 @@ public class SupportAnswerEndServlet extends HttpServlet {
 		else
 		{
 		
+			String backToList="";//이전 목록이 어디인지... 아 첨부터 목록 하나로 만들었어야 햇는데
+			
 			if(!ServletFileUpload.isMultipartContent(request))
 			{
 				request.setAttribute("msg", "답변 등록 실패");
@@ -75,14 +77,14 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			
 			
 			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
-			
+			System.out.println("있음? temp 나옴? "+temp);
 			int result=0;
 
-			if(temp.getSupportBoardRootNo()!=0) {
-				result=new SupportService().editAnswer(supportAnswer);
+			if(temp.getSupportBoardRootNo()==0) {
+				result=new SupportService().insertAnswer(supportAnswer);				
 			}
 			else {
-				result=new SupportService().insertAnswer(supportAnswer);				
+				result=new SupportService().editAnswer(supportAnswer);
 			}
 			
 			
@@ -91,7 +93,7 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			String loc="";
 			
 			
-			int cPage=Integer.parseInt(request.getParameter("cPage"));
+			int cPage=Integer.parseInt(mr.getParameter("cPage"));
 			
 			
 			if(result>0)

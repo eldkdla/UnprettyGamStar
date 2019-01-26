@@ -86,7 +86,7 @@ public class SupportService {
 		public int editAnswer(SupportBoard supportAnswer)
 		{
 			Connection conn=getConnection();
-			int result=new SupportDao().insertAnswer(conn, supportAnswer);
+			int result=new SupportDao().editAnswer(conn, supportAnswer);
 			
 			if(result>0)
 			{

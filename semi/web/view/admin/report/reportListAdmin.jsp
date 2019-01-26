@@ -622,28 +622,29 @@
                 <%}
                 	else {
                 		for(ReportBoard r : list){ 
-                       		int type=r.getReportBoardType();
-                       		String typeStr="";
-                       		String linkStr="";
-                       		switch(type)
-                       		{
-                       		case 0: typeStr="user"; 
-                       				linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";break;
-                       		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
-                       		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
-                       		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
-                        	}
+	                       		int type=r.getReportBoardType();
+	                       		String typeStr="";
+	                       		String linkStr="";
+		                       		switch(type)
+		                       		{
+			                       		case 0: typeStr="user"; 
+			                       				linkStr="window.open('"+request.getContextPath()+"/view/profile?uu="+r.getReportBoardLink()+"');";break;
+			                       		case 1 : typeStr="newspeed";linkStr="alert('준비중입니다.')";break;
+			                       		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
+			                       		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
+		                        	}
                     %>
                     <tr>
                         <td>
                         	<input type="checkbox" class='checks' onclick='checkTr(this)'/>
                         	<input type='hidden' class='reportedTargetNo' value='<%=r.getReportBoardTargetNo()%>'/>
                         	<input type='hidden' class='reportBoardNo' value='<%=r.getReportBoardNo() %>'/>
-                        	<input type='hidden' class='reportedBoardType' value='<%=r.getReportBoardLink() %>'/>
+                        	<input type='hidden' class='reportedBoardType' value='<%=r.getReportBoardType() %>'/>
+                        	<input type='hidden' class='reportedLink' value='<%=r.getReportBoardLink() %>'/>
                         </td>
                         <td class='reportedTargetName'><%=r.getReportBoardTargetId() %></td>
                         <td><%=typeStr %></td>
-                        <td class='reportedLink' onclick="<%=linkStr %>" ><a href=''>go</a></td>
+                        <td onclick="<%=linkStr %>" ><a href=''>go</a></td>
                         <td>
                         	<a onclick='openNextTr(this);'>
                         		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {
@@ -775,8 +776,8 @@
         	//선택 줄 정보 form에 담기
         	reportedTargetNo=$(tr).children('td:first-of-type').children('.reportedTargetNo').val();
         	$('#reportedId').val(reportedTargetNo);
-        	reportedTargetId=$(tr).children('.reportedTargetName').text();
-        	$('#reportedName').val(reportedTargetId);
+        	reportedTargetName=$(tr).children('.reportedTargetName').text();
+        	$('#reportedName').val(reportedTargetName);
         	reportBoardNo=$(tr).children('td:first-of-type').children('.reportBoardNo').val();
         	$('#reportBoardNo').val(reportBoardNo);
         }
@@ -827,10 +828,10 @@
         	});
         	
         	//정보모으기
-        	link=$(tr).children('.reportedLink').children().text();
+        	link=$(tr).children('td:first-of-type').children('.reportedLink').val();
         	$('#reportDeleteLink').val(link);
-        	type=$(tr).children('.reportedBoardType').text();
-        	$('#reportDeleteType').val(type);
+        	boardType=$(tr).children('td:first-of-type').children('.reportedBoardType').val();
+        	$('#reportDeleteType').val(boardType);
         	
         	$('#reportDeleteFrm').submit();
         	
@@ -838,19 +839,16 @@
         
         function deleteTarget_val(){
         	
-        	if(type!=0&&type!=2)
+        	if(boardType==1)
        		{   
-	        	result=confirm(type+'타입의 '+link+'번을 삭제하시겠습니까?');
+	        	result=confirm(boardType+'타입의 '+link+'번을 삭제하시겠습니까?');
        		}
-        	else
-       		{
-        		if(type==0)
-       			{
-		       		alert(type+'타입은 삭제할 수 없습니다.');		
-       			}
-       			result=false;
-       		}
-	        	return result;
+        	else if(boardType==0)
+   			{
+      			alert('유저 탈퇴는 회원관리에서 가능합니다.');		
+     			result=false;
+   			}
+	       	return result;
         }
         
         function stopAllTr(){
