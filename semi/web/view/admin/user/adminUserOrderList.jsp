@@ -292,7 +292,8 @@
 				<option value="id-desc" <%=orderType.equals("id-desc")?"selected":"" %>>아이디↓</option>
 				<option value="id-asc"  <%=orderType.equals("id-asc")?"selected":"" %>>아이디↑</option>
 				<option value="enroll-desc" <%=orderType.equals("enroll-desc")?"selected":"" %>>가입일↓</option>
-				<option value="enroll-asc"  <%=orderType.equals("enroll-asc")?"selected":"" %>>가입일↑</option>	
+				<option value="enroll-asc"  <%=orderType.equals("enroll-asc")?"selected":"" %>>가입일↑</option>
+				<option value="state-desc" <%=orderType.equals("state-desc")?"selected":"" %>>정지일수↓</option>		
 			</select>
 		<small>페이지당 회원수 :</small> 
 			<select name="numPerPage" id="numPerPage" onchange='submit();'>

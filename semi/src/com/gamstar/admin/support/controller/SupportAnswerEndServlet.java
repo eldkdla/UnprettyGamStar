@@ -109,7 +109,8 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			{
 				view="/view/common/msg.jsp";
 				msg="답변 등록 실패";
-				loc="/view/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
+				loc="/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
+				request.setAttribute("loc", loc);
 				request.setAttribute("msg", msg);
 			}
 			request.setAttribute("cPage", cPage);

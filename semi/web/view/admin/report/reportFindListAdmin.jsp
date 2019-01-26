@@ -17,7 +17,7 @@
     /* 첨부파일 미리보기 */
         div.showMedia{
             width : 100%;
-            height : 30%;
+            max-height : 30%;
             padding: auto;
             line-height: 30%;
             white-space: nowrap;
@@ -605,13 +605,14 @@
             <br/>
             <br/>
             <!-- 신고내역리스트 -->
-            <table class='type'>
+            <table class='type' style="width:100%;">
               <thead>
                     <tr>
                         <th id='ck' style="width:3%;"><input type="checkbox" id='rboardCheckAll' class='checkAll'/></th>
                         <th id='reportId' style="width:15%;">Id</th>
                         <th style="width:10%;">Type</th>
                         <th style="width:10%;">link</th>
+                        <th style="width:3%;"></th>
                         <th style="width:35%;">Content</th>
                         <th style="width:15%;">Date</th>
                         <th style="width:20%;">처리</th>
@@ -620,7 +621,7 @@
                 <tbody>
                 <% if(list==null || list.isEmpty()) { %>
                 	<tr>
-                		<td colspan='7'>
+                		<td colspan=8>
                 			'<%=searchKeyword %>'로 검색되는 결과가 없습니다.
                 		</td>
                 	</tr>
@@ -649,34 +650,24 @@
                         	<input type="checkbox" class='checks' onclick='checkTr(this)'/>
                         	<input type='hidden' class='reportedTargetNo' value='<%=r.getReportBoardTargetNo()%>'/>
                         	<input type='hidden' class='reportBoardNo' value='<%=r.getReportBoardNo() %>'/>
-                        	<input type='hidden' class='reportedBoardType' value='<%=r.getReportBoardLink() %>'/>
+                        	<input type='hidden' class='reportedBoardType' value='<%=r.getReportBoardType() %>'/>
+                        	<input type='hidden' class='reportedLink' value='<%=r.getReportBoardLink() %>'/>
                         </td>
                         <td class='reportedTargetName'><%=r.getReportBoardTargetId() %></td>
                         <td><%=typeStr %></td>
-                        <td class='reportedLink'><a href='<%=selfLink %>' onclick="<%=linkStr %>;" >go</a></td>
+                        <td onclick="<%=linkStr %>" ><a href=''>go</a></td>
+                        <td>
+                        	<% if(!mList.isEmpty()) {%>
+                        	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:30px; display:block;"/>
+                        </td>
                         <td>
                         	<a onclick='openNextTr(this);'>
-                        		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {
-                        		
-                        			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
-                					for(ReportBoardMedia m : mediaList) {%>
-                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30px; height:30px; display:inline-block;"/>
-                        	<%}
-                					if(mediaList.size()>3)
-                					{%>
-                						<br/>
-                					<%} 
-                				}
-                        		if(r.getReportBoardContent()!=null){ %>
-	                        	<%if(r.getReportBoardContent().length()>20) { %>
+                        	<%if(r.getReportBoardContent().length()>20) { %>
 	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
-	                        	<%} else { %>
+	                        <%} else{ %>
 	                        	<%=r.getReportBoardContent() %>
-	                        	<%} 
-	                        	} else{
-	                        	%> '내용없음'
-	                        	<%} %>
-                        	</a>
+	                        <%} %>
+	                        </a>
                         </td>
                         <td><%=r.getReportBoardDate() %></td>
                         <td>
@@ -689,9 +680,10 @@
                             	정지(<%=r.getReportEndResult() %>)
                             <%} %>
                         </td>
+                        <%} %>
                     </tr>
-                    <tr class='movingTr' style='display:none;'>
-                    	<td colspan='7' style="background-color:rgba(234, 242, 253, 0.5);">
+                    <tr class='movingTr' style='display:none;width:100%;'>
+                    	<td colspan=8 style="background-color:rgba(234, 242, 253, 0.5);">
                     		<div style='width:100%; height:30%; text-align:center;'>
                     			<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {%>
                     			<div class='showMedia'>
