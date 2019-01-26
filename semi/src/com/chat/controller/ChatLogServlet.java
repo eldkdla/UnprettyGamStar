@@ -38,7 +38,8 @@ public class ChatLogServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String chatNo=request.getParameter("chatNo");
 		String myId="user10";
-		int myNo=(int)request.getSession().getAttribute("userNo");;
+		//int myNo=(int)request.getSession().getAttribute("userNo");;
+		int myNo=1;
 		System.out.println("에러??"+chatNo);
 		int chatno=Integer.parseInt(chatNo);
 		System.out.println(chatNo);

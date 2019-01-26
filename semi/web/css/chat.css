@@ -1,5 +1,6 @@
 
     .chatscreen{
+    	z-index:4500000000;
         display: none;
         position: absolute;
         width: 320px;
@@ -177,6 +178,8 @@
         overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
     }
     .chatroomfriend{
+        	z-index:4500000000;
+    
         display: none;
         position: absolute;
         width: 325px;
@@ -316,6 +319,7 @@
 
     /*채팅방 설정*/
     .chatroomMain {
+        z-index:4500000000;
         overflow: hidden;
         display: none;
         position: absolute;
