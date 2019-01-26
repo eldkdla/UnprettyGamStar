@@ -6,6 +6,7 @@ import java.sql.*;
 import static common.JDBCTemplate.*;
 
 import com.gamstar.admin.report.model.vo.ReportBoard;
+import com.gamstar.admin.report.model.vo.ReportBoardMedia;
 import com.gamstar.user.model.dao.UserDao;
 
 public class ReportDao {
@@ -13,7 +14,7 @@ public class ReportDao {
 	
 	public ReportDao() {
 		prop = new Properties();
-		String fileName = UserDao.class.getResource("./reportquery.properties").getPath();
+		String fileName = ReportDao.class.getResource("./reportquery.properties").getPath();
 		try {
 			prop.load(new FileReader(fileName));
 		} catch (Exception e) {
@@ -33,10 +34,33 @@ public class ReportDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(2, reportBoard.getReportBoardLink());
-			pstmt.setInt(4, reportBoard.getReportBoardWriterNo());
 			pstmt.setInt(1, reportBoard.getReportBoardTargetNo());
+			pstmt.setInt(2, reportBoard.getReportBoardLink());
 			pstmt.setString(3, reportBoard.getReportBoardContent());
+			pstmt.setInt(4, reportBoard.getReportBoardWriterNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+
+	public int insertReportBoardMediaTypeNewspeed(Connection conn, ReportBoardMedia reportBoardMedia) {
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReportBoardTypeNewspeedMedia");
+		int result = 0;
+		
+		//insertReportBoardTypeNewspeedMedia = INSERT INTO TB_REPORT_NEWSPEED_MEDIA VALUES((select max(report_no),?,?,?)
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reportBoardMedia.getReportBoardMediaIndex());
+			pstmt.setString(2, reportBoardMedia.getReportBoardMediaPathRe());
+			pstmt.setString(3, reportBoardMedia.getReportBoardMediaPathRe());
 			
 			result = pstmt.executeUpdate();
 		} catch (Exception e) {

@@ -20,7 +20,7 @@
                 }
 
                 if(!checkFile()) {
-                    alert('올릴 수 없는 파일이 존재합니다. 다시 올려주세요');
+                    profileAlert('올릴 수 없는 파일이 존재합니다. 다시 올려주세요');
                     return;
                 }
                 
@@ -134,7 +134,7 @@
 
                     $(thumbnailEditImg).on('click', function () {
                     	if (mediaType == 1) {
-                    		alert('동영상 편집은 지원하지 않습니다');
+                    		profileAlert('동영상 편집은 지원하지 않습니다');
                     		return;
                     	}
                     	
@@ -537,7 +537,7 @@
 
                             $('#tag_box').css('display', 'none');
                             $('#tag_wrapper').css('display', 'none');
-                            alert('자르기 영엮 밖에는 태그할 수 없습니다.');
+                            profileAlert('자르기 영엮 밖에는 태그할 수 없습니다.');
                             return;
                         }
                         $('input[id=xPoint]').attr('value', (x / canvas.width));
@@ -616,7 +616,7 @@
                     console.log(mediaIndex + "왜이러세요?");
                     
                     if (isOverlapTagUser(mediaIndex, $('.search_list:eq(' + (tagIndex-1) + ') input[name=user_no]').val())){
-                    	alert('이미 태그한 유저입니다');
+                    	profileAlert('이미 태그한 유저입니다');
                     	return;
                     }
 
@@ -777,7 +777,7 @@
 
             function showMedaiEdit() {
                 if (!isChrome()) {
-                    alert('이미지 편집은 크롬 브라우저에서만 가능합니다.');
+                    profileAlert('이미지 편집은 크롬 브라우저에서만 가능합니다.');
                     return;
                 }
 
@@ -1085,8 +1085,13 @@
                 relocateTagPoint();
 
                 function relocateTagPoint() {
-                	var x = $('input[class=xPoint]');
-                	var y = $('input[class=yPoint]');
+                	var selected = $('#media_index').val();
+                	
+                	console.log(selected + ' 지금 몇번째를 선택했니????');
+                	
+                	
+                	var x = $('.tag_list_wrapper:eq(' + selected+') input[class=xPoint]');
+                	var y = $('.tag_list_wrapper:eq(' + selected+') input[class=yPoint]');
                 	for (var i = 0; i < x.length; i++) {
                 		$(x[i]).val(($(x[i]).val() * cWidth - left) / width);
                 		$(y[i]).val(($(y[i]).val() * cHeight - top) / height);
@@ -1235,11 +1240,11 @@
             
             function checkValidate() {
             	if (allFiles.length < 1) {
-            		alert('사진이나 영상을 하나 이상 업로드하세요.');
+            		profileAlert('사진이나 영상을 하나 이상 업로드하세요.');
             		console.log('실행되나궁금');
             		return false;
             	} else if ($('#posting_content').text().length < 5) {
-            		alert('최소 5글자 이상 입력하세요.');
+            		profileAlert('최소 5글자 이상 입력하세요.');
             		return false;
             	}
             	
