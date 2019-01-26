@@ -424,8 +424,43 @@
      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
      		    		text:'거절'
      		    	}));
-     		    	$('#requestFollow<%=i%>>div>div').on("click",function(){
+     		    	$('#requestFollow<%=i%>>div>:nth-child(2)').on("click",function(){
      		    		$('#requestFollow<%=i%>').remove();
+     		    		$.ajax({
+    	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
+    	            		type:"POST",
+    	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
+    	            		success:function(data){},
+    	            		error:function(xhr,status){
+    	            			alert(xhr+" : "+status);	
+    	            		}
+    	            	});
+     		    	});
+     		    	$('#requestFollow<%=i%>>div>:nth-child(3)').on("click",function(){
+     		    		$('#requestFollow<%=i%>').remove();
+     		    		 $.ajax({
+					          url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+					          type:'POST',
+					          data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+					          success:function(data){},
+     	            		  error:function(xhr,status){
+     	            		  alert(xhr+" : "+status);	
+     	            		}
+     	            	});
+     		    	});
+     		    	$('#requestFollow<%=i%>>div>:nth-child(4)').on("click",function(){
+     		    		$('#requestFollow<%=i%>').remove();
+     		    		$.ajax({
+     		          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+     		          		type:'POST',
+     		          		data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+     		          		success:function(data){
+     		          		},
+     		          		error:function(xhr,status){
+     		          			alert(xhr+" : "+status);
+     		          		}
+     		          		
+     		          	});
      		    	});
             		 <%-- $('body').alertBox({
             		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
