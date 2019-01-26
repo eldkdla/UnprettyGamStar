@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/chat.css">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/css/userSupport.css">
     <link href="https://fonts.googleapis.com/css?family=Courgette" rel="stylesheet">
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
 
 	<link href="<%=request.getContextPath()%>/css/mainCss.css" rel="stylesheet" type="text/css">
@@ -91,7 +92,7 @@
     <div id="chatroomfriendroom" class="chatroomfriend" onclick="zindexchange(this)">
 
         <div id="friendlistStatus" onmousedown="startDrag(event, document.getElementById('chatroomfriendroom'))">
-            <span style="color: white; font-size: 11px; position: relative; left: 5px;top:2px;">대화상대 선택</span>
+            <span style="color: white; font-size: 11px; position: relative; left: 5px;">대화상대 선택</span>
             <button id="friendlistcloseBtn" onclick="document.getElementById('chatroomfriendroom').style.display='none';"> x </button>
         </div>
         <div id="selectfriend">
@@ -178,9 +179,9 @@
                 <div id="slideBox">
                         <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
                         <hr class="slideHr">
-                        <div id="chatting" onclick="chat()"><div class="chattingText" ><a href="#">채팅</a></div></div>
+                        <div id="chatting" onclick="chat()"><div class="chattingText">채팅</div></div>
                         <hr class="slideHr">
-                        <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText"><a href="#">문의하기</a></div></div>
+                        <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText">문의하기</div></div>
                         <hr class="slideHr">
                         <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
                 </div>
@@ -201,47 +202,7 @@
  <!-- support -->   
     <script>
 //문의하기
-function supportBtn() {
-    $('#userSupportForm textArea').val('');
-    $('#supportTitleInput').val('');
-    $('#supportTitleInput').val('');
-    document.getElementById('supportMainDiv').style.display = 'block';
-    document.getElementById('supportMainDiv').style.left = "300px";
-    document.getElementById('supportMainDiv').style.top = "60px";
-}
 
-$("#userSupportForm").on('submit', function(e){
-    e.preventDefault();
-    var files = $('#userSupportForm input[type=file]')[0].files;
-		var formData = new FormData();
-		var title= $('#supportTitleSpan');
-		var content = $('#userSupportForm textArea');
-		//var texttttt = $(textArea).val();
-		
-		
-		for (var i = 0; i < files.length; i++) {
-			formData.append('file' + i, files[i]);
-		}
-		
-		formData.append('content', $('#userSupportForm textArea').val());
-		formData.append('title', $('#supportTitleInput').val());
-    $.ajax({
-    	
-        url: "<%=request.getContextPath()%>/userSupportData",
-        type: 'post',
-        data: formData,
-        contentType: false,
-        cache: false,
-        processData:false,
-        success: function(data){
-            
-        },error:function(xhr,status){
-            alert(xhr+" : "+status);   
-        }
-        
-    });
-    document.getElementById('supportMainDiv').style.display='none';
-});
 </script>
 <!-- main script -->
     <script>
@@ -683,20 +644,116 @@ $("#userSupportForm").on('submit', function(e){
         checkMobile();
     </script>
     <script>
-
-
+    function profileAlert(alertMsg){
+    	$('#myModal').remove();
+    	$('body').append($('<div/>',{
+    		id:'myModal',
+    		class:'modal'
+    	}));
+    	$('#myModal').append($('<div/>',{
+    		class:'modal-content',
+    	}));
+    	$('.modal-content').append($('<p/>',{
+    		text:alertMsg,
+    		style:"font-size:18px;"
+    	}));
+    	$('.modal-content').append($('<div/>',{
+    		onclick:'close_pop()',
+    		style:"font-size:15px;height:20px; width:60px",
+    		text:'확인'
+    	}));
+    	
+    }
+	//모달창 닫기
+    function close_pop(){
+    	$('#myModal').css("display","none");
+    }
+    
    var timer;
    var audiosetting=1;
   
-   var audio = new Audio('audio/alarm.mp3');
+   var audio = new Audio('../audio/alarm.mp3');
    var audioflag1;
    var audioflag2;
    var audioflagc1;
    var audioflagc2;
    var audioflagm1;
    var audioflagm2;
+   //인덱스 변경
+   var count = 2100000000;
+   function zindexchange(test) {
+   	console.log(count);
+       document.getElementById(test.id).style.zIndex = count;
+       count++;
+   }
+   function supportBtn() {
+	   document.getElementById('supportMainDiv').style.zIndex = count;
+       count++;
+	    $('#userSupportForm textArea').val('');
+	    $('#supportTitleInput').val('');
+	    $('#supportFileInput').val('');
+	    document.getElementById('supportMainDiv').style.display = 'block';
+	    document.getElementById('supportMainDiv').style.left = "300px";
+	    var height4=$(document).scrollTop();
+	    document.getElementById('supportMainDiv').style.top = (height4+100)+"px";
+	    }
+	var flaggg=true;
+	$("#userSupportForm").on('submit', function(e){
+	    e.preventDefault();
+	    flaggg=true;
+		
+	    	var files = $('#userSupportForm input[type=file]')[0].files;
+			var formData = new FormData();
+			var title= $('#supportTitleSpan');
+			var content = $('#userSupportForm textArea');
+			
+			for (var i = 0; i < files.length; i++) {
+				console.log(files[i].name);
+				pathpoint = files[i].name.lastIndexOf('.');
+            	filepoint = files[i].name.substring(pathpoint+1,files[i].length);
+            	filetype = filepoint.toLowerCase();
+            	
+            	if(filetype=='jpg' || filetype=='gif' || filetype=='png' || filetype=='jpeg' || filetype=='bmp'|| filetype=='mp4') {
 
+				formData.append('file' + i, files[i]);
+            		
+            	} else {
+            		profileAlert('이미지나 동영상을 선택해주세요');
+            		$('#supportFileInput').val("");
+            		flaggg=false;
+            	}
+			}
+			
+			formData.append('content', $('#userSupportForm textArea').val());
+			formData.append('title', $('#supportTitleInput').val());
+			
+			if($('#userSupportForm textArea').val().length==0||$('#supportTitleInput').val().length==0){
+				profileAlert("빈 칸을 작성하여 주세요.");
+			}
+			else{ 
+				if(flaggg==true){
+	    $.ajax({
+	    	
+	        url: "<%=request.getContextPath()%>/userSupportData",
+	        type: 'post',
+	        data: formData,
+	        contentType: false,
+	        cache: false,
+	        processData:false,
+	        success: function(data){
+	            
+	        },error:function(xhr,status){
+	            alert(xhr+" : "+status);   
+	        }
+	        
+	    });
+	    
+	    document.getElementById('supportMainDiv').style.display='none';}}
+	
+});
     function chat() {
+    	document.getElementById('chatroom').style.zIndex = count;
+    	count++;
     	$.ajax({
             url:"<%=request.getContextPath()%>/previewlist",
            type:"get",
@@ -998,11 +1055,15 @@ $("#userSupportForm").on('submit', function(e){
         
         document.getElementById('chatroom').style.display = 'block';
         document.getElementById('chatroom').style.left = "100px";
-        document.getElementById('chatroom').style.top = "50px";
+        console.log("스크롤탑"+$(document).scrollTop());
+        var height=$(document).scrollTop();
+        document.getElementById('chatroom').style.top = (height+100)+"px";
     }
    var friendlist;
    //친구창 화면
     function friendlist() {
+    	document.getElementById('chatroomfriendroom').style.zIndex = count;
+    	count++
       //친구목록 불러오기 사진, 이름, 번호
        $.ajax({
          url:"<%=request.getContextPath()%>/addfriendlist",
@@ -1061,7 +1122,8 @@ $("#userSupportForm").on('submit', function(e){
         selectedfriend();
         document.getElementById('chatroomfriendroom').style.display = 'block';
         document.getElementById('chatroomfriendroom').style.left = "500px";
-        document.getElementById('chatroomfriendroom').style.top = "50px";
+        var height2=$(document).scrollTop();
+        document.getElementById('chatroomfriendroom').style.top = (height2+100)+"px";
     }
 //채팅하는 화면
 var timer2;
@@ -1069,6 +1131,8 @@ var data1;
 var data2;
 
     function chatting(obj) {
+    	document.getElementById('chattingscreen').style.zIndex = count;
+    	count++
        clearInterval(timer2);
        $("#messagecontent").scrollTop($("#messagecontent")[0].scrollHeight);
        var name = $($(obj).children()[1]).text();
@@ -1272,7 +1336,8 @@ var data2;
 
         document.getElementById('chattingscreen').style.display = 'block';
         document.getElementById('chattingscreen').style.left = "800px";
-        document.getElementById('chattingscreen').style.top = "400px";
+        var height3=$(document).scrollTop();
+        document.getElementById('chattingscreen').style.top = (height3+100)+"px";
     }
 
     function removechat(obj) {
@@ -1458,11 +1523,7 @@ var f=0;
       });
     }
     
-    //인덱스 변경
-    var count = 1000;
-    function zindexchange(test) {
-        document.getElementById(test.id).style.zIndex = count++;
-    }
+   
     
     
     function selectedfriend(obj){
@@ -1549,14 +1610,15 @@ var f=0;
         targetObj.style.top = dmvy + "px";
         return false;
     }
-
+var heightt;
     // 드래그 시작
     function startDrag(e, obj) {
         targetObj = obj;
         var e_obj = window.event ? window.event : e;
         img_L = getLeft(obj) - e_obj.clientX;
         img_T = getTop(obj) - e_obj.clientY;
-
+        console.log(img_T);
+        heightt=img_T;
         document.onmousemove = moveDrag;
         document.onmouseup = stopDrag;
         if (e_obj.preventDefault) e_obj.preventDefault();
@@ -1577,6 +1639,15 @@ var f=0;
              }
        })
     })
+
+    $(document).scroll(function noteScroll(){
+    	var position = $(window).scrollTop();
+    	console.log(heightt);
+    	 $('#chatroom').css('top', position+100);
+    	 $('#supportMainDiv').css('top', position+100);
+    	 $('#chatroomfriendroom').css('top', position+100);
+    	 $('#chattingscreen').css('top', position+100);
+   });
 
 </script>
     <script type="text/javascript" src="<%=request.getContextPath()%>/js/mainJs.js"></script>
