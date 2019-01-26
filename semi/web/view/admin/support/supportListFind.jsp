@@ -52,7 +52,7 @@
                 <tr>
                     <td><%=s.getSupportBoardNo() %></td>
                     <td class="sCon">
-                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>">
+                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>&searchType=<%=searchType%>&searchKeyword=<%=searchKeyword%>">
                     		<%if(s.getSupportBoardTitle().length()>20) {%>
                     			<%=s.getSupportBoardTitle().substring(0, 19) %>...
                     		<%}else{ %>

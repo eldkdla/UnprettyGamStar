@@ -57,6 +57,7 @@ public class AdminManagerService {
 		int adminNo=new AdminManagerDao().findMinAdminNo(conn);
 		admin.setNo(adminNo-1);
 		int result=new AdminManagerDao().createAdmin(conn, admin);
+		System.out.println("변하긴 함? "+adminNo);
 		
 		if(result>0)
 		{

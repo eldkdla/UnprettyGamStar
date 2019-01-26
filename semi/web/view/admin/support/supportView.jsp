@@ -8,6 +8,17 @@
 	SupportBoard s=(SupportBoard)request.getAttribute("supportBoard");
 	SupportBoard answer=(SupportBoard)request.getAttribute("supportBoardAnswer");
 	List<SupportBoardMedia> mlist=(List)request.getAttribute("supportBoardMedia");
+	
+	
+	String backToList = request.getContextPath()+"/admin/supportList?cPage="+cPage;
+	
+	if(request.getParameter("searchType")!=null)
+	{
+		String searchType=request.getParameter("searchType");
+		String searchKeyword=request.getParameter("searchKeyword");
+		backToList = request.getContextPath()+"/admin/supportFind?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
+	}
+	
 
 %>
 <style>
@@ -199,7 +210,7 @@
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
                     &nbsp;
-                    <a href="<%=request.getContextPath()%>/admin/supportList?cPage=<%=cPage%>">
+                    <a href="<%=backToList%>">
                         <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                         <small>목록</small>
                     </a>
