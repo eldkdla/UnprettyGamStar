@@ -181,6 +181,13 @@ public class ReportService {
 		}
 		
 		//메인용 - 처리되지 않은  신고
+		public List<ReportBoard> selectUnckReportList(int cPage, int numPerPage)
+		{
+			Connection conn=getConnection();
+			List<ReportBoard> list= new ReportDao().selectUnckReportList(conn,cPage,numPerPage);
+			close(conn);
+			return list;
+		}
 		public int selectUnckReportNum()
 		{
 			Connection conn=getConnection();

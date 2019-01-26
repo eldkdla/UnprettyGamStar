@@ -422,5 +422,44 @@ private Properties prop=new Properties();
 		
 		return result;
 	}
+	public List<ReportBoard> selectUnckReportList(Connection conn, int cPage, int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs= null;
+		ArrayList<ReportBoard> list=new ArrayList();
+		String sql=prop.getProperty("selectUnckReportList");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, (cPage-1)*numPerPage+1);
+			pstmt.setInt(2, cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				ReportBoard r=new ReportBoard();
+				r.setReportBoardNo(rs.getInt("report_no"));
+				r.setReportBoardType(rs.getInt("report_type"));
+				r.setReportBoardLink(rs.getInt("report_link"));
+				r.setReportBoardWriterNo(rs.getInt("user_no"));
+				r.setReportBoardTargetNo(rs.getInt("target_user_no"));
+				r.setReportBoardTargetId(rs.getString("user_id"));
+				r.setReportBoardContent(rs.getString("report_content"));
+				r.setReportBoardDate(rs.getDate("report_date"));
+				r.setReportEndResult(rs.getInt("report_result"));
+				
+				list.add(r);
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
 }

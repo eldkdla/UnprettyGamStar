@@ -269,4 +269,11 @@ public class SupportService {
 			close(conn);
 			return result;
 		}
+		public List<SupportBoard> selectUcnkSupportList(int cPage, int numPerPage)
+		{
+			Connection conn=getConnection();
+			List<SupportBoard> list=new SupportDao().selectUnckSupportList(conn,cPage,numPerPage);
+			close(conn);
+			return list;
+		}
 }

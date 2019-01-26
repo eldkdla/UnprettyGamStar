@@ -161,7 +161,7 @@ public class AdminManagerDao {
 			pstmt.setString(2, admin.getName());
 			pstmt.setString(3, admin.getEmail());
 			pstmt.setString(4, admin.getPhone());
-			pstmt.setInt(5,admin.getNo());
+			pstmt.setInt(5, admin.getNo());
 			pstmt.setString(6, admin.getId());
 			pstmt.setString(7, admin.getPw());
 			
@@ -170,6 +170,71 @@ public class AdminManagerDao {
 		{
 			e.printStackTrace();
 			System.out.println("createDao문제");
+		}
+		finally
+		{
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	public int nextAdminNum(Connection conn)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int result=0;
+		String sql=prop.getProperty("nextAdminNum");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next())
+			{
+				result=rs.getInt("NEXTVAL");
+			}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+	}
+	public int createBestAdmin(Connection conn, User admin)
+	{
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("createBestAdmin");
+		String sql2=prop.getProperty("changeBestAdmin");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, admin.getName());
+			pstmt.setString(2, admin.getEmail());
+			pstmt.setString(3, admin.getPhone());
+			pstmt.setString(4, admin.getId());
+			pstmt.setString(5, admin.getPw());
+			
+			result=pstmt.executeUpdate();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			try {
+				pstmt=conn.prepareStatement(sql2);
+				pstmt.setString(1, admin.getName());
+				pstmt.setString(2, admin.getEmail());
+				pstmt.setString(3, admin.getPhone());
+				pstmt.setString(4, admin.getId());
+				pstmt.setString(5, admin.getPw());
+				
+				result=pstmt.executeUpdate();
+			}catch(SQLException e1)
+			{
+				result=-3;				
+			}
 		}
 		finally
 		{

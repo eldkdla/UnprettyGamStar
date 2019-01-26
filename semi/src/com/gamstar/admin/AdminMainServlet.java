@@ -50,10 +50,10 @@ public class AdminMainServlet extends HttpServlet {
 			int cPage=1;
 			int numPerPage=5;
 			
-			List<ReportBoard> mainReportList = new ReportService().selectReportList(cPage,numPerPage);
+			List<ReportBoard> mainReportList = new ReportService().selectUnckReportList(cPage,numPerPage);
 			int uncheckedReport=new ReportService().selectUnckReportNum();
 			
-			List<SupportBoard> mainSupportList=new SupportService().selectSupportList(cPage, numPerPage);
+			List<SupportBoard> mainSupportList=new SupportService().selectUcnkSupportList(cPage, numPerPage);
 			int uncheckedSupport=new SupportService().selectUnckSupportCount();
 			
 			request.setAttribute("reportList", mainReportList);

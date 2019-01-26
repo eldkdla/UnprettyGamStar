@@ -35,7 +35,7 @@ public class CreateNewAdminServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		//no<0 관리자 아니면 못들어옴
-		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>=0||(Integer)request.getSession().getAttribute("userNo")<-5)
+		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>=0||(Integer)request.getSession().getAttribute("userNo")<-2)
 		{
 			request.setAttribute("msg", "잘못된 접근입니다");
 			request.setAttribute("loc", "/");
@@ -44,11 +44,13 @@ public class CreateNewAdminServlet extends HttpServlet {
 		}
 		else
 		{			
+			String adminType=request.getParameter("adminType");
 			String id=request.getParameter("userId");
 			String pw=request.getParameter("userPw");
 			String name=request.getParameter("userName");
 			String email=request.getParameter("userEmail");
 			String phone=request.getParameter("userPhone");
+			
 			
 			User admin=new User();
 			admin.setId(id);
@@ -58,6 +60,8 @@ public class CreateNewAdminServlet extends HttpServlet {
 			admin.setPhone(phone);
 			
 			int result=0;
+			
+			
 			result=new AdminManagerService().createAdmin(admin);
 			
 			String view="/view/common/msg.jsp";

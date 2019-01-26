@@ -859,4 +859,47 @@ public class SupportDao {
 		}
 		return result;
 	}
+	
+	public List<SupportBoard> selectUnckSupportList(Connection conn, int cPage, int numPerPage)
+	{
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<SupportBoard> list=new ArrayList();
+		String sql=prop.getProperty("selectUnckSupportList");
+		try {
+			System.out.println("supportDao cPage, numPerPage"+cPage+" "+numPerPage);
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,(cPage-1)*numPerPage+1);
+			pstmt.setInt(2,cPage*numPerPage);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next())
+			{
+				System.out.println(rs);
+				SupportBoard s=new SupportBoard();
+				s.setSupportBoardNo(rs.getInt("supportbbs_no"));
+				s.setSupportBoardRootNo(rs.getInt("supportbbs_root_no"));
+				s.setSupportBoardTitle(rs.getString("supportbbs_title"));
+				s.setSupportBoardContent(rs.getString("supportbbs_content"));
+				s.setSupportBoardDate(rs.getDate("supportbbs_date"));
+				s.setSupportBoardWriterNo(rs.getInt("user_no"));
+				s.setSupportBoardWriterId(rs.getString("user_id"));
+				s.setSupportBoardWriterName(rs.getString("user_name"));
+				
+				list.add(s);	
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			System.out.println("supportList문제");
+		}
+		finally
+		{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 }

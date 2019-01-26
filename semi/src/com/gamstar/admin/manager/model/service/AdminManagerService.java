@@ -54,7 +54,27 @@ public class AdminManagerService {
 	public int createAdmin(User admin)
 	{
 		Connection conn=getConnection();
-		int result=new AdminManagerDao().createAdmin(conn, admin);
+		int result=new AdminManagerDao().nextAdminNum(conn);
+		admin.setNo(result);
+		result=new AdminManagerDao().createAdmin(conn, admin);
+		
+		if(result>0)
+		{
+			commit(conn);
+		}
+		else
+		{
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+	
+	public int createBestAdmin(User admin)
+	{
+		Connection conn=getConnection();
+		int result=new AdminManagerDao().createBestAdmin(conn, admin);
 		
 		if(result>0)
 		{
