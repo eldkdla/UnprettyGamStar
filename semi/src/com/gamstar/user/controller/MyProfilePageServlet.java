@@ -65,13 +65,13 @@ public class MyProfilePageServlet extends HttpServlet {
 			//유저정보 가져오기
 			User userData=new UserService().selectUser(conn,user);
 			request.setAttribute("userData", userData);
-			
-			if(userData.getState()==1||userData.getState()==100){ //유저가 정지상태이면 내 페이지로 이동
-				request.setAttribute("msg", "접근불가 유저");
-				request.setAttribute("loc", "");
-				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+			if((int)request.getSession().getAttribute("userNo")>=0){
+				if(userData.getState()==1||userData.getState()==100){ //유저가 정지상태이면 내 페이지로 이동
+					request.setAttribute("msg", "접근불가 유저");
+					request.setAttribute("loc", "");
+					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				}
 			}
-			else{
 				//스토리 가져오기
 				NewspeedMedia userStory=new UserService().selectStory(conn, user);
 				request.setAttribute("userStory", userStory);
@@ -121,7 +121,7 @@ public class MyProfilePageServlet extends HttpServlet {
 				//내정보창으로 정보보내기
 				RequestDispatcher rd = request.getRequestDispatcher("/view/profile.jsp");
 				rd.forward(request, response);
-			}
+			
 		}
 		else{
 		request.setAttribute("msg", "잘못된 접근");
