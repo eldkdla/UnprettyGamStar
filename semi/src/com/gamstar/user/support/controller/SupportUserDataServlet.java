@@ -88,7 +88,7 @@ public class SupportUserDataServlet extends HttpServlet {
 			userData.setSupportContent(multi.getParameter("content"));
 			
 			
-			//new SupportUserDataService().insertSupportUserData(userData,fileNamelist,fileOriNamelist,fileTypelist);
+			new SupportUserDataService().insertSupportUserData(userData,fileNamelist,fileOriNamelist,fileTypelist);
 			
 			if (multi.getFilesystemName("supportFileName") != null) {
 				// 프로필 사진 수정한것
