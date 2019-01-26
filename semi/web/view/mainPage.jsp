@@ -741,7 +741,7 @@
 	        cache: false,
 	        processData:false,
 	        success: function(data){
-	            
+	        	profileAlert("문의가 완료 되었습니다.");
 	        },error:function(xhr,status){
 	            alert(xhr+" : "+status);   
 	        }
