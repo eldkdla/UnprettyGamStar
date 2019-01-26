@@ -1,13 +1,14 @@
 package com.gamstar.report.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Properties;
-import java.sql.*;
-import static common.JDBCTemplate.*;
 
 import com.gamstar.admin.report.model.vo.ReportBoard;
 import com.gamstar.admin.report.model.vo.ReportBoardMedia;
-import com.gamstar.user.model.dao.UserDao;
 
 public class ReportDao {
 	private Properties prop;
@@ -49,6 +50,26 @@ public class ReportDao {
 		return result;
 	}
 	
+	public int insertReportBoardTypeUser(Connection conn, ReportBoard reportBoard){
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("insertReportBoardTypeUser");
+		int result =0;
+		
+		try{
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, reportBoard.getReportBoardTargetNo());
+			pstmt.setInt(2, reportBoard.getReportBoardTargetNo());
+			pstmt.setString(3, reportBoard.getReportBoardContent());
+			pstmt.setInt(4, reportBoard.getReportBoardWriterNo());
+			
+			result=pstmt.executeUpdate();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+		}
+		return result;
+	}
 
 	public int insertReportBoardMediaTypeNewspeed(Connection conn, ReportBoardMedia reportBoardMedia) {
 		PreparedStatement pstmt = null;

@@ -409,7 +409,6 @@
 	left:50%;
 	transform:translateX(-50%);
 	z-index: 99;
-	border:1px solid red;
 	}
 	#disclosureContent{	
 		text-align: center;

@@ -316,10 +316,10 @@
             </ul>
         </div>
        	<div id=disclosure>
-       	<div id="disclosureContent">
-       		<label>비공개 계정입니다</label><br><br>
-       		<label>게시글을 보려면 팔로우하세요</label>
-       	</div>
+	       	<div id="disclosureContent">
+	       		<label>비공개 계정입니다</label><br><br>
+	       		<label>게시글을 보려면 팔로우하세요</label>
+	       	</div>
        	</div>
         <div id="profileContent1" class="profileContent"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
         <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
@@ -540,6 +540,13 @@
 	        		<%if(user.getDisclosure()==0){
 		            	System.out.println("비공개임");
 		            	%>
+		            	//스크롤막기
+		            	$('html').scrollTop(0);
+		            	$('body').on('scroll touchmove mousewheel', function(event) {
+		            		  event.preventDefault();
+		            		  event.stopPropagation();
+		            		  return false;
+		            	});
 		            	$('#profileMenuDiv').css("display","none");
 		            	$('#disclosure').css("display","block");            		 
 	            	<%}%>
@@ -556,6 +563,13 @@
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
+            		//스크롤막기
+            		$('html').scrollTop(0);
+	            	$('body').on('scroll touchmove mousewheel', function(event) {
+	            		  event.preventDefault();
+	            		  event.stopPropagation();
+	            		  return false;
+	            	});
             		$('#profileMenuDiv').css("display","none");
             		$('#disclosure').css("display","block");            		 
             		<%}%>
@@ -586,11 +600,7 @@
 	            	 //신고창에서 신고보내기
 	            	 $('#reportContent>button').click(function(){
 	      				if($('#reportContent>textarea').val()!=""){
-	      					/* $.ajax({
-	      						url='',
-	      						type='POST'
-	      						
-	      					}); */
+	      					onClickReportBtn(<%=user.getNo()%>, 0, '<%=request.getContextPath()%>/view/reportuser');
 	      				}
 	     	 			else{
 	     	 				profileAlert("신고내용 입력");
@@ -754,18 +764,21 @@
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
 		var beforeFollowBtLabel="";
+		var afterFollowBtLabel="";
 		
 		if(($('#profileFollowBt>label').text())==("팔로우")){
 
 			beforefollowBtLabel="팔로우";
 			<%if(user.getDisclosure()==0){%>  //비공개
-					$('#profileFollowBt>label').text("팔로우요청");
+			afterFollowBtLabel="팔로우요청";
+					//$('#profileFollowBt>label').text("팔로우요청");
           			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
             		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
             		$('#profileFollowBt').css("color","white");
           	<%}
           	else{%>
-			$('#profileFollowBt>label').text("팔로우됨");
+          	afterFollowBtLabel="팔로우됨"
+          	//$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
@@ -804,8 +817,8 @@
     		else if(($('#profileFollowBt>label').text())==("팔로우됨")){
     			beforeFollowBtLabel="팔로우됨";
     		}
-    		
-    		$('#profileFollowBt>label').text("팔로우");
+    		afterFollowBtLabel="팔로우"
+    		//$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
@@ -819,9 +832,8 @@
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
+    		data:{"follow":afterFollowBtLabel/* $('#profileFollowBt>label').text() */,"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
     		success:function(data){
-    			
     			<%if(user.getDisclosure()==0){%>
     			$.ajax({//비공개 계정일때 팔로우 확인
     				url:"<%=request.getContextPath()%>/view/chkFollow",
@@ -829,11 +841,19 @@
     				data:{"userNo":<%=user.getNo()%>},
     				success:function(data){
     					if(data=="true"){
+    						$('body').off('scroll touchmove mousewheel');
     						$('#profileMenuDiv').css("display","block");
     	            		$('#disclosure').css("display","none");
     	            		
     					}
     					else if(data=="false"){
+    						//스크롤막기
+    						$('html').scrollTop(0);
+    		            	$('body').on('scroll touchmove mousewheel', function(event) {
+    		            		  event.preventDefault();
+    		            		  event.stopPropagation();
+    		            		  return false;
+    		            		});
     						$('#profileMenuDiv').css("display","none");
     	            		$('#disclosure').css("display","block");
     					}
@@ -852,7 +872,7 @@
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
     		success:function(data){
-    			
+	
     			$('#profileContent5>*').remove();
     			
     			 for(var i=0;i<data.length;i++){							
@@ -877,7 +897,8 @@
 				                
 				             }));
 				             $('#profileContent5>#'+no+'>label').text(name);            	
-					}	
+					}
+    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
     		},
     		error:function(xhr,status){
     			alert(xhr+" : "+status);
@@ -991,7 +1012,7 @@
            'img/09.jpg','img/10.jpg','img/11.jpg','img/12.jpg','img/13.jpg'); */
             
             //1.게시글 컨텐츠
-            
+            var content1Height;
              <%for(int i=0;i<content1DataArray.size();i++){%>
              	
             	 $('#profileContent1').append($('<div/>',{
@@ -1053,9 +1074,11 @@
             		 
             		 
             	 });
-
              <%}%>  
-
+            
+             //비공개 높이 설정
+			$('#disclosure').css('height',((Math.ceil(<%=content1DataArray.size()%>/3)+13)*200));
+			$('html').scrollTop(0);
            //3.저장됨 컨텐츠
              <%for(int i=0;i<storageContentDataArray.size();i++){%>
             	 $('#profileContent3').append($('<div/>',{
