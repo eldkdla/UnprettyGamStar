@@ -83,7 +83,6 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			
 			
 			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
-			System.out.println("있음? temp 나옴? "+temp);
 			int result=0;
 
 			if(temp.getSupportBoardRootNo()==0) {

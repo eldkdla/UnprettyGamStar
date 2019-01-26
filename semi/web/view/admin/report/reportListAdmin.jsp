@@ -615,7 +615,7 @@
                 <tbody>
                 <% if(list==null || list.isEmpty()) { %>
                 	<tr>
-                		<td colspan='8'>
+                		<td colspan='7'>
                 			신고된 내용이 없습니다
                 		</td>
                 	</tr>
@@ -683,7 +683,7 @@
                         </td>
                     </tr>
                     <tr class='movingTr' style='display:none;'>
-                    	<td colspan='8' style="background-color:rgba(234, 242, 253, 0.5);">
+                    	<td colspan='7' style="background-color:rgba(234, 242, 253, 0.5);">
                     		<div style='width:100%; height:30%; text-align:center;'>
                     			<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {%>
                     			<div class='showMedia'>

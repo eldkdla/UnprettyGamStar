@@ -17,7 +17,7 @@
 </head>	
 <body>
 <script>
-3
+
 <%-- if(<%=request.getSession().getAttribute("userNo")%>==null)
 	{
 	alert('로긴해~');
