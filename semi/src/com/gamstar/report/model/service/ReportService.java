@@ -44,5 +44,30 @@ public class ReportService {
 		
 		return 1;
 	}
-
+	
+	public int insertReportBoardTypeUser(ReportBoard reportBoard, List<ReportBoardMedia> reportBoardMediaList){
+		Connection conn =JDBCTemplate.getConnection();
+		
+		int result=reportDAO.insertReportBoardTypeUser(conn,reportBoard);
+		
+		if(result<1){
+			rollback(conn);
+			return result;
+		}
+		
+		for (int i = 0; i < reportBoardMediaList.size(); i++) {
+			
+			result = reportDAO.insertReportBoardMediaTypeNewspeed(conn, reportBoardMediaList.get(i));
+			
+			if (result < 1) {
+				rollback(conn);
+				return result;
+			}
+		}
+		commit(conn);
+		close(conn);
+		
+		return 1;
+	}
+	
 }

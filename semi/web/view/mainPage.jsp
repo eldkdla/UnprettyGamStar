@@ -741,7 +741,7 @@
 	        cache: false,
 	        processData:false,
 	        success: function(data){
-	            
+	        	profileAlert("문의가 완료 되었습니다.");
 	        },error:function(xhr,status){
 	            alert(xhr+" : "+status);   
 	        }
@@ -811,7 +811,7 @@
                               
                            }));
                        $('#fchatlistdiv'+i).append($('<img/>',{
-                             src: 'img/alarm.png',
+                             src: '../img/alarm.png',
                              class:'alarm',
                              style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
                             
@@ -960,7 +960,7 @@
                             
                          }));
                      $('#fchatlistdiv'+i).append($('<img/>',{
-                           src: 'img/alarm.png',
+                           src: '../img/alarm.png',
                            class:'alarm',
                            style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
                           
@@ -1359,12 +1359,12 @@ var data2;
     	if(callaudio%2==1){
     	audiosetting=0;
     	callaudio++;
-    	$('#alarmset').css('background',' url("img/alarmon.png") no-repeat');
+    	$('#alarmset').css('background',' url("../img/alarmon.png") no-repeat');
     	}
     	else if(callaudio%2==0) {
     	audiosetting=1;
     	callaudio++;
-    	$('#alarmset').css('background','url("img/alarmoff.png") no-repeat');
+    	$('#alarmset').css('background','url("../img/alarmoff.png") no-repeat');
 
     	}
     	
