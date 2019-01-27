@@ -368,7 +368,7 @@ td.userID, td.userName{
      	</div>
      </div>
      <div class='userSearch' >
-         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/serach">    
+         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/search">    
              <select name='type'>
                  <option value='id' <%=searchType.equals("id")?"selected":"" %>>아이디</option>
                  <option value='name' <%=searchType.equals("name")?"selected":"" %>>이름</option>
