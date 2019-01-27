@@ -10,6 +10,9 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
+td.userID, td.userName{
+		cursor: pointer;
+	}
  @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -293,7 +296,7 @@
 				<option value="ia"  <%=orderType.equals("ia")?"selected":"" %>>아이디↑</option>
 				<option value="ed" <%=orderType.equals("ed")?"selected":"" %>>가입일↓</option>
 				<option value="ea"  <%=orderType.equals("ea")?"selected":"" %>>가입일↑</option>
-				<option value="sde" <%=orderType.equals("sd")?"selected":"" %>>정지일수↓</option>		
+				<option value="sde" <%=orderType.equals("sde")?"selected":"" %>>정지일수↓</option>		
 			</select>
 		<small>페이지당 회원수 :</small> 
 			<select name="numPerPage" id="numPerPage" onchange='submit();'>
@@ -337,7 +340,9 @@
              <td class='phoneTh'><%=m.getPhone() %></td>
              <td><%=m.getEnrollDate() %></td>
              <td>
-             	<%if(m.getState()==0){ }
+             	<%if(m.getState()==0){ %>
+             	
+             	<%}
              	 	 else if(m.getState()==1){ 
              	  	   	if(m.getRemainingDay()>90000){%>
              	  	   		 정지(∞)
@@ -383,10 +388,6 @@
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
 
     function deleteMember(){
     	chosenId='';

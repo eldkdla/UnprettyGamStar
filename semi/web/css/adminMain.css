@@ -270,11 +270,11 @@
 
 @media all and (max-width:600px){
     /* 상단바 */
-    div#adminUpsideBar{
+/*     div#adminUpsideBar{
 		width:320px;
 		height:50px;
 		margin:0 auto;
-	}
+	} */
 	div#logo{
 		vertical-align: middle;
 		font-family: 'Courgette', cursive;

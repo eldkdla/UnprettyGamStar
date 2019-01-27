@@ -146,6 +146,9 @@
 	div#adminFunctionBtn-container {
 		display:none;
 	}
+	div#adminBoardContent-container{
+		margin-top:18px;
+	}
 	br{
 		display:none;
 	}
@@ -209,9 +212,16 @@
 						<th>Date</th>
 					</tr>
 			<%if (rList==null||rList.size()==0) {%>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
 					<tr>
-						<td colspan="4"></td>
+						<td colspan="4">
+						새로운 신고가 없습니다
+						</td>
+						
 					</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
 			<%}else{
 				
 				for(ReportBoard r : rList) {%>
@@ -231,6 +241,7 @@
 				   		<td>&nbsp;</td>
 				   		<td></td>
 				   		<td></td>
+				   		<td></td>
 				   </tr>
 				<%		}
 			   	  }
@@ -247,7 +258,22 @@
 						<th>Title</th>
 						<th>Date</th>
 					</tr>
-				<%for(SupportBoard s : sList) {%>
+				<%
+				if(sList.isEmpty()||sList.size()==0)
+				{%>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr>
+						<td colspan="5">
+						새로운 문의가 없습니다
+						</td>
+						
+					</tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					
+					<%}else {
+						for(SupportBoard s : sList) {%>
 					<tr>
 						<td><%=s.getSupportBoardWriterName() %>(<%=s.getSupportBoardWriterId() %>)</td>
 						<td><a class='linkView' href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=1" onclick='clickedView();'>
@@ -264,6 +290,7 @@
 				   		<td></td>
 				   </tr>
 				<%		}
+			   	  }
 			   	  }%>   	
 				</table>
 			</div>

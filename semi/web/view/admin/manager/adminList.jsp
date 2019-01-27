@@ -313,6 +313,7 @@
      <br/>
      <br/>
      <div id='orderTypeSelect-container' style="float:left; ">
+     	<small>정렬</small> 
    		<small>
    			<!-- 선택된걸 누르면 반대로 가니까, 모양은 desc, 표시는 asc -->
     		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollAsc&class=enroll' class='enroll' style="color: rgba(0,0,0,0.8);">
@@ -449,10 +450,6 @@
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
     
     function delAdmin(el){
     	tr=el.parentNode.parentNode;

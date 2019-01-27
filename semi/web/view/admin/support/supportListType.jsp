@@ -96,10 +96,6 @@
         </section>
     </div>
     <script>
-        // 모바일 메뉴 열기 위한 함수
-        function openAdminMobileMenu(){
-            $('nav').toggle();
-        }
     	
         //답변상황으로 보기
         $('showSupport').change(function(){

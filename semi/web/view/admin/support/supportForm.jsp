@@ -158,7 +158,7 @@ textarea#supportAnswer{
                             <div class='scrollWrapper'>
                             	<% for(SupportBoardMedia m : mlist) { 
                             		if(m.getSupportBoardMediaType()==0){%>
-                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
+                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='image_popup(src);'/>
                                 <%}else if(m.getSupportBoardMediaType()==1) {%>
 		                                <video class='supImg' width="400" controls height=100%;>
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
@@ -183,7 +183,7 @@ textarea#supportAnswer{
                             &nbsp;
                             <% for(SupportBoardMedia m : mlist) { %>
                             <br/>
-                            <a onclick='showImg("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
+                            <a onclick='image_popup("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
                             	<%=m.getSupportBoardMediaPathOri().substring(m.getSupportBoardMediaPathOri().lastIndexOf("/")+1) %>
                            	</a>
                            	<%} %>
@@ -282,9 +282,6 @@ textarea#supportAnswer{
         console.log(resultString); */
 
        $('#supportAnswer').submit();
-    }
-    function openAdminMobileMenu(){
-        $('nav').toggle();
     }
     function showImg(i){
         var url=i;

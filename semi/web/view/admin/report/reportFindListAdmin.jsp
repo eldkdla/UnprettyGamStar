@@ -681,7 +681,7 @@
                         	 <%}%>
                         </td>
                         <td>
-                        	<a onclick='openNextTr(this);'>
+                        	<a onclick='openNextTr(this);' style='cursor: pointer;'>
                         	<%if(r.getReportBoardContent().length()>20) { %>
 	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
 	                        <%} else{ %>
@@ -695,7 +695,7 @@
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
                            <!--  <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button> -->
                             <%}else if(r.getReportEndResult()==-1){%>
-                            	&nbsp;
+                            	-
                        		<%}else{ if(r.getReportEndResult()>90000){%>
                        			정지(∞)
                        		<%} else { %>
@@ -732,7 +732,7 @@
                 <div style="float:left; margin-left:10px;">
                 	<button class='imgSelect stopBtn' onclick='stopAllTr();'>정지</button>
                     <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
-                    <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
+                    <button class='cancelBtn' onclick='cancelAllTr();'>무시</button>
                 </div>
                 <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'
                 	onsubmit='goReportSearch_val()'>
@@ -769,7 +769,7 @@
                 <br/>
             </div>
             <div id='layerBtn'>
-                <button type='reset' class='closeLayer'>취소</button>
+                <button type='reset' class='closeLayer' onclick="closeBanModal();">취소</button>
                 <button type='submit' class='acceptLayer'>확인</button>
             </div>
         </form>
@@ -782,10 +782,10 @@
     
 
     <script>
-        // 모바일 메뉴 열기 위한 함수
-        function openAdminMobileMenu(){
-            $('nav').toggle();
-        }
+	    function closeBanModal()
+		{
+			$('.popupLayer').hide();
+		}
         function checkTr(it){
         	tr=it.parentNode.parentNode;
         	tr.style.backgroundColor=(it.checked)?"rgba(234, 242, 253, 0.5)":"white";

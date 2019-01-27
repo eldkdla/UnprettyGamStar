@@ -108,7 +108,7 @@ public class ReportListServlet extends HttpServlet {
 				else
 				{
 					pageBar+="<small><a class='reportTr' onclick='return goReport();' href='"+request.getContextPath()+"/admin/reportList?cPage="+(pageNo)
-							+"'>"+pageNo+"</a></small>";
+							+"' onclick='return goReport();'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

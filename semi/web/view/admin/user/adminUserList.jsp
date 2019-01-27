@@ -385,11 +385,6 @@
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
-    
     function checkTr(it){
     	tr=it.parentNode.parentNode;
     	tr.style.backgroundColor=(it.checked)?"rgb(234, 242, 253)":"white";

@@ -14,13 +14,18 @@
     <script>
     	var clicked=false;
     </script>
+    <style>
+    button#openMenu{
+    	margin-top:15px;
+    }
+    </style>
   
 </head>
 <body>
     <!-- 메인 상단바랑 어드민 네비랑 충돌있음.  -->
 		<nav id='navi'>
 	        <div id="naviWrap">
-	           <div id="gamstarLogo"> <p id="gamstarTitle">GamStar</p> </div>
+	           <div id="gamstarLogo" style='cursor:pointer;' onclick='location.href="<%=request.getContextPath()%>/admin/goAdminMain"'> <p id="gamstarTitle">GamStar</p> </div>
 	
 	            <div id="naviIconWrap">
 	                <div id="myHomIcon"><%-- <img id="myHomIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/myPage.png"> --%></div>
@@ -53,9 +58,7 @@
         <!-- 서브메뉴 -->
         <nav id='adminNav'>
             <br/><br/><br/><br/>
-                <div id='mobileLoginContainer' style="display:none;">
-                	<p id='adminIdPrint'>님</p>
-                </div>
+                
             <p onclick='goMain();' style='cursor:pointer;'>
                 <img src='<%=request.getContextPath() %>/img/adminImg/admin.png'>
                 <br/>

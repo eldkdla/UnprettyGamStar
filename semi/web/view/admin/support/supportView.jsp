@@ -151,7 +151,7 @@
                             <div class='scrollWrapper'>
                             	<% for(SupportBoardMedia m : mlist) { 
                             		if(m.getSupportBoardMediaType()==0){%>
-                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
+                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='image_popup(src);'/>
                                 <%}else if(m.getSupportBoardMediaType()==1) {%>
 		                                <video class='supImg' width="400" controls height=100%;>
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
@@ -176,7 +176,7 @@
                             &nbsp;
                             <% for(SupportBoardMedia m : mlist) { %>
                             <br/>
-                            <a onclick='showImg("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
+                            <a onclick='image_popup("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
                             	<%=m.getSupportBoardMediaPathOri().substring(m.getSupportBoardMediaPathOri().lastIndexOf("/")+1) %>
                            	</a>
                            	<%} %>
@@ -210,12 +210,12 @@
 		                <img src='<%=request.getContextPath() %>/img/adminImg/back.png'/>
 		                <small>다음</small>
 		            </a>
-		            &nbsp;
+		            
 		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
 		                <small>이전</small>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
-                    &nbsp;
+                    
                     <a href="<%=backToList%>">
                         <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                         <small>목록</small>
@@ -258,6 +258,19 @@
 
             var popup=open(i,title,shape);
         }
+        
+        function image_popup(url) {
+
+        	 var imgObj = new Image();
+        	 imgObj.src = url;
+        	 imageWin = window.open("", "profile_popup", "width=" + imgObj.width + "px, height=" + imgObj.height + "px"); 
+        	 imageWin.document.write("<html><body style='margin:0'>"); 
+        	 imageWin.document.write("<a href=javascript:window.close()><img src='" + imgObj.src + "' border=0></a>"); 
+        	 imageWin.document.write("</body><html>"); 
+        	 imageWin.document.title = imgObj.src;
+
+        	}
+        
         function openAdminMobileMenu(){
             $('nav').toggle();
         }

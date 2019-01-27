@@ -36,6 +36,11 @@ div#adminInsert-Modal{
 		text-align:center;
 		padding:auto;
 	}
+	 /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -314,6 +319,7 @@ div#adminInsert-Modal{
      <br/>
      <br/>
      <div id='orderTypeSelect-container' style="float:left; ">
+     	<small>정렬</small> 
    		<small>
    			<!-- 선택된걸 누르면 반대로 가니까, 모양은 desc, 표시는 asc -->
    			<% if(orderTypeClass.equals("enroll")) {%>
@@ -468,10 +474,6 @@ div#adminInsert-Modal{
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
     
     function delAdmin(el){
     	tr=el.parentNode.parentNode;

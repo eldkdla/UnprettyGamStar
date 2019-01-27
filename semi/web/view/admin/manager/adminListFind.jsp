@@ -117,6 +117,11 @@ div#adminInsert-Modal{
     .deleteBtn:focus{
         outline: none;
     }
+     /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -201,6 +206,11 @@ div#adminInsert-Modal{
     .deleteBtn:focus{
         outline: none;
     }
+     /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 }
 
 
@@ -288,6 +298,11 @@ div#adminInsert-Modal{
     .mobileDel{
 		display:none;
 	}
+	 /* 정렬 form 꾸미기 */
+	div#orderTypeSelect-container>small>a{
+		text-decoration: none;
+		color: rgba(0,0,0,0.6);
+	}
 
 } 
     </style>
@@ -307,7 +322,16 @@ div#adminInsert-Modal{
      <br/>
      <br/>
      <br/>
-    
+     <div id='orderTypeSelect-container' style="float:left; ">
+     	<small>정렬</small> 
+   		<small>
+   			<!-- 선택된걸 누르면 반대로 가니까, 모양은 desc, 표시는 asc -->
+    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=enrollAsc&class=enroll' class='enroll' style="color: rgba(0,0,0,0.8);">
+    		가입일↓</a>
+    		<a href='<%=request.getContextPath() %>/admin/manager/orderType?type=idDesc&class=selId' class='selId'>
+    		아이디</a>
+   		</small>
+     </div>
      <table class='type'>
          <tr>
          	 <th style="width:5%;" class='mobileDel'></th>
@@ -360,8 +384,8 @@ div#adminInsert-Modal{
      	<div class='userSearch' style='float:right;' >
          	<form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/manager/search">    
 	             <select name='type'>
-	                 <option value='id'>아이디</option>
-	                 <option value='name'>이름</option>
+	                 <option value='id' <%=searchType.equals("id")? "selected" :"" %>>아이디</option>
+	                 <option value='name'<%=searchType.equals("name")? "selected" :"" %>>이름</option>
 	             </select>
 	             <input type='text' name='keyword' value='<%=searchKeyword %>'/>
 	             <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
@@ -433,10 +457,6 @@ div#adminInsert-Modal{
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
     
     function delAdmin(el){
     	tr=el.parentNode.parentNode;
