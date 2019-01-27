@@ -19,7 +19,6 @@
 			<div id='searchBody'>
                 <input type="search" id="rara" value="" placeholder="search..."/>
                 <img src="<%=request.getContextPath()%>/img/newspeeddetailview/searchView.png" id="searchView">
-                <img src="<%=request.getContextPath()%>/img/newspeeddetailview/searchDelete.png" id="searchDelete">
             </div>
             <div id="infoBox"> <div id="infoSentence">Search Something :)</div> </div>
             <div id="naviIconWrap">

@@ -4,7 +4,7 @@
   <class id="1" language="java" name="com.gamstar.admin.manager.controller.SearchAdminServlet" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/manager/controller/SearchAdminServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="585" y="233"/>    
+    <position height="-1" width="-1" x="587" y="308"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -14,7 +14,7 @@
   <class id="2" language="java" name="com.gamstar.admin.manager.controller.CreateNewAdminServlet" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/manager/controller/CreateNewAdminServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="575" y="389"/>    
+    <position height="-1" width="-1" x="589" y="451"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -24,7 +24,7 @@
   <class id="3" language="java" name="com.gamstar.admin.manager.controller.ChangeAdminOrderTypeServlet" 
     project="GamStar" file="/GamStar/src/com/gamstar/admin/manager/controller/ChangeAdminOrderTypeServlet.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="571" y="561"/>    
+    <position height="-1" width="-1" x="582" y="598"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -34,7 +34,7 @@
   <class id="4" language="java" name="com.gamstar.admin.manager.model.service.AdminManagerService" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/manager/model/service/AdminManagerService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1005" y="473"/>    
+    <position height="-1" width="-1" x="1007" y="608"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -43,7 +43,7 @@
   </class>  
   <class id="5" language="java" name="com.gamstar.admin.manager.model.dao.AdminManagerDao" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/manager/model/dao/AdminManagerDao.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1401" y="457"/>    
+    <position height="-1" width="-1" x="1356" y="595"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -53,7 +53,7 @@
   <class id="6" language="java" name="com.gamstar.admin.manager.controller.DeleteAdminServlet" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/manager/controller/DeleteAdminServlet.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="579" y="719"/>    
+    <position height="-1" width="-1" x="579" y="744"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -71,7 +71,7 @@
   </class>  
   <class id="8" language="java" name="com.gamstar.admin.AdminMainServlet" project="GamStar" 
     file="/GamStar/src/com/gamstar/admin/AdminMainServlet.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="582" y="1049"/>    
+    <position height="-1" width="-1" x="583" y="1030"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -97,56 +97,56 @@
     </display>  
   </class>  
   <dependency id="11">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="4"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="9"/>  
   </dependency>  
   <dependency id="12">    
-    <end type="SOURCE" refId="1"/>    
-    <end type="TARGET" refId="4"/>  
-  </dependency>  
-  <dependency id="13">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="9"/>  
   </dependency>  
-  <dependency id="14">    
+  <dependency id="13">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="15">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </dependency>  
-  <dependency id="16">    
+  <dependency id="14">    
     <end type="SOURCE" refId="6"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="17">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="5"/>  
-  </dependency>  
-  <dependency id="18">    
+  <dependency id="15">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="4"/>  
   </dependency>  
-  <dependency id="19">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="20">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="21">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="9"/>  
-  </dependency>  
-  <dependency id="22">    
+  <dependency id="16">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="9"/>  
   </dependency>  
-  <dependency id="23">    
+  <dependency id="17">    
     <end type="SOURCE" refId="1"/>    
     <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="21">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="23">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
   </dependency>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
