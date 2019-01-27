@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/chat.css">
    		<link rel="stylesheet" href="<%=request.getContextPath()%>/css/userSupport.css">
    		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
-		<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 </head>
 <body>
 
