@@ -35,7 +35,7 @@ public class FindUserPwGetNoServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 	
-		boolean chk=false;
+
 		PrintWriter out = response.getWriter();
 
 		User u = new User();

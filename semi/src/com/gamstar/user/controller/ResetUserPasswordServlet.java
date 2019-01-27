@@ -33,10 +33,11 @@ public class ResetUserPasswordServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 
+		
 		int userNo = Integer.parseInt(request.getParameter("no"));
 		User u = new User();
 		u.setNo(userNo);		
-		u.setPw(request.getParameter("newPw"));
+		u.setPw(request.getParameter("userPw"));
 		String msg="";
 		String loc="";
 		
@@ -55,6 +56,7 @@ public class ResetUserPasswordServlet extends HttpServlet {
 
 		request.setAttribute("msg", msg);
 		request.setAttribute("loc", loc);
+		request.setAttribute("script",  "self.close()");
 
 		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
 

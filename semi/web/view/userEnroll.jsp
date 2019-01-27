@@ -100,7 +100,7 @@ div .userRegFrm {
                 <div class="userRegFrm">
                     <label for="userEmail">이메일</label><br>
                     <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail"
-                        autofocus size="30" required><button type="button" class="enrollBtn" id="emailSendBtn" name="emailSendBtn" onclick="sendEmail();"  style="margin-left: 7px">인증 메일보내기</button>
+                        autofocus size="30" required><button type="button" class="enrollBtn" id="emailSendBtn" name="emailSendBtn" onclick="sendEmail();" disabled  style="margin-left: 7px">인증 메일보내기</button>
                     <div class="checkMsg" id="email_check"></div>
                 </div>
                 <!-- 이메일 인증하기 -->
@@ -165,7 +165,7 @@ div .userRegFrm {
          }else{
         	 
         	 if (regExp_id.test($(this).val())) {
-                 console.log('id참참');
+                 //console.log('id참참');
                  //$("#id_check").text('');
                  inval_Arr[0] = true;
              
@@ -203,7 +203,7 @@ div .userRegFrm {
     $('#userPw').on('change keyup paste', (function () {
         if (regExp_pw.test($(this).val())) {
         	//if (1) {
-            console.log('pw참참')
+            //console.log('pw참참')
             $("#pw_check").text('');
         }
         else {
@@ -232,7 +232,7 @@ div .userRegFrm {
   //유저이름 정규식
     $('#userName').on('change keyup paste', (function () {
         if (regExp_name.test($(this).val())) {
-            console.log('name참참');
+            //console.log('name참참');
             $("#name_check").text('');
             inval_Arr[3] = true;
         }
@@ -246,7 +246,7 @@ div .userRegFrm {
     //이메일 정규식
     $('#userEmail').on('change keyup paste', (function (e) {
         if (regExp_email.test($(this).val())) {
-            console.log('email참참')
+            //console.log('email참참')
             $("#email_check").text('');
             $('#emailSendBtn').attr('disabled', false);
             inval_Arr[4] = true;
@@ -264,14 +264,13 @@ div .userRegFrm {
     //핸드폰 정규식
     $('#userPhone').on('change keyup paste', (function () {
         if (regExp_phone.test($(this).val())) {
-            console.log('phone참참')
+            //console.log('phone참참')
             $("#phone_check").text('');
             inval_Arr[5] = true;
         }
         else {
             $('#phone_check').text('입력한 핸드폰 번호를 확인해주세요');
             $('#phone_check').css('color', 'red');
-            console.log(authCode);
             inval_Arr[5] = false;
         }
     }));
@@ -288,7 +287,7 @@ div .userRegFrm {
 			
 			if(inval_Arr[i] == false){
 				validAll = false;
-				console.log(i+": false");
+				//console.log(i+": false");
 			}
 		}
 		
@@ -338,7 +337,7 @@ div .userRegFrm {
      		   	var authCode = "";
     			//이메일 전송 부분
     			function sendEmail(){
-    		    	console.log('이메일전송옹');
+    		    	//console.log('이메일전송옹');
     		    	$('#userEmail').attr("readonly", "readonly");
     		    	$('#userEmail').css("background-color", "rgb(207,207,207)");
     			    $('#emailSendBtn').attr('disabled', true);
@@ -379,7 +378,7 @@ div .userRegFrm {
     					var code = $('#userAuthCode').val();
     					
     					if(Number(code) == Number(authCode)) {
-    						console.log("둘이 같아요");
+    						//console.log("둘이 같아요");
     						$('#auth_check').html("인증이 완료 되었습니다.").css('color', 'green');
     						$('#authChkBtn').attr('disabled', true);
     						$('#authChkBtn').css('cursor', 'not-allowed');
@@ -390,7 +389,7 @@ div .userRegFrm {
     						}
     					else{
     						
-    						console.log("값이 달라요");
+    						//console.log("값이 달라요");
     						$('#auth_check').html("인증번호를 확인해 주세요.").css('color', 'red');
     						inval_Arr[6] = false;
     					}

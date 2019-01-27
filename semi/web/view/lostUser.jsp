@@ -54,7 +54,7 @@
                     <h3>아이디/비밀번호 찾기</h3>
 					<p>인증된 이메일만 정보 찾기가 가능! 가느응!!!</p>
                     
-                    <div style="margin-bottom: 10px; border: 1px solid turquoise">
+                    <div style="margin-bottom: 10px;">
                             <input type="radio" class="findSelector" id="search_1" name="search_total" onclick="search_check(1)" checked="checked">
                             <label for="search_1">아이디 찾기</label>
                             <input type="radio" class="findSelector" id="search_2" name="search_total" onclick="search_check(2)"> 
@@ -62,11 +62,12 @@
                         </div>
                     
                         <form method="POST" >
-                        <div id="searchI" style="border : 1px solid red">
+                        <div id="searchI" style="">
                                 <div class="findFrm">
                                     <label for="inputName_1">이름</label>
                                     <div>
-                                        <input type="text" id="inputName_1" name="inputName_1" placeholder="  이름 입력">
+                                        <input type="text" id="inputName_1" name="inputName_1" placeholder="  이름 입력 (한글 2-6자)">
+                                        <div class="checkMsg" id="name_check"></div>
                                     </div>
                                 </div>
             
@@ -74,6 +75,7 @@
                                     <label for="inputEmail_1">이메일</label>
                                     <div>
                                         <input type="email" id="inputEmail_1" name="inputEmail_1" placeholder=" 이메일을 입력하세요.">
+                                        <div class="checkMsg" id="email_check"></div>
                                     </div>
                                 </div>
 
@@ -89,14 +91,14 @@
             
             
             
-                        <form method="POST" action="##">
-                            <div id="searchP" style="display: none; border: 1px dotted blue">
+                        <form method="POST" action="<%=request.getContextPath()%>/resetPassword">
+                            <div id="searchP" style="display: none; ">
                                 <!-- 본인확인 이메일 -->
                 <div class="hideCntr">
                     <label for="userEmail" class="hideCntr">이메일</label><br>
                     <input type="text" class="hideCntr" name="userEmail" id="userEmail" placeholder="  E-mail"
-                        autofocus size="30" required><button type="button" class="hideCntr" id="emailSendBtn" name="emailSendBtn" onclick="sendEmail();"  style="margin-left: 7px">인증 메일보내기</button>
-                    <div class="checkMsg" id="email_check"></div>
+                        autofocus size="30" required><button type="button" class="hideCntr" id="emailSendBtn" name="emailSendBtn" onclick="sendEmail();" disabled style="margin-left: 7px">인증 메일보내기</button>
+                    <div class="checkMsg" id="email2_check"></div>
                 </div>
                 <!-- 이메일 인증하기 -->
                 <div class="hideCntr2" id="userAuth" style="display:none;">
@@ -123,7 +125,7 @@
                 
                                 <div class="find_button">
                                 <input type="reset" class="findBtn" onclick="pageBack();"value="취소" />&emsp;&emsp;
-                                <input type="submit" class="findBtn" id="find_submit" value="비밀번호 변경" />
+                                <input type="submit" class="findBtn" id="find_submit2" value="비밀번호 변경" />
                                 </div>
 						<input type="hidden" id="no" name="no" value=""/>
                             </div>
@@ -134,7 +136,7 @@
 </body>
 
 <script>
-//체크 버튼에 따라 아이디/비밀번호 기능이 달라진다
+//체크 버튼에 따라  기능이 변경
 function search_check(num) {
 		if (num == '1') {
             $('#searchP').css('display', 'none');
@@ -173,10 +175,10 @@ function search_check(num) {
 	
 	
 	function findId(){
-    	console.log('아이디 찾기');
+    	//console.log('아이디 찾기');
     	var name = $('#inputName_1').val();
     	var email = $('#inputEmail_1').val();
-		if($('#inputName_1').val()==""){//
+		if($('#inputName_1').val()==""){
 			profileAlert("이름을 입력하세요.");
 	        }else{
 	          
@@ -185,7 +187,7 @@ function search_check(num) {
 	              type:"POST",
 	   
 	              success:function(data){
-	            	  console.log(typeof(data));
+	            	  //console.log(typeof(data));
 	            
 	            	  var asd = 0.0;
 	            	  
@@ -207,7 +209,7 @@ function search_check(num) {
 		   	var authCode = "";
 		//이메일 전송 부분
 		function sendEmail(){
-	    	console.log('이메일전송옹');
+	    	//console.log('이메일전송옹');
 	    	$('#userEmail').attr("readonly", "readonly");
 	    	$('#userEmail').css("background-color", "rgb(207,207,207)");
 		    $('#emailSendBtn').attr('disabled', true);
@@ -248,7 +250,7 @@ function search_check(num) {
 				var code = $('#userAuthCode').val();
 				
 				if(Number(code) == Number(authCode)) {
-					console.log("둘이 같아요");
+					//console.log("둘이 같아요");
 					$('#auth_check').html("인증이 완료 되었습니다.").css('color', 'green');
 					$('#authChkBtn').attr('disabled', true);
 					$('#authChkBtn').css('cursor', 'not-allowed');
@@ -263,7 +265,7 @@ function search_check(num) {
 					}
 				else{
 					
-					console.log("값이 달라요");
+					//console.log("값이 달라요");
 					$('#auth_check').html("인증번호를 확인해 주세요.").css('color', 'red');
 					//inval_Arr[6] = false;
 				}
@@ -273,7 +275,7 @@ function search_check(num) {
 			var userNo = 0;
 			//이메일 중복확인+한글+@를뺀 특수문자 입력안되게
 	        $('#userEmail').on('keyup',(function (event) {
-	        	console.log("들어ㅇ니?");
+	        	//console.log("들어ㅇ니?");
 	        	reg =/^[\w\-]+@(?:(?:[\w\-]{2,}\.)+[a-zA-Z]{2,})$/;
 	 
 	            
@@ -285,24 +287,27 @@ function search_check(num) {
 		        	if($('#userEmail').val()==""){
 		        		$('#email_check').html("");
 		        	}else{
-		        		console.log("아작아작");
+		        		//console.log("아작아작");
 		            	$.ajax({
 		            		url:'<%=request.getContextPath()%>/findUserNo',
 		            		type:"POST",
 		            		data:{"chkEmail":$('#userEmail').val()},
 		            		success:function(data){
-		            			console.log(data);
+		            			//console.log(data);
 		            			if(data=='false'){
-		            				console.log("없냐?");
-		            				$('#email_check').html("없어요").css('color', 'red');		                            
+		            				//console.log("없냐?");
+		            				$('#email2_check').html("입력한 이메일 주소를 확인해주세요.").css('color', 'red');		                            
 		                            $('#emailSendBtn').attr('disabled', true);
 		                            $('#no').val("");
 		            			}
 		            			else{
-		            				console.log("있냐??");
-		            				$('#email_check').html("있어요").css('color', 'green');
+		            				//console.log("있냐??");
+		            				$('#email2_check').html("이메일 인증이 가능합니다.").css('color', 'green');
 		            	            $('#emailSendBtn').attr('disabled', false);
-		            	            $('#no').val(data);
+		            	            $('#no').val(Number(data));
+		            	            
+		            	            //console.log(Number(data));
+		            	            //console.log($('#no').val());
 		            	            
 		            			}
 		            		},
@@ -314,6 +319,136 @@ function search_check(num) {
 	            //}
 	            
 	        }));
+			
+			
+	        var inval_Arr = new Array(2).fill(false);
+			//정규식패턴
+			var chk1=0;
+			var chk2=0;
+			var regExp_name = /^[가-힣]{2,6}$/;//한글 2~6자
+			var regExp_email = /^[\w\-]+@(?:(?:[\w\-]{2,}\.)+[a-zA-Z]{2,})$/;
+			var regExp_pw = /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9])(?=.*[0-9])(?=.*[A-Z]).{8,20}$/ //대소문자 +숫자 8~20 패스
+			
+			 $('#inputName_1').on('change keyup paste', (function () {
+			        if (regExp_name.test($(this).val())) {
+			            //console.log('name참참');
+			            $("#name_check").text('');
+			            chk1=1;
+			            if(chk1==chk2){
+			            $('#find_button').attr('disabled', false);
+			            }
+			        }
+			        else {
+			        	chk1=0;
+			            $('#name_check').text('이름을 확인해주세요');
+			            $('#name_check').css('color', 'red');
+			            $('#find_button').attr('disabled', true);
+			            
+			        }
+			    }));
+			
+			 
+			 //이메일 정규식
+			    $('#inputEmail_1').on('change keyup paste', (function (e) {
+			        if (regExp_email.test($(this).val())) {
+			            //console.log('email참참')
+			            $("#email_check").text('');
+			            chk2=1;
+			            if(chk1==chk2){
+			            $('#find_button').attr('disabled', false);
+			            }
+			        }
+			        else {
+			        	chk2=0;
+			            $('#email_check').text('입력한 이메일 주소를 확인해주세요');
+			            $('#email_check').css('color', 'red');
+			            //$('#userAuth').css("display", "none");
+			        	$('#find_button').attr('disabled', true);      	
+			           
+			        }
+			    }));
+			 
+			
+			 
+			 
+			  //이메일 정규식
+			    $('#userEmail').on('change keyup paste', (function (e) {
+			        if (regExp_email.test($(this).val())) {
+			            //console.log('email참참')
+			            //$("#email2_check").text('');
+			            //$('#emailSendBtn').attr('disabled', false);
+			            inval_Arr[0] = true;
+			        }
+			        else {
+			        	
+			            //$('#email2_check').text('입력한 이메일 주소를 확인해주세요');
+			            $('#email2_check').css('color', 'red');
+			            $('#userAuth').css("display", "none");
+			        	$('#emailSendBtn').attr('disabled', true);      	
+			            inval_Arr[0] = false;
+			        }
+			    }));
+			 
+			 
+			 
+			    //전송 체크
+			    $('#find_submit2').click(function(){
+			    	var validAll = true;
+					for(var i = 0; i < inval_Arr.length; i++){
+						
+						if(inval_Arr[i] == false){
+							validAll = false;
+							//console.log(i+": false");
+						}
+					}
+					
+					if(validAll){ // 유효성 모두 통과
+						//profileAlert("");
+			    
+						return true;
+						
+					} else{
+						profileAlert("입력한 정보들을 다시 한번 확인해주세요 :)");
+			    return false;
+					}
+				});    
+				
+				
+				//비밀번호 정규식
+			    $('#userPw').on('change keyup paste', (function () {
+			        if (regExp_pw.test($(this).val())) {
+			        	//if (1) {
+			            //console.log('pw참참')
+			            $("#pw_check").text('');
+			        }
+			        else {
+			            //$('#pw_check').text('비밀번호를 확인해주세요');
+			            $('#pw_check').css('color', 'red');
+			            $('#pw_check').html('비밀번호를 확인해주세요.<br><sub>- 영어 대,소문자 그리고 숫자, 특수기호를 <br>- 각각 한글자이상 포함하여 8 ~ 20 글자 </sub>');
+			            
+			        }
+
+			    }));
+
+			    //비밀번호 재확인
+			    $('#userPw2').on('change keyup paste', (function () {
+			        if ($('#userPw').val() != $(this).val())
+			        {
+			            $('#pw2_check').text('입력하신 비밀번호가 서로 다릅니다.');
+			            $('#pw2_check').css('color', 'red');
+			            inval_Arr[1] = false;
+			        }
+			        else {
+			            $('#pw2_check').text('');
+			            inval_Arr[1] = true;
+			        }
+			    }));
+			    
+			    function pageBack(){
+			    	self.close();
+			    };
+			    
+			 
 	
 </script>
 </html>

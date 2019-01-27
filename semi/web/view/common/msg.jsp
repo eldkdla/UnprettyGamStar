@@ -3,6 +3,7 @@
 <%
 	String msg=(String)request.getAttribute("msg");
 	String loc=(String)request.getAttribute("loc");
+	String script=(String)request.getAttribute("script");
 %>
  
     
@@ -27,8 +28,10 @@
  
     <script>
         function close_pop() {
+        <%=script!=null?script:""%>
              location.href='<%=request.getContextPath()+loc%>';
-        };   
+        }; 
+        
        <%--  $(function(){
         	<%if(msg.equals("비밀번호 변경성공")){
         		request.getSession().removeAttribute("userNo");

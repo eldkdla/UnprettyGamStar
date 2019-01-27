@@ -24,15 +24,16 @@
 			<h1 class="loginLogo">\ 굄-성 /<br>- UnprettyGamStar -</h1>
 
 			<form id="loginFrm" action="<%=request.getContextPath() %>/login" method="POST">
+				<div id="capcap">&nbsp;</div>
+						
 				<table id="loginTable">
 					<tr>
 						<td><label for="id" class="loginLabel">ID : </label><br>
 						<label for="pw" class="loginLabel">PW : </label>
 						</td>
 						
-						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID" required onkeypress="javascript:capsLock(this);" />
-						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" placeholder=" Password" onkeypress="javascript:capsLock(this);" />
-<!-- 						<p id="capslock" style='color: red; display: none; font-weight: bold;'>Caps Lock키가 눌려있습니다.</p> -->
+						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID" required />
+						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" placeholder=" Password" />
 						
 						
 						</td>
@@ -70,42 +71,15 @@
 </section>
 
 <script>
-	//Caps
-	/* $('#pw').on('change keyup paste', (function () {
-    if (!event.getModifierState("CapsLock")) {
-    	//$("#caps").text('');
-        
-    }
-    else {
-    	//capslockAlert.style.display = "block"
-    	//$("#caps").text('대문자?').css({'color' : 'red', 'fontWeight': 'bold'});
-        //$('#email_check').text('입력한 이메일 주소를 확인해주세요');
-        //$('#email_check').css('color', 'red');
-        //inval_Arr[3] = false;
-    }
-	})); */
 
 
-	/*      var pwInput = document.getElementById("pw");
-	 var capslockAlert = document.getElementById("capslock");
-	 pwInput.addEventListener("keyup", function (event) {
-
-	 if (!event.getModifierState("CapsLock")) {
-	 capslockAlert.style.display = "none"
-	 } else {
-	 capslockAlert.style.display = "block";
-	 }
-	 });*/
-
-	function capsLock(e) {
-		console.log(event.getModifierState("Capslock"));
-		var capslockAlert = document.getElementById("capslock");
-		if (event.getModifierState("Capslock")) {
-			capslockAlert.style.display = "block";
-		} else {
-			capslockAlert.style.display = "none"
-		}
-	}
+$('.loginInput').keyup(function(){	
+	if (event.getModifierState("CapsLock")) {
+		$('#capcap').html("Caps Lock키가 눌려있습니다.").css({'color':'red','font-weight' : 'bold'});
+	  } else {
+		  $('#capcap').html("&nbsp;");
+	  }	
+});
 
 		//공용 Alert 모달창
         function profileAlert(alertMsg){
@@ -163,7 +137,7 @@
         
         
     	function test(num) {
-    	console.log(num);
+    	//console.log(num);
     	};
     	
 </script>
