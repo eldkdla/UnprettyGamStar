@@ -35,32 +35,33 @@ public class MainpageSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		  request.setCharacterEncoding("UTF-8");
-	      response.setCharacterEncoding("UTF-8");
-	      
-	      String searchStr = request.getParameter("searchStr");
-	      System.out.println("전달완료 : "+searchStr);
-	      
-	      List<User> userList = new UserService().selectSearchUser(searchStr); //유저 불러오기
-	      JSONObject searchUser = new JSONObject();
-	      JSONArray jsonArr = new JSONArray();
-	      System.out.println("유저서치 값 : "+userList.size());
-	      
-	      for(int i =0; i<userList.size(); i++) {
-	         
-	         JSONObject data2 = new JSONObject();
-	         data2.put("userNo",userList.get(i).getNo());
-	         data2.put("userName",userList.get(i).getName());
-	         data2.put("profilePhoto",userList.get(i).getProfilePhoto());
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
+		String searchStr = request.getParameter("searchStr");
+		System.out.println("전달완료 : "+searchStr);
+		
+		List<User> userList = new UserService().selectSearchUser(searchStr); //유저 불러오기
+		JSONObject searchUser = new JSONObject();
+		JSONArray jsonArr = new JSONArray();
+		System.out.println("유저서치 값 : "+userList.size());
+		
+		for(int i =0; i<userList.size(); i++) {
+			
+			JSONObject data2 = new JSONObject();
+			data2.put("userNo",userList.get(i).getNo());
+			data2.put("userName",userList.get(i).getName());
+			data2.put("profilePhoto",userList.get(i).getProfilePhoto());
 
-	         searchUser.put("follow"+i, data2);
-	      }
-	      
-	      jsonArr.add(searchUser);
-	      System.out.println(searchUser);
-	      
-	      response.setContentType("application/json;Charset=UTF-8");
-	      new Gson().toJson(jsonArr,response.getWriter());
+			searchUser.put("follow"+i, data2);
+		}
+		
+		jsonArr.add(searchUser);
+		System.out.println(searchUser);
+		
+		response.setContentType("application/json;Charset=UTF-8");
+		new Gson().toJson(jsonArr,response.getWriter());
 	}
 
 	/**

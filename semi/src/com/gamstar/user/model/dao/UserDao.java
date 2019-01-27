@@ -27,6 +27,42 @@ public class UserDao {
 		}
 
 	}
+	
+	public List<User> selectFollowUser(Connection conn, int userNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = prop.getProperty("selectMyFollow");
+		
+		List<User> listDB = new ArrayList();
+		User data = null;
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rs=pstmt.executeQuery();
+				
+			while(rs.next()) {
+				data = new User();
+					
+				data.setNo(rs.getInt("user_no"));
+				data.setName(rs.getString("user_name"));
+				data.setProfilePhoto(rs.getString("user_profile_photo"));
+
+					
+				listDB.add(data);
+			}
+
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rs);
+			close(pstmt);
+		}
+		return listDB;
+		
+	}
+	
 		
 	public List<User> selectFeedUser(Connection conn, List<String> peedNo){
 		PreparedStatement pstmt = null;
@@ -67,7 +103,7 @@ public class UserDao {
 			ResultSet rs=null;
 			String sql=prop.getProperty("selectUser");
 			//User userData=new User();
-			
+			System.out.println("여기냐??");
 			try{
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setInt(1,user.getNo());
@@ -91,6 +127,7 @@ public class UserDao {
 				close(rs);
 				close(pstmt);
 			}
+			System.out.println("넘기냐??");
 			return user;
 		}
 		
@@ -770,6 +807,7 @@ public class UserDao {
 				ResultSet rs = null;
 				String sql = prop.getProperty("loginCheck");
 				User data = null;
+				System.out.println("DAO 는 오나요??");
 				
 				try {
 					pstmt = conn.prepareStatement(sql);
@@ -781,7 +819,7 @@ public class UserDao {
 						data.setNo(rs.getInt("USER_NO"));
 						data.setId(rs.getString("USER_ID"));
 						data.setPw(rs.getString("USER_PASSWORD"));
-						//System.out.println(data.getNo());
+						System.out.println(data.getNo());
 						//조인해서 나머지 유저 데이터 추가
 						//후에 로그인에서 TB_USER에서 state참조하여 차단로그인 체크.
 						
@@ -795,6 +833,7 @@ public class UserDao {
 					close(pstmt);
 					
 				}
+				System.out.println("??");
 				return data;
 			}
 			

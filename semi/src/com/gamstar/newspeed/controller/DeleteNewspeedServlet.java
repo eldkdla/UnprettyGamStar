@@ -35,6 +35,7 @@ public class DeleteNewspeedServlet extends HttpServlet {
 		if(request.getSession().getAttribute("userNo")!=null&&request.getParameter("uu")==null){
 
 			int storedNewspeedNo=Integer.parseInt(request.getParameter("storedNewspeedNo1"));
+
 			
 			Newspeed newspeed=new Newspeed();
 			newspeed.setNo(storedNewspeedNo);

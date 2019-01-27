@@ -39,13 +39,15 @@ public class UserLoginServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-
+		System.out.println(id);
+		System.out.println(pw);
 		User u = new User();
 		u.setId(id);
 		u.setPw(pw);
+		System.out.println(u.getId()+"  /  "+u.getPw());
 
 		User data = new UserService().loginCheck(u); //로그인 확인
-
+		System.out.println("여기까지 옴??");
 		String view="";//응답페이지의 주소
 		String msg="";//찾을수 없을때 메세지!
 		if(data==null)

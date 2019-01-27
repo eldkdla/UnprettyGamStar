@@ -41,7 +41,7 @@ public class NewspeedService {
 		userDAO = new UserDao();
 	}
 	
-			public List<String> selectNewspeedNo(String userNo,int limite) {
+			public List<String> selectNewspeedNo(int userNo,int limite) {
 				
 				Connection conn = getConnection();
 				
@@ -62,12 +62,11 @@ public class NewspeedService {
 				System.out.println("중복 제거 피드 : "+peedNo);
 				
 				close(conn);
-				System.out.println("서비스 들어옴!");
 				
 				return peedNo;
 			}
 			
-			public List<Newspeed> selectContent(String userNo,int limite){
+			public List<Newspeed> selectContent(int userNo,int limite){
 				
 				List<String> peedNo = selectNewspeedNo(userNo, limite);
 				Connection conn = getConnection();
@@ -76,7 +75,7 @@ public class NewspeedService {
 				return contentList;
 			}
 			
-			public List<NewspeedComment> selectComment(String userNo,int limite){
+			public List<NewspeedComment> selectComment(int userNo,int limite){
 				
 				List<String> peedNo = selectNewspeedNo(userNo,limite);
 				Connection conn = getConnection();
@@ -85,7 +84,7 @@ public class NewspeedService {
 				return commentList;
 			}
 			
-			public List<NewspeedMedia> selectMedia(String userNo,int limite){
+			public List<NewspeedMedia> selectMedia(int userNo,int limite){
 				
 				List<String> peedNo = selectNewspeedNo(userNo,limite);
 				Connection conn = getConnection();
@@ -94,7 +93,7 @@ public class NewspeedService {
 				return mediaList;
 			}
 			
-			public List<NewspeedLike> selectLike(String userNo,int limite){
+			public List<NewspeedLike> selectLike(int userNo,int limite){
 				
 				List<String> peedNo = selectNewspeedNo(userNo,limite);
 				Connection conn = getConnection();
@@ -103,7 +102,7 @@ public class NewspeedService {
 				return likeList;
 			}
 			
-			public List<NewspeedMediaTag> selectMediaTag(String userNo,int limite){
+			public List<NewspeedMediaTag> selectMediaTag(int userNo,int limite){
 				
 				List<String> peedNo = selectNewspeedNo(userNo,limite);
 				Connection conn = getConnection();
@@ -123,7 +122,7 @@ public class NewspeedService {
 				System.out.println("들어옴?"+limite);
 				
 				for(int i=0; i<1; i++) {
-					System.out.println("여긴?");
+
 					tagSet:
 					for(int j=0; j<tagNo.size();j++) {
 						
@@ -159,9 +158,6 @@ public class NewspeedService {
 							resultList.add(followNo.get(j));
 						}
 					}
-					
-		
-			        System.out.println("중복제거 피드 : "+resultList.size());
 				}	
 		   
 				return resultList;
