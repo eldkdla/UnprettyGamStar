@@ -138,7 +138,7 @@ if(request.getSession().getAttribute("userNo") == null)
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
 
             <button id="alarmset" onclick='alarmOnOff()'></button>
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> x
+            <button id="chatroomcloseBtn" onclick="removechatlist()"> 
             </button> 
         </div>
         
