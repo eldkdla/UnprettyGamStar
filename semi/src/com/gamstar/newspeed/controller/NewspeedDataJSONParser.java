@@ -71,13 +71,13 @@ public class NewspeedDataJSONParser {
 		if (Math.floor((beforeNum/0.00069)) < 1) {
 			return "방금";
 		} else if (Math.floor((beforeNum/0.00069)) >= 1 && Math.floor((beforeNum/0.0414)) < 1) {
-			return ((int)Math.floor((beforeNum/0.00069))) + "분전";
+			return (int)(Math.floor((beforeNum/0.00069))) + "분전";
 		} else if (Math.floor((beforeNum/0.0414)) >= 1 && Math.floor((beforeNum/0.0414)) < 24) {
-			return ((int)Math.floor((beforeNum/0.0414))) + "시간전";
+			return (int)((int)Math.floor((beforeNum/0.0414))) + "시간전";
 		} else if (beforeNum < 31 && Math.floor((beforeNum/0.0414)) >= 24) {
-			return ((int)Math.floor(beforeNum)) + "일전";
+			return (int)((int)Math.floor(beforeNum)) + "일전";
 		} else if (beforeNum < 366 && beforeNum >= 31) {
-			return ((int)Math.floor(beforeNum/30)) + "개월전";
+			return (int)((int)Math.floor(beforeNum/30)) + "개월전";
 		}
 		
 		

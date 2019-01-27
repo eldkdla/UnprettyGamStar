@@ -145,7 +145,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 			json.put("commentNo", newspeedComment.getNo());
 			json.put("rootCommentNo", newspeedComment.getRootNo());
 			
-			String before = parser.parseToDate(newspeedComment.getBeforeDay()).replaceAll(".0", "");
+			String before = parser.parseToDate(newspeedComment.getBeforeDay());
 			System.out.println(before + "언제 달았니?");
 			
 			json.put("beforeTime", before);
