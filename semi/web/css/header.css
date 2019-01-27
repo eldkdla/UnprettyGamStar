@@ -318,6 +318,7 @@
 
         #searchDelete{
             position: absolute;
+            display:none;
             width: 16.5px;
             height: 16.5px;
             left: 105%;

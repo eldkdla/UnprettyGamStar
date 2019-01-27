@@ -62,7 +62,7 @@
 	       $('#infoBox').removeClass("infoBox");
 
 	       
-	       $('.searchPeople').remove();
+	       
 
 	       var searchStr = $('#rara').val();
 	       if(searchStr == ""){
@@ -73,6 +73,7 @@
 	              url:"<%=request.getContextPath()%>/mainsearchservlet",
 	              data:{"searchStr":searchStr},
 	              success: function(data){
+	            	  $('.searchPeople').remove();
 	                 /* console.log("서치 통신");
 	                 console.log("크기 : "+Object.keys(data[0]).length); */
 	                 if(Object.keys(data[0]).length == 0){
