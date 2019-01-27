@@ -7,32 +7,62 @@ import org.json.simple.JSONObject;
 
 import com.gamstar.newspeed.model.vo.NewspeedComment;
 
+import common.HtmlSpecialChar;
+
 public class NewspeedDataJSONParser {
 	
 	
-	public JSONArray getNewspeedCommentListJSONArray(List<NewspeedComment> newspeedCommentList, int userNo) {
+	public JSONArray getNewspeedCommentListJSONArray(List<NewspeedComment> commentList, int userNo) {
 		JSONArray commentListJSONArray = new JSONArray();
-		
-		
-		for (int i = 0; i < newspeedCommentList.size(); i++) {
-			JSONObject commentJSON = new JSONObject();
-			NewspeedComment newspeedComment = newspeedCommentList.get(i);
-			commentJSON.put("userNo", newspeedComment.getUserNo());
-			commentJSON.put("commentContent", newspeedComment.getContent());
-			commentJSON.put("userName", newspeedComment.getUserName());
-			commentJSON.put("rootCommentNo", newspeedComment.getRootNo());
-			commentJSON.put("commentNo", newspeedComment.getNo());
+		JSONArray recommentJSONArray = new JSONArray();
+		JSONObject preJSONObject = new JSONObject();
+		int preRootNo = -1;
+
+		for (int i = 0; i < commentList.size(); i++) {		
+			JSONObject json = new JSONObject();
 			
+			NewspeedComment newspeedComment = commentList.get(i);
+			System.out.println(i + "번째" + newspeedComment + "잘나오냠?");
+			
+			json.put("userNo", newspeedComment.getUserNo());
+			json.put("userName", newspeedComment.getUserName());
+			json.put("commentContent", HtmlSpecialChar.getHtmlStr(newspeedComment.getContent()));
+			json.put("commentNo", newspeedComment.getNo());
+			json.put("rootCommentNo", newspeedComment.getRootNo());
+				
 			if (userNo == newspeedComment.getUserNo()) {
-				commentJSON.put("isMine", true);
+				json.put("isMine", true);
 			} else {
-				commentJSON.put("isMine", false);
+				json.put("isMine", false);
 			}
-			
-			commentListJSONArray.add(commentJSON);
+				
+			if (newspeedComment.getNo() == newspeedComment.getRootNo()) {
+				recommentJSONArray = new JSONArray();
+	
+				json.put("recommentList", recommentJSONArray);			
+				commentListJSONArray.add(json);
+				preJSONObject = json;
+				
+			} else if (newspeedComment.getNo() != newspeedComment.getRootNo()) {
+				
+				recommentJSONArray.add(json);
+
+				continue;
+				
+			}
+
+			preRootNo = newspeedComment.getRootNo();
+
 		}
 		
+
 		return commentListJSONArray;
+	}
+	
+	public String parseToDate() {
+		String date = "";
+		
+		return date;
 	}
 
 }

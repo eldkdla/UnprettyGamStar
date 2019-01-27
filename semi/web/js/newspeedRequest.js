@@ -14,6 +14,9 @@ var isActiveContainerBtn = false;
     function showNewspeedview(data) {
         $('#newspeedview_btn_wrapper').toggle();
         $('#newspeedview_list_wrapper').children().remove();
+        
+        console.log('하이하이');
+        console.log(JSON.parse(data));
 
    
         appendNewspeedElement(JSON.parse(data), $('#newspeedview_list_wrapper').children().length, function(){
@@ -337,15 +340,94 @@ var isActiveContainerBtn = false;
             }));
 
             for (var j = 0; j < data.commentList.length; j++) {
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').prepend($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    class:'.newspeedview_comment'
                 }));
 
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div').append($('<input/>', {
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<input/>', {
                     type: 'hidden',
                     class: 'userNo',
                     value: data.commentList[j].userNo
                 }));
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<input/>', {
+                    type: 'hidden',
+                    class: 'commentNo',
+                    value: data.commentList[j].commentNo
+                }));
+                
+
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
+                    class:'newspeedview_comment_option_wrapper',
+                }));
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                    class:'comment_option_recomment',
+                	text:'답글'
+                }));
+                
+                if (data.commentList[j].isMine) {
+                    
+                	if (false) {
+                	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                		class:'comment_option_modify',
+                		text:'수정'
+                	}));
+                	}
+                
+                	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                		class:'comment_option_delete',
+                		text:'삭제'
+                	}));
+                }
+                
+                if (typeof data.commentList[j].recommentList != "undefined" ) {
+                	var nummmm = 0;
+                for (var p = data.commentList[j].recommentList.length -1; p >= 0 ; p--) {
+                	
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
+                        class:'recomment_wrapper',
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                    }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'userNo',
+                        value:data.commentList[j].recommentList[p].userNo
+                    }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'commentNo',
+                        value:data.commentList[j].recommentList[p].commentNo
+                    }));
+                    
+                    if (data.commentList[j].recommentList[p].isMine){
+                    	
+                    	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<div/>', {
+                             class:'recomment_option_wrapper',
+                             style:'display:block;',
+                             value:data.commentList[j].recommentList[p].commentNo
+                         }));
+                   	 
+                   	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').css('display','block');
+                   	 
+                   	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').append($('<div/>', {
+                            class:'comment_option_delete',
+                            text:'삭제'
+                        }));
+                   }
+                    
+                    nummmm = (nummmm + 1);
+              	
+                	}
+                }
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div > div > *').css({
+                	'display':'inline-block'
+                });
+                   
             }
             
             $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(0)').attr('class','newspeedview_media_select');
@@ -708,15 +790,102 @@ var isActiveContainerBtn = false;
             }));
 
             for (var j = 0; j < data.commentList.length; j++) {
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').prepend($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    class:'.newspeedview_comment'
                 }));
 
-                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div').append($('<input/>', {
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<input/>', {
                     type: 'hidden',
                     class: 'userNo',
                     value: data.commentList[j].userNo
                 }));
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<input/>', {
+                    type: 'hidden',
+                    class: 'commentNo',
+                    value: data.commentList[j].commentNo
+                }));
+                
+
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
+                    class:'newspeedview_comment_option_wrapper',
+                }));
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                    class:'comment_option_recomment',
+                	text:'답글'
+                }));
+                
+                
+                if (data.commentList[j].isMine) {
+                
+                	if (false) {
+                	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                		class:'comment_option_modify',
+                		text:'수정'
+                	}));
+                	}
+                
+                	$('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                		class:'comment_option_delete',
+                		text:'삭제'
+                	}));
+                	
+                }
+                if (typeof data.commentList[j].recommentList != "undefined" ) {
+                	var nummmm = 0;
+                for (var p = data.commentList[j].recommentList.length -1; p >= 0 ; p--) {
+                	
+  
+                	
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
+                        class:'recomment_wrapper',
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                    }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'userNo',
+                        value:data.commentList[j].recommentList[p].userNo
+                    }));
+                    
+                    $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'commentNo',
+                        value:data.commentList[j].recommentList[p].commentNo
+                    }));
+                    
+                    console.log('들어가기 전에 들리시겠죠!');
+                    console.log(data.commentList[j].recommentList[p].isMine);
+                    
+                    if (data.commentList[j].recommentList[p].isMine){
+                    	
+                    	console.log('반가워요.... 여기로 오낭효?');
+                    	
+                      	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<div/>', {
+                               class:'recomment_option_wrapper',
+                               style:'display:block;',
+                               value:data.commentList[j].recommentList[p].commentNo
+                           }));
+                      	 
+                      	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').css('display','block');
+                      	 
+                      	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').append($('<div/>', {
+                               class:'comment_option_delete',
+                               text:'삭제'
+                           }));
+                      }
+                    
+                    nummmm = (nummmm + 1);
+              	
+                	}
+                }
+                
+                $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div > div > *').css({
+                	'display':'inline-block'
+                });
+                   
             }
 
             $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper').append($('<div/>', {
@@ -775,10 +944,7 @@ var isActiveContainerBtn = false;
 
             }
          
-           
-
             onBindEvent();
-            resizeMediaList();
             resizeMedia();
             resizeNewspeedview();
         }
@@ -791,6 +957,7 @@ var isActiveContainerBtn = false;
 
     function onBindEvent() {
     	
+    	 onClickBackground();
         onClickLeftContainer();
         onClickRightContainer();
         onClickLeftMediaBtn();
@@ -802,10 +969,11 @@ var isActiveContainerBtn = false;
         onClickTagUser();
         onClickCommentUser();
         onClickReport();
-        onClickBackground();
-       
-        
+        onClickRecomment();  
+        onClickCommentDelete();
         onClickNewspeedMediaImage();
+        onClickWriterProfilePhoto();
+        onClickWriterName();
     }
 
     $(window).resize(function () {
@@ -1045,13 +1213,13 @@ var isActiveContainerBtn = false;
     }
 
     function onClickBackground() {
-        $('#newspeedview_btn_wrapper').off().on('click', function (e) {
+        $('#newspeedview_btn_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             
             $(this).slideToggle();
         });
         
-        $('#newspeedview_btn_wrapper *').on('click', function (e) {
+        $('#newspeedview_btn_wrapper *').off('click').on('click', function (e) {
             e.stopPropagation();
             
         });
@@ -1079,8 +1247,7 @@ var isActiveContainerBtn = false;
                     onClickLike();
                 },
                 error:function(request,status,error){
-                	console.log('아직 응답페이지를 안들었어요..');
-                    
+               
                 }
      
             });
@@ -1107,7 +1274,7 @@ var isActiveContainerBtn = false;
                     onClickLike();
                 },
                 error:function(request,status,error){
-                	console.log('아직 응답페이지를 안들었어요..');
+              
                     
                 }
      
@@ -1181,9 +1348,10 @@ var isActiveContainerBtn = false;
  
         });
     }
+    
 
     function onClickCommentUser() {
-        $('.newspeedview_comment_wrapper > div > h4').off().on('click', function (e) {
+        $('.newspeedview_comment_wrapper > div > h4').off('click').on('click', function (e) {
             e.stopPropagation();
             console.log($(this).siblings().val());
             console.log($(this));
@@ -1191,16 +1359,27 @@ var isActiveContainerBtn = false;
     }
 
     function onClickWriterProfilePhoto() {
-
+    	$('.newspeedview_profile_photo').off('click').on('click',function(e){
+    		e.stopPropagation();
+    		console.log($('.newspeedview_list_select .userNo').val());
+    	});
     }
 
     function onClickWriterName() {
-
+    	$('.newspeedview_writername > h4').off('click').on('click',function(e){
+    		e.stopPropagation();
+    		console.log($('.newspeedview_list_select .userNo').val());
+    	});
+    	
+    	$('.newspeedview_content_wrapper > div > h4').off('click').on('click',function(e){
+    		e.stopPropagation();
+    		console.log($('.newspeedview_list_select .userNo').val());
+    	});
     }
 
     function onClickReport() {
     	
-    	$('.newspeed_report_icon_wrapper').on('click',function(e){
+    	$('.newspeed_report_icon_wrapper').off('click').on('click',function(e){
         	var targetUserNo = $('.newspeedview_list_select .newspeedview_writer_content_wrapper .userNo').val();
         	var targetNewspeedNo = $('.newspeedview_list_select .newspeedNo').val();
         	
@@ -1215,16 +1394,17 @@ var isActiveContainerBtn = false;
 
 
     function onEnterCommentWrite() {
-        $('.newspeedview_comment_write').off().on('keyup', function (e) {
+        $('.newspeedview_comment_write').off('keyup').on('keyup', function (e) {
             e.stopPropagation();            
             if (e.key == 'Enter') {
             	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
             	var content = $(this).val(); 
             	
-            	if(content.trim().length < 5) {
-            		alert('띄어쓰기를 제외하고 5글자 이상 입력하세요');
+            	
+            	if(!isRightComment(content)) {
             		return;
             	}
+            	
             	
                writeNewspeedComment(newspeedNo, 0, content);
                
@@ -1235,6 +1415,21 @@ var isActiveContainerBtn = false;
         });
     }
     
+    function isRightComment(content) {
+    	if(content.trim().length < 5) {
+    		profileAlert('띄어쓰기를 제외하고 5글자 이상 입력하세요');
+    		return false;
+    	} else if(content.length < 7) {
+    		profileAlert('띄어쓰기 포함 8글자 이상 입력하세요');
+    		return false;
+    	} else if (content.length > 166) {
+    		profileAlert('띄어쓰기 포함 166글자 이하로 입력하세요.');
+    		return false;
+    	}
+    	
+    	return true;
+    }
+    
     function onClickCommentWriteSubmit() {
     	 $('.newspeedview_comment_write_submit').off('click').on('click', function (e) {
  
@@ -1243,8 +1438,7 @@ var isActiveContainerBtn = false;
              	
              	console.log(content + '왜그러세요?');
              	
-             	if(content.trim().length < 5) {
-            		alert('띄어쓰기를 제외하고 5글자 이상 입력하세요');
+              	if(!isRightComment(content)) {
             		return;
             	}
              	
@@ -1271,8 +1465,6 @@ var isActiveContainerBtn = false;
             error:function(request,status,error){
             	console.log(error);
             }
-
- 
         });
     }
     
@@ -1280,9 +1472,101 @@ var isActiveContainerBtn = false;
     	$('.newspeedview_media_image').off('click').on('click', function(e){
     		e.stopPropagation();
     		$('.newspeedview_list_select .newspeedview_media_select .balloons').fadeToggle(500);
+    	});
+    }
+    
+    function onClickRecomment() {
+    	$('.comment_option_recomment').off('click').on('click', function(e){
+    		e.stopPropagation();
+    		var parents = $(this).parent();
+    		
+    		console.log($(parents).children());
+    		
+    	
+    		if (typeof $('.input_text_recomment').val() != "undefined") {
+    			$('.input_text_recomment').remove();
+    			return;
+    		}
+    		
+    		$('.input_text_recomment').remove();
+  		
+    		$(parents).append($('<input/>',{
+    			type:'text',
+    			class:'input_text_recomment'
+    		}));
+    		
+    		onEnterRecomment(parents);
+    		
+    	});
+    	
+    	function onEnterRecomment(parents) {
+    		$('.input_text_recomment').off('keyup').on('keyup',function(e){
+    			
+    			if (e.key == "Enter") {
+    				var content = $(this).val();
+    				var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+    				var rootNo = $(parents).parent().children()[2].value;
+    				
+    		      	if(!isRightComment(content)) {
+                		return;
+                	}
+ 
+    				
+    				onSubmitRecomment(newspeedNo, rootNo, content);
+    				
+    			}
+    		});
+    	}
+    	
+    	function onSubmitRecomment(newspeedNo, rootCommentNo, commentContent) {
+            $.ajax({
+                url: '../newspeed/newspeedrecomment',
+                type: "POST",
+                data: { "newspeedNo": newspeedNo,
+                	     "rootCommentNo": rootCommentNo,
+                	     "commentContent": commentContent},
+                success: function (data) {
+                	reloadCommentList(JSON.parse(data));
+                },
+                error:function(request,status,error){
+   
+                }
+            });
+    	}
+    }
+    
+    function onClickCommentDelete() {
+    	$('.comment_option_delete').off('click').on('click',function(e){
+    		var commentNo = $(this).parent().parent().children()[2].value;
+    		var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+    		
+    		console.log(commentNo);
+    		console.log('반가워!');
+    		
+    		requestCommentDelete(commentNo, newspeedNo);
     	})
     	
     }
+    
+	function requestCommentDelete(commentNo, newspeedNo) {
+		 $.ajax({
+	            url: '../newspeed/newspeedcommentdelete',
+	            type: "POST",
+	            data: { "commentNo": commentNo,
+	            	    "newspeedNo" : newspeedNo},
+	            success: function (data) {
+	            	console.log(data);
+	            	console.log(JSON.parse(data));
+	                 reloadCommentList(JSON.parse(data));
+	            },
+	            error:function(request,status,error){
+	                
+	            }
+
+	 
+	        });
+	}
+ 
     
     
     function reloadCommentList(data) {
@@ -1291,18 +1575,98 @@ var isActiveContainerBtn = false;
     	console.log(data);
     	console.log(data.length);
     	
-    	for (var i = 0; i < data.length; i++) {
-    		 $('.newspeedview_list_select .newspeedview_comment_wrapper').prepend($('<div/>', {
+    	for (var i = 0; i < data.length; i++) {	
+    		 $('.newspeedview_list_select .newspeedview_comment_wrapper').append($('<div/>', {
     	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent
     	        }));
 
-    	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div').append($('<input/>', {
+    	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i +')').append($('<input/>', {
     	            type: 'hidden',
     	            class: 'userNo',
     	            value: data[i].userNo
     	        }));
+    	        
+    	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i +')').append($('<input/>', {
+                    type: 'hidden',
+                    class: 'commentNo',
+                    value: data[i].commentNo
+                }));
+                
+
+                $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ')').append($('<div/>', {
+                    class:'newspeedview_comment_option_wrapper',
+                }));
+                
+                $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                    class:'comment_option_recomment',
+                	text:'답글'
+                }));
+                
+                
+                if(data[i].isMine) {
+                	
+                	$('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+                		class:'comment_option_delete',
+                		text:'삭제'
+                	}));
+                }
+                
+                if (false) {
+                $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .newspeedview_comment_option_wrapper').append($('<div/>', {
+            		class:'comment_option_modify',
+            		text:'수정'
+            	}));
+                }
+                
+                
+                if (typeof data[i].recommentList != "undefined" ) {
+                	var nummmm = 0;
+                for (var p = data[i].recommentList.length -1; p >= 0 ; p--) {
+                	
+                	
+                    $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ')').append($('<div/>', {
+                        class:'recomment_wrapper',
+                        html:"<h4>" +  data[i].recommentList[p].userName + "</h4>&nbsp;" + data[i].recommentList[p].commentContent,
+                    }));
+                    
+                    $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'userNo',
+                        value:data[i].recommentList[p].userNo
+                    }));
+                    
+                    $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
+                        type:'hidden',
+                        class:'commentNo',
+                        value:data[i].recommentList[p].commentNo
+                    }));
+                    
+                    if (data[i].recommentList[p].isMine){
+                    	
+                    	 $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<div/>', {
+                             class:'recomment_option_wrapper',
+                             style:'display:block;',
+                             value:data[i].recommentList[p].commentNo
+                         }));
+                    	 
+                    	 $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').css('display','block');
+                    	 
+                    	 $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ') .recomment_option_wrapper').append($('<div/>', {
+                             class:'comment_option_delete',
+                             text:'삭제'
+                         }));
+                    }
+              	
+              	
+                    nummmm = (nummmm + 1);
+                	}
+                }
+                
+                $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div > div > *').css({
+                	'display':'inline-block'
+                });
     	}
-    	
+    	onBindEvent();
     }
     
 
@@ -1347,7 +1711,7 @@ var isActiveContainerBtn = false;
                showNewspeedview(data);
             },
             error:function(request,status,error){
-                alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                
             }
 
  
@@ -1360,8 +1724,6 @@ var isActiveContainerBtn = false;
             type: "POST",
             data: { "newspeedNo": newspeedNo },
             success: function (data) {
-            	console.log('성공');
-            	console.log(JSON.parse(data));
             	appendNewspeedElement(JSON.parse(data),$('#newspeedview_list_wrapper').children().length - 1,function(){
             		moveRightNewspeed();
             	});       	
@@ -1378,11 +1740,8 @@ var isActiveContainerBtn = false;
             type: "POST",
             data: { "newspeedNo": newspeedNo },
             success: function (data) {
-            	console.log(newspeedNo);
-            	console.log('성공');
-            	console.log(JSON.parse(data));
+
             	appendNewspeedElementBefore(JSON.parse(data),0,function(){
-            		console.log('너는왜안하니이ㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣㅣ');
             		moveLeftNewspeed();
             	});       	
             }

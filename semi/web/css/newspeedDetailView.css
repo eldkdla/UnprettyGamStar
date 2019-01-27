@@ -327,6 +327,7 @@
             overflow-x: hidden;
             overflow-y:auto;
             font-family: 'Quicksand', sans-serif;
+            margin-top:20px;
             
         }
         
@@ -338,7 +339,6 @@
             font-size:14.5px;
             margin-left : 10px;
             margin-right: 10px;
-            margin-top: -10px;
             font-family: 'Quicksand', sans-serif;
         }
 
@@ -348,10 +348,30 @@
 
         .newspeedview_comment_wrapper > div > *{
             display:inline-block;
-            height:0px;
                         word-break: break-all;
             word-wrap:break-word; 
             white-space: normal;
+        }
+        
+        .newspeedview_comment_option_wrapper{
+        	width:100%;
+        	height:15px;
+        	margin-top:-5px;
+        	margin-bottom:10px;
+        }
+        .newspeedview_comment_option_wrapper > div{
+        	color:gray;
+        	font-size:10px;
+        	margin-right:10px;
+        }
+        
+        .newspeedview_comment_option_wrapper > div:hover{
+        	cursor:pointer;
+        }
+        
+        .newspeedview_comment_wrapper h4 {
+        	margin-block-start:0;
+        	margin-block-end:0;
         }
 
         .newspeed_comment_user{
@@ -472,3 +492,59 @@
             object-fit:scale-down;
         
         }
+        
+        .comment_content{
+        	display:inline-block;
+        }
+        
+        .input_text_recomment {
+        	display:block;
+        	width:70%;
+        	margin-bottom:15px;
+        	margin-top:10px;
+        	
+        }
+        
+        .recomment_wrapper {
+             display:inline-block;
+             white-space:normal;
+             margin-left:10%;	
+            word-break: break-all;
+            word-wrap:break-word;  
+            width:90%;
+            margin-top:3px;
+            margin-bottom:3px;
+        }
+        
+        .newspeedview_comment_option_wrapper{
+             display:block;
+             white-space:normal;
+             margin-left:30px;	
+                         word-break: break-all;
+            word-wrap:break-word;  
+        }
+          
+          .recomment_option_wrapper{
+          	display:block;
+          	width:100%;
+          }
+          
+          .recomment_option_wrapper .comment_option_delete {
+            text:'삭제';
+            color:gray;
+        	font-size:10px;
+        	margin-right:10px;
+        	margin-top:5px;
+        	margin-bottom:5px;
+        	margin-left:10px;
+          }    
+          
+          
+          .comment_option_delete:hover{
+          cursor:pointer;
+          }
+          
+          .newspeedview_profile_photo:hover {
+          	cursor:pointer;
+          }
+              

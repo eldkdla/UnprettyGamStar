@@ -47,6 +47,7 @@
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
+	<canvas class="dummy_canvas" style="display:none;" id="sephia"></canvas>
 	
 	<div id="newspeedview_btn_wrapper">
 
@@ -253,9 +254,14 @@
  		
  		<form action="" method="post" enctype="multipart/form-data">
  		<div class="reportBgk" id="reportBgk">
- 			<div class="reportContent" id="reportContent">
- 				<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
- 				<input type="file" name="reportmedia[]" multiple="multiple"><button type="button">신고하기</button>
+ 			<div class="reportContent" id="reportContent">	
+ 				<div><label onclick="closeReport();">&#10005</label></div>
+ 				<h2>신고하기</h2>	
+	 			<label>신고내용</label>
+	 			<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
+ 				<label>첨부파일</label>
+ 				<input type="file" name="reportmedia[]" multiple="multiple">
+ 				<button type="button">신고하기</button>
  			</div>
  		</div>	
  		</form>
@@ -315,10 +321,10 @@
             </ul>
         </div>
        	<div id=disclosure>
-       	<div id="disclosureContent">
-       		<label>비공개 계정입니다</label><br><br>
-       		<label>게시글을 보려면 팔로우하세요</label>
-       	</div>
+	       	<div id="disclosureContent">
+	       		<label>비공개 계정입니다</label><br><br>
+	       		<label>게시글을 보려면 팔로우하세요</label>
+	       	</div>
        	</div>
         <div id="profileContent1" class="profileContent"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
         <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
@@ -340,6 +346,11 @@
    
 
     <script>
+    		//신고창 닫기 이벤트
+    		function closeReport(){
+    			$('#reportBgk').fadeOut();
+    		}
+    		
     		//공용 Alert 모달창
 		    function profileAlert(alertMsg){
 		    	$('#myModal').remove();
@@ -482,6 +493,13 @@
 	        		<%if(user.getDisclosure()==0){
 		            	System.out.println("비공개임");
 		            	%>
+		            	//스크롤막기
+		            	$('html').scrollTop(0);
+		            	$('body').on('scroll touchmove mousewheel', function(event) {
+		            		  event.preventDefault();
+		            		  event.stopPropagation();
+		            		  return false;
+		            	});
 		            	$('#profileMenuDiv').css("display","none");
 		            	$('#disclosure').css("display","block");            		 
 	            	<%}%>
@@ -498,6 +516,13 @@
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
+            		//스크롤막기
+            		$('html').scrollTop(0);
+	            	$('body').on('scroll touchmove mousewheel', function(event) {
+	            		  event.preventDefault();
+	            		  event.stopPropagation();
+	            		  return false;
+	            	});
             		$('#profileMenuDiv').css("display","none");
             		$('#disclosure').css("display","block");            		 
             		<%}%>
@@ -517,22 +542,20 @@
 	            	 
 	            	 $("#userPhotoMenuContent>button:nth-child(2)").click(function(){
 	            		 $('#reportBgk').fadeIn();
+	            		 $('.reportContent>textarea').val("");
+	      				 $('.reportContent>input[type=file]').val("");
 	            	 });
-	            	 $('#reportBgk').click(function(){
+	            	/*  $('#reportBgk').click(function(){
 	            		$('#reportBgk').fadeOut(); 
 	            	 });
 	            	 $('#reportContent').click(function(e){
 	            		 e.stopPropagation();
-	            	 });
+	            	 }); */
 	            	 
 	            	 //신고창에서 신고보내기
 	            	 $('#reportContent>button').click(function(){
 	      				if($('#reportContent>textarea').val()!=""){
-	      					/* $.ajax({
-	      						url='',
-	      						type='POST'
-	      						
-	      					}); */
+	      					onClickReportBtn(<%=user.getNo()%>, 0, '<%=request.getContextPath()%>/view/reportuser');	
 	      				}
 	     	 			else{
 	     	 				profileAlert("신고내용 입력");
@@ -681,12 +704,7 @@
 	        		$('#profileBlockBt').css("background-color","rgb(241,95,95)"); 
 	        		$('#profileBlockBt').css("color","white");
 	        	}
-			  	 <%-- else{
-	        		$('#profileBlockBt>label').text("차단하기");
-	        		$('#profileBlockBt>img').attr("src","<%=request.getContextPath()%>/img/blockBtOff.png");
-	        		$('#profileBlockBt').css("background-color","#F6F6F6"); 
-	        		$('#profileBlockBt').css("color","black");
-	        	}  --%>
+			  	
 	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getNo()%>'; 
 	        }
 	      });
@@ -696,18 +714,21 @@
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
 		var beforeFollowBtLabel="";
+		var afterFollowBtLabel="";
 		
 		if(($('#profileFollowBt>label').text())==("팔로우")){
 
 			beforefollowBtLabel="팔로우";
 			<%if(user.getDisclosure()==0){%>  //비공개
-					$('#profileFollowBt>label').text("팔로우요청");
+			afterFollowBtLabel="팔로우요청";
+					//$('#profileFollowBt>label').text("팔로우요청");
           			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
             		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
             		$('#profileFollowBt').css("color","white");
           	<%}
           	else{%>
-			$('#profileFollowBt>label').text("팔로우됨");
+          	afterFollowBtLabel="팔로우됨"
+          	//$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
@@ -746,8 +767,8 @@
     		else if(($('#profileFollowBt>label').text())==("팔로우됨")){
     			beforeFollowBtLabel="팔로우됨";
     		}
-    		
-    		$('#profileFollowBt>label').text("팔로우");
+    		afterFollowBtLabel="팔로우"
+    		//$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
@@ -761,9 +782,8 @@
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
+    		data:{"follow":afterFollowBtLabel/* $('#profileFollowBt>label').text() */,"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
     		success:function(data){
-    			
     			<%if(user.getDisclosure()==0){%>
     			$.ajax({//비공개 계정일때 팔로우 확인
     				url:"<%=request.getContextPath()%>/view/chkFollow",
@@ -771,11 +791,19 @@
     				data:{"userNo":<%=user.getNo()%>},
     				success:function(data){
     					if(data=="true"){
+    						$('body').off('scroll touchmove mousewheel');
     						$('#profileMenuDiv').css("display","block");
     	            		$('#disclosure').css("display","none");
     	            		
     					}
     					else if(data=="false"){
+    						//스크롤막기
+    						$('html').scrollTop(0);
+    		            	$('body').on('scroll touchmove mousewheel', function(event) {
+    		            		  event.preventDefault();
+    		            		  event.stopPropagation();
+    		            		  return false;
+    		            		});
     						$('#profileMenuDiv').css("display","none");
     	            		$('#disclosure').css("display","block");
     					}
@@ -794,7 +822,7 @@
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
     		success:function(data){
-    			
+	
     			$('#profileContent5>*').remove();
     			
     			 for(var i=0;i<data.length;i++){							
@@ -819,7 +847,8 @@
 				                
 				             }));
 				             $('#profileContent5>#'+no+'>label').text(name);            	
-					}	
+					}
+    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
     		},
     		error:function(xhr,status){
     			alert(xhr+" : "+status);
@@ -933,7 +962,7 @@
            'img/09.jpg','img/10.jpg','img/11.jpg','img/12.jpg','img/13.jpg'); */
             
             //1.게시글 컨텐츠
-            
+            var content1Height;
              <%for(int i=0;i<content1DataArray.size();i++){%>
              	
             	 $('#profileContent1').append($('<div/>',{
@@ -995,9 +1024,11 @@
             		 
             		 
             	 });
-
              <%}%>  
-
+            
+             //비공개 높이 설정
+			$('#disclosure').css('height',((Math.ceil(<%=content1DataArray.size()%>/3)+13)*200));
+			$('html').scrollTop(0);
            //3.저장됨 컨텐츠
              <%for(int i=0;i<storageContentDataArray.size();i++){%>
             	 $('#profileContent3').append($('<div/>',{
@@ -1499,10 +1530,9 @@
 				</label> <input type="radio" id="radio_effect_brightness"
 					class="filter_radio" name="media_filter_select"></li>
 
-				<li class="media_filter_list"><label
-					class="media_filter_preview" for="radio_effect_test"> </label> <input
-					type="radio" id="radio_effect_test" class="filter_radio"
-					name="media_filter_select"></li>
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_sephia"> </label> 
+				<input type="radio" id="radio_effect_sephia" class="filter_radio" name="media_filter_select"></li>
 
 			</ul>
 

@@ -76,7 +76,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		User writer = new User();
 		writer.setNo(newspeed.getUserNo());
 		writer = uService.selectUser(writer);
-		JSONObject newspeedJSON = parseNewspeedToJSON(newspeed,writer,newspeedMediaList, newspeedMediaTagList, newspeedCommentList);
+		JSONObject newspeedJSON = parseNewspeedToJSON(newspeed,writer,newspeedMediaList, newspeedMediaTagList, newspeedCommentList, userNo);
 		newspeedJSON.put("isLike", isLike);
 		newspeedJSON.put("isStore", isStore);
 		
@@ -107,14 +107,14 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 	}
 
 	private JSONObject parseNewspeedToJSON(Newspeed newspeed, User writer, List<NewspeedMedia> newspeedMediaList,
-			List<NewspeedMediaTag> newspeedMediaTagList, List<NewspeedComment> commentList) {
+			List<NewspeedMediaTag> newspeedMediaTagList, List<NewspeedComment> commentList, int userNo) {
 		JSONObject json = new JSONObject();
 		JSONArray commentListJSONArray = null;
 		JSONObject fileListJSON = null;
 		
 		json = getFileListJSON(newspeed, newspeedMediaList, newspeedMediaTagList);
 		inputNewspeedWriterInJSON(writer, json);
-		commentListJSONArray = getCommentListJSONArray(commentList);
+		commentListJSONArray = getCommentListJSONArray(commentList, userNo);
 		
 		
 		json.put("commentList", commentListJSONArray);
@@ -130,21 +130,53 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		System.out.println(writer.getProfilePhoto() + "프사인데 있음?");
 	}
 
-	private JSONArray getCommentListJSONArray(List<NewspeedComment> commentList) {
+	private JSONArray getCommentListJSONArray(List<NewspeedComment> commentList, int userNo) {
 		JSONArray commentListJSONArray = new JSONArray();
+		JSONArray recommentJSONArray = new JSONArray();
+		JSONObject preJSONObject = new JSONObject();
+		int preRootNo = -1;
 
-		for (int i = 0; i < commentList.size(); i++) {
+		for (int i = 0; i < commentList.size(); i++) {		
 			JSONObject json = new JSONObject();
+			
 			NewspeedComment newspeedComment = commentList.get(i);
+			System.out.println(i + "번째" + newspeedComment + "잘나오냠?");
+			
 			json.put("userNo", newspeedComment.getUserNo());
 			json.put("userName", newspeedComment.getUserName());
 			json.put("commentContent", HtmlSpecialChar.getHtmlStr(newspeedComment.getContent()));
+			json.put("commentNo", newspeedComment.getNo());
+			json.put("rootCommentNo", newspeedComment.getRootNo());
+				
+			if (userNo == newspeedComment.getUserNo()) {
+				json.put("isMine", true);
+			} else {
+				json.put("isMine", false);
+			}
+				
+			if (newspeedComment.getNo() == newspeedComment.getRootNo()) {
+				recommentJSONArray = new JSONArray();
+	
+				json.put("recommentList", recommentJSONArray);			
+				commentListJSONArray.add(json);
+				preJSONObject = json;
+				
+			} else if (newspeedComment.getNo() != newspeedComment.getRootNo()) {
+				
+				recommentJSONArray.add(json);
 
-			commentListJSONArray.add(json);
+				continue;
+				
+			}
+
+			preRootNo = newspeedComment.getRootNo();
+
 		}
+		
 
 		return commentListJSONArray;
 	}
+	
 
 	private JSONObject getFileListJSON(Newspeed newspeed, List<NewspeedMedia> mediaList,
 			List<NewspeedMediaTag> mediaTagList) {
