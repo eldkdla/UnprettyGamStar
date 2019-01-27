@@ -271,9 +271,9 @@
 	</div>
 </section>
 <script>
-	function goReport(no){
+	<%-- function goReport(no){
 		location.href='<%=request.getContextPath()%>/admin/reportView?show='+no;
-	}
+	}--%>
 	function clickedView() {
         if (!clicked) {
         

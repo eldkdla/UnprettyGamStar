@@ -95,8 +95,8 @@ public class ReportSearchListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' class='reportTr' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
-						+"&type="+searchType+"&keyword="+searchKeyword+"'onclick='goReport();'><</button>";
+				pageBar+="<button id='back' class='reportTr' onclick='goReport(); location.href="+"\""+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
+						+"&type="+searchType+"&keyword="+searchKeyword+"\"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -112,7 +112,7 @@ public class ReportSearchListServlet extends HttpServlet {
 				else
 				{
 					pageBar+="<small><a class='reportTr' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo)
-							+"&type="+searchType+"&keyword="+searchKeyword+"'onclick='goReport();'>"+pageNo+"</a></small>";
+							+"&type="+searchType+"&keyword="+searchKeyword+"' onclick='return goReport();'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}

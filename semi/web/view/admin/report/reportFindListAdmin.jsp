@@ -734,13 +734,14 @@
                     <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
+                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'
+                	onsubmit='goReportSearch_val()'>
                     <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='content'>내용</option>
                     </select>
-                    <input type='text' name='keyword'/>
-                    <button class='searchBtn reportTr' onclick="goReport();"><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
+                    <input type='text' name='keyword' id='searchKeyword'/>
+                    <button class='searchBtn reportTr' type='button' onclick="goReportSearch();"><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>
             <div class='pageChange' style="clear:both;">
@@ -926,10 +927,26 @@
         function goReport(){
     		if (!clicked) {
                 clicked=true;
+                $('.reportTr').unbind('click');
+           } else {
+           	 $('.reportTr').delay( 3000 );
+           }
+    	}
+        function goReportSearch(){
+    		if (!clicked) {
+                clicked=true;
                 $('#searchReport').submit();
                 $('.reportTr').unbind('click');
            } else {
-           	 $('.reportTr').delay( 2000 );
+           	 $('.reportTr').delay( 3000 );
+           }
+    	}
+        function goReportSearch_val(){
+    		if ($('#searchKeyword').val()!=null&&$('#searchKeyword').val().trim()!=null)
+    		{
+                return true
+           } else {
+           	  return false;
            }
     	}
        

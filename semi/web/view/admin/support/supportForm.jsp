@@ -160,7 +160,7 @@ textarea#supportAnswer{
                             		if(m.getSupportBoardMediaType()==0){%>
                                 	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
                                 <%}else if(m.getSupportBoardMediaType()==1) {%>
-		                                <video width="400" controls height=100%;>
+		                                <video class='supImg' width="400" controls height=100%;>
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/ogg">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/webm" />
