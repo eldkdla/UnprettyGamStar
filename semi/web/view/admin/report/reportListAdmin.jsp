@@ -667,7 +667,8 @@
                         <td>
                        		<%if((Integer)r.getReportEndResult()==null||r.getReportEndResult()==0) {%>
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
-                            <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button>
+                           <!--  <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button> -->
+                            <button class='cancelBtn' onclick='cancelTr();'>취소</button>
                             <%}else if(r.getReportEndResult()==-1){%>
                             	&nbsp;
                        		<%}else{%>
@@ -702,7 +703,7 @@
             <div class='reportSearch'>
                 <div style="float:left; margin-left:10px;">
                 	<button class='imgSelect stopBtn' onclick='stopAllTr();'>정지</button>
-                    <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
+                    <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
                 <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>

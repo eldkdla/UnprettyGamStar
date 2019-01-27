@@ -35,7 +35,7 @@ public class DeleteAdminServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		//no<0 관리자 아니면 못들어옴
-		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>0)
+		if(request.getSession().getAttribute("userNo")==null||(Integer)request.getSession().getAttribute("userNo")>=0||(Integer)request.getSession().getAttribute("userNo")<-2)
 		{
 			request.setAttribute("msg", "잘못된 접근입니다");
 			request.setAttribute("loc", "/");
@@ -51,9 +51,10 @@ public class DeleteAdminServlet extends HttpServlet {
 			String msg="";
 			String loc="";
 			
-			int noOfAdmin=new AdminManagerService().selectAdminCount();
 			
-			if(noOfAdmin>1) {
+			/*int noOfAdmin=new AdminManagerService().selectAdminCount(); :이건 누구든 상관 없이 어드민 한명이상 남기기 위해*/
+			
+			if(adminNo!=-1) {
 				result=new AdminManagerService().deleteAdmin(adminNo);
 			}
 			
@@ -66,8 +67,9 @@ public class DeleteAdminServlet extends HttpServlet {
 			else
 			{
 				msg="관리자 삭제 실패";
-				if(noOfAdmin==1) {
-					msg="관리자는 1명 이상이어야 합니다";
+				if(adminNo==-1) {
+					/*msg="관리자는 1명 이상이어야 합니다";*/
+					msg="삭제할 수 없는 관리자입니다.";
 				}
 				loc="/admin/manager/adminList";
 			}

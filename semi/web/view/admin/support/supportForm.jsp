@@ -224,7 +224,7 @@ textarea#supportAnswer{
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <div id='supportMedia'>
                                         <label>
-                                            <input type='file' name='supportMedia' id='supportMedia' multiple accept="image/*,video/*" style='cursor: pointer;'/>
+                                            <input type='file' name='supportMedia' id='supportMedia' multiple accept="image/*,video/*" multiple="multiple" style='cursor: pointer;'/>
                                         </label>
                                     </div>
                                     &nbsp;&nbsp;
