@@ -6,7 +6,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
-
+<script src="http://code.jquery.com/jquery.min.js"></script>
 		<link href="<%=request.getContextPath()%>/css/header.css" rel="stylesheet" type="Text/css">
 
 </head>
@@ -27,11 +27,13 @@
                 <div id="alramIcon"></div>
                 <div id="slideIcon"><img id="slideIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/setting.png"></div>
                 <div id="slideBox">
-                        <div id="infoChange"><div class="infoChangeText"><a href="<%=request.getContextPath()%>/view/profilemodifyStart">개인정보설정</a></div></div>
+                       <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
                         <hr class="slideHr">
-                        <div id="chatting" onclick="chat()"><div class="chattingText" ><a href="#">채팅</a></div></div>
+                        <div id="chatting" onclick="chat()"><div class="chattingText">채팅</div></div>
                         <hr class="slideHr">
-                        <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText"><a href="#">문의하기</a></div></div>
+                        <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText">문의하기</div></div>
+                        <hr class="slideHr">
+                        <div id="contactBoard2" onclick="confirmSupportContents()"><div class="contactBoardText">답변확인</div></div>
                         <hr class="slideHr">
                         <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
                 </div>
