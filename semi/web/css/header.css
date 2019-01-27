@@ -10,7 +10,7 @@
     background-color: white;
     background-size: 300%;
     border: 1px solid darkgray;
-    z-index: 4500000000;
+    z-index: 200;
 }
 
 .iconBack {
