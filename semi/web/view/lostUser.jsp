@@ -51,14 +51,14 @@
         <div id=mainDiv>
                 <fieldset>
                     <legend>&nbsp; - UnprettyGamStar - &nbsp;</legend>
-                    <h3>아이디/비밀번호 찾기</h3>
+                    <h3>아이디 찾기/비밀번호 재설정</h3>
 					<p>인증된 이메일만 정보 찾기가 가능! 가느응!!!</p>
                     
                     <div style="margin-bottom: 10px;">
                             <input type="radio" class="findSelector" id="search_1" name="search_total" onclick="search_check(1)" checked="checked">
                             <label for="search_1">아이디 찾기</label>
                             <input type="radio" class="findSelector" id="search_2" name="search_total" onclick="search_check(2)"> 
-                            <label for="search_2">비밀번호 찾기</label>
+                            <label for="search_2">비밀번호 재설정</label>
                         </div>
                     
                         <form method="POST" >

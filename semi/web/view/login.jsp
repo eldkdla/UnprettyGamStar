@@ -44,7 +44,7 @@
 					
 					<tr>
 						<td colspan="2">
-						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 10px" onClick="window.open(this.href, '', 'width=430, height=350', 'top=300', 'left=400'); return false;">아이디/비밀번호 찾기</a>
+						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 10px" onClick="window.open(this.href, '', 'width=430, height=350', 'top=300', 'left=400'); return false;">아이디찾기/비밀번호 재설정</a>
 						<a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
 						</td>
 						<td><div id="naverIdLogin" style ="display: inline-block;"></div>
