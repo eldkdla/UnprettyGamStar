@@ -397,7 +397,7 @@
                 <div class="userRegFrm">
                     <label for="userId">아이디</label><br>
                     <input type="text" class="regControl" id="userId" name="userId" placeholder="  아이디 입력" maxlength='20'
-                        autofocus size="49" required>
+                        autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="id_check"></div>
                 </div>
                 <!-- 비밀번호 -->
@@ -405,40 +405,40 @@
                     <label for="userPw">비밀번호</label>
                     <sub></sub><br>
                     <input type="password" class="regControl" id="userPw" name="userPw" placeholder="  비밀번호 " maxlength='20'
-                        autofocus size="49" required>
+                        autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="pw_check"></div>
                 </div>
                 <!-- 비밀번호 재확인 -->
                 <div class="userRegFrm">
                     <label for="userPw2">비밀번호 확인</label><br>
                     <input type="password" class="regControl" id="userPw2" name="userPw2" placeholder="  비밀번호 확인"
-                        maxlength='20' autofocus size="49" required>
+                        maxlength='20' autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="pw2_check"></div>
                 </div>
                 <!-- 유저 이름 -->
                 <div class="userRegFrm">
                     <label for="userName">이름</label><br>
                     <input type="text" class="regControl" id="userName" name="userName" placeholder="  이름 입력 (한글 2-6자)"
-                        maxlength='20' autofocus size="49" required>
+                        maxlength='20' autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="name_check"></div>
                 </div>
                 <!-- 본인확인 이메일 -->
                 <div class="userRegFrm">
                     <label for="userEmail">이메일</label><br>
                     <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail"
-                        autofocus size="49" required>
+                        autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="email_check"></div>
                 </div>
                 <!-- 휴대전화 -->
                 <div class="userRegFrm">
                     <label for="userPhone">휴대전화 ('-' 없이 번호만 입력해주세요.)</label><br>
                     <input type="text" class="regControl" id="userPhone" name="userPhone" placeholder="  휴대전화 번호"
-                        maxlength='11' autofocus size="49" required>
+                        maxlength='11' autofocus size="49" style='width:50%;' required>
                     <div class="checkMsg" id="phone_check"></div>
                 </div>
 				<br/>
                 <div class="reg_button">
-                    <input class='cancelBtn' type="reset" onclick="pageBack();"value="취소" />&emsp;&emsp;
+                    <input class='cancelBtn' type="reset" onclick="pageBack();"value="취소" />
                     <input class='stopBtn' type="submit" id="reg_submit" value="가입" />
                     <!--  -->
                 </div>

@@ -53,25 +53,25 @@
     /* 신고 테이블(게시판) */
     table.type {
         color:rgba(0, 0, 0, 0.7);
-        padding:10px;
+        text-align:center; 
+        width:100%; 
+        padding:10px; 
+        margin-top:10px;
         border-collapse: collapse;
-        text-align: center;
-        margin:10px;
     }
     table.type thead th {
-        color:rgba(0, 0, 0, 0.7);
-        font-family: 'Nanum Gothic', sans-serif;
-        line-height: 1.5;
-        padding:8px;
-        border-top: 1px solid rgba(189,189,189,0.8);
+        border-top:1px solid rgba(189,189,189,0.8);
         border-bottom: 1px solid rgba(189,189,189,0.8);
+        line-height: 2;
+        padding:4px;
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
     }
     table.type td {
-        width: 350px;
-        vertical-align: top;
-        line-height:1.6;
+       line-height:1.8;
         border-bottom: 1px solid rgba(189,189,189,0.4);
         font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
     }
     table.type td a{
        text-decoration: none; 
@@ -241,6 +241,7 @@
         color:rgba(0, 0, 0, 0.7);
         border-collapse: collapse;
         text-align: center;
+         margin-top:10px;
     }
     table.type thead th {
         color:rgba(0, 0, 0, 0.7);
@@ -650,17 +651,25 @@
                         <td onclick="<%=linkStr %>" ><a href=''>go</a></td>
                         <td>
                         	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
-                        	 	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:30px; display:block;"/>
+                        	 	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:20px; display:block;"/>
                         	 <%} else { %>
                         	 <%}%>
                         </td>
                         <td>
                         	<a onclick='openNextTr(this);'>
-                        	<%if(r.getReportBoardContent().length()>20) { %>
-	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
-	                        <%} else{ %>
-	                        	<%=r.getReportBoardContent() %>
-	                        <%} %>
+                        	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
+	                        	<%if(r.getReportBoardContent().length()>15) { %>
+		                        	<%=r.getReportBoardContent().substring(0, 14) %>...
+		                        <%} else{ %>
+		                        	<%=r.getReportBoardContent() %>
+		                        <%} %>
+		                    <%} else { 
+		                    		if(r.getReportBoardContent().length()>18) { %>
+		                        	<%=r.getReportBoardContent().substring(0, 17) %>...
+		                        <%} else{ %>
+		                        	<%=r.getReportBoardContent() %>
+		                        <%} %>
+		                    <%} %>
 	                        </a>
                         </td>
                         <td><%=r.getReportBoardDate() %></td>

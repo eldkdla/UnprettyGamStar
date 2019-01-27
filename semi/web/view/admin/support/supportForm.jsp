@@ -216,7 +216,7 @@ textarea#supportAnswer{
                                     <textarea name='supportContent' id='supportContent' rows="20" cols="60" style="width:90%; resize: none;"><% if(answer!=null) {%><%=answer.getSupportBoardContent()%><%} %></textarea>
                                 </th>
                             </tr>
-                            <tr>
+                           <!--  <tr>
                                 <th style='border:none;'>
                                     <label>
                                         <small>첨부</small>
@@ -230,7 +230,7 @@ textarea#supportAnswer{
                                     &nbsp;&nbsp;
                                     &nbsp;
                                 </th>
-                            </tr>
+                            </tr> -->
                         </table>
                         	<input type="hidden" name="cPage" value='<%=cPage %>'/>
                     </form>
