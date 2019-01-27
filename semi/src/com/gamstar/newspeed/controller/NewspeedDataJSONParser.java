@@ -29,6 +29,11 @@ public class NewspeedDataJSONParser {
 			json.put("commentContent", HtmlSpecialChar.getHtmlStr(newspeedComment.getContent()));
 			json.put("commentNo", newspeedComment.getNo());
 			json.put("rootCommentNo", newspeedComment.getRootNo());
+			
+			String before = parseToDate(newspeedComment.getBeforeDay()).replaceAll(".0", "");
+			System.out.println(before + "언제 달았니?");
+			
+			json.put("beforeTime", before);
 				
 			if (userNo == newspeedComment.getUserNo()) {
 				json.put("isMine", true);
@@ -59,10 +64,25 @@ public class NewspeedDataJSONParser {
 		return commentListJSONArray;
 	}
 	
-	public String parseToDate() {
-		String date = "";
+	public String parseToDate(String before) {
+		double beforeNum = Double.parseDouble(before);
+		String result = "";
 		
-		return date;
+		if (beforeNum < 0.0008) {
+			return "방금";
+		} else if (Math.floor((beforeNum/0.00069)) > 0 && Math.floor((beforeNum/0.0414)) < 1) {
+			return Math.floor((beforeNum/0.00069)) + "분전";
+		} else if (Math.floor((beforeNum/0.0414)) > 0 && Math.floor((beforeNum/0.0414)) < 24) {
+			return Math.floor((beforeNum/0.0414)) + "시간전";
+		} else if (beforeNum < 31) {
+			return Math.floor(beforeNum) + "일전";
+		} else if (beforeNum < 365) {
+			return Math.floor(beforeNum/30) + "개월전";
+		}
+		
+		
+		return Math.floor(beforeNum) + "년전";
+			
 	}
 
 }

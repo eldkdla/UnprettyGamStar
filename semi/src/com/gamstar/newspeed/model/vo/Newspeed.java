@@ -11,6 +11,7 @@ public class Newspeed {
 	private String content;
 	private boolean enable;
 	private Date date;
+	private String beforeDay;
 
 	public int getNo() {
 		return no;
@@ -57,6 +58,14 @@ public class Newspeed {
 		return "Newspeed [no=" + no + ", userNo=" + userNo + ", content=" + content + ", enable=" + enable + ", date="
 				+ date + ", getNo()=" + getNo() + ", getUserNo()=" + getUserNo() + ", getContent()=" + getContent()
 				+ ", isEnable()=" + isEnable() + ", getDate()=" + getDate() + "]";
+	}
+
+	public String getBeforeDay() {
+		return beforeDay;
+	}
+
+	public void setBeforeDay(String beforeDay) {
+		this.beforeDay = beforeDay;
 	}
 
 }

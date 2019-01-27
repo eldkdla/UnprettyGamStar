@@ -329,7 +329,7 @@ var isActiveContainerBtn = false;
 
             for (var j = 0; j < data.commentList.length; j++) {
                 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent + "  <p class='beforeTime'>" + data.commentList[j].beforeTime + "</p>",
                     class:'.newspeedview_comment'
                 }));
 
@@ -376,7 +376,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent + "  <p class='beforeTime'>" + data.commentList[j].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
@@ -765,7 +765,7 @@ var isActiveContainerBtn = false;
 
             for (var j = 0; j < data.commentList.length; j++) {
                 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent + "  <p class='beforeTime'>" + data.commentList[j].beforeTime + "</p>",
                     class:'.newspeedview_comment'
                 }));
 
@@ -815,7 +815,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent + "  <p class='beforeTime'>" + data.commentList[j].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
@@ -1275,7 +1275,7 @@ var isActiveContainerBtn = false;
                     onClickStore();
                 },
                 error:function(request,status,error){
-                	console.log('아직 응답페이지를 안들었어요..');
+                	
                     
                 }
             });
@@ -1469,7 +1469,7 @@ var isActiveContainerBtn = false;
     			if (e.key == "Enter") {
     				var content = $(this).val();
     				var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-    				var rootNo = $(parents).parent().children()[2].value;
+    				var rootNo = $(parents).parent().children()[3].value;
     				
     		      	if(!isRightComment(content)) {
                 		return;
@@ -1510,8 +1510,10 @@ var isActiveContainerBtn = false;
     
     function onClickCommentDelete() {
     	$('.comment_option_delete').off('click').on('click',function(e){
-    		var commentNo = $(this).parent().parent().children()[2].value;
+    		var commentNo = $(this).parent().parent().children()[3].value;
     		var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
+    		
+    		console.log(commentNo + "버노버노댓글버노");
     		
     		 $('body').alertBox({
  		        title: "정말 삭제하시겠습니까?",
@@ -1563,7 +1565,7 @@ var isActiveContainerBtn = false;
     	
     	for (var i = 0; i < data.length; i++) {	
     		 $('.newspeedview_list_select .newspeedview_comment_wrapper').append($('<div/>', {
-    	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent
+    	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent + "  <p class='beforeTime'>" + data[i].beforeTime + "</p>"
     	        }));
 
     	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i +')').append($('<input/>', {
@@ -1612,7 +1614,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data[i].recommentList[p].userName + "</h4>&nbsp;" + data[i].recommentList[p].commentContent,
+                        html:"<h4>" +  data[i].recommentList[p].userName + "</h4>&nbsp;" + data[i].recommentList[p].commentContent + "  <p class='beforeTime'>" + data[i].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
