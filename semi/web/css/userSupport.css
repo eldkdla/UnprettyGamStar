@@ -1,5 +1,24 @@
 
  /*문의하기*/
+  #supportMaincloseBtn,#confirmSupportCloseBtn{
+        background-color: transparent !important;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        float: right;
+        width: 28px;
+        height: 20px;
+        font-size: 17px;
+        color: rgb(221, 221, 221);
+        user-select: none;
+        cursor: pointer;
+
+
+    }
+    #supportMaincloseBtn,#confirmSupportCloseBtn{
+        color:rgb(255, 255, 255);
+    }
+ 
     .supportMain{
     	z-index: 4500000000;
         display: none;
@@ -12,7 +31,7 @@
         background-color: rgb(255, 255, 255);
         
     }
-    #supportMainStatus {
+    #supportMainStatus,#confirmSupportMainStatus {
         background-color: black;
         height: 28px;
         width: 500px;
@@ -108,3 +127,39 @@
         border-radius: 5px;
         float: right;
     }
+    #confrimSupportContents{
+    	position: relative;
+    	top: 13px;
+    	height: 369px;
+    	border-top: 2px solid black;
+    	overflow-y: scroll;
+        -ms-overflow-style: none;
+    }
+    
+    #confrimSupportContents::-webkit-scrollbar {
+
+        display:none;
+
+    }
+    .xxx{
+        	border-bottom: 2px solid black;
+        }
+    .xx{
+        	text-align: center;
+        	font-size: 14px;
+        	font-family: 'Gothic A1', sans-serif;
+        }
+    #aSupportIndexBtn{
+        	position: relative;
+        	color: white; 
+        	font-family: 'Gothic A1', sans-serif; 
+        	border: none;
+    		top:15px;
+	        cursor: pointer;
+	        position: relative;
+	        width: 65px;
+	        height: 33px;
+	        background-color: rgb(75, 159, 255);
+	        border-radius: 5px;
+        
+        }

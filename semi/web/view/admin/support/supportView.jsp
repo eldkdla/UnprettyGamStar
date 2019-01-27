@@ -151,9 +151,9 @@
                             <div class='scrollWrapper'>
                             	<% for(SupportBoardMedia m : mlist) { 
                             		if(m.getSupportBoardMediaType()==0){%>
-                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
+                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='image_popup(src);'/>
                                 <%}else if(m.getSupportBoardMediaType()==1) {%>
-		                                <video width="400" controls height=100%;>
+		                                <video class='supImg' width="400" controls height=100%;>
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/ogg">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/webm" />
@@ -176,7 +176,7 @@
                             &nbsp;
                             <% for(SupportBoardMedia m : mlist) { %>
                             <br/>
-                            <a onclick='showImg("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
+                            <a onclick='image_popup("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
                             	<%=m.getSupportBoardMediaPathOri().substring(m.getSupportBoardMediaPathOri().lastIndexOf("/")+1) %>
                            	</a>
                            	<%} %>
@@ -206,16 +206,16 @@
             </table>
             <div class='answeringBtn'>
                 <div style='float:left;'>
-                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>&cPage=<%=cPage%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/back.png'/>
 		                <small>다음</small>
 		            </a>
-		            &nbsp;
-		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>'>
+		            
+		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
 		                <small>이전</small>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
-                    &nbsp;
+                    
                     <a href="<%=backToList%>">
                         <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                         <small>목록</small>
@@ -227,7 +227,7 @@
                         <small>문의삭제</small>
                     </a>
 				<% if(answer!=null) { %>
-                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>수정</small>
                     </a>
@@ -236,7 +236,7 @@
                         <small>답변삭제</small>
                     </a>
                  <%} else{%>
-                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
+                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'> 
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>답변하기</small>
                     </a>
@@ -258,6 +258,19 @@
 
             var popup=open(i,title,shape);
         }
+        
+        function image_popup(url) {
+
+        	 var imgObj = new Image();
+        	 imgObj.src = url;
+        	 imageWin = window.open("", "profile_popup", "width=" + imgObj.width + "px, height=" + imgObj.height + "px"); 
+        	 imageWin.document.write("<html><body style='margin:0'>"); 
+        	 imageWin.document.write("<a href=javascript:window.close()><img src='" + imgObj.src + "' border=0></a>"); 
+        	 imageWin.document.write("</body><html>"); 
+        	 imageWin.document.title = imgObj.src;
+
+        	}
+        
         function openAdminMobileMenu(){
             $('nav').toggle();
         }
@@ -265,6 +278,16 @@
         $('.doConfirm').on('click', function () {
 			return confirm('정말로 삭제하시겠습니까?');
         });
+        
+        function clickedEdit() {
+            if (!clicked) {
+            
+                 clicked=true;
+                 $('.linkEdit').unbind('click');
+            } else {
+            	 $('.linkEdit').delay( 2000 );
+            }
+         }
     </script>
 </body>
 </html>

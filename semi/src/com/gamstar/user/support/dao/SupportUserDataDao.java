@@ -77,7 +77,9 @@ public class SupportUserDataDao {
 			e.printStackTrace();
 		}
 		finally {
-			
+			close(pstmt);
+			close(pstmt2);
+			close(pstmt3);
 		}
 	}
 }

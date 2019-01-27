@@ -142,13 +142,10 @@ public class ReportService {
 					count++;
 				}
 			}
-			if(count==result.length)
-			{
-				allResult=1;
-			}
+			commit(conn);
 			
 			close(conn);
-			return allResult;
+			return count;
 		}
 		
 		//검색

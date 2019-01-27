@@ -50,7 +50,13 @@
                 <tr>
                     <td><%=s.getSupportBoardNo() %></td>
                     <td class="sCon">
-                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>&show=<%=selectType%>">
+                    	<form style='display:none;' action='<%=request.getContextPath()%>/admin/supportView'>
+	                    	<input type='hidden' name='no' value='<%=s.getSupportBoardNo() %>'>
+	                    	<input type='hidden' name='cPage' value='<%=cPage %>'>
+	                    	<input type='hidden' name='show' value='<%=selectType%>'>
+                    	</form>
+                    	<a class='linkView' href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>&show=<%=selectType%>"
+                    		onclick='clickedView();'>
                     		<%if(s.getSupportBoardTitle().length()>20) {%>
                     			<%=s.getSupportBoardTitle().substring(0, 19) %>...
                     		<%}else{ %>
@@ -90,16 +96,21 @@
         </section>
     </div>
     <script>
-        // 모바일 메뉴 열기 위한 함수
-        function openAdminMobileMenu(){
-            $('nav').toggle();
-        }
     	
         //답변상황으로 보기
         $('showSupport').change(function(){
         	$('#showSupport').val()
         });
-      
+        
+        function clickedView() {
+            if (!clicked) {
+            
+                 clicked=true;
+                 $('.linkView').unbind('click');
+            } else {
+            	 $('.linkView').delay( 2000 );
+            }
+         }
     </script>
 </body>
 </html>

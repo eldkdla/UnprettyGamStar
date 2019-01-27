@@ -95,8 +95,8 @@ public class ReportSearchListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
-						+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
+				pageBar+="<button id='back' class='reportTr' onclick='goReport(); location.href="+"\""+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
+						+"&type="+searchType+"&keyword="+searchKeyword+"\"'><</button>";
 			}
 			if(totalPage==0)
 			{
@@ -111,15 +111,15 @@ public class ReportSearchListServlet extends HttpServlet {
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo)
-							+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a class='reportTr' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo)
+							+"&type="+searchType+"&keyword="+searchKeyword+"' onclick='return goReport();'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/reportSearch?cPage="+pageNo
+				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/reportSearch?cPage="+pageNo
 						+"'>></button>";
 			}
 			

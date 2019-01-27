@@ -59,12 +59,12 @@ public class ReportCancelServlet extends HttpServlet {
 			
 			if(result>0)
 			{
-				msg=boardNos.length+"개의 신고를 처리하였습니다";
+				msg=result+"개의 신고를 처리하였습니다";
 				loc="/admin/reportList";
 			}
 			else
 			{
-				msg="처리에 실패하였습니다.";
+				msg="신고 처리에 실패하였습니다.";
 				loc="/admin/reportList";
 			}
 			
