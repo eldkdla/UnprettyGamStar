@@ -32,7 +32,7 @@ public class NewspeedLikeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		if (request.getSession().getAttribute("userNo") == null) {
+		if (request.getSession().getAttribute("userNo") == null || request.getParameter("newspeedNo") == null) {
 			response.sendRedirect(request.getContextPath());
 		}
 		

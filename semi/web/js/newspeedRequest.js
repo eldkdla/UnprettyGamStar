@@ -1208,7 +1208,7 @@ var isActiveContainerBtn = false;
                 type: "POST",
                 data: { "newspeedNo": newspeedNo },
                 success: function (data) {
-                	console.log(data);
+                
                     if (data != "error") {
                     	$(div).removeClass();
                     	$(div).addClass(data);
@@ -1217,7 +1217,7 @@ var isActiveContainerBtn = false;
                     onClickLike();
                 },
                 error:function(request,status,error){
-               
+                	location.reload();
                 }
      
             });
@@ -1235,7 +1235,7 @@ var isActiveContainerBtn = false;
                 type: "POST",
                 data: { "newspeedNo": newspeedNo },
                 success: function (data) {
-                	console.log(data);
+              
                     if (data != "error") {
                     	$(div).removeClass();
                     	$(div).addClass(data);
@@ -1258,7 +1258,7 @@ var isActiveContainerBtn = false;
         $('.newspeed_store_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo);
+        
             var div = $(this);
 
             $.ajax({
@@ -1266,7 +1266,7 @@ var isActiveContainerBtn = false;
                 type: "POST",
                 data: { "newspeedNo": newspeedNo },
                 success: function (data) {
-                	console.log(data);
+                
                     if (data != "error") {
                     	$(div).removeClass();
                     	$(div).addClass(data);
@@ -1275,7 +1275,7 @@ var isActiveContainerBtn = false;
                     onClickStore();
                 },
                 error:function(request,status,error){
-                	
+                	location.reload();
                     
                 }
             });
@@ -1286,7 +1286,7 @@ var isActiveContainerBtn = false;
         $('.newspeed_store_active_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo);
+   
             var div = $(this);
 
             $.ajax({
@@ -1294,7 +1294,7 @@ var isActiveContainerBtn = false;
                 type: "POST",
                 data: { "newspeedNo": newspeedNo },
                 success: function (data) {
-                	console.log(data);
+          
                     if (data != "error") {
                     	$(div).removeClass();
                     	$(div).addClass(data);
@@ -1304,7 +1304,7 @@ var isActiveContainerBtn = false;
                 },
                 error:function(request,status,error){
              
-                    
+                    location.reload();
                 }
             });
 
@@ -1430,7 +1430,7 @@ var isActiveContainerBtn = false;
             	reloadCommentList(JSON.parse(data));
             },
             error:function(request,status,error){
-            
+            	location.reload();
             }
         });
     }
@@ -1493,7 +1493,7 @@ var isActiveContainerBtn = false;
                 	reloadCommentList(JSON.parse(data));
                 },
                 error:function(request,status,error){
-   
+                	location.reload();
                 }
             });
     	}
@@ -1513,7 +1513,6 @@ var isActiveContainerBtn = false;
     		var commentNo = $(this).parent().parent().children()[3].value;
     		var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
     		
-    		console.log(commentNo + "버노버노댓글버노");
     		
     		 $('body').alertBox({
  		        title: "정말 삭제하시겠습니까?",
@@ -1542,8 +1541,9 @@ var isActiveContainerBtn = false;
 	                 reloadCommentList(JSON.parse(data));
 	            },
 	            error:function(request,status,error){
+	            	location.reload();
 	                
-	            }
+	            }	
 
 	 
 	        });
@@ -1695,7 +1695,7 @@ var isActiveContainerBtn = false;
                showNewspeedview(data);
             },
             error:function(request,status,error){
-                
+            	location.reload();   
             }
 
  
@@ -1711,6 +1711,8 @@ var isActiveContainerBtn = false;
             	appendNewspeedElement(JSON.parse(data),$('#newspeedview_list_wrapper').children().length - 1,function(){
             		moveRightNewspeed();
             	});       	
+            },error:function(request,status,error){
+            	location.reload();
             }
         });
     }
@@ -1727,6 +1729,8 @@ var isActiveContainerBtn = false;
             	appendNewspeedElementBefore(JSON.parse(data),0,function(){
             		moveLeftNewspeed();
             	});       	
+            },error:function(request,status,error){
+            	location.reload();
             }
         });
     }
