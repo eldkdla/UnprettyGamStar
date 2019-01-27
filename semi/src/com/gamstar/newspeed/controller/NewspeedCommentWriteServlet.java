@@ -38,8 +38,7 @@ public class NewspeedCommentWriteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		if (request.getSession().getAttribute("userNo") == null) {
-			System.out.println("너때문이니?");
-			
+			response.sendRedirect(request.getContextPath());
 		}
 		
 		
