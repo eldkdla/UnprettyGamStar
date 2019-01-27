@@ -36,7 +36,7 @@ public class NewspeedDAO {
 		}
 	}
 	
-	public List<String> selectFollowNo(Connection conn,String userNo){
+	public List<String> selectFollowNo(Connection conn,int userNo){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		System.out.println("DAO 통신");
@@ -47,7 +47,7 @@ public class NewspeedDAO {
 		String sql = prop.getProperty("selectFollowPeedNo");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userNo);
+			pstmt.setInt(1, userNo);
 			rs = pstmt.executeQuery();
 
 			while(rs.next()) {
@@ -65,7 +65,7 @@ public class NewspeedDAO {
 		return peedNo;
 	}
 	
-	public List<String> selectTagNo(Connection conn, String userNo){
+	public List<String> selectTagNo(Connection conn, int userNo){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = prop.getProperty("selectTagNo");
@@ -74,7 +74,7 @@ public class NewspeedDAO {
 		try {
 			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userNo);
+			pstmt.setInt(1, userNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -93,7 +93,7 @@ public class NewspeedDAO {
 		return tagNo;
 	}
 	
-	public List<String> selectFollowLikeFeed(Connection conn, String userNo){
+	public List<String> selectFollowLikeFeed(Connection conn, int userNo){
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -102,7 +102,7 @@ public class NewspeedDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userNo);
+			pstmt.setInt(1, userNo);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {

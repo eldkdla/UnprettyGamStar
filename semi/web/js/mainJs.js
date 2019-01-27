@@ -35,21 +35,53 @@
 	});
 	
 	$('#search').keyup(function inputKey(){ //검색창 입력 이벤트
-	    console.log("2");
 	    $('#infoSentence').css('opacity', '0');
 	    $('#infoBox').removeClass("infoBox");
 
 	    
 	    $('.searchPeople').remove();
-	    setTimeout(function(){  //검색창 입력시 사람 보이기 이벤트
-	        for(var i =0; i < 40; i++){
-	            $('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=' + Object.keys(obj[0]) + '></div><div class="searchNick">' + Object.values(obj[0]) + '</div></div>');
-	        }
-	    });
-	    $('#infoBox').css({'width':'300px','height':'600px','border-radius':'10px','overflow-Y':'auto'});
+
+	    var searchStr = $('#search').val();
+	    if(searchStr == ""){
+	    	console.log("빈값~");
+	    }
+	    else{
+	    	 $.ajax({
+	 	    	url:"../mainsearchservlet",
+	 	    	data:{"searchStr":searchStr},
+	 	    	success: function(data){
+	 	    		console.log("서치 통신");
+	 	    		console.log("크기 : "+Object.keys(data[0]).length);
+	 	    		if(Object.keys(data[0]).length == 0){
+	 	    			console.log("빈값!~~");
+	 	    			$('#searchNull').remove();
+	 	    			$('#infoBox').append('<div id="searchNull"><p id="noSearchEmoticon">(=*x*=)</p><p id="noSearchSentence">no users found!</p></div>');
+	 	    		}
+	 	    		
+	 	    		for(var i = 0; i<Object.keys(data[0]).length; i++){
+	 	    			$('#searchNull').remove();
+	 	    			$('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=../' + data[0]["follow"+i].profilePhoto + '></div><div class="searchNick"><a class="searchNickLink" href="/">' + data[0]["follow"+i].userName + '</a></div></div>');	
+	 	    		}
+	 	    		
+
+
+	 	    	},
+	 	    	error: function(){
+	 	    		console.log("서치 에러");
+	 	    	}
+	 	    	
+	 	    })
+	    }
+	    
+	    console.log(searchStr);
+	   
+	    
+	    $('#infoBox').css({'width':'300px','height':'400px','border-radius':'10px','overflow-Y':'auto'});
 	    console.log("입력");
 	
 	    if($('#search').val() == ""){
+
+	    	$('#searchNull').remove();
 	        $('#infoBox').removeClass("removeInfoBox");
 	        $('#infoBox').addClass("infoBox");
 	        $('#searchDelete').css('display','inline');
@@ -91,6 +123,7 @@
 	
 	$('#searchDelete').click(function searchDelete(){ //검색삭제 이모티콘 클릭 이벤트
 	    $('#search').val("");
+	    $('.searchPeople').remove();
 	    $('#search').attr('placeholder','search..');
 	    $('#searchDelete').css('display','none');
 	    $('#infoBox').addClass('removeInfoBox');
@@ -144,7 +177,7 @@
 	        $('#naviIconWrap').css({ 'left': '100%', 'transform': 'translate(-100%, -50%)', 'opacity': '1'});
 	        $('#naviIconWrap').css({ 'width': '260px', 'height': '70px' });
 	        $('#myHomeIcon').css({'width':'50px','height':'50px'});
-	        $('#alramIcon').css({'width':'50px','height':'50px'});
+	        $('#alramIcon').css({'width':'20px','height':'20px'});
 	        $('#slideIcon').css({'width':'50px','height':'50px'});
 	    }
 	    console.log("클릭 들어옴");
@@ -165,7 +198,7 @@
 	    $('#naviIconWrap').css({ 'left': '100%', 'transform': 'translate(-100%, -50%)', 'opacity': '1'});
 	    $('#naviIconWrap').css({ 'width': '160px', 'height': '70px' });
         $('#myHomIcon').css({'width':'50px','height':'50px'});
-        $('#alramIcon').css({'width':'50px','height':'50px'});
+        $('#alramIcon').css({'width':'20px','height':'20px'});
         $('#slideIcon').css({'width':'50px','height':'50px'});
 	
 	    $('.naviIcon').css({ 'width': '0px', 'height': '0px' });
@@ -202,6 +235,8 @@
         $('#slideIcon').css({'width':'0px','height':'0px'});
         
 	    $('#slideBox').slideUp();
+	    $('#search').val("");
+	    $('.searchPeople').remove();
 	});
 	
 	var clickNext = true;
@@ -311,21 +346,51 @@
 	})
 	
 	$(document).on('click', '.like', function () { //좋아요 클릭 이벤트 함수
-	    var num = ($(this).closest('.feed').prevAll().length);
-	    var str = $('#feedBody .feed:eq(' + num + ') .showLike').text().replace(/[^0-9]/g, "");
-	    var src = $('#feedBody .feed:eq(' + num + ') .like').attr('src');
-	
+	    var feedIndex = ($(this).closest('.feed').prevAll().length);
+	    var str = $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text().replace(/[^0-9]/g, "");
+	    var src = $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src');
+	    
+	    var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+	    
+        $.ajax({  
+            url:"../newspeed/newspeedlike",
+            data:{"newspeedNo":newspeedNo},
+            success: function(data){
+            	
+            	console.log(data);
+            	var likeCheck = data;
+            	console.log(likeCheck);
+            	
+/*            	if(likeCheck == "newspeed_like_active_icon_wrapper"){
+            		console.log("좋아요!");
+            		 $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
+         	        str++;
+         	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
+            	}
+            	if(likeCheck == "newspeed_like_icon_wrapper"){
+            		console.log("좋아요 취소!");
+            		 $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like.png");
+         	        str--;
+        	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
+            	}
+*/
+           	 
+            },
+            error: function(){
+           	 console.log("좋아요 에러");
+
+            }
+        })
+	    	
 	    if (src == "../img/newspeeddetailview/newspeed_like_active.png") { //좋아요 클릭시 좋아요 빼기
-	        $('#feedBody .feed:eq(' + num + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like.png");
+	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like.png");
 	        str--;
-	        console.log(str);
-	        $('#feedBody .feed:eq(' + num + ') .showLike').text(str + "Liked");
+	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
 	    }
 	    else {  //좋아요 클릭시 좋아요 플러스
-	        $('#feedBody .feed:eq(' + num + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
+	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
 	        str++;
-	        console.log(str);
-	        $('#feedBody .feed:eq(' + num + ') .showLike').text(str + "Liked");
+	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
 	    }
 	});
 	
@@ -334,27 +399,283 @@
 	    $(this).css('display', 'none');
 	});
 	
+	$(document).on('click','.writeRootComment',function(){ //답글쓰기 클릭 이벤트 함수
+		console.log($(this).css('color'));
+		if($(this).css('color') == "rgb(128, 128, 128)"){
+			console.log("일치!");
+			$(this).parent().parent().append('<div class="writeTextWrap"><input type="text" class="writeRootText" /><input type="submit" class="writeRootSubmit" /></div>');
+			$(this).css('color','cornflowerblue');
+			$(this).css('font-weight','bold');
+		}else{
+			console.log("불일치!!");
+			$(this).parent().parent().children('.writeTextWrap').remove();
+			$(this).css('font-weight','normal');
+			$(this).css('color','gray');
+		}
+		
+	});
+	
+	$(document).on('keypress', '.writeRootText', function(key){  //답덥글 엔터 이벤트
+		if(key.which == 13){
+			
+			   var feedIndex = ($(this).closest('.feed').prevAll().length);
+
+		       var userComment = $(this).val();
+		       console.log(userComment);
+		        
+		       var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+		       var rootNo = $(this).parents('.commentSort').children('.commentRootNo').text();
+
+		       console.log(newspeedNo);
+		       console.log(rootNo);
+
+		       $.ajax({
+		    	   url:"../newspeed/newspeedrecomment",
+		    	   data:{"newspeedNo":newspeedNo,"commentContent":userComment,"rootCommentNo":Number(rootNo)},
+		    	   success: function(data2){
+		    		   console.log("답덥글 통신");
+		    		   
+		    		   data = JSON.parse(data2);
+
+		    		   console.log(data);
+		    		   console.log(data[0]["recommentList"]);
+			     	    $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
+		 	     	    $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
+		       	 
+		            	 
+		            	var commentSize = data.length;
+							for(var i=commentSize; i>0; i--){ //코멘트 셋팅
+								console.log('받아지냐?');
+								
+								console.log("코맨트 푸쉬---------------------");
+											if(data[0] == data[i-1].userNo){
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+											}
+											else{
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+											}
+										
+
+										var rootCommentSize = data[i-1].recommentList.length;
+										console.log(rootCommentSize);
+										if(!rootCommentSize == "0"){
+											console.log("루트 들어옴~");
+											for(var j=0; j<data[i-1].recommentList.length; j++){
+												console.log("루트 푸쉬");
+												if(1 == data[i-1].recommentList[j]["userNo"]){
+													$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+												}
+												else{
+													$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+												}	
+											}
+											
+										}				
+								
+							}
+		    	   },
+		    	   error: function(){
+		    		   console.log("에러 통신");
+		    	   }
+		       })
+			
+				$(this).val("");
+		}
+
+	});
+	
+	$(document).on('click', '.writeRootSubmit', function(){  //버튼 클릭 이벤트
+
+			   var feedIndex = ($(this).closest('.feed').prevAll().length);
+
+		       var userComment = $(this).val();
+		       console.log(userComment);
+		        
+		       var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+		       var rootNo = $(this).parents('.commentSort').children('.commentRootNo').text();
+		       console.log(newspeedNo);
+		       console.log(rootNo);
+
+		       $.ajax({
+		    	   url:"../mainnewspeedrecommentservlet",
+		    	   data:{"newspeedNo":newspeedNo,"commentContent":userComment,"rootCommentNo":rootNo},
+		    	   success: function(data){
+		    		   console.log("답덥글 통신");
+
+		    		   console.log(data);
+		    		   console.log(data[0]["recommentList"]);
+			     	    $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
+		 	     	    $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
+		       	 
+		            	 
+		            	var commentSize = data.length;
+							for(var i=commentSize; i>0; i--){ //코멘트 셋팅
+								console.log('받아지냐?');
+
+								console.log("코맨트 푸쉬---------------------");
+											if(1 == data[i-1].userNo){
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+											}
+											else{
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+											}
+										
+
+										var rootCommentSize = data[i-1].recommentList.length;
+										console.log(rootCommentSize);
+										if(!rootCommentSize == "0"){
+											console.log("루트 들어옴~");
+											for(var j=0; j<data[i-1].recommentList.length; j++){
+												console.log("루트 푸쉬");
+												if(1 == data[i-1].recommentList[j]["userNo"]){
+													$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+												}
+												else{
+													$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+												}	
+											}
+											
+										}				
+								
+							}
+		    	   },
+		    	   error: function(){
+		    		   console.log("에러 통신");
+		    	   }
+		       })
+			
+				$(this).val("");
+	});
+	
+	
+	
+	
+	$(document).on('click','.delteComment', function(){  //댓글 삭제 버튼 클릭 이벤트 함수
+
+		var feedIndex = ($(this).closest('.feed').prevAll().length);
+		var feedNo = $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+		var commentNo = $(this).parent().parent().children('.commentNo').text();
+	
+		console.log("코멘트 번호 : "+commentNo);
+		console.log("피드 번호 : "+feedNo);
+		 $.ajax({
+			url:"../newspeed/newspeedcommentdelete",
+			data:{"newspeedNo":feedNo,"commentNo":commentNo},
+			success: function(data2){
+	     	     $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
+ 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
+       	 
+            	 var data = JSON.parse(data2);
+ 	     	     
+            	 var commentSize = data.length;
+					for(var i=commentSize;i>0;  i--){ //댓글삭제후  셋팅
+						
+						
+						console.log('받아지냐?');
+						//console.log(commentSize);
+						//console.log(data);
+						//console.log(data[0]);
+						//console.log(data[1]);
+						//console.log(Object.keys(data).length);
+						
+						
+
+						console.log("코맨트 푸쉬---------------------");
+									if(data[i-1].isMine){
+										$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+									}
+									else{
+										$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+									}
+								
+
+								var rootCommentSize = data[i-1].recommentList.length;
+								console.log(rootCommentSize);
+								if(!rootCommentSize == "0"){
+									console.log("루트 들어옴~");
+									for(var j=0; j<data[i-1].recommentList.length; j++){
+										console.log("루트 푸쉬");
+										if(data[i-1].isMine){
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+										}
+										else{
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+										}	
+									}
+									
+								}				
+						
+					}
+			},
+			error: function(){
+				console.log("댓글삭제 에러~~");
+			}
+		 })
+		 $(this).closest('.commentSort').remove();
+	})
+	
+	
 	$(document).on('click','.textSubmit', function(){ //텍스트입력버튼 클릭 이벤트
 	
-	    var order = ($(this).closest('.feed').prevAll().length) + 1;
-	    console.log('엔터 들어옴');
-	
-	    var nickSize = $('#feedBody .feed:nth-child(' + order + ') .commentNick').length;
-	    var commentSize = $('#feedBody .feed:nth-child(' + order + ') .comment').length;
-	
-	    var nickArr =null;
-	    var commentArr=[];
-	    for(var i=0; i<nickSize;i++){
-	        var nick = $('#feedBody .feed:nth-child(' + order + ') .commentNick:eq('+i+')').html();
-	        var comment =  $('#feedBody .feed:nth-child(' + order + ') .comment:eq('+i+')').html();
-	        nickArr += [{nick}];
-	
-	        $('#feedBody .feed:nth-child(' + order + ') .commentWrap .commentBody').append('<div class="commentSort"><div class="commentNick">' + nick + '</div><div class="comment">' + comment + '</div></div>');
-	    }
-	    // $('#feedBody .feed:nth-child(' + order + ') .commentNick').remove();
-	    // $('#feedBody .feed:nth-child(' + order + ') .comment').remove();
-	    $('#feedBody .feed:nth-child(' + order + ') .writeText').val('');
-	    $('#feedBody .feed:nth-child(' + order + ') .writeText').focus();
+		  var feedIndex = ($(this).closest('.feed').prevAll().length);
+
+	        var userComment =   $('#feedBody .feed:eq(' + feedIndex + ') .writeText').val();
+	        
+	        var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+
+	        
+	        $.ajax({  //코멘트 받아오기 
+	             url:"../mainnewspeedcommentservlet",
+	             data:{"newspeedNo":newspeedNo,"commentContent":userComment},
+	             success: function(data){
+	            	 console.log("코멘트 통신성공");
+
+	            	 
+	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
+	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
+	       	 
+	            	 
+	            	 var commentSize = data.length;
+						for(var i=commentSize; i>0; i--){ //코멘트 셋팅
+							console.log('받아지냐?');
+
+							console.log("코맨트 푸쉬---------------------");
+										if(data[i-1].isMine){
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+										}
+										else{
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+										}
+									
+
+									var rootCommentSize = data[i-1].recommentList.length;
+									console.log(rootCommentSize);
+									if(!rootCommentSize == "0"){
+										console.log("루트 들어옴~");
+										for(var j=0; j<data[i-1].recommentList.length; j++){
+											console.log("루트 푸쉬");
+											if(data[i-1].isMine){
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+											}
+											else{
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+											}	
+										}
+										
+									}				
+							
+						}
+
+	             },
+	             error: function(){
+	            	 console.log("댓글쓰기 에러ssss");
+
+	             }
+	         });
+	         console.log("뭐야 이거?");
+
+	        $('#feedBody .feed:eq(' + feedIndex + ') .writeText').val('');
+	        $('#feedBody .feed:eq(' + feedIndex + ') .writeText').focus();
 	})
 	
 	
@@ -365,45 +686,67 @@
 	
 	$(document).on('keypress', '.writeText', function ClickEnter(key) { //댓글쓰기 엔터 이벤트
 	    if (key.which == 13) {
-	        var order = ($(this).closest('.feed').prevAll().length) + 1;
-	        var userNick =  $('#feedBody .feed:nth-child(' + order + ') .titleNick').html();
+	        var feedIndex = ($(this).closest('.feed').prevAll().length);
+
 	        var userComment = $(this).val();
-	        console.log('엔터 들어옴');
-	
-	        // commentArray.push({[nick] : value});
-	        // $.ajax({  //코멘트 받아오기 
-	        //     url:"",
-	        //     success: function(){
-	
-	        //     } 
-	        // })
-	        var nickSize = $('#feedBody .feed:nth-child(' + order + ') .commentNick').length;
-	        var commentSize = $('#feedBody .feed:nth-child(' + order + ') .comment').length;
-	
-	        var nickArr =null;
-	        var commentArr=[];
-	
-	        for(var i=0; i<nickSize;i++){
-	            var nick = $('#feedBody .feed:nth-child(' + order + ') .commentNick:eq('+i+')').html();
-	            var comment =  $('#feedBody .feed:nth-child(' + order + ') .comment:eq('+i+')').html();
-	            nickArr += [{nick}];
-	
-	            $('#feedBody .feed:nth-child(' + order + ') .commentWrap .commentBody').append('<div class="commentSort"><div class="commentNick">' + nick + '</div><div class="comment">' + comment + '</div></div>');
-	
-	
-	        }
-	        // $('#feedBody .feed:nth-child(' + order + ') .commentNick').remove();
-	        // $('#feedBody .feed:nth-child(' + order + ') .comment').remove();
+	        console.log(userComment);
+	        
+	        var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
+	     
+	        
+	         $.ajax({  //코멘트 받아오기 
+	             url:"../newspeed/newspeedcommentwrite",
+	             data:{"newspeedNo":newspeedNo,"commentContent":userComment},
+	             success: function(data2){
+	            	 console.log("코멘트 통신성공");
+
+	            	 
+	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
+	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
+						
+						data = JSON.parse(data2);
+	            	 
+	            	 var commentSize = data.length;
+						for(var i=commentSize; i>0; i--){ //코멘트 셋팅
+							console.log('받아지냐?!!!');
+							console.log("코맨트 푸쉬---------------------");
+										if(data[i-1].isMine){
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+										}
+										else{
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+										}
+									
+
+									var rootCommentSize = data[i-1].recommentList.length;
+									console.log(rootCommentSize);
+									if(!rootCommentSize == "0"){
+										console.log("루트 들어옴~");
+										for(var j=0; j<data[i-1].recommentList.length; j++){
+											console.log("루트 푸쉬");
+											if(data[i-1].isMine){
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+											}
+											else{
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+											}	
+										}
+										
+									}				
+							
+						}
+ 
+	             },
+	             error: function(){
+	            	 console.log("댓글쓰기 에러ssss");
+
+	             }
+	         });
 	        $(this).val('');
-	
-	        // for (var i2 = 0; i2 < nickArr.length; i2++) { //피드 댓글 셋팅
-	
-	        //     $('#feedBody .feed:nth-child(' + order + ') .commentWrap .commentBody').append('<div class="commentSort"><div class="commentNick">' + nickArr(i2) + '</div><div class="comment">' + commentArr(i2) + '</div></div>');
-	        // }
-	        // $(this).val('');
 	        
 	    };
 	});
+	
 	
 	$(document).on('focus', '.writeText', function () {  //댓글쓰기 포커스 이벤트
 	    var order = ($(this).closest('.feed').prevAll().length);
@@ -507,6 +850,8 @@
 		                $('#slideIcon').css({'width':'0px','height':'0px'});
 		                
 		                $('#slideBox').slideUp();
+		                $('#search').val("");
+		                $('.searchPeople').remove();
 		                
 	            		checkNav = false;
 	            	}

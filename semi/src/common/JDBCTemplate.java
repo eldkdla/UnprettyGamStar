@@ -15,7 +15,7 @@ public class JDBCTemplate {
    static {
       try {
          prop=new Properties();
-         String fileName=JDBCTemplate.class.getResource("./driver.properties").getPath();  //나중에 경로 바꿔야함
+         String fileName=JDBCTemplate.class.getResource("./driver.properties").getPath();
          prop.load(new FileReader(fileName));
          Class.forName(prop.getProperty("driver"));
       } catch (Exception e) {

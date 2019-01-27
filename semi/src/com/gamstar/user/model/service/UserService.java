@@ -16,6 +16,17 @@ import com.gamstar.user.model.vo.User;
 
 public class UserService {
 	
+	public List<User> selectFollowUser(int userNo){
+		
+		Connection conn = getConnection();
+		
+		List<User> userData = new UserDao().selectFollowUser(conn, userNo);
+		
+		close(conn);
+		return userData;
+		
+	}
+	
 	public List<User> selectFeedUser(List<String> peedNo){ //피드유저DB 리스트로 받아오기
 		
 		Connection conn = getConnection();
@@ -453,6 +464,7 @@ public class UserService {
 				User data = new UserDao().loginCheck(conn, u);
 				
 				data = new UserDao().selectUser(conn, data);
+				System.out.println("여기까지???");
 				close(conn);
 				return data;
 			}

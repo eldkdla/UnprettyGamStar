@@ -1,8 +1,6 @@
 package com.gamstar.newspeed.controller;
 
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -46,16 +44,8 @@ public class MainpageNewspeedServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-//		String userNo = request.getParameter("userNo"); //나중에 세션으로 받아야함
-//		if(userNo == null) {
-//			response.sendRedirect("/경로"); //세션 못받아오면 로그인 페이지 강제 이동
-//		}
-		String userNo = "1";
-		User user = new User();
-		//user.setNo(Integer.parseInt(request.getParameter("userNo")));
-
-		user.setNo(1);
-		
+		int userNo = (int)request.getSession().getAttribute("userNo"); //나중에 세션으로 받아야
+		//int userNo =1;
 		int limite = Integer.parseInt(request.getParameter("limite"));
 		
 		System.out.println("리밋!! : "+limite);
@@ -63,113 +53,132 @@ public class MainpageNewspeedServlet extends HttpServlet {
 
 		List<String> peedNo = new NewspeedService().selectNewspeedNo(userNo, limite); //피드번호 불러오기
 		
-//		List<User> user = new NewspeedService().selectNewspeed(userNo);
-		List<Newspeed> contentList = new NewspeedService().selectContent(userNo,limite); //콘텐트 불러오기
-		List<NewspeedComment> commentList = new NewspeedService().selectComment(userNo,limite); //코멘트 불러오기
-		List<NewspeedMedia> mediaList = new NewspeedService().selectMedia(userNo,limite); //미디어 불러오기
-		List<NewspeedLike> likeList = new NewspeedService().selectLike(userNo,limite); //좋아요 불러오기
-		List<NewspeedMediaTag> tagList = new NewspeedService().selectMediaTag(userNo,limite); //이미지 태그 불러오기
-		List<User> userList = new UserService().selectFeedUser(peedNo); //유저 불러오기
-		
-		System.out.println("미디어 불러오기 : "+mediaList.size());
-		System.out.println("좋아요 불러오기 : "+likeList.size());
-		System.out.println("코멘트 불러오기 : "+commentList.size());
-		
-		System.out.println(userList.size());
-		System.out.println(userList.get(0).getName());
-		System.out.println(userList.get(0).getProfilePhoto());
-		
 		JSONArray jsonArr = new JSONArray();
-		JSONObject content = new JSONObject();
-		JSONObject comment = new JSONObject();
-		JSONObject media = new JSONObject();
-		JSONObject like = new JSONObject();
-		JSONObject tag = new JSONObject();
-		JSONObject feedUser = new JSONObject();
 		
-		for(int i=0;i<contentList.size();i++) {
+		if(peedNo.size() != 0) {
+			System.out.println("실행");
 			
-			JSONObject data2 = new JSONObject();
-			data2.put("newspeedNo", contentList.get(i).getNo());
-			data2.put("userNo", contentList.get(i).getUserNo());
-			data2.put("content", contentList.get(i).getContent());
-			data2.put("enable", contentList.get(i).isEnable());
-			data2.put("date", contentList.get(i).getDate());
+			List<Newspeed> contentList = new NewspeedService().selectContent(userNo,limite); //콘텐트 불러오기
+			List<NewspeedComment> commentList = new NewspeedService().selectComment(userNo,limite); //코멘트 불러오기
+			List<NewspeedMedia> mediaList = new NewspeedService().selectMedia(userNo,limite); //미디어 불러오기
+			List<NewspeedLike> likeList = new NewspeedService().selectLike(userNo,limite); //좋아요 불러오기
+			List<NewspeedMediaTag> tagList = new NewspeedService().selectMediaTag(userNo,limite); //이미지 태그 불러오기
+			List<User> userList = new UserService().selectFeedUser(peedNo); //유저 불러오기
+			List<User> followStoryList = new UserService().selectFollowUser(userNo); //팔로우 유저 불러오기
 			
-			content.put("content"+i, data2);
-		}
+			System.out.println("미디어 불러오기 : "+mediaList.size());
+			System.out.println("좋아요 불러오기 : "+likeList.size());
+			System.out.println("코멘트 불러오기 : "+commentList.size());
+			System.out.println("팔로우 유저 불러오기 : "+followStoryList.size());
+			
+			JSONObject content = new JSONObject();
+			JSONObject comment = new JSONObject();
+			JSONObject media = new JSONObject();
+			JSONObject like = new JSONObject();
+			JSONObject tag = new JSONObject();
+			JSONObject feedUser = new JSONObject();
+			JSONObject mineFollowUser = new JSONObject();
+			
+			for(int i=0;i<contentList.size();i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("newspeedNo", contentList.get(i).getNo());
+				data2.put("userNo", contentList.get(i).getUserNo());
+				data2.put("content", contentList.get(i).getContent());
+				data2.put("enable", contentList.get(i).isEnable());
+				data2.put("date", contentList.get(i).getDate());
+				
+				content.put("content"+i, data2);
+			}
 
-		for(int i=0;i<commentList.size();i++) {
-			
-			JSONObject data2 = new JSONObject();
-			data2.put("newspeedNo", commentList.get(i).getNewspeedNo());
-			data2.put("commentNo", commentList.get(i).getNo());
-			data2.put("content", commentList.get(i).getContent());
-			data2.put("userNo", commentList.get(i).getUserNo());
-			data2.put("date", commentList.get(i).getDate());
-			data2.put("enable", commentList.get(i).getEnable());
-			data2.put("userName", commentList.get(i).getUserName());
-			
-			comment.put("comment"+i, data2);
-		}
+			for(int i=0;i<commentList.size();i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("newspeedNo", commentList.get(i).getNewspeedNo());
+				data2.put("commentNo", commentList.get(i).getNo());
+				data2.put("content", commentList.get(i).getContent());
+				data2.put("rootComment", commentList.get(i).getRootNo());
+				data2.put("userNo", commentList.get(i).getUserNo());
+				data2.put("date", commentList.get(i).getDate());
+				data2.put("enable", commentList.get(i).getEnable());
+				data2.put("userName", commentList.get(i).getUserName());
+				
+				comment.put("comment"+i, data2);
+			}
 
-		for(int i=0;i<mediaList.size();i++) {
-			
-			JSONObject data2 = new JSONObject();
-			data2.put("mediaIndex", mediaList.get(i).getIndex());
-			data2.put("newspeedNo", mediaList.get(i).getNewspeedNo());
-			data2.put("mediaType", mediaList.get(i).getType());
-			data2.put("mediaPath", mediaList.get(i).getPath());
+			for(int i=0;i<mediaList.size();i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("mediaIndex", mediaList.get(i).getIndex());
+				data2.put("newspeedNo", mediaList.get(i).getNewspeedNo());
+				data2.put("mediaType", mediaList.get(i).getType());
+				data2.put("mediaPath", mediaList.get(i).getPath());
 
-			media.put("media"+i, data2);
-		}
+				media.put("media"+i, data2);
+			}
 
-		for(int i=0;i<likeList.size();i++) {
-			
-			JSONObject data2 = new JSONObject();
-			data2.put("newspeedNo", likeList.get(i).getNo());
-			data2.put("userNo", likeList.get(i).getUserNo());
+			for(int i=0;i<likeList.size();i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("newspeedNo", likeList.get(i).getNo());
+				data2.put("userNo", likeList.get(i).getUserNo());
 
-			like.put("like"+i, data2);
-		}
-		
-		for(int i=0;i<tagList.size();i++) {
+				like.put("like"+i, data2);
+			}
+			
+			for(int i=0;i<tagList.size();i++) {
 
+				JSONObject data2 = new JSONObject();
+				data2.put("mediaIndex", tagList.get(i).getMediaIndex());
+				data2.put("newspeedNo", tagList.get(i).getNewspeedNo());
+				data2.put("userNo", tagList.get(i).getUserNo());
+				data2.put("X", tagList.get(i).getX());
+				data2.put("Y", tagList.get(i).getY());
+				data2.put("userName", tagList.get(i).getUserName());
+				
+				
+				tag.put("tag"+i, data2);
+			}
+			
+			for(int i=0; i<userList.size(); i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("userName", userList.get(i).getName());
+				data2.put("profilePhoto", userList.get(i).getProfilePhoto());
+				
+				feedUser.put("feedUser"+i, data2);
+			}
+			
+			for(int i=0; i<followStoryList.size(); i++) {
+				
+				JSONObject data2 = new JSONObject();
+				data2.put("userNo", followStoryList.get(i).getNo());
+				data2.put("userName", followStoryList.get(i).getName());
+				data2.put("profilePhoto", followStoryList.get(i).getProfilePhoto());
+				
+				mineFollowUser.put("mineFollowUser"+i, data2);
+			}
+			
+			System.out.println("배열이당 : "+content.size());
+			System.out.println("배열이당 : "+comment.size());
+			System.out.println("배열이당 : "+media.size());
+			System.out.println("배열이당 : "+like.size());
+			System.out.println("배열이당 : "+tag.size());
+			System.out.println("배열이당 : "+feedUser.size());
+			
+			System.out.println("보기 : "+media);
+			
+			jsonArr.add(content);
+			jsonArr.add(comment);
+			jsonArr.add(media);
+			jsonArr.add(like);
+			jsonArr.add(tag);
+			jsonArr.add(feedUser);	
+			jsonArr.add(mineFollowUser);
+		}else {
 			JSONObject data2 = new JSONObject();
-			data2.put("mediaIndex", tagList.get(i).getMediaIndex());
-			data2.put("newspeedNo", tagList.get(i).getNewspeedNo());
-			data2.put("userNo", tagList.get(i).getUserNo());
-			data2.put("X", tagList.get(i).getX());
-			data2.put("Y", tagList.get(i).getY());
-			data2.put("userName", tagList.get(i).getUserName());
-			
-			tag.put("tag"+i, data2);
+			jsonArr.add(data2);
 		}
-		
-		for(int i=0; i<userList.size(); i++) {
-			
-			JSONObject data2 = new JSONObject();
-			data2.put("userName", userList.get(i).getName());
-			data2.put("profilePhoto", userList.get(i).getProfilePhoto());
-			
-			feedUser.put("feedUser"+i, data2);
-		}
-		
-		System.out.println("배열이당 : "+content.size());
-		System.out.println("배열이당 : "+comment.size());
-		System.out.println("배열이당 : "+media.size());
-		System.out.println("배열이당 : "+like.size());
-		System.out.println("배열이당 : "+tag.size());
-		System.out.println("배열이당 : "+feedUser.size());
-		
-		jsonArr.add(content);
-		jsonArr.add(comment);
-		jsonArr.add(media);
-		jsonArr.add(like);
-		jsonArr.add(tag);
-		jsonArr.add(feedUser);
-		
-		System.out.println("제이슨 배열 이당 : "+jsonArr);
 	
 		
 //		NewspeedSet data = new NewspeedSet();
