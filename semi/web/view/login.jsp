@@ -31,7 +31,7 @@
 						</td>
 						
 						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID" required onkeypress="javascript:capsLock(this);" />
-						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" onkeypress="javascript:capsLock(this);" />
+						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" placeholder=" Password" onkeypress="javascript:capsLock(this);" />
 <!-- 						<p id="capslock" style='color: red; display: none; font-weight: bold;'>Caps Lock키가 눌려있습니다.</p> -->
 						
 						

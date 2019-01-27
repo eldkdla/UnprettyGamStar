@@ -4,6 +4,7 @@
    .profileTop{
         width: 100%;
         height: 230px;
+        margin-top:70px;
     }
    
     ::-webkit-scrollbar { 

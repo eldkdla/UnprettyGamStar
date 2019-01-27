@@ -25,6 +25,26 @@
     margin : 0 auto;
 }
 
+.enrollBtn {
+	position: relative;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	background-color: gray;
+	color: white;
+	font-weight: bolder;
+	/* //width: 70px; */
+	height: 25px;
+	font-size: 15px;
+	cursor: pointer;
+	font-family: 'Gothic A1', sans-serif;
+}
+
+.reg_button {
+margin-top : 10px;
+text-align: center;
+}
+
 div .userRegFrm {
     /*
     border : 1px solid orange;
@@ -80,8 +100,15 @@ div .userRegFrm {
                 <div class="userRegFrm">
                     <label for="userEmail">이메일</label><br>
                     <input type="text" class="regControl" name="userEmail" id="userEmail" placeholder="  E-mail"
-                        autofocus size="49" required>
+                        autofocus size="30" required><button type="button" class="enrollBtn" id="emailSendBtn" name="emailSendBtn" onclick="sendEmail();"  style="margin-left: 7px">인증 메일보내기</button>
                     <div class="checkMsg" id="email_check"></div>
+                </div>
+                <!-- 이메일 인증하기 -->
+                <div class="userRegFrm" id="userAuth" style="display:none;">
+                    <label for="userAuth">이메일 : 인증번호</label><br>
+                    <input type="text" class="regControl" name="userAuthCode" id="userAuthCode" placeholder="  인증번호를 입력하세요."
+                        autofocus size="36" required> <button type="button" class="enrollBtn" id="authChkBtn" name="authChkBtn" onclick="authChk();"  style="margin-left: 7px">인증하기</button>
+                    <div class="checkMsg" id="auth_check"></div>
                 </div>
                 <!-- 휴대전화 -->
                 <div class="userRegFrm">
@@ -92,21 +119,22 @@ div .userRegFrm {
                 </div>
 
                 <div class="reg_button">
-                    <input type="reset" onclick="pageBack();"value="취소" />&emsp;&emsp;
-                    <input type="submit" id="reg_submit" value="가입" />
+                    <input type="reset" class="enrollBtn" onclick="pageBack();"value="뒤로가기" />&emsp;&emsp;
+                    <input type="submit" class="enrollBtn" id="reg_submit" value="가입하기" />
 
-                    <!--  -->
+          
                 </div>
             </form>
         </fieldset>
     </div>
+
 </body>
 
 
 <script>
 
 	//검증파트
-	var inval_Arr = new Array(6).fill(false);
+	var inval_Arr = new Array(7).fill(false);
 
 	//정규식 파트
     var regExp_emp = /\s/g;                 //빈칸
@@ -175,15 +203,19 @@ div .userRegFrm {
     }));
 
     //이메일 정규식
-    $('#userEmail').on('change keyup paste', (function () {
+    $('#userEmail').on('change keyup paste', (function (e) {
         if (regExp_email.test($(this).val())) {
             console.log('email참참')
             $("#email_check").text('');
+            $('#emailSendBtn').attr('disabled', false);
             inval_Arr[3] = true;
         }
         else {
+        	
             $('#email_check').text('입력한 이메일 주소를 확인해주세요');
             $('#email_check').css('color', 'red');
+            $('#userAuth').css("display", "none");
+        	$('#emailSendBtn').attr('disabled', true);      	
             inval_Arr[3] = false;
         }
     }));
@@ -198,35 +230,39 @@ div .userRegFrm {
         else {
             $('#phone_check').text('입력한 핸드폰 번호를 확인해주세요');
             $('#phone_check').css('color', 'red');
+            console.log(authCode);
             inval_Arr[4] = false;
         }
     }));
     
     //ajax 아이디 중복여부
     $('#userId').on('change keyup paste',(function(){
-        if($('#userId').val()==""){//아이디 빈칸일때
-           $('#id_check').html("");
-        }else{
-           $.ajax({
-              url:'<%=request.getContextPath()%>/useridChk',
-              type:"POST",
-              data:{"inputId":$('#userId').val()},
-              success:function(data){
-                 if(data=="true"){
-                    $('#id_check').html("사용가능한 아이디입니다.").css('color', 'green');
-                    inval_Arr[5] = true;
-                 }
-                 else if(data=="false"){
-                	 $('#id_check').html("사용 불가능한 아이디입니다.").css('color', 'red');
-                	 inval_Arr[5] = false;
-                 }
-              },
-              error:function(xhr,status){
-                 alert(xhr+" : "+status);
-      		}
-  			
-   		});
-	}}));
+    	if($('#userId').val()==""){//아이디 빈칸일때
+            $('#id_check').html("");
+         }else{
+            $.ajax({
+               url:'<%=request.getContextPath()%>/useridChk',
+               type:"POST",
+               data:{"inputId":$('#userId').val()},
+               success:function(data){
+                  if(data=="true"){
+                     $('#id_check').html("사용가능한 아이디입니다.").css('color', 'green');
+                     inval_Arr[5] = true;
+                  }
+                  else if(data=="false"){
+                 	 $('#id_check').html("사용 불가능한 아이디입니다.").css('color', 'red');
+                 	 inval_Arr[5] = false;
+                  }
+               },
+               error:function(xhr,status){
+                  alert(xhr+" : "+status);
+       		}
+   			
+    		});
+ 	}}));	
+    	
+    
+        
     
     //전송 체크
     $('#reg_submit').click(function(){
@@ -235,7 +271,7 @@ div .userRegFrm {
 			
 			if(inval_Arr[i] == false){
 				validAll = false;
-				console.log(i+": false래");
+				console.log(i+": false");
 			}
 		}
 		
@@ -273,12 +309,77 @@ div .userRegFrm {
     //모달창 닫기
     function close_pop(){
        $('#myModal').css("display","none");
-    }
+    };
     
     function pageBack(){
         location.href="<%=request.getContextPath()%>/view/login.jsp";
         history.back();
-    }
-	
+    };
+    
+    
+    //이메일인증테스트
+     		   	var authCode = "";
+    			//이메일 전송 부분
+    			function sendEmail(){
+    		    	console.log('이메일전송옹');
+    		    	$('#userEmail').attr("readonly", "readonly");
+    		    	$('#userEmail').css("background-color", "rgb(207,207,207)");
+    			    $('#emailSendBtn').attr('disabled', true);
+    			    $('#emailSendBtn').css('cursor', 'not-allowed');
+    			    $('#emailSendBtn').css("background-color", "rgb(207,207,207)");
+    		    	var email = $('#userEmail').val();
+    		    	
+    				if($('#userEmail').val()==""){//이메일 빈칸일때
+    			           $('#email_check').html("email을 입력하세요.");
+    			        }else{
+    			          
+    			        $.ajax({
+    			              url:'<%=request.getContextPath()%>/mailSend',
+    			              type:"POST",
+    			              data:{"receiver":email},
+    			              success:function(data){
+    			                 authCode = data;
+    			            	  
+    			                 if(data>0){
+    			                    $('#email_check').html("인증메일이 발송 되었습니다.").css('color', 'green');
+        		           			$('#userAuth').css("display", "block");
+    			           			//console.log('성공했답니다');
+    			                 }                                                                                                                                                                                                                                                                                                                                                                                                    
+    			                 else if(data==falses){
+    			                	 $('#email_check').html("메일발송에 실패하였습니다. 관리자에게 문의하세요").css('color', 'red');
+    			           				//comsole.log('실패랍니다');
+    			                 }
+    			              },
+    			              error:function(xhr,status){
+    			                 alert(xhr+" : "+status);
+    			      		}
+    			   		});
+    				}};
+		
+    				
+    				function authChk(){
+    				
+    					var code = $('#userAuthCode').val();
+    					
+    					if(Number(code) == Number(authCode)) {
+    						console.log("둘이 같아요");
+    						$('#auth_check').html("인증이 완료 되었습니다.").css('color', 'green');
+    						$('#authChkBtn').attr('disabled', true);
+    						$('#authChkBtn').css('cursor', 'not-allowed');
+    						$('#userAuthCode').attr("readonly", "readonly");
+    	    		    	$('#userAuthCode').css("background-color", "rgb(207,207,207)");
+    	    		    	$('#authChkBtn').css("background-color", "rgb(207,207,207)");
+    						inval_Arr[6] = true;
+    						}
+    					else{
+    						
+    						console.log("값이 달라요");
+    						$('#auth_check').html("인증번호를 확인해 주세요.").css('color', 'red');
+    						inval_Arr[6] = false;
+    					}
+    		
+    				};
+				
+
 </script>
 </html>
