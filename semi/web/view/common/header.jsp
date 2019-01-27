@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <title>Insert title here</title>
-<script src="http://code.jquery.com/jquery.min.js"></script>
 		<link href="<%=request.getContextPath()%>/css/header.css" rel="stylesheet" type="Text/css">
 
 </head>
