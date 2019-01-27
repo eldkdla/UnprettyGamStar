@@ -546,5 +546,14 @@ public class UserService {
 				}			
 				 
 			}
+			
+			public List<User> selectSearchUser(String searchStr){
+			      
+			      Connection conn = getConnection();
+			      List<User> userData = new UserDao().selectSearchUser(conn, searchStr);
+			      
+			      close(conn);
+			      return userData;
+			   }
 
 }
