@@ -61,7 +61,7 @@ div .userRegFrm {
     }
     </style>
 
-
+<body>
 <div id=mainDiv>
         <fieldset>
             <legend>&nbsp; - UnprettyGamStar - &nbsp;</legend>
@@ -144,8 +144,8 @@ div .userRegFrm {
     var regExp_phone = /^(01[016789]{1})([0-9]{3,4})([0-9]{4})$/;
     var regExp_name = /^[가-힣]{2,6}$/;//한글 2~6자
 
-    //아이디 정규식
-    $('#userId').on('change keyup paste', (function () {
+    //아이디 정규식 -ajax와 통합
+   /*  $('#userId').on('change keyup paste', (function () {
         if (regExp_id.test($(this).val())) {
             console.log('id참참');
             $("#id_check").text('');
@@ -156,7 +156,48 @@ div .userRegFrm {
             $('#id_check').css('color', 'red');
             inval_Arr[0] = false;
         }
-    }));
+    })); */
+    
+  //ajax 아이디 중복여부 아이디 정규식
+    $('#userId').on('change keyup paste',(function(){
+    	if($('#userId').val()==""){//아이디 빈칸일때
+            $('#id_check').html("");
+         }else{
+        	 
+        	 if (regExp_id.test($(this).val())) {
+                 console.log('id참참');
+                 //$("#id_check").text('');
+                 inval_Arr[0] = true;
+             
+            $.ajax({
+               url:'<%=request.getContextPath()%>/useridChk',
+               type:"POST",
+               data:{"inputId":$('#userId').val()},
+               success:function(data){
+                  if(data=="true"){
+                     $('#id_check').html("사용가능한 아이디입니다.").css('color', 'green');
+                     inval_Arr[1] = true;
+                  }
+                  else if(data=="false"){
+                 	 $('#id_check').html("사용 불가능한 아이디입니다.").css('color', 'red');
+                 	 inval_Arr[1] = false;
+                  }
+               },
+               error:function(xhr,status){
+                  alert(xhr+" : "+status);
+       		}
+   			
+    		});
+        	 }
+        	 
+        	 //틀리아이디의경우
+        	 else {
+            $('#id_check').html('아이디를 확인해주세요<br>- 영어 대.소문자 와 숫자사용가능 (1~20자리)');
+            $('#id_check').css('color', 'red');
+            inval_Arr[0] = false;
+        }
+         
+ 	}}));
 
     //비밀번호 정규식
     $('#userPw').on('change keyup paste', (function () {
@@ -180,11 +221,11 @@ div .userRegFrm {
         {
             $('#pw2_check').text('입력하신 비밀번호가 서로 다릅니다.');
             $('#pw2_check').css('color', 'red');
-            inval_Arr[1] = false;
+            inval_Arr[2] = false;
         }
         else {
             $('#pw2_check').text('');
-            inval_Arr[1] = true;
+            inval_Arr[2] = true;
         }
     }));
     
@@ -193,12 +234,12 @@ div .userRegFrm {
         if (regExp_name.test($(this).val())) {
             console.log('name참참');
             $("#name_check").text('');
-            inval_Arr[2] = true;
+            inval_Arr[3] = true;
         }
         else {
             $('#name_check').text('이름을 확인해주세요');
             $('#name_check').css('color', 'red');
-            inval_Arr[2] = false;
+            inval_Arr[3] = false;
         }
     }));
 
@@ -208,7 +249,7 @@ div .userRegFrm {
             console.log('email참참')
             $("#email_check").text('');
             $('#emailSendBtn').attr('disabled', false);
-            inval_Arr[3] = true;
+            inval_Arr[4] = true;
         }
         else {
         	
@@ -216,7 +257,7 @@ div .userRegFrm {
             $('#email_check').css('color', 'red');
             $('#userAuth').css("display", "none");
         	$('#emailSendBtn').attr('disabled', true);      	
-            inval_Arr[3] = false;
+            inval_Arr[4] = false;
         }
     }));
 
@@ -225,41 +266,17 @@ div .userRegFrm {
         if (regExp_phone.test($(this).val())) {
             console.log('phone참참')
             $("#phone_check").text('');
-            inval_Arr[4] = true;
+            inval_Arr[5] = true;
         }
         else {
             $('#phone_check').text('입력한 핸드폰 번호를 확인해주세요');
             $('#phone_check').css('color', 'red');
             console.log(authCode);
-            inval_Arr[4] = false;
+            inval_Arr[5] = false;
         }
     }));
     
-    //ajax 아이디 중복여부
-    $('#userId').on('change keyup paste',(function(){
-    	if($('#userId').val()==""){//아이디 빈칸일때
-            $('#id_check').html("");
-         }else{
-            $.ajax({
-               url:'<%=request.getContextPath()%>/useridChk',
-               type:"POST",
-               data:{"inputId":$('#userId').val()},
-               success:function(data){
-                  if(data=="true"){
-                     $('#id_check').html("사용가능한 아이디입니다.").css('color', 'green');
-                     inval_Arr[5] = true;
-                  }
-                  else if(data=="false"){
-                 	 $('#id_check').html("사용 불가능한 아이디입니다.").css('color', 'red');
-                 	 inval_Arr[5] = false;
-                  }
-               },
-               error:function(xhr,status){
-                  alert(xhr+" : "+status);
-       		}
-   			
-    		});
- 	}}));	
+    	
     	
     
         

@@ -33,6 +33,7 @@ public class UserService {
 				
 			return userData;
 		}
+		
 		public User selectUser(User user){
 			
 			Connection conn=getConnection();
@@ -547,6 +548,28 @@ public class UserService {
 				 
 			}
 			
+			//회원 아이디 찾기
+			public User findUserId(User u) {
+				Connection conn = getConnection();
+				
+				u = new UserDao().findUserId(conn, u);
+				
+				
+				close(conn);
+				
+				return u;
+			}
+			
+			//이메일로 회원 넘버 불러오기
+			public User emailGetNo(User u) {
+				Connection conn = getConnection();
+				
+				u = new UserDao().emailGetNo(conn, u);
+				
+				close(conn);
+				return u;
+			}
+
 			public List<User> selectSearchUser(String searchStr){
 			      
 			      Connection conn = getConnection();
@@ -555,5 +578,6 @@ public class UserService {
 			      close(conn);
 			      return userData;
 			   }
+
 
 }

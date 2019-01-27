@@ -20,7 +20,8 @@ import common.encrypt.EncryptWrapper;
 				"UnregisterServlet",
 				"UserLoginServlet",
 				"UserEnrollServlet",
-				"CreateNewAdminServlet"
+				"CreateNewAdminServlet",
+				"ResetUserPasswordServlet"
 		}
 		)
 public class EncryptFilter implements Filter {

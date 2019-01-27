@@ -1,25 +1,28 @@
-package com.gamstar.newspeed.controller;
+package com.gamstar.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.newspeed.model.service.NewspeedService;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class NewspeedLikeServlet
+ * Servlet implementation class FindUserIdServlet
  */
-@WebServlet("/newspeed/newspeedlike")
-public class NewspeedLikeServlet extends HttpServlet {
+@WebServlet("/findId")
+public class FindUserIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewspeedLikeServlet() {
+    public FindUserIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +35,31 @@ public class NewspeedLikeServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
-		if (request.getSession().getAttribute("userNo") == null || request.getParameter("newspeedNo") == null) {
-			response.sendRedirect(request.getContextPath());
+		PrintWriter out = response.getWriter();
+		String name = request.getParameter("inputName_1");
+		String email = request.getParameter("inputEmail_1");
+		
+		System.out.println("가져온 정보 name : "+name);
+		System.out.println("가져온 정보 email : "+email);
+		
+		User u = new User();
+		
+		u.setName(name);
+		u.setEmail(email);
+		
+		u = new UserService().findUserId(u);
+		
+		System.out.println(u.getId());
+		
+		if(u.getId()!=null) {
+		out.println(u.getId());
+		System.out.println("값이있다고");
 		}
-		
-		int userNo = (int)request.getSession().getAttribute("userNo");
-		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
-		NewspeedService nService = new NewspeedService();
-		int result = nService.insertLike(userNo, newspeedNo);
-		String msg = getMsgFromResult(result);
-		
-		response.getWriter().println(msg);
-		
+		else
+		{
+			System.out.println("값이 없다고");
+			out.println(0.0);
+		}
 	}
 
 	/**
@@ -52,17 +68,6 @@ public class NewspeedLikeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-	
-	public String getMsgFromResult(int result) {
-		switch(result) {
-		case NewspeedService.NEWSPEED_LIKE_INSERT_OK :
-			return "newspeed_like_active_icon_wrapper";
-		case NewspeedService.NEWSPEED_LIKE_DELETE_OK :
-			return "newspeed_like_icon_wrapper";
-		}
-		
-		return "error";
 	}
 
 }

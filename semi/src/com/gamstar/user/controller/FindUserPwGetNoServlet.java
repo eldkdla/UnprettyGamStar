@@ -1,25 +1,28 @@
-package com.gamstar.newspeed.controller;
+package com.gamstar.user.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.newspeed.model.service.NewspeedService;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class NewspeedLikeServlet
+ * Servlet implementation class FindUserPwGetNoServlet
  */
-@WebServlet("/newspeed/newspeedlike")
-public class NewspeedLikeServlet extends HttpServlet {
+@WebServlet("/findUserNo")
+public class FindUserPwGetNoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewspeedLikeServlet() {
+    public FindUserPwGetNoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,20 +34,25 @@ public class NewspeedLikeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+	
+		boolean chk=false;
+		PrintWriter out = response.getWriter();
+
+		User u = new User();
+		u.setEmail(request.getParameter("chkEmail"));
 		
-		if (request.getSession().getAttribute("userNo") == null || request.getParameter("newspeedNo") == null) {
-			response.sendRedirect(request.getContextPath());
+		//u = new UserService().chkEmail(u);
+		u = new UserService().emailGetNo(u);
+			
+		if(u.getNo()==0)
+		{
+			out.print("false");			
+		}else {
+			out.println(u.getNo());
 		}
 		
-		int userNo = (int)request.getSession().getAttribute("userNo");
-		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
-		NewspeedService nService = new NewspeedService();
-		int result = nService.insertLike(userNo, newspeedNo);
-		String msg = getMsgFromResult(result);
+		}
 		
-		response.getWriter().println(msg);
-		
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -52,17 +60,6 @@ public class NewspeedLikeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-	
-	public String getMsgFromResult(int result) {
-		switch(result) {
-		case NewspeedService.NEWSPEED_LIKE_INSERT_OK :
-			return "newspeed_like_active_icon_wrapper";
-		case NewspeedService.NEWSPEED_LIKE_DELETE_OK :
-			return "newspeed_like_icon_wrapper";
-		}
-		
-		return "error";
 	}
 
 }

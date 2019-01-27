@@ -1,4 +1,4 @@
-package com.gamstar.newspeed.controller;
+package com.gamstar.user.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,19 +7,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gamstar.newspeed.model.service.NewspeedService;
+import com.gamstar.user.model.service.UserService;
+import com.gamstar.user.model.vo.User;
 
 /**
- * Servlet implementation class NewspeedLikeServlet
+ * Servlet implementation class ResetUserPasswordServlet
  */
-@WebServlet("/newspeed/newspeedlike")
-public class NewspeedLikeServlet extends HttpServlet {
+@WebServlet(name="ResetUserPasswordServlet",urlPatterns="/resetPassword")
+public class ResetUserPasswordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewspeedLikeServlet() {
+    public ResetUserPasswordServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +32,33 @@ public class NewspeedLikeServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+
+		int userNo = Integer.parseInt(request.getParameter("no"));
+		User u = new User();
+		u.setNo(userNo);		
+		u.setPw(request.getParameter("newPw"));
+		String msg="";
+		String loc="";
 		
-		if (request.getSession().getAttribute("userNo") == null || request.getParameter("newspeedNo") == null) {
-			response.sendRedirect(request.getContextPath());
+		int result=new UserService().updatePassword(u);
+
+
+		if(result!=0){
+			request.getSession().removeAttribute("userNo");
+			msg="비밀번호 변경성공";
+			loc="";
 		}
-		
-		int userNo = (int)request.getSession().getAttribute("userNo");
-		int newspeedNo = Integer.parseInt(request.getParameter("newspeedNo"));
-		NewspeedService nService = new NewspeedService();
-		int result = nService.insertLike(userNo, newspeedNo);
-		String msg = getMsgFromResult(result);
-		
-		response.getWriter().println(msg);
-		
+		else{
+			msg="비밀번호 변경실패";
+			loc="/view/profile";
+		}
+
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+
+		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+
+
 	}
 
 	/**
@@ -52,17 +67,6 @@ public class NewspeedLikeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
-	}
-	
-	public String getMsgFromResult(int result) {
-		switch(result) {
-		case NewspeedService.NEWSPEED_LIKE_INSERT_OK :
-			return "newspeed_like_active_icon_wrapper";
-		case NewspeedService.NEWSPEED_LIKE_DELETE_OK :
-			return "newspeed_like_icon_wrapper";
-		}
-		
-		return "error";
 	}
 
 }
