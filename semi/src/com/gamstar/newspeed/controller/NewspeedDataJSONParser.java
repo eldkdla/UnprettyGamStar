@@ -68,20 +68,20 @@ public class NewspeedDataJSONParser {
 		double beforeNum = Double.parseDouble(before);
 		String result = "";
 		
-		if (beforeNum < 0.0008) {
+		if (Math.floor((beforeNum/0.00069)) < 1) {
 			return "방금";
-		} else if (Math.floor((beforeNum/0.00069)) > 0 && Math.floor((beforeNum/0.0414)) < 1) {
+		} else if (Math.floor((beforeNum/0.00069)) >= 1 && Math.floor((beforeNum/0.0414)) < 1) {
 			return Math.floor((beforeNum/0.00069)) + "분전";
 		} else if (Math.floor((beforeNum/0.0414)) > 0 && Math.floor((beforeNum/0.0414)) < 24) {
 			return Math.floor((beforeNum/0.0414)) + "시간전";
-		} else if (beforeNum < 31) {
+		} else if (beforeNum < 31 && Math.floor((beforeNum/0.0414)) >= 24) {
 			return Math.floor(beforeNum) + "일전";
-		} else if (beforeNum < 365) {
+		} else if (beforeNum < 366 && beforeNum > 31) {
 			return Math.floor(beforeNum/30) + "개월전";
 		}
 		
 		
-		return Math.floor(beforeNum) + "년전";
+		return Math.floor(beforeNum/365) + "년전";
 			
 	}
 

@@ -1244,7 +1244,7 @@ var isActiveContainerBtn = false;
                     onClickLike();
                 },
                 error:function(request,status,error){
-              
+                	location.reload();
                     
                 }
      

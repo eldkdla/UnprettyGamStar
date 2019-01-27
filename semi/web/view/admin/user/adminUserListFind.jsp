@@ -11,6 +11,9 @@
 <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Hi+Melody" rel="stylesheet">
 <style>
+td.userID, td.userName{
+		cursor: pointer;
+	}
     @media all and (min-width:1067px){
     /* Member Main Table */
     table.type{
@@ -338,9 +341,13 @@
              <td><%=m.getEnrollDate() %></td>
              <td>
              	<%if(m.getState()==0){ }
-             	  else if(m.getState()==1){%>
-             	  정지(<%=m.getRemainingDay() %>)
-             	<%} %>
+             	 	 else if(m.getState()==1){ 
+             	  	   	if(m.getRemainingDay()>90000){%>
+             	  	   		 정지(∞)
+             	  	   	<%} else { %>
+             				  정지(<%=m.getRemainingDay() %>)
+             	<%} 
+             	}%>
              	<input type='hidden' name='rDay' class='rDay' value='<%=m.getRemainingDay() %>'/>
              </td>
          </tr>
@@ -361,7 +368,7 @@
      	</div>
      </div>
      <div class='userSearch' >
-         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/serach">    
+         <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/search">    
              <select name='type'>
                  <option value='id' <%=searchType.equals("id")?"selected":"" %>>아이디</option>
                  <option value='name' <%=searchType.equals("name")?"selected":"" %>>이름</option>
@@ -379,11 +386,6 @@
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
-    
     function checkTr(it){
     	tr=it.parentNode.parentNode;
     	tr.style.backgroundColor=(it.checked)?"rgb(234, 242, 253)":"white";

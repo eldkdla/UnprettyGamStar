@@ -27,11 +27,11 @@
             cursor: pointer;
             vertical-align: middle;
         }
-        .supImg:hover{
+        /* .supImg:hover{
             width : 35%;
             cursor: pointer;
             vertical-align: middle;
-        }
+        } */
      /* 신고 검색용 창 */
     .reportSearch{
         text-align:center;
@@ -212,11 +212,11 @@
             cursor: pointer;
             vertical-align: middle;
         }
-        .supImg:hover{
+        /* .supImg:hover{
             width : 35%;
             cursor: pointer;
             vertical-align: middle;
-        }
+        } */
     /* 신고 검색용 창 */
     .reportSearch{
         text-align:center;
@@ -395,11 +395,11 @@
             cursor: pointer;
             vertical-align: middle;
         }
-        .supImg:hover{
+       /*  .supImg:hover{
             width : 35%;
             cursor: pointer;
             vertical-align: middle;
-        }
+        } */
         /* 신고 검색용 창 */
     .reportSearch{
         text-align:center;
@@ -593,6 +593,25 @@
 		});
 
 	});
+        
+	 // 새로고침 방지
+	    function noRefresh()
+	    {
+	        /* CTRL + N키 막음. */
+	        if ((event.keyCode == 78) && (event.ctrlKey == true))
+	        {
+	            event.keyCode = 0;
+	            return false;
+	        }
+	        /* F5 번키 막음. */
+	        if(event.keyCode == 116)
+	        {
+	            event.keyCode = 0;
+	            return false;
+	        }
+	    }
+
+	    document.onkeydown = noRefresh ;
     </script>
         <section>
             <br/>
@@ -601,7 +620,7 @@
             <br/>
             <br/>
             <!-- 신고내역리스트 -->
-            <table class='type' style="width:100%;">
+            <table class='type'>
                 <thead>
                     <tr>
                         <th id='ck' style="width:3%;"><input type="checkbox" id='rboardCheckAll' class='checkAll'/></th>
@@ -656,7 +675,7 @@
                         	 <%}%>
                         </td>
                         <td>
-                        	<a onclick='openNextTr(this);'>
+                        	<a onclick='openNextTr(this);' style='cursor: pointer;'>
                         	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
 	                        	<%if(r.getReportBoardContent().length()>15) { %>
 		                        	<%=r.getReportBoardContent().substring(0, 14) %>...
@@ -677,12 +696,15 @@
                        		<%if((Integer)r.getReportEndResult()==null||r.getReportEndResult()==0) {%>
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
                            <!--  <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button> -->
-                            <button class='cancelBtn' onclick='cancelTr();'>취소</button>
+                            <!-- <button class='cancelBtn' onclick='cancelTr();'>취소</button> -->
                             <%}else if(r.getReportEndResult()==-1){%>
-                            	&nbsp;
-                       		<%}else{%>
+                            	-
+                       		<%}else{ if(r.getReportEndResult()>90000){%>
+                       			정지(∞)
+                       		<%} else { %>
                             	정지(<%=r.getReportEndResult() %>)
-                            <%} %>
+                            <%} 
+                            }%>
                         </td>
                     </tr>
                     <tr class='movingTr' style='display:none;width:100%;'>
@@ -694,7 +716,7 @@
                     				<%  
                     					List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                     					for(ReportBoardMedia m : mediaList) {%>
-                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
+                    						<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;" onclick='showImg(src);'/>
                     					<%} %>
                    					</div>
                     			</div>
@@ -713,15 +735,16 @@
                 <div style="float:left; margin-left:10px;">
                 	<button class='imgSelect stopBtn' onclick='stopAllTr();'>정지</button>
                     <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
-                    <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
+                    <button class='cancelBtn' onclick='cancelAllTr();'>무시</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
+                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'
+                 onsubmit='goReportSearch_val()'>
                     <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='content'>내용</option>
                     </select>
-                    <input type='text' name='keyword'/>
-                    <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
+                    <input type='text' name='keyword' id='searchKeyword'/>
+                    <button class='searchBtn reportTr' type='button' onclick="goReportSearch();"><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>
             <div class='pageChange' style="clear:both;">
@@ -749,7 +772,7 @@
                 <br/>
             </div>
             <div id='layerBtn'>
-                <button type='reset' class='closeLayer'>취소</button>
+                <button type='reset' class='closeLayer' onclick="closeBanModal();">취소</button>
                 <button type='submit' class='acceptLayer'>확인</button>
             </div>
         </form>
@@ -762,10 +785,10 @@
     
 
     <script>
-        // 모바일 메뉴 열기 위한 함수
-        function openAdminMobileMenu(){
-            $('nav').toggle();
-        }
+    	function closeBanModal()
+    	{
+    		$('.popupLayer').hide();
+    	}
         function checkTr(it){
         	tr=it.parentNode.parentNode;
         	tr.style.backgroundColor=(it.checked)?"rgba(234, 242, 253, 0.5)":"white";
@@ -904,7 +927,36 @@
 		function goSelf(){
 			
 		}
-
+		
+		 function goReportSearch(){
+	    		if (!clicked) {
+	                clicked=true;
+	                $('#searchReport').submit();
+	                $('.reportTr').unbind('click');
+	           } else {
+	           	 $('.reportTr').delay( 3000 );
+	           }
+	    	}
+	        function goReportSearch_val(){
+	    		if ($('#searchKeyword').val()!=null&&$('#searchKeyword').val().trim()!=null)
+	    		{
+	                return true
+	           } else {
+	           	  return false;
+	           }
+	    	}
+		 function goReport(){
+	    		if (!clicked) {
+	    			
+	                clicked=true;
+	                return true;
+	                $('.reportTr').unbind('click');
+	           } else {
+	           	 $('.reportTr').delay( 3000 );
+	           	 return false;
+	           }
+	    	}
+		 
     </script>
 </body>
 </html>

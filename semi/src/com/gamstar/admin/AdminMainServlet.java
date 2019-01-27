@@ -13,6 +13,7 @@ import com.gamstar.admin.report.model.service.ReportService;
 import com.gamstar.admin.report.model.vo.ReportBoard;
 import com.gamstar.admin.support.model.service.SupportService;
 import com.gamstar.admin.support.model.vo.SupportBoard;
+import com.gamstar.user.model.vo.User;
 
 /**
  * Servlet implementation class AdminMainServlet
@@ -47,6 +48,9 @@ public class AdminMainServlet extends HttpServlet {
 		}
 		else
 		{
+			/*user_no로 user를 불러오는 패키지? 그런게 있어야 하지 않을까? 만들어야하나?
+			 * User logginAdmin=request.getSession().getAttribute("userNo");*/
+			
 			int cPage=1;
 			int numPerPage=5;
 			

@@ -30,6 +30,8 @@
             background-color: gainsboro;
             overflow-x: hidden;
         }
+        
+        
 	</style>
 </head>
 
@@ -38,11 +40,11 @@
      <div id="supportMainDiv" class="supportMain" onclick="zindexchange(this)">
 
             <div id="supportMainStatus" onmousedown="startDrag(event, document.getElementById('supportMainDiv'))">
-                <span style="color: white; font-size: 14px; position: relative; left: 5px; "></span>
-                <button id="chatroomcloseBtn" onclick="document.getElementById('supportMainDiv').style.display='none';"> x
+                <span style="color: white; font-size: 14px; position: relative; left: 5px; ">Q&A</span>
+                <button id="supportMaincloseBtn" onclick="document.getElementById('supportMainDiv').style.display='none';"> x
                 </button>
             </div>
-            <h2 style="text-align: center; position: relative; top:13px;">Q&A</h2>
+            <h2 style="text-align: center; position: relative; top:17px;">Q&A</h2>
             <form action="" method="post" enctype="multipart/form-data" name="" id="userSupportForm">
             <div id="supportDiv">
                 <div id="supportTitle">
@@ -65,7 +67,59 @@
             </form>
         </div>
 
+<!-- 문의답변 -->
+		<div id="cofirmSupportDiv" class="supportMain" onclick="zindexchange(this)">
 
+            <div id="confirmSupportMainStatus" onmousedown="startDrag(event, document.getElementById('cofirmSupportDiv'))">
+                <span style="color: white; font-size: 14px; position: relative; left: 5px; ">Q&A</span>
+                <button id="confirmSupportCloseBtn" onclick="document.getElementById('cofirmSupportDiv').style.display='none';"> x
+                </button>
+            </div>
+            <h2 style="text-align: center; position: relative; top:17px;">Answer</h2>
+            <div id="confrimSupportContents">
+			<table class='type' id='confirmTable'>
+
+
+			</table>
+			<div id="questionDiv"  style="display:none">
+				<table class='type' id='aaatable'>
+				<tr>
+                   <th id="title" style="width:500px ;border-bottom:2px solid black">흠</th>
+               </tr>
+					
+				<tr>
+						<td style="position: relative; top:8px;left:10px;border: none; text-align: left; width:500px" id="qDate">
+						<small>Date	: </small> 
+						</td>
+					</tr>
+					<tr>
+						<td  style="position: relative; top:8px;left:10px; text-align: left; padding: 5px; width:500px">
+						<div id="question" style="width:450px; font-family: 'Gothic A1', sans-serif; font-size: 13px"></div> <br /> <br /> <br /> <br /> <br />
+						</td>
+					</tr>
+
+					<tr>
+						<td style="position: relative; left:10px;top:8px; width:500px" id="aDate"><img src='/GamStar/img/adminImg/answer.png' style='width: 18px; opacity: 0.5;'/> 
+						<small>Date : </small>
+						</td>
+					</tr>
+					<tr>
+						<td style="position: relative; top:8px;left:15px;">
+						<div id="answer" style="width:450px; font-family: 'Gothic A1', sans-serif; font-size: 13px""></div>
+						</td>
+					</tr>
+
+					
+				</table>
+				<div style="text-align: center">
+				<button id="aSupportIndexBtn"  onclick="supportIndex()">목록</button>
+				</div>
+			</div>
+
+
+		</div>
+            
+        </div>
 <!-- chatting -->
 	 <div id="chatroom" class="chatroomMain" onclick="zindexchange(this)">
 
@@ -182,6 +236,8 @@
                         <div id="chatting" onclick="chat()"><div class="chattingText">채팅</div></div>
                         <hr class="slideHr">
                         <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText">문의하기</div></div>
+                        <hr class="slideHr">
+                        <div id="contactBoard2" onclick="confirmSupportContents()"><div class="contactBoardText">답변확인</div></div>
                         <hr class="slideHr">
                         <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
                 </div>
@@ -686,6 +742,223 @@
        document.getElementById(test.id).style.zIndex = count;
        count++;
    }
+    function confirmSupportContents(){
+    	//console.log("들어옴?");
+    	$('#questionDiv').css('display','none');
+    	$('#confirmTable').children().remove();
+    	document.getElementById('cofirmSupportDiv').style.zIndex = count;
+        count++;
+        var confirmState='O';
+        $('#confirmTable').append($('<tr/>',{
+   			id: 'confrimHeader',
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:40px',
+   			text:'No'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:260px',
+   			text:'Title'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:130px',
+   			text:'Date'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:91px;',
+   			text:'Answer'
+   		}));
+		$.ajax({
+	    	
+	        url: "<%=request.getContextPath()%>/confirmsupport",
+	        type: 'post',
+	        dataType :'text',
+	        contentType: false,
+	        cache: false,
+	        processData:false,
+	        success: function(data){
+	        	var json = eval("(" + data + ")");
+	        	console.log(json);
+	        	for(var i=0;i<json.length;i++){
+		        	if(json[i]["state"]==0){
+		        		confirmState='X'
+		        	}
+		        	else{
+		        		confirmState='O'
+		        	}
+		        	$('#confirmTable').append($('<tr/>',{
+	           			id: 'confirm'+i,
+	           		}));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: i+1 
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: json[i]["title"] ,
+	                    id:'cofirmTitle'+i,
+	           			value:json[i]["supportNo"],
+	                    style:"cursor:pointer"
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: json[i]["date"]    
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text:  confirmState,
+	                    id: 'confirmState'+i
+	                }));
+	           		if(confirmState=='O'){
+	           			$('#confirmState'+i).css('color','blue')
+	           		}
+	           		else{
+	           			$('#confirmState'+i).css('color','red')
+	           		}
+	           		$('#cofirmTitle'+i).off("click").on("click",function(){
+	           			answerData(this);
+	           			
+                       });
+	        	}
+	        	
+	        },error:function(xhr,status){
+	            alert(xhr+" : "+status);   
+	        }
+	        
+	    });
+    	document.getElementById('cofirmSupportDiv').style.display = 'block';
+	    document.getElementById('cofirmSupportDiv').style.left = "500px";
+	    var height4=$(document).scrollTop();
+	    document.getElementById('cofirmSupportDiv').style.top = (height4+100)+"px";
+    }
+    function supportIndex(){
+    	$('#questionDiv').css('display','none');
+    	$('#confirmTable').children().remove();
+    	document.getElementById('cofirmSupportDiv').style.zIndex = count;
+        count++;
+        var confirmState='O';
+        $('#confirmTable').append($('<tr/>',{
+   			id: 'confrimHeader',
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:40px',
+   			text:'No'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:260px',
+   			text:'Title'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:130px',
+   			text:'Date'
+   		}));
+        $('#confrimHeader').append($('<th/>',{
+   			class:'xxx',
+   			style:'width:91px;',
+   			text:'Answer'
+   		}));
+		$.ajax({
+	    	
+	        url: "<%=request.getContextPath()%>/confirmsupport",
+	        type: 'post',
+	        dataType :'text',
+	        contentType: false,
+	        cache: false,
+	        processData:false,
+	        success: function(data){
+	        	var json = eval("(" + data + ")");
+	        	console.log(json);
+	        	for(var i=0;i<json.length;i++){
+		        	if(json[i]["state"]==0){
+		        		confirmState='X'
+		        	}
+		        	else{
+		        		confirmState='O'
+		        	}
+		        	$('#confirmTable').append($('<tr/>',{
+	           			id: 'confirm'+i,
+	           		}));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: i+1 
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: json[i]["title"] ,
+	                    id:'cofirmTitle'+i,
+	           			value:json[i]["supportNo"],
+	                    style:"cursor:pointer"
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text: json[i]["date"]    
+	                }));
+	           		$('#confirm'+i).append($('<td/>',{
+	                    class:'xx',
+	                    text:  confirmState,
+	                    id: 'confirmState'+i
+	                }));
+	           		if(confirmState=='O'){
+	           			$('#confirmState'+i).css('color','blue')
+	           		}
+	           		else{
+	           			$('#confirmState'+i).css('color','red')
+	           		}
+	           		$('#cofirmTitle'+i).off("click").on("click",function(){
+	           			answerData(this);
+	           			
+                       });
+	        	}
+	        	
+	        },error:function(xhr,status){
+	            alert(xhr+" : "+status);   
+	        }
+	        
+	    });
+    }
+    function answerData(obj){
+    	//console.log($(obj).attr('value'));
+    	var supportNo=$(obj).attr('value');
+    	console.log(supportNo)
+		$.ajax({
+	    	
+	        url: "<%=request.getContextPath()%>/answerSupportData",
+	        type: 'post',
+	        dataType :'text',
+	        data: {"supportNo" : supportNo},
+	        cache: false,
+	        success: function(data){
+	        	var json = eval("(" + data + ")");
+	        	console.log(json);
+	        	$('#confirmTable').children().remove();
+	        	$('#title').html(json["title"]);
+	        	$('#qDate').html('<small>'+'Date : '+'</small>'+json["questionDate"]);
+	        	$('#question').html(json["question"]);
+	        	if(json["answer"].length<1){
+	        		$('#aDate').html('<small>'+'Date : '+'</small>'+"");
+	        		$('#answer').html("아직 답변이 달리지 않았습니다.");
+	        	}
+	        	else{
+	        	$('#aDate').html('<small>'+'Date : '+'</small>'+json["answerDate"]);
+	        	$('#answer').html(json["answer"]);}
+	        	$('#questionDiv').show();
+           		
+	        	
+	        	
+	        },error:function(xhr,status){
+	            alert(xhr+" : "+status);   
+	        }
+	        
+	    });
+    }
+    
    function supportBtn() {
 	   document.getElementById('supportMainDiv').style.zIndex = count;
        count++;
@@ -697,6 +970,8 @@
 	    var height4=$(document).scrollTop();
 	    document.getElementById('supportMainDiv').style.top = (height4+100)+"px";
 	    }
+   
+   
 	var flaggg=true;
 	$("#userSupportForm").on('submit', function(e){
 	    e.preventDefault();
@@ -742,6 +1017,7 @@
 	        processData:false,
 	        success: function(data){
 	        	profileAlert("문의가 완료 되었습니다.");
+	        	supportIndex();
 	        },error:function(xhr,status){
 	            alert(xhr+" : "+status);   
 	        }
@@ -1648,6 +1924,8 @@ var heightt;
     	 $('#supportMainDiv').css('top', position+100);
     	 $('#chatroomfriendroom').css('top', position+100);
     	 $('#chattingscreen').css('top', position+100);
+    	 $('#cofirmSupportDiv').css('top', position+100);
+    	 
    });
 
 </script>

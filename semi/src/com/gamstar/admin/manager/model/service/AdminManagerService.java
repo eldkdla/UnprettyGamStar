@@ -97,7 +97,7 @@ public class AdminManagerService {
 		switch(searchType)
 		{
 			case "id" : list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
-			case "name" :list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
+			case "name" :list=new AdminManagerDao().searchNameList(conn, cPage, numPerPage, searchKeyword);break;
 		}
 		
 		close(conn);
