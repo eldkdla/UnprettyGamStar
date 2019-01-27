@@ -77,9 +77,26 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			supportAnswer.setSupportBoardWriterNo((Integer)request.getSession().getAttribute("userNo"));
 			
 			//파일받기
+			/*if(mr.getOriginalFileName("supportMedia")!=null) {
 			List<String> fileOriName=new FileController().getFileOriNameList(mr, "fileOriName");
 			List<String> fileReName=new FileController().getFileNameList(mr, "fileReName");
 			List<String> fileTypeStr=new FileController().getFileTypeList(mr, "fileTypeStr");
+			int[] fileTypeIndex=new int[fileTypeStr.size()];
+
+				for(int i=0; i<fileTypeStr.size();i++)
+				{
+					int fileNameIndex=fileTypeStr.get(i).lastIndexOf('.');
+					String fileType=fileTypeStr.get(i).substring(fileNameIndex);
+					if(fileType.equals("jpg")||fileType.equals("jpeg")||fileType.equals("png")||fileType.equals("bmp")||fileType.equals("gif"))
+					{
+						fileTypeIndex[i]=1;
+					}
+					else {
+						fileTypeIndex[i]=0;
+					}
+					
+				}
+			}*/
 			
 			
 			SupportBoard temp=new SupportService().selectSupportOne(Integer.parseInt(mr.getParameter("oriSupportBoardNo")));
@@ -109,7 +126,8 @@ public class SupportAnswerEndServlet extends HttpServlet {
 			{
 				view="/view/common/msg.jsp";
 				msg="답변 등록 실패";
-				loc="/view/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
+				loc="/admin/supportView?no="+supportAnswer.getSupportBoardRootNo()+"&cPage="+cPage;
+				request.setAttribute("loc", loc);
 				request.setAttribute("msg", msg);
 			}
 			request.setAttribute("cPage", cPage);

@@ -96,8 +96,8 @@ public class AdminManagerService {
 		List<User> list=null;
 		switch(searchType)
 		{
-			case "searchId" : list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
-			case "searchName" :list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
+			case "id" : list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
+			case "name" :list=new AdminManagerDao().searchIdList(conn, cPage, numPerPage, searchKeyword);break;
 		}
 		
 		close(conn);
@@ -110,8 +110,8 @@ public class AdminManagerService {
 		int result=new AdminManagerDao().selectAdminCount(conn);
 		switch(searchType)
 		{
-			case "searchId" : result=new AdminManagerDao().selectMemberCountId(conn,searchKeyword);break;
-			case "searchName" :result=new AdminManagerDao().selectMemberCountName(conn,searchKeyword);break;
+			case "id" : result=new AdminManagerDao().selectMemberCountId(conn,searchKeyword);break;
+			case "name" :result=new AdminManagerDao().selectMemberCountName(conn,searchKeyword);break;
 		}
 		close(conn);
 		return result;

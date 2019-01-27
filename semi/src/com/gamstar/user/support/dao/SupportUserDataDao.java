@@ -27,7 +27,7 @@ public class SupportUserDataDao {
 		}
 		
 	}
-	public void insertSupportUserData(Connection conn,SupportUserData userData, List fileNamelist,List fileOriNamelist, int type) {
+	public void insertSupportUserData(Connection conn,SupportUserData userData, List fileNamelist,List fileOriNamelist, int[] type) {
 		PreparedStatement pstmt=null;
 		PreparedStatement pstmt2=null;
 		PreparedStatement pstmt3=null;
@@ -60,7 +60,7 @@ public class SupportUserDataDao {
 				pstmt3=conn.prepareStatement(sql);
 				pstmt3.setInt(1, rs.getInt("NEXTVAL"));
 				pstmt3.setInt(2, i+1);
-				pstmt3.setInt(3, type);
+				pstmt3.setInt(3, type[i]);
 				pstmt3.setString(4, "upload/support/"+fileOriNamelist.get(i));
 				pstmt3.setString(5, "upload/support/"+fileNamelist.get(i));
 				result2=pstmt3.executeUpdate();

@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.gamstar.newspeed.model.service.AND;
-import com.gamstar.newspeed.model.service.SET;
 import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedComment;
 import com.gamstar.newspeed.model.vo.NewspeedLike;

@@ -221,6 +221,16 @@
      cursor: pointer;
      font-family: 'Gothic A1', sans-serif;
    }
+   ##chkName{
+  	   position: relative;
+       background-color: white;
+       float: right;
+       right: 90px;
+       top:5px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+  }
  
      .chkEmailPhonePw{
      position: relative;

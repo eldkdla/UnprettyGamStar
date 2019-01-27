@@ -15,7 +15,7 @@ import com.gamstar.admin.support.model.vo.SupportBoard;
 /**
  * Servlet implementation class SupportShowServlet
  */
-@WebServlet("/admin/support/show.do")
+@WebServlet("/admin/support/show")
 public class SupportShowServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,7 +45,7 @@ public class SupportShowServlet extends HttpServlet {
 		}
 		else
 		{
-			String selectType=request.getParameter("showSupport");
+			String selectType=request.getParameter("show");
 			
 			//페이징처리
 			int cPage;
@@ -82,31 +82,32 @@ public class SupportShowServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"&showSupport="+selectType+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/support/show?cPage="+(pageNo-1)
+						+"&show="+selectType+"'><</button>";
 			}
 			if(totalPage==0)
 			{
-				pageBar+="<small><span class='cPage'>1</span></small>";
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
+			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
-							+"&numPerPage="+numPerPage+"&showSupport="+selectType+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/support/show?cPage="+pageNo
+							+"&show="+selectType+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
 			
 			if(pageNo>totalPage)
 			{
-				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/support/show.do?cPage="+pageNo
-						+"&numPerPage="+numPerPage+"'>></button>";
+				pageBar+="<button id='next' disabled='disabled' href='"+request.getContextPath()+"/admin/support/show?cPage="+pageNo
+						+"'>></button>";
 			}
 			
 			request.setAttribute("list", list);

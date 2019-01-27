@@ -285,14 +285,15 @@
 		
 		<small>정렬</small> 
 		<form name="orderTypeFrm" id="orderTypeFrm" 
-		action="<%=request.getContextPath()%>/admin/userOrderedList" style="display: inline-block;">
-			<select name="orderType" id="orderType" onchange='submit();'>
-				<option value="name-desc"  <%=orderType.equals("name-desc")?"selected":"" %>>이름↓</option>
-				<option value="name-asc"  <%=orderType.equals("name-asc")?"selected":"" %>>이름↑</option>
-				<option value="id-desc" <%=orderType.equals("id-desc")?"selected":"" %>>아이디↓</option>
-				<option value="id-asc"  <%=orderType.equals("id-asc")?"selected":"" %>>아이디↑</option>
-				<option value="enroll-desc" <%=orderType.equals("enroll-desc")?"selected":"" %>>가입일↓</option>
-				<option value="enroll-asc"  <%=orderType.equals("enroll-asc")?"selected":"" %>>가입일↑</option>	
+		action="<%=request.getContextPath()%>/admin/user/reorder" style="display: inline-block;">
+			<select name="oType" id="orderType" onchange='submit();'>
+				<option value="nd"  <%=orderType.equals("nd")?"selected":"" %>>이름↓</option>
+				<option value="na"  <%=orderType.equals("na")?"selected":"" %>>이름↑</option>
+				<option value="ide" <%=orderType.equals("ide")?"selected":"" %>>아이디↓</option>
+				<option value="ia"  <%=orderType.equals("ia")?"selected":"" %>>아이디↑</option>
+				<option value="ed" <%=orderType.equals("ed")?"selected":"" %>>가입일↓</option>
+				<option value="ea"  <%=orderType.equals("ea")?"selected":"" %>>가입일↑</option>
+				<option value="sde" <%=orderType.equals("sd")?"selected":"" %>>정지일수↓</option>		
 			</select>
 		<small>페이지당 회원수 :</small> 
 			<select name="numPerPage" id="numPerPage" onchange='submit();'>
@@ -360,14 +361,14 @@
      	</div>
      </div>
      <div class='userSearch' >
-       <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/userFindList">    
-           <select name='searchType'>
-               <option value='searchId'>아이디</option>
-               <option value='searchName'>이름</option>
-               <option value='searchEmail'>이메일</option>
-               <option value='searchPhone'>휴대폰</option>
+       <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/search">    
+           <select name='type'>
+               <option value='id'>아이디</option>
+               <option value='name'>이름</option>
+               <option value='email'>이메일</option>
+               <option value='phone'>휴대폰</option>
            </select>
-           <input type='text' name='searchKeyword'/>
+           <input type='text' name='keyword'/>
            <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
        </form>
  	 </div>

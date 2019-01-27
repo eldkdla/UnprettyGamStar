@@ -20,6 +20,7 @@
        
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
@@ -47,6 +48,8 @@
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
+	<canvas class="dummy_canvas" style="display:none;" id="sephia"></canvas>
+	<canvas class="dummy_canvas" style="display:none" id="duotone"></canvas>
 	
 	<div id="newspeedview_btn_wrapper">
 
@@ -414,33 +417,63 @@
             	 <%if(isRequestFollowDataArray.size()!=0){
             		 for(int i=0;i<isRequestFollowDataArray.size();i++){
             		 %>
-            		 $('body').alertBox({
-            		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
-            		        lTxt: '보류',
-            		        lCallback: function(){
-            		        	$.ajax({
-            	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
-            	            		type:"POST",
-            	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
-            	            		success:function(data){},
-            	            		error:function(xhr,status){
-            	            			alert(xhr+" : "+status);	
-            	            		}
-            	            		});
-            		        },
-            		        rTxt: '수락',
-            		        rCallback: function(){
-	 					        $.ajax({
-	 					            url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
-	 					            type:'POST',
-	 					            data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
-	 					            success:function(data){},
-            	            		error:function(xhr,status){
-            	            			alert(xhr+" : "+status);	
-            	            		}
-            	            	});
-            		        }
-            		      });
+	            		 $('body').append($('<div/>',{
+	      		    		id:'requestFollow<%=i%>',
+	      		    		class:'requestFollowModal'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>').append($('<div/>',{
+	      		    		class:'requestFollowModal-content'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<p/>',{
+	      		    		text:"'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다"
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'보류'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'수락'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'거절'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(2)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	     	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
+	     	            		type:"POST",
+	     	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
+	     	            		success:function(data){},
+	     	            		error:function(xhr,status){
+	     	            			alert(xhr+" : "+status);	
+	     	            		}
+	     	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(3)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		 $.ajax({
+	 					          url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					          type:'POST',
+	 					          data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	 					          success:function(data){},
+	      	            		  error:function(xhr,status){
+	      	            		  alert(xhr+" : "+status);	
+	      	            		}
+	      	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(4)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	      		          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+	      		          		type:'POST',
+	      		          		data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	      		          		success:function(data){
+	      		          		},
+	      		          		error:function(xhr,status){
+	      		          			alert(xhr+" : "+status);
+	      		          		}
+	      		          		
+	      		          	});
+	      		    	});
             		 <%}
             		 }%>
          	<%}
@@ -1529,10 +1562,13 @@
 				</label> <input type="radio" id="radio_effect_brightness"
 					class="filter_radio" name="media_filter_select"></li>
 
-				<li class="media_filter_list"><label
-					class="media_filter_preview" for="radio_effect_test"> </label> <input
-					type="radio" id="radio_effect_test" class="filter_radio"
-					name="media_filter_select"></li>
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_sephia"> </label> 
+				<input type="radio" id="radio_effect_sephia" class="filter_radio" name="media_filter_select"></li>
+				
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_duotone"> </label> 
+				<input type="radio" id="radio_effect_duotone" class="filter_radio" name="media_filter_select"></li>
 
 			</ul>
 

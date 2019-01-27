@@ -65,11 +65,13 @@ public class MyProfilePageServlet extends HttpServlet {
 			//유저정보 가져오기
 			User userData=new UserService().selectUser(conn,user);
 			request.setAttribute("userData", userData);
+			System.out.println("무슨오류지?? "+userData.getState());
 			if((int)request.getSession().getAttribute("userNo")>=0){
 				if(userData.getState()==1||userData.getState()==100){ //유저가 정지상태이면 내 페이지로 이동
 					request.setAttribute("msg", "접근불가 유저");
 					request.setAttribute("loc", "");
 					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+					return;
 				}
 			}
 				//스토리 가져오기
@@ -127,6 +129,7 @@ public class MyProfilePageServlet extends HttpServlet {
 		request.setAttribute("msg", "잘못된 접근");
 		request.setAttribute("loc", "");
 		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+		return;
 		}
 
 		

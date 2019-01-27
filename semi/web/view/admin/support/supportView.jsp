@@ -12,17 +12,17 @@
 	
 	String backToList = request.getContextPath()+"/admin/supportList?cPage="+cPage;
 	
-	if(request.getParameter("searchType")!=null)
+	if(request.getParameter("type")!=null)
 	{
-		String searchType=request.getParameter("searchType");
-		String searchKeyword=request.getParameter("searchKeyword");
-		backToList = request.getContextPath()+"/admin/supportFind?cPage="+cPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword;
+		String searchType=request.getParameter("type");
+		String searchKeyword=request.getParameter("keyword");
+		backToList = request.getContextPath()+"/admin/support/search?cPage="+cPage+"&type="+searchType+"&keyword="+searchKeyword;
 	}
 	
-	if(request.getParameter("showSupport")!=null)
+	if(request.getParameter("show")!=null)
 	{
-		String showSupport=request.getParameter("showSupport");
-		backToList=request.getContextPath()+"/admin/support/show.do?cPage="+cPage+"&showSupport="+showSupport;
+		String showSupport=request.getParameter("show");
+		backToList=request.getContextPath()+"/admin/support/show?cPage="+cPage+"&show="+showSupport;
 	}
 	
 

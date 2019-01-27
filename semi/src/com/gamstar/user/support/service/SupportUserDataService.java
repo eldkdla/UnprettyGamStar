@@ -9,7 +9,7 @@ import com.gamstar.user.support.model.vo.SupportUserData;
 
 public class SupportUserDataService {
 	
-	public void insertSupportUserData(SupportUserData userData, List fileNamelist,List fileOriNamelist, int type) {
+	public void insertSupportUserData(SupportUserData userData, List fileNamelist,List fileOriNamelist, int[] type) {
 		Connection conn=getConnection();
 		new SupportUserDataDao().insertSupportUserData(conn, userData, fileNamelist, fileOriNamelist, type);
 		

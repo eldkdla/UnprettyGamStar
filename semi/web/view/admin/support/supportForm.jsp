@@ -216,7 +216,7 @@ textarea#supportAnswer{
                                     <textarea name='supportContent' id='supportContent' rows="20" cols="60" style="width:90%; resize: none;"><% if(answer!=null) {%><%=answer.getSupportBoardContent()%><%} %></textarea>
                                 </th>
                             </tr>
-                            <tr>
+                           <!--  <tr>
                                 <th style='border:none;'>
                                     <label>
                                         <small>첨부</small>
@@ -224,13 +224,13 @@ textarea#supportAnswer{
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <div id='supportMedia'>
                                         <label>
-                                            <input type='file' name='supportMedia' id='supportMedia' multiple accept="image/*" style='cursor: pointer;'/>
+                                            <input type='file' name='supportMedia' id='supportMedia' multiple accept="image/*,video/*" multiple="multiple" style='cursor: pointer;'/>
                                         </label>
                                     </div>
                                     &nbsp;&nbsp;
                                     &nbsp;
                                 </th>
-                            </tr>
+                            </tr> -->
                         </table>
                         	<input type="hidden" name="cPage" value='<%=cPage %>'/>
                     </form>
@@ -239,7 +239,7 @@ textarea#supportAnswer{
         </table>
         <div class='answeringBtn' style='width:100%;'>
             <div style="float: left;">
-            <a href="<%=request.getContextPath()%>/admin/supportList?cPage=<%=cPage%>">
+            <a href="<%=request.getContextPath()%>/admin/supportList">
                 <img src='<%=request.getContextPath() %>/img/adminImg/menu.png'/>
                 <small>목록</small>
             </a>
@@ -293,6 +293,7 @@ textarea#supportAnswer{
 
         var popup=open(i,title,shape);
     }
+    
 </script>
 </body>
 </html>

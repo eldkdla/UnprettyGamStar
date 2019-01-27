@@ -175,6 +175,8 @@
 		<br/>
 		<br/>
 		<br/>
+		<br/>
+		<br/>
 		<div id='adminFunctionBtn-container'>
 			<div id='userBtn'>
 				<img src='<%=request.getContextPath() %>/img/adminImg/member.png' onclick="location.href='<%=request.getContextPath()%>/admin/userList'";/>

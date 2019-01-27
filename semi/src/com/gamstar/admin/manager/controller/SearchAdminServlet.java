@@ -15,7 +15,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class SearchAdminServlet
  */
-@WebServlet("/admin/manager/searchAdmin")
+@WebServlet("/admin/manager/search")
 public class SearchAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -45,8 +45,8 @@ public class SearchAdminServlet extends HttpServlet {
 		}
 		else
 		{
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 
 			//페이징처리
 			int cPage;
@@ -85,22 +85,23 @@ public class SearchAdminServlet extends HttpServlet {
 			else
 			{
 				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+						+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
-				pageBar+="<small><span class='cPage'>1</span></small>";
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
+			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
 					pageBar+="<small><a href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+							+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
@@ -108,7 +109,7 @@ public class SearchAdminServlet extends HttpServlet {
 			if(pageNo>totalPage)
 			{
 				pageBar+="<button id='next' href='"+request.getContextPath()+"/admin/manager/searchAdmin?cPage="+pageNo
-						+"&numPerPage="+numPerPage+"'>></button>";
+						+"'>></button>";
 			}
 			
 			request.setAttribute("searchType", searchType);

@@ -873,6 +873,10 @@
                     setGrayscale(canvas.getContext('2d'), maxWidth, maxHeight);
                 } else if (radios[2].checked) {
                     setBrightness(canvas.getContext('2d'), maxWidth, maxHeight);
+                } else if (radios[3].checked) {
+                	setSephia(canvas.getContext('2d'), maxWidth, maxHeight);
+                } else if (radios[4].checked) {
+                	setDuotone(canvas.getContext('2d'), maxWidth, maxHeight);
                 }
             }
 
@@ -968,9 +972,13 @@
                 var normalCanvas = $('#normal')[0];
                 var grayscaleCanvas = $('#grayscale')[0];
                 var brightnessCanvas = $('#brightness')[0];
+                var sephiaCanvas = $('#sephia')[0];
+                var duotoneCanvas = $('#duotone')[0]
                 var normalContext = normalCanvas.getContext('2d');
                 var grayscaleContext = grayscaleCanvas.getContext('2d');
                 var brightnessContext = brightnessCanvas.getContext('2d');
+                var sephiaContext = sephiaCanvas.getContext('2d');
+                var duotoneContext = duotoneCanvas.getContext('2d');
                 var pixels;
                 var cwidth = image.width;
                 var cheight = image.height;
@@ -981,22 +989,32 @@
                 grayscaleCanvas.height = cheight;
                 brightnessCanvas.width = cwidth;
                 brightnessCanvas.height = cheight;
+                sephiaCanvas.width = cwidth;
+                sephiaCanvas.height = cheight;
+                duotoneCanvas.width = cwidth;
+                duotoneCanvas.height = cheight;
 
                 normalContext.clearRect(0, 0, normalCanvas.width, normalCanvas.height);
                 grayscaleContext.clearRect(0, 0, grayscaleCanvas.width, grayscaleCanvas.height);
                 brightnessContext.clearRect(0, 0, brightnessCanvas.width, brightnessCanvas.height);
+                sephiaContext.clearRect(0, 0, sephiaCanvas.width, sephiaCanvas.height);
                 normalContext.drawImage(image, 0, 0, cwidth, cheight);
                 grayscaleContext.drawImage(image, 0, 0, cwidth, cheight);
                 brightnessContext.drawImage(image, 0, 0, cwidth, cheight);
+                sephiaContext.drawImage(image, 0, 0, cwidth, cheight);
+                duotoneContext.drawImage(image, 0, 0, cwidth, cheight);
 
                 setGrayscale(grayscaleContext, cwidth, cheight);
                 setBrightness(brightnessContext, cwidth, cheight);
+                setSephia(sephiaContext, cwidth, cheight);
+                setDuotone(duotoneContext, cwidth, cheight);
 
 
                 $('#radio_effect_normal').prev().css('background-image', "url(" + normalCanvas.toDataURL() + ")");
                 $('#radio_effect_grayscale').prev().css('background-image', "url(" + grayscaleCanvas.toDataURL() + ")");
                 $('#radio_effect_brightness').prev().css('background-image', "url(" + brightnessCanvas.toDataURL() + ")");
-
+                $('#radio_effect_sephia').prev().css('background-image', "url(" + sephiaCanvas.toDataURL() + ")");
+                $('#radio_effect_duotone').prev().css('background-image', "url(" + duotoneCanvas.toDataURL() + ")");
             }
 
             function setGrayscale(grayscaleContext, width, height) {
@@ -1027,6 +1045,40 @@
 
                 brightnessContext.putImageData(pixels, 0, 0);
             }
+            
+
+            function setSephia(sephiaContext, width, height) {
+                var pixels = sephiaContext.getImageData(0, 0, width, height);
+                var data = pixels.data;
+
+                for (var i = 0; i < data.length; i += 4) {
+                    var r = data[i];
+                    var g = data[i+1];
+                    var b = data[i+2];
+            
+                    data[i] = r*0.3588 + g*0.7044 + b*0.1368;
+                    data[i+1] = r*0.2990 + g*0.5870 + b*0.1140;
+                    data[i+2] = r*0.2392 + g*0.4696 + b*0.0912;
+            
+                }
+
+                sephiaContext.putImageData(pixels, 0, 0);
+            }
+            
+            function setDuotone(duotoneContext, width, height) {
+                var pixels = duotoneContext.getImageData(0, 0, width, height);
+                var data = pixels.data;
+
+                for (var i = 0; i < data.length; i += 4) {
+                	var r = data[i];
+        			var g = data[i + 1];
+        			var b = data[i + 2];
+        			var r = (r+g+b)/3;
+        			
+        			data[i] = r;
+                }
+                duotoneContext.putImageData(pixels, 0, 0);
+            }
 
 
             function drawOriginalSizeCanvas(image) {
@@ -1050,6 +1102,11 @@
                     setGrayscale(ctx, canvas.width, canvas.height);
                 } else if (radio[2].checked) {
                     setBrightness(ctx, canvas.width, canvas.height);
+                } else if (radio[3].checked) {
+
+                	setSephia(ctx, canvas.width, canvas.height);
+                } else if(radio[4].checked) {
+                	setDuotone(ctx, canvas.width, canvas.height);
                 }
             }
 

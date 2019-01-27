@@ -54,15 +54,16 @@
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이름</label>
                             <input type="text" class="modifyInput" id=modifyName name="name" value='<%=user.getName() %>' minlength=2 maxlength=6 placeholder=" 이름 입력 (한글 2-6자)" required />
+                            <div class="chkEmailPhonePw" id="chkName"></div>
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>이메일</label>
-                            <input type="email" class="modifyInput" id='modifyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;" required />
-                            <div class="chkEmailPhonePw" id="chkEmail"></div>
+                            <input type="email" class="modifyInput" id='modifyEmail' name="email" maxlength="50" value="<%=user.getEmail() %>" style="ime-mode:disabled;background-color:rgb(207,207,207);outline:none;border:none;" readonly="readonly" required />
+                            <!-- <div class="chkEmailPhonePw" id="chkEmail"></div> -->
                         </div>
                         <div class="modifyInputDiv">
                             <label class='modifyInputLb'>전화번호</label>
-                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" maxlength="11" value="<%=user.getPhone()%>" placeholder=" '-' 없이 번호만 입력해주세요" style='ime-mode:disabled;' required/>
+                            <input type="text" class="modifyInput" id='modifyPhone' name="phone" minlength="10" maxlength="11" value="<%=user.getPhone()%>" placeholder=" '-' 없이 번호만 입력해주세요" style='ime-mode:disabled;' required/>
                              <div class="chkEmailPhonePw" id="chkPhone"></div>
                         </div>
                         <div class="modifyInputDiv">
@@ -111,7 +112,7 @@
 
                         <br>
 
-                        <input type="submit" id='psModifyBt' value="비밀번호 변경" disabled='true'  />
+                        <input type="button" id='psModifyBt' value="비밀번호 변경" disabled='true'  />
 
 
                     </div>
@@ -161,12 +162,12 @@
             } 
         }
         
-        <%if(user.getLinkType()!=0){%> //네이버같은 연동로그인이면 이메일 변경 막기
+        <%-- <%if(user.getLinkType()!=0){%> //네이버같은 연동로그인이면 이메일 변경 막기
 			$('#modifyEmail').attr('readonly',true);
 			$('#modifyEmail').css({"background-color":"rgb(207,207,207)","outline":"none","border":"none"});
 			$('#modifyEmail').off('keyup');
 			$('#chkEmail').css('display','none');
-		<%}%>
+		<%}%> --%>
 
         });
     </script>
@@ -228,10 +229,14 @@
     		}
     		else{
 	    		if($('#modifyName').val()!=""){
-	    			$('#modifyButton').css('background-color', 'cornflowerblue');
-	            	$('#modifyButton').removeProp('disabled');
+	    			$('#chkName').html("이름 적합").css('color', 'green');
+	    			if($('#modifyPhone').val()!=""&&($('#chkPhone').html()==""||$('#chkPhone').html()=="전화번호 가능")){
+		    			$('#modifyButton').css('background-color', 'cornflowerblue');
+		            	$('#modifyButton').removeProp('disabled');
+	    			}
 	    		}
 	    		else{
+	    			$('#chkName').html("");
 	    			$('#modifyButton').css('background-color', 'gray');
 	                $('#modifyButton').prop('disabled', 'true');
 	    		}
@@ -240,7 +245,7 @@
     	}));
     	
         //이메일 중복확인+한글+@를뺀 특수문자 입력안되게
-        $('#modifyEmail').on('keyup',(function (event) {
+        <%-- $('#modifyEmail').on('keyup',(function (event) {
         	reg =/[^a-zA-Z0-9|@|.]/gi;
  
             if (reg.test($(this).val())) {
@@ -276,7 +281,7 @@
 	        	}
             }
             
-        }));
+        })); --%>
         
      
         //전화번호 숫자체크+중복확인
@@ -305,10 +310,12 @@
 	                		}
 	                		else if(data=="false"){
 	                			$('#chkPhone').html("전화번호 가능").css('color', 'green');
-	                			if($('#chkEmail').html()=="이메일 가능"||$('#chkEmail').html()==""){
-	                				$('#modifyButton').css('background-color', 'cornflowerblue');
-	            	                $('#modifyButton').removeProp('disabled');
-	                			}
+	                			/* if($('#chkEmail').html()=="이메일 가능"||$('#chkEmail').html()==""){ */
+	                				if($('#modifyName').val()!=""&&($('#chkName').html()==""||$('#chkName').html("이름 적합"))){
+		                				$('#modifyButton').css('background-color', 'cornflowerblue');
+		            	                $('#modifyButton').removeProp('disabled');
+	                				}
+	                			/* } */
 	                		}
 	                	},
 	                	error:function(xhr,status){
@@ -324,7 +331,7 @@
         //성별 바뀌면 버튼 활성화
         $('#gender').change(function () {
             if ($('#gender>option:selected').val() != 10) {
-            	if(($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능")||($('#chkEmail').html()=="" && $('#chkPhone').html()=="")){
+            	if(($('#modifyName').val()!=""&&$('#modifyName').val()!="")&&(( $('#chkName').html()=="이름 적합" &&  $('#chkPhone').html()=="전화번호 가능")||( $('#chkName').html()=="" &&  $('#chkPhone').html()=="")||($('#chkName').html()=="" &&  $('#chkPhone').html()=="전화번호 가능")||($('#chkName').html()=="이름 적합" &&  $('#chkPhone').html()==""))){
 			        $('#modifyButton').css('background-color', 'cornflowerblue');
 			        $('#modifyButton').removeProp('disabled');
             	}
@@ -338,7 +345,7 @@
         //공개 비공개 변경시 버튼 활성화
         $('#disclosure').change(function (){
         	if($('#disclosure>option:selected').val() !=10){
-        		if(($('#chkEmail').html()=="이메일 가능" && $('#chkPhone').html()=="전화번호 가능")||($('#chkEmail').html()=="" && $('#chkPhone').html()=="")){
+        		if(($('#modifyName').val()!=""&&$('#modifyName').val()!="")&&(( $('#chkName').html()=="이름 적합" &&  $('#chkPhone').html()=="전화번호 가능")||( $('#chkName').html()=="" &&  $('#chkPhone').html()=="")||($('#chkName').html()=="" &&  $('#chkPhone').html()=="전화번호 가능")||($('#chkName').html()=="이름 적합" &&  $('#chkPhone').html()==""))){
 			        $('#modifyButton').css('background-color', 'cornflowerblue');
 			        $('#modifyButton').removeProp('disabled');
             	}
@@ -429,6 +436,18 @@
     			    	$('#chkConditionPw').html("비밀번호 부적합").css('color','red');
     			    }		
             }));
+            
+            $('#psModifyBt').click(function(){
+        		$('body').alertBox({
+    			        title: '비밀번호 변경 하시겠습니까?',
+    			        lTxt: '아니요',
+    			        lCallback: function(){},
+    			        rTxt: '네',
+    			        rCallback: function(){
+    						 $('#form2').submit(); 
+    			        }
+    			      });
+        	});
         
       //회원탈퇴시 비밀번호 맞는지 알려주기
     	$('#chkPw').on('keyup',(function(e){

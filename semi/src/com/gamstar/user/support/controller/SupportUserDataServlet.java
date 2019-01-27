@@ -66,7 +66,7 @@ public class SupportUserDataServlet extends HttpServlet {
 			for (int i = 0; i < fileNamelist.size(); i++) {
 				System.out.println("파일 이름 : " + fileNamelist.get(i));
 			}
-			int type=0;
+			int[] type=new int[1000];
 			//파일 타입
 			List<String> fileTypelist = new FileController().getFileTypeList(multi, "supportFileName[]");
 
@@ -76,12 +76,12 @@ public class SupportUserDataServlet extends HttpServlet {
             	String filetype = filepoint.toLowerCase();
             	
             	if(filetype.equals("jpg") || filetype.equals("gif") || filetype.equals("png")|| filetype.equals("jpeg") || filetype.equals("bmp")) {
-            		type=1;
+            		type[i]=0;
             		System.out.println("이미지임");;
             		
             	}
             	else {
-            		type=0;
+            		type[i]=1;
             	}
 				System.out.println("파일 타입 : " + fileTypelist.get(i));
 			}

@@ -286,16 +286,16 @@
      
      <div id="numPerPage-container" style="text-align: right; margin:0;">
 		<small>정렬</small> 
-		<form name="pageTypeFrm" id="pageTypeFrm" 
-		action="<%=request.getContextPath()%>/admin/userOrderedList" style="display: inline-block; margin:0;">
-			<select name="orderType" id="orderType" onchange='submit();'>
-				<option value="name-desc">이름↓</option>
-				<option value="name-asc" >이름↑</option>
-				<option value="id-desc">아이디↓</option>
-				<option value="id-asc" >아이디↑</option>
-				<option value="enroll-desc">가입일↓</option>
-				<option value="enroll-asc" >가입일↑</option>
-				<option value="state-desc" >정지일수↓</option>	
+		<form name="orderTypeFrm" id="orderTypeFrm" 
+		action="<%=request.getContextPath()%>/admin/user/reorder" style="display: inline-block;">
+			<select name="oType" id="orderType" onchange='submit();'>
+				<option value="nd" >이름↓</option>
+				<option value="na">이름↑</option>
+				<option value="ide" >아이디↓</option>
+				<option value="ia">아이디↑</option>
+				<option value="ed" >가입일↓</option>
+				<option value="ea" >가입일↑</option>
+				<option value="sde">정지일수↓</option>		
 			</select>
 		<small>페이지당 회원수 :</small> 
 			<select name="numPerPage" id="numPerPage" onchange='submit();'>
@@ -363,14 +363,14 @@
      	</div>
      </div>
      <div class='userSearch' style="float:right;">
-       <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/userFindList">    
-           <select name='searchType'>
-               <option value='searchId'>아이디</option>
-               <option value='searchName'>이름</option>
-               <option value='searchEmail'>이메일</option>
-               <option value='searchPhone'>휴대폰</option>
+      <form id='searchUser' name='searchUser' action="<%=request.getContextPath() %>/admin/user/search">    
+           <select name='type'>
+               <option value='id'>아이디</option>
+               <option value='name'>이름</option>
+               <option value='email'>이메일</option>
+               <option value='phone'>휴대폰</option>
            </select>
-           <input type='text' name='searchKeyword'/>
+           <input type='text' name='keyword'/>
            <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
        </form>
      </div>

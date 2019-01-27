@@ -19,7 +19,7 @@ import com.gamstar.user.model.vo.User;
 /**
  * Servlet implementation class ReportSearchListServlet
  */
-@WebServlet("/admin/reportSearch")
+@WebServlet("/admin/report/search")
 public class ReportSearchListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,8 +48,8 @@ public class ReportSearchListServlet extends HttpServlet {
 		}
 		else
 		{
-			String searchType=request.getParameter("searchType");
-			String searchKeyword=request.getParameter("searchKeyword");
+			String searchType=request.getParameter("type");
+			String searchKeyword=request.getParameter("keyword");
 
 			//페이징처리
 			int cPage;
@@ -95,24 +95,24 @@ public class ReportSearchListServlet extends HttpServlet {
 			}
 			else
 			{
-				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo-1)
-						+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'><</button>";
+				pageBar+="<button id='back' href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo-1)
+						+"&type="+searchType+"&keyword="+searchKeyword+"'><</button>";
 			}
 			if(totalPage==0)
 			{
-				pageBar+="<small><span class='cPage'>1</span></small>";
+				pageBar+="<small><span class='cPage'><b>1</b></span></small>";
 			}
 			
 			while(!(pageNo>pageEnd||pageNo>totalPage))
 			{
 				if(cPage==pageNo)
 				{
-					pageBar+="<small><span class='cPage'>"+pageNo+"</span></small>";
+					pageBar+="<small><span class='cPage'><b>"+pageNo+"</b></span></small>";
 				}
 				else
 				{
-					pageBar+="<small><a href='"+request.getContextPath()+"/admin/reportSearch?cPage="+(pageNo)
-							+"&numPerPage="+numPerPage+"&searchType="+searchType+"&searchKeyword="+searchKeyword+"'>"+pageNo+"</a></small>";
+					pageBar+="<small><a href='"+request.getContextPath()+"/admin/report/search?cPage="+(pageNo)
+							+"&type="+searchType+"&keyword="+searchKeyword+"'>"+pageNo+"</a></small>";
 				}
 				pageNo++;
 			}
@@ -120,7 +120,7 @@ public class ReportSearchListServlet extends HttpServlet {
 			if(pageNo>totalPage)
 			{
 				pageBar+="<button id='next' disabled='disabled href='"+request.getContextPath()+"/admin/reportSearch?cPage="+pageNo
-						+"&numPerPage="+numPerPage+"'>></button>";
+						+"'>></button>";
 			}
 			
 			

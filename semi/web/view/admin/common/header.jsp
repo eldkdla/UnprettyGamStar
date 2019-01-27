@@ -15,15 +15,41 @@
     <div id="wrapper">
         <!-- 헤더(메뉴, 로고) -->
         <header>
-            <!-- 임시메인 -->
-            <a href="<%=request.getContextPath()%>/logout">로그아웃</a>
+            <!-- 메인 상단바랑 어드민 네비랑 충돌있음.  -->
+<%--             <nav id='navi'>
+        <div id="naviWrap">
+        	<div id="gamstarLogo"> <p id="gamstarTitle">GamStar</p> </div>
+            <div id='searchBody'>
+                <input type="search" id="search" value="" results=5 placeholder="search..."/>
+                <img src="<%=request.getContextPath()%>/img/newspeeddetailview/searchView.png" id="searchView">
+                <img src="<%=request.getContextPath()%>/img/newspeeddetailview/searchDelete.png" id="searchDelete">
+            </div>
+            <div id="infoBox"> <div id="infoSentence">Search Something :)</div> </div>
+            <div id="naviIconWrap">
+                <div id="myHomIcon"><img id="myHomIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/myPage.png"></div>
+                <div id="alramIcon"><img id="alramIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/alramBlue.png"></div>
+                <div id="slideIcon"><img id="slideIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/setting.png"></div>
+                <div id="slideBox">
+                        <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
+                        <hr class="slideHr">
+                        <div id="chatting" onclick="chat()"><div class="chattingText">채팅</div></div>
+                        <hr class="slideHr">
+                        <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText">문의하기</div></div>
+                        <hr class="slideHr">
+                        <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
+                </div>
+            </div>
+            <div class="iconBack"><img id ="iconBackImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/logoBack.png"></div>
+            <div class="naviIcon"><img id ="naviIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/logo.png"></div>    
+        </div>
+    </nav> --%>
         </header>
         <!-- 모바일용 서브 메뉴버튼 -->
         <div id='openMenuDiv'>
             <button id='openMenu' onclick='openAdminMobileMenu();'><img src='<%=request.getContextPath() %>/img/adminImg/menu.png'></button>
         </div>
         <!-- 서브메뉴 -->
-        <nav>
+        <nav id='adminNav'>
             <br/><br/><br/><br/>
             <p onclick='goMain();' style='cursor:pointer;'>
                 <img src='<%=request.getContextPath() %>/img/adminImg/admin.png'>
@@ -70,6 +96,6 @@
 	}
 	// 모바일 메뉴 열기 위한 함수
     function openAdminMobileMenu(){
-        $('nav').toggle();
+        $('#adminNav').toggle();
     }
 </script>

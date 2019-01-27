@@ -12,7 +12,7 @@
     /* 첨부파일 미리보기 */
         div.showMedia{
             width : 100%;
-            height : 30%;
+            max-height : 30%;
             padding: auto;
             line-height: 30%;
             white-space: nowrap;
@@ -53,25 +53,25 @@
     /* 신고 테이블(게시판) */
     table.type {
         color:rgba(0, 0, 0, 0.7);
-        padding:10px;
+        text-align:center; 
+        width:100%; 
+        padding:10px; 
+        margin-top:10px;
         border-collapse: collapse;
-        text-align: center;
-        margin:10px;
     }
     table.type thead th {
-        color:rgba(0, 0, 0, 0.7);
-        font-family: 'Nanum Gothic', sans-serif;
-        line-height: 1.5;
-        padding:8px;
-        border-top: 1px solid rgba(189,189,189,0.8);
+        border-top:1px solid rgba(189,189,189,0.8);
         border-bottom: 1px solid rgba(189,189,189,0.8);
+        line-height: 2;
+        padding:4px;
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
     }
     table.type td {
-        width: 350px;
-        vertical-align: top;
-        line-height:1.6;
+       line-height:1.8;
         border-bottom: 1px solid rgba(189,189,189,0.4);
         font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
     }
     table.type td a{
        text-decoration: none; 
@@ -241,6 +241,7 @@
         color:rgba(0, 0, 0, 0.7);
         border-collapse: collapse;
         text-align: center;
+         margin-top:10px;
     }
     table.type thead th {
         color:rgba(0, 0, 0, 0.7);
@@ -600,13 +601,14 @@
             <br/>
             <br/>
             <!-- 신고내역리스트 -->
-            <table class='type'>
+            <table class='type' style="width:100%;">
                 <thead>
                     <tr>
                         <th id='ck' style="width:3%;"><input type="checkbox" id='rboardCheckAll' class='checkAll'/></th>
                         <th id='reportId' style="width:15%;">Id</th>
                         <th style="width:10%;">Type</th>
                         <th style="width:10%;">link</th>
+                        <th style="width:3%;"></th>
                         <th style="width:35%;">Content</th>
                         <th style="width:15%;">Date</th>
                         <th style="width:20%;">처리</th>
@@ -615,12 +617,13 @@
                 <tbody>
                 <% if(list==null || list.isEmpty()) { %>
                 	<tr>
-                		<td colspan='7'>
+                		<td colspan=8>
                 			신고된 내용이 없습니다
                 		</td>
                 	</tr>
                 <%}
                 	else {
+                		
                 		for(ReportBoard r : list){ 
 	                       		int type=r.getReportBoardType();
 	                       		String typeStr="";
@@ -634,7 +637,7 @@
 			                       		case 2 : typeStr="comment";linkStr="alert('준비중입니다.')";break;
 			                       		case 3 : typeStr="chat";linkStr="alert('준비중입니다.')";break;	
 		                        	}
-                    %>
+                 %>
                     <tr>
                         <td>
                         	<input type="checkbox" class='checks' onclick='checkTr(this)'/>
@@ -647,34 +650,34 @@
                         <td><%=typeStr %></td>
                         <td onclick="<%=linkStr %>" ><a href=''>go</a></td>
                         <td>
+                        	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
+                        	 	<img src='<%=request.getContextPath() %>/img/adminImg/pic.png' style="width:20px; display:block;"/>
+                        	 <%} else { %>
+                        	 <%}%>
+                        </td>
+                        <td>
                         	<a onclick='openNextTr(this);'>
-                        		<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {
-                        		
-                        			List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
-                					for(ReportBoardMedia m : mediaList) {%>
-                					<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="width:30px; height:30px; display:inline-block;"/>
-                        	<%}
-                					if(mediaList.size()>3)
-                					{%>
-                						<br/>
-                					<%} 
-                				}
-                        		if(r.getReportBoardContent()!=null){ %>
-	                        	<%if(r.getReportBoardContent().length()>20) { %>
-	                        	<%=r.getReportBoardContent().substring(0, 17) %>...
-	                        	<%} else { %>
-	                        	<%=r.getReportBoardContent() %>
-	                        	<%} 
-	                        	} else{
-	                        	%> '내용없음'
-	                        	<%} %>
-                        	</a>
+                        	<% if(!mList.isEmpty()&&!mList.get(r.getReportBoardNo()).isEmpty()) {%>
+	                        	<%if(r.getReportBoardContent().length()>15) { %>
+		                        	<%=r.getReportBoardContent().substring(0, 14) %>...
+		                        <%} else{ %>
+		                        	<%=r.getReportBoardContent() %>
+		                        <%} %>
+		                    <%} else { 
+		                    		if(r.getReportBoardContent().length()>18) { %>
+		                        	<%=r.getReportBoardContent().substring(0, 17) %>...
+		                        <%} else{ %>
+		                        	<%=r.getReportBoardContent() %>
+		                        <%} %>
+		                    <%} %>
+	                        </a>
                         </td>
                         <td><%=r.getReportBoardDate() %></td>
                         <td>
                        		<%if((Integer)r.getReportEndResult()==null||r.getReportEndResult()==0) {%>
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
-                            <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button>
+                           <!--  <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button> -->
+                            <button class='cancelBtn' onclick='cancelTr();'>취소</button>
                             <%}else if(r.getReportEndResult()==-1){%>
                             	&nbsp;
                        		<%}else{%>
@@ -682,8 +685,8 @@
                             <%} %>
                         </td>
                     </tr>
-                    <tr class='movingTr' style='display:none;'>
-                    	<td colspan='7' style="background-color:rgba(234, 242, 253, 0.5);">
+                    <tr class='movingTr' style='display:none;width:100%;'>
+                    	<td colspan=8 style="background-color:rgba(234, 242, 253, 0.5);">
                     		<div style='width:100%; height:30%; text-align:center;'>
                     			<% if(!mList.isEmpty()&&mList.containsKey(r.getReportBoardNo())) {%>
                     			<div class='showMedia'>
@@ -702,22 +705,22 @@
                     		</div>
                     	</td>
                     </tr>
-                    <%	} 
-                	} %>
+                    <%	}
+                    }%>
                 </tbody>
             </table>
             <div class='reportSearch'>
                 <div style="float:left; margin-left:10px;">
                 	<button class='imgSelect stopBtn' onclick='stopAllTr();'>정지</button>
-                    <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
+                    <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
-                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/reportSearch' method='post'>
-                    <select name='searchType'>
+                <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
+                    <select name='type'>
                         <option value='id'>아이디</option>
                         <option value='content'>내용</option>
                     </select>
-                    <input type='text' name='searchKeyword'/>
+                    <input type='text' name='keyword'/>
                     <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>
