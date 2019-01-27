@@ -360,7 +360,7 @@
 
     <script>
     	//이전비밀번호 맞는지 알려주기
-    	$('#beforePw').focusout(function(){
+    	$('#beforePw').keyup(function(){
     		if($('#beforePw').val()==""){
     			$('#chkBeforePw').html("");
     		}else{
