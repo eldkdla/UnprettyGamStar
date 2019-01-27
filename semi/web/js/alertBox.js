@@ -11,7 +11,7 @@
   var pluginName = "alertBox";
   // 设置插件默认参数
   var defaults = {
-    zIndex: 99999,  //弹出层定位层级
+    zIndex: 2100000000,  //弹出层定位层级
     title: '',  //标题文字
     lTxt: '',   //左边按钮文字内容
     lBgColor: "#D4D4D4",  //左边按钮背景颜色

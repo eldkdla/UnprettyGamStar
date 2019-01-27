@@ -46,7 +46,7 @@
             left:50%;
             transform:translateX(-50%);
             min-width:800px;  
-            z-index:2100001200;  
+            z-index:210000120;  
         }
 
 
@@ -384,6 +384,10 @@
                         word-break: break-all;
             word-wrap:break-word; 
         }
+        
+        .newspeedview_comment_wrapper h4:hover {
+        	cursor:pointer;
+        }
        
 
         .newspeedview_icon_wrapper{
@@ -544,7 +548,11 @@
           cursor:pointer;
           }
           
-          .newspeedview_profile_photo:hover {
+          .newspeedview_profilephoto:hover {
+          	cursor:pointer;
+          }
+          
+          .newspeedview_content_wrapper > h4:hover{
           	cursor:pointer;
           }
               
