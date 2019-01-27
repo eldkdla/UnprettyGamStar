@@ -340,9 +340,13 @@
              <td><%=m.getEnrollDate() %></td>
              <td>
              	<%if(m.getState()==0){ }
-             	  else if(m.getState()==1){%>
-             	  정지(<%=m.getRemainingDay() %>)
-             	<%} %>
+             	 	 else if(m.getState()==1){ 
+             	  	   	if(m.getRemainingDay()>90000){%>
+             	  	   		 정지(∞)
+             	  	   	<%} else { %>
+             				  정지(<%=m.getRemainingDay() %>)
+             	<%} 
+             	}%>
              	<input type='hidden' name='rDay' class='rDay' value='<%=m.getRemainingDay() %>'/>
              </td>
          </tr>
@@ -381,11 +385,6 @@
  </section>
 </div>
 <script>
-    // 모바일 메뉴 열기 위한 함수
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
-    
     function checkTr(it){
     	tr=it.parentNode.parentNode;
     	tr.style.backgroundColor=(it.checked)?"rgb(234, 242, 253)":"white";

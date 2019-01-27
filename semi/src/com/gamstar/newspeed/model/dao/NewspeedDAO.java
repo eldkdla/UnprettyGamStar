@@ -8,7 +8,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -602,6 +604,9 @@ public List<NewspeedComment> selectComment(Connection conn, List<String> peedNo)
 		n.setContent(rs.getString("NEWSPEED_CONTENT"));
 		n.setDate(rs.getDate("NEWSPEED_DATE"));
 		n.setUserNo(rs.getInt("USER_NO"));
+		n.setBeforeDay(rs.getString("BEFORE"));
+		
+		System.out.println(n.getBeforeDay() + "게시글 며칠전으로부터 작성되었니?");
 		
 		return n;
 	}
@@ -761,6 +766,8 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 	}
 	
 	private NewspeedComment getNewspeedComment(ResultSet rs) throws SQLException{
+		SimpleDateFormat sim1 = new SimpleDateFormat("yyMMddHHmmss");
+		
 		NewspeedComment newspeedComment = new NewspeedComment();
 		newspeedComment.setNewspeedNo(rs.getInt("NEWSPEED_NO"));
 		newspeedComment.setContent(rs.getString("COMMENT_CONTENT"));
@@ -770,6 +777,10 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedComment.setUserNo(rs.getInt("USER_NO"));
 		newspeedComment.setUserName(rs.getString("USER_NAME"));
 		newspeedComment.setEnable(rs.getInt("COMMENT_ENABLE"));
+		newspeedComment.setBeforeDay(rs.getString("before"));
+
+		System.out.println(newspeedComment.getBeforeDay() + "날짜는 이렇게 됩니당!");
+		System.out.println(sim1.format(newspeedComment.getDate()));
 		
 		return newspeedComment;	
 	}

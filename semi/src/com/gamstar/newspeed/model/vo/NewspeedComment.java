@@ -12,6 +12,7 @@ public class NewspeedComment {
 	private int enable;
 	private String userName;
 	private int level;
+	private String beforeDay;
 	
 	public int getNewspeedNo() {
 		return newspeedNo;
@@ -92,6 +93,14 @@ public class NewspeedComment {
 
 	public void setLevel(int level) {
 		this.level = level;
+	}
+
+	public String getBeforeDay() {
+		return beforeDay;
+	}
+
+	public void setBeforeDay(String beforeDay) {
+		this.beforeDay = beforeDay;
 	}
 
 }

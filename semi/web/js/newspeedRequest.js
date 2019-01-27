@@ -12,18 +12,12 @@ var isActiveContainerBtn = false;
     var selectedTag;
 
     function showNewspeedview(data) {
-        $('#newspeedview_btn_wrapper').toggle();
+        $('#newspeedview_btn_wrapper').fadeToggle(500);
         $('#newspeedview_list_wrapper').children().remove();
-        
-        console.log('하이하이');
-        console.log(JSON.parse(data));
 
-   
         appendNewspeedElement(JSON.parse(data), $('#newspeedview_list_wrapper').children().length, function(){
         	$('#newspeedview_list_wrapper > div').css('left',0);	
         	$('#newspeedview_list_wrapper > div:eq(0) > .newspeedview_media:eq(0)').attr('class','newspeedview_media_select');
-        	console.log('안녕하세요!!!');
-        	
         });
         
         removeRightBtn();
@@ -35,9 +29,7 @@ var isActiveContainerBtn = false;
     	
 
         var nextSel =  $(selectedTag).next();
-        
-        console.log(nextSel);
-        console.log($(nextSel).attr('value'));
+
         
         if (typeof $(nextSel).attr('value') == "undefined") {
         	$('#container-right-btnnnn').css('display','none');
@@ -127,11 +119,8 @@ var isActiveContainerBtn = false;
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
                 images[images.length] = randomMedia;
                 
-                console.log('뭐좀나와바라');
-          
                 randomMedia.onload = function(e) {
                 	
-                	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ');
                     if (mediaReadIndex < fileList.length) {
                     	
                     	mediaReadIndex++;
@@ -149,8 +138,7 @@ var isActiveContainerBtn = false;
              
             } else {
 
-            	console.log('야ㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑㅑ 혹시여기야?????????? 진짜여기만오는거임?');
-        
+     
             	if (mediaReadIndex < fileList.length) {
             		mediaReadIndex++;
             	} else if(mediaReadIndex == fileList.length){    
@@ -341,7 +329,7 @@ var isActiveContainerBtn = false;
 
             for (var j = 0; j < data.commentList.length; j++) {
                 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent + "  <p class='beforeTime'>" + data.commentList[j].beforeTime + "</p>",
                     class:'.newspeedview_comment'
                 }));
 
@@ -388,7 +376,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent + "  <p class='beforeTime'>" + data.commentList[j].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
@@ -559,8 +547,7 @@ var isActiveContainerBtn = false;
             }
             
             if (fileList[mediaReadIndex].mediaType == 0) {
-            	console.log('이건이미지에요!' + mediaReadIndex);
-            	
+ 
                 randomMedia = new Image();
      
                 randomMedia.src = '../' + fileList[mediaReadIndex].fileName;
@@ -569,16 +556,7 @@ var isActiveContainerBtn = false;
                 	images[images.length] = this;
                 	images[images.length-1].width = randomMedia.width;
                 	images[images.length-1].height = randomMedia.height;
-                	
-                	
-                	
-                	console.log('도와줘제발......');
-                	console.log(images[images.length - 1]);
-                	
-                	console.log(randomMedia.width);
-                	console.log(randomMedia.height);
-                	
-                    
+
                     if (mediaReadIndex < fileList.length) {
                     	mediaReadIndex++;
                         setMedia();
@@ -594,7 +572,6 @@ var isActiveContainerBtn = false;
                 }
              
             } else {
-            	console.log('이건동영상이에요!' + mediaReadIndex);
             	if (mediaReadIndex < fileList.length) {
             		mediaReadIndex++;
             	} else if(mediaReadIndex == fileList.length){    
@@ -690,9 +667,6 @@ var isActiveContainerBtn = false;
                      	'left': (tagList[j].X * 100) + '%',
                      	'top': (tagList[j].Y * 100) + '%'
                      });
-                     
-                     console.log(tagList[j].X);
-                     console.log(tagList[j].Y);
 
                      $('.newspeedview_list:eq(' + length5 + ') ' + '.newspeedview_media_list_wrapper .newspeedview_media_list .newspeedview_media:eq(' + i + ') .balloons:eq(' + j + ')').append($('<input>', {
                          class: 'tagUserNo',
@@ -791,7 +765,7 @@ var isActiveContainerBtn = false;
 
             for (var j = 0; j < data.commentList.length; j++) {
                 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper').append($('<div/>', {
-                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent,
+                    html: '<h4>' + data.commentList[j].userName + '</h4>&nbsp;' + data.commentList[j].commentContent + "  <p class='beforeTime'>" + data.commentList[j].beforeTime + "</p>",
                     class:'.newspeedview_comment'
                 }));
 
@@ -841,7 +815,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent,
+                        html:"<h4>" +  data.commentList[j].recommentList[p].userName + "</h4>&nbsp;" + data.commentList[j].recommentList[p].commentContent + "  <p class='beforeTime'>" + data.commentList[j].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
@@ -856,12 +830,10 @@ var isActiveContainerBtn = false;
                         value:data.commentList[j].recommentList[p].commentNo
                     }));
                     
-                    console.log('들어가기 전에 들리시겠죠!');
-                    console.log(data.commentList[j].recommentList[p].isMine);
+         
                     
                     if (data.commentList[j].recommentList[p].isMine){
-                    	
-                    	console.log('반가워요.... 여기로 오낭효?');
+                
                     	
                       	 $('.newspeedview_list:eq(' + length5 + ') .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + j + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<div/>', {
                                class:'recomment_option_wrapper',
@@ -893,9 +865,7 @@ var isActiveContainerBtn = false;
             }));
 
             var iconClass = 'newspeed_like_icon_wrapper';
-            
-            console.log(data.isLike);
-            
+         
             if (data.isLike) {
             	iconClass = 'newspeed_like_active_icon_wrapper';
             }
@@ -956,8 +926,7 @@ var isActiveContainerBtn = false;
     });
 
     function onBindEvent() {
-    	
-    	 onClickBackground();
+    	onClickBackground();
         onClickLeftContainer();
         onClickRightContainer();
         onClickLeftMediaBtn();
@@ -974,6 +943,8 @@ var isActiveContainerBtn = false;
         onClickNewspeedMediaImage();
         onClickWriterProfilePhoto();
         onClickWriterName();
+        onClickProfilePhoto();
+        onClickRecommentWriterName();
     }
 
     $(window).resize(function () {
@@ -1058,7 +1029,6 @@ var isActiveContainerBtn = false;
     }
     
     function moveLeftNewspeed() {
-    	console.log('대체왜안움짇ㄱ이는거임???????????????????????/');
     	
     	if (isActiveContainerBtn) {
     		return;
@@ -1216,7 +1186,7 @@ var isActiveContainerBtn = false;
         $('#newspeedview_btn_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             
-            $(this).slideToggle();
+            $(this).fadeToggle(500);
         });
         
         $('#newspeedview_btn_wrapper *').off('click').on('click', function (e) {
@@ -1230,7 +1200,7 @@ var isActiveContainerBtn = false;
         $('.newspeed_like_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo);
+    
             var div = $(this);
 
             $.ajax({
@@ -1257,7 +1227,7 @@ var isActiveContainerBtn = false;
         $('.newspeed_like_active_icon_wrapper').off('click').on('click', function (e) {
             e.stopPropagation();
             var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-            console.log(newspeedNo);
+
             var div = $(this);
 
             $.ajax({
@@ -1305,7 +1275,7 @@ var isActiveContainerBtn = false;
                     onClickStore();
                 },
                 error:function(request,status,error){
-                	console.log('아직 응답페이지를 안들었어요..');
+                	
                     
                 }
             });
@@ -1333,7 +1303,7 @@ var isActiveContainerBtn = false;
                     onClickStore();
                 },
                 error:function(request,status,error){
-                	console.log('아직 응답페이지를 안들었어요..');
+             
                     
                 }
             });
@@ -1343,9 +1313,9 @@ var isActiveContainerBtn = false;
     
 
     function onClickTagUser() {
-        $('.balloons').off().on('click', function (e) {
+        $('.balloons').off('click').on('click', function (e) {
             e.stopPropagation();
- 
+            location.href = '../view/profile?uu=' + $(this).children()[0].value;
         });
     }
     
@@ -1353,27 +1323,27 @@ var isActiveContainerBtn = false;
     function onClickCommentUser() {
         $('.newspeedview_comment_wrapper > div > h4').off('click').on('click', function (e) {
             e.stopPropagation();
-            console.log($(this).siblings().val());
-            console.log($(this));
+            location.href = '../view/profile?uu=' + $(this).siblings().val();
+            
         });
     }
 
     function onClickWriterProfilePhoto() {
     	$('.newspeedview_profile_photo').off('click').on('click',function(e){
     		e.stopPropagation();
-    		console.log($('.newspeedview_list_select .userNo').val());
+    		location.href = '../view/profile?uu=' + $('.newspeedview_list_select .userNo').val();
     	});
     }
 
     function onClickWriterName() {
     	$('.newspeedview_writername > h4').off('click').on('click',function(e){
     		e.stopPropagation();
-    		console.log($('.newspeedview_list_select .userNo').val());
+    		location.href = '../view/profile?uu=' + $('.newspeedview_list_select .userNo').val();
     	});
     	
     	$('.newspeedview_content_wrapper > div > h4').off('click').on('click',function(e){
     		e.stopPropagation();
-    		console.log($('.newspeedview_list_select .userNo').val());
+    		location.href = '../view/profile?uu=' + $('.newspeedview_list_select .userNo').val();
     	});
     }
 
@@ -1383,8 +1353,6 @@ var isActiveContainerBtn = false;
         	var targetUserNo = $('.newspeedview_list_select .newspeedview_writer_content_wrapper .userNo').val();
         	var targetNewspeedNo = $('.newspeedview_list_select .newspeedNo').val();
         	
-        	console.log(targetUserNo + '안녕?');
-        	console.log(targetNewspeedNo + '나두!');
         	$('#reportBgk').fadeIn(700);
         	
         	onClickReportBtn(targetUserNo, targetNewspeedNo, '../report/reportrequest');
@@ -1436,8 +1404,7 @@ var isActiveContainerBtn = false;
              	var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
              	var content = $('.newspeedview_list_select .newspeedview_comment_write').val();
              	
-             	console.log(content + '왜그러세요?');
-             	
+  
               	if(!isRightComment(content)) {
             		return;
             	}
@@ -1463,7 +1430,7 @@ var isActiveContainerBtn = false;
             	reloadCommentList(JSON.parse(data));
             },
             error:function(request,status,error){
-            	console.log(error);
+            
             }
         });
     }
@@ -1480,9 +1447,6 @@ var isActiveContainerBtn = false;
     		e.stopPropagation();
     		var parents = $(this).parent();
     		
-    		console.log($(parents).children());
-    		
-    	
     		if (typeof $('.input_text_recomment').val() != "undefined") {
     			$('.input_text_recomment').remove();
     			return;
@@ -1505,7 +1469,7 @@ var isActiveContainerBtn = false;
     			if (e.key == "Enter") {
     				var content = $(this).val();
     				var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
-    				var rootNo = $(parents).parent().children()[2].value;
+    				var rootNo = $(parents).parent().children()[3].value;
     				
     		      	if(!isRightComment(content)) {
                 		return;
@@ -1535,15 +1499,35 @@ var isActiveContainerBtn = false;
     	}
     }
     
+    function onClickProfilePhoto() {
+    	$('.newspeedview_profilephoto').off('click').on('click',function(e){
+    		location.href = '../view/profile?uu=' + $('.newspeedview_list_select .userNo').val();
+    	});
+    	
+    	
+    	
+    }
+    
     function onClickCommentDelete() {
     	$('.comment_option_delete').off('click').on('click',function(e){
-    		var commentNo = $(this).parent().parent().children()[2].value;
+    		var commentNo = $(this).parent().parent().children()[3].value;
     		var newspeedNo = $('.newspeedview_list_select .newspeedNo').val();
     		
-    		console.log(commentNo);
-    		console.log('반가워!');
+    		console.log(commentNo + "버노버노댓글버노");
     		
-    		requestCommentDelete(commentNo, newspeedNo);
+    		 $('body').alertBox({
+ 		        title: "정말 삭제하시겠습니까?",
+ 		        lTxt: '확인',
+ 		        lCallback: function(){
+ 		        	requestCommentDelete(commentNo, newspeedNo);
+ 		        
+ 		        },
+ 		        rTxt: '취소',
+ 		        rCallback: function(){
+				      
+ 		        }
+ 		      });
+    				
     	})
     	
     }
@@ -1555,8 +1539,6 @@ var isActiveContainerBtn = false;
 	            data: { "commentNo": commentNo,
 	            	    "newspeedNo" : newspeedNo},
 	            success: function (data) {
-	            	console.log(data);
-	            	console.log(JSON.parse(data));
 	                 reloadCommentList(JSON.parse(data));
 	            },
 	            error:function(request,status,error){
@@ -1566,18 +1548,24 @@ var isActiveContainerBtn = false;
 	 
 	        });
 	}
+	
+	function onClickRecommentWriterName() {
+		$('.recomment_wrapper > h4').off('click').on('click', function(e){
+			location.href = '../view/profile?uu=' + $(this).parent().children()[1].value;
+		});
+	}
+	
+
  
     
     
     function reloadCommentList(data) {
     	$('.newspeedview_list_select .newspeedview_comment_wrapper > div').remove();
-    	
-    	console.log(data);
-    	console.log(data.length);
+
     	
     	for (var i = 0; i < data.length; i++) {	
     		 $('.newspeedview_list_select .newspeedview_comment_wrapper').append($('<div/>', {
-    	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent
+    	            html: '<h4>' + data[i].userName + '</h4>&nbsp;' + data[i].commentContent + "  <p class='beforeTime'>" + data[i].beforeTime + "</p>"
     	        }));
 
     	        $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i +')').append($('<input/>', {
@@ -1626,7 +1614,7 @@ var isActiveContainerBtn = false;
                 	
                     $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ')').append($('<div/>', {
                         class:'recomment_wrapper',
-                        html:"<h4>" +  data[i].recommentList[p].userName + "</h4>&nbsp;" + data[i].recommentList[p].commentContent,
+                        html:"<h4>" +  data[i].recommentList[p].userName + "</h4>&nbsp;" + data[i].recommentList[p].commentContent + "  <p class='beforeTime'>" + data[i].recommentList[p].beforeTime + "</p>",
                     }));
                     
                     $('.newspeedview_list_select .newspeedview_all_content_wrapper .newspeedview_comment_wrapper > div:eq(' + i + ') .recomment_wrapper:eq('+ (nummmm) + ')').append($('<input/>', {
@@ -1698,16 +1686,12 @@ var isActiveContainerBtn = false;
         selectedNewspeedIndex = selectIndex;
         selectedTag = tag;
     	
-        
-        console.log(selectedTag);
-        console.log('안녕?');
-        
         $.ajax({
             url: '../newspeed/newspeedview',
             type: "POST",
             data: { "newspeedNo": newspeedNo },
             success: function (data) {
-            console.log(JSON.parse(data));
+
                showNewspeedview(data);
             },
             error:function(request,status,error){
@@ -1733,7 +1717,6 @@ var isActiveContainerBtn = false;
     
     
     function requestNewspeedInfoBefore(newspeedNo) {
-    	console.log('반가워!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     	
         $.ajax({
             url: '../newspeed/newspeedview',
