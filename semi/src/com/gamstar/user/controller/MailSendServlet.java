@@ -95,6 +95,7 @@ public class MailSendServlet extends HttpServlet {
 			
 			//out.println("<h3>메일이 정상적으로 전송되었습니다.</h3>");
 			System.out.println("메일 보냈숑");
+			System.out.println(randomNo);
 			out.println(randomNo);
 		}catch(Exception e){
 			//out.println("SMTP 서버가 잘못 되었거나, 서비스에 문제가 있습니다.");

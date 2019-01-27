@@ -968,5 +968,56 @@ public class UserDao {
 				
 				return result;
 			}
+			
+			//FindUserId
+			public User findUserId(Connection conn, User u) {
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = prop.getProperty("findUserId");
+				
+				
+				try {
+					pstmt = conn.prepareStatement(sql);
+					pstmt.setString(1, u.getName());
+					pstmt.setString(2, u.getEmail());
+					rs = pstmt.executeQuery();
+					
+					if(rs.next())
+					{
+						u.setId(rs.getString("USER_ID"));
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}finally {
+					close(rs);
+					close(pstmt);
+					
+				}
+				
+				return u;
+			}
+			
+			//이메일로 회원 넘버 불러오기
+			public User emailGetNo(Connection conn,User u) {
+				PreparedStatement pstmt = null;
+				ResultSet rs = null;
+				String sql = prop.getProperty("emailGetNo");
+				
+				try{
+					pstmt=conn.prepareStatement(sql);
+					pstmt.setString(1,u.getEmail());
+					rs=pstmt.executeQuery();
+					if(rs.next()){
+						u.setNo(rs.getInt("USER_NO"));
+					}
+				}catch (Exception e) {
+					e.printStackTrace();
+				}finally{
+					close(rs);
+					close(pstmt);
+				}	
+				return u;
+			}
 
 }
