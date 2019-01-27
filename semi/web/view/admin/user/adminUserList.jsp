@@ -340,9 +340,13 @@
              <td><%=m.getEnrollDate() %></td>
              <td>
              	<%if(m.getState()==0){ }
-             	  else if(m.getState()==1){%>
-             	  정지(<%=m.getRemainingDay() %>)
-             	<%} %>
+             	 	 else if(m.getState()==1){ 
+             	  	   	if(m.getRemainingDay()>90000){%>
+             	  	   		 정지(∞)
+             	  	   	<%} else { %>
+             				  정지(<%=m.getRemainingDay() %>)
+             	<%} 
+             	}%>
              	<input type='hidden' name='rDay' class='rDay' value='<%=m.getRemainingDay() %>'/>
              </td>
          </tr>

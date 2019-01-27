@@ -206,12 +206,12 @@
             </table>
             <div class='answeringBtn'>
                 <div style='float:left;'>
-                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>&cPage=<%=cPage%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=nextNo%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/back.png'/>
 		                <small>다음</small>
 		            </a>
 		            &nbsp;
-		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>'>
+		            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=prevNo%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
 		                <small>이전</small>
 		                <img src='<%=request.getContextPath() %>/img/adminImg/next.png'/>
 		            </a>
@@ -227,7 +227,7 @@
                         <small>문의삭제</small>
                     </a>
 				<% if(answer!=null) { %>
-                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
+                    <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>수정</small>
                     </a>
@@ -236,7 +236,7 @@
                         <small>답변삭제</small>
                     </a>
                  <%} else{%>
-                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>'>
+                	 <a href='<%=request.getContextPath()%>/admin/supportAnswer?no=<%=s.getSupportBoardNo()%>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'> 
                         <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
                         <small>답변하기</small>
                     </a>
@@ -265,6 +265,16 @@
         $('.doConfirm').on('click', function () {
 			return confirm('정말로 삭제하시겠습니까?');
         });
+        
+        function clickedEdit() {
+            if (!clicked) {
+            
+                 clicked=true;
+                 $('.linkEdit').unbind('click');
+            } else {
+            	 $('.linkEdit').delay( 2000 );
+            }
+         }
     </script>
 </body>
 </html>

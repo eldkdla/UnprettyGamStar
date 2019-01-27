@@ -247,11 +247,11 @@ textarea#supportAnswer{
             
             <div style='float: right;'>
             <a onclick='sendSupportAnswwer();'>
-                <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
+                <img src='<%=request.getContextPath() %>/img/adminImg/write.png' class='linkEdit' onclick='clickedEdit();'/>
                 <small>등록</small>
             </a>
             &nbsp;
-            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>'>
+            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
                 <small>취소</small>
             </a>
             </div>
@@ -293,7 +293,15 @@ textarea#supportAnswer{
 
         var popup=open(i,title,shape);
     }
-    
+    function clickedEdit() {
+        if (!clicked) {
+        
+             clicked=true;
+             $('.linkEdit').unbind('click');
+        } else {
+        	 $('.linkEdit').delay( 2000 );
+        }
+     }
 </script>
 </body>
 </html>

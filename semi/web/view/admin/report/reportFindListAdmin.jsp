@@ -597,6 +597,24 @@
 		});
 
 	});
+	 // 새로고침 방지
+	    function noRefresh()
+	    {
+	        /* CTRL + N키 막음. */
+	        if ((event.keyCode == 78) && (event.ctrlKey == true))
+	        {
+	            event.keyCode = 0;
+	            return false;
+	        }
+	        /* F5 번키 막음. */
+	        if(event.keyCode == 116)
+	        {
+	            event.keyCode = 0;
+	            return false;
+	        }
+	    }
+
+	    document.onkeydown = noRefresh ;
     </script>
         <section>
             <br/>
@@ -605,7 +623,7 @@
             <br/>
             <br/>
             <!-- 신고내역리스트 -->
-            <table class='type' style="width:100%;">
+            <table class='type'>
               <thead>
                     <tr>
                         <th id='ck' style="width:3%;"><input type="checkbox" id='rboardCheckAll' class='checkAll'/></th>
@@ -675,12 +693,15 @@
                         <td>
                        		<%if((Integer)r.getReportEndResult()==null||r.getReportEndResult()==0) {%>
                             <button class='imgSelect stopBtn' onclick='stopTr(this);'>정지</button>
-                            <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button>
+                           <!--  <button class='deleteBtn' onclick='deleteTr(this);'>삭제</button> -->
                             <%}else if(r.getReportEndResult()==-1){%>
                             	&nbsp;
-                       		<%}else{%>
+                       		<%}else{ if(r.getReportEndResult()>90000){%>
+                       			정지(∞)
+                       		<%} else { %>
                             	정지(<%=r.getReportEndResult() %>)
-                            <%} %>
+                            <%} 
+                            }%>
                         </td>
                     </tr>
                     <tr class='movingTr' style='display:none;width:100%;'>
@@ -692,7 +713,7 @@
                     				<%  
                     					List<ReportBoardMedia> mediaList=mList.get(r.getReportBoardNo());
                     					for(ReportBoardMedia m : mediaList) {%>
-                    						<img src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
+                    						<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getReportBoardMediaPathRe() %>' style="max-width:500px; max-height:500px; display:inline-block; cursor: pointer;"onclick='showImg(src);'/>
                     					<%} %>
                    					</div>
                     			</div>
@@ -710,7 +731,7 @@
             <div class='reportSearch'>
                 <div style="float:left; margin-left:10px;">
                 	<button class='imgSelect stopBtn' onclick='stopAllTr();'>정지</button>
-                    <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button>
+                    <!-- <button class='deleteBtn' onclick='deleteAllTr();'>삭제</button> -->
                     <button class='cancelBtn' onclick='cancelAllTr();'>취소</button>
                 </div>
                 <form id='searchReport' name='searchReport' style="float:right;" action='<%=request.getContextPath() %>/admin/report/search' method='post'>
@@ -719,7 +740,7 @@
                         <option value='content'>내용</option>
                     </select>
                     <input type='text' name='keyword'/>
-                    <button class='searchBtn' type='submit'><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
+                    <button class='searchBtn reportTr' onclick="goReport();"><img src='<%=request.getContextPath() %>/img/adminImg/search.png'/></button>
                 </form>
             </div>
             <div class='pageChange' style="clear:both;">
@@ -901,6 +922,17 @@
             	$('#stopForm').submit();
         	});
         }
+        
+        function goReport(){
+    		if (!clicked) {
+                clicked=true;
+                $('#searchReport').submit();
+                $('.reportTr').unbind('click');
+           } else {
+           	 $('.reportTr').delay( 2000 );
+           }
+    	}
+       
 
     </script>
 </body>
