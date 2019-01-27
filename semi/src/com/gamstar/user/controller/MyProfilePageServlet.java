@@ -47,7 +47,8 @@ public class MyProfilePageServlet extends HttpServlet {
 			if(request.getParameter("uu")!=null&&(Integer.parseInt(request.getParameter("uu")))<=0){
 					request.setAttribute("msg", "　　관리자페이지　　접근불가");
 					request.setAttribute("loc", "");
-					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);		
+					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);	
+					return;
 			}
 			int userNo=0;
 			int myNo=(int)request.getSession().getAttribute("userNo");
