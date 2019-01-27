@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -770,6 +771,8 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedComment.setUserNo(rs.getInt("USER_NO"));
 		newspeedComment.setUserName(rs.getString("USER_NAME"));
 		newspeedComment.setEnable(rs.getInt("COMMENT_ENABLE"));
+
+		System.out.println(newspeedComment.getDate() + "날짜는 이렇게 됩니당!" + new Date(1));
 		
 		return newspeedComment;	
 	}
