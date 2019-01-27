@@ -33,7 +33,7 @@
                         <hr class="slideHr">
                         <div id="contactBoard" onclick="supportBtn()"><div class="contactBoardText"><a href="#">문의하기</a></div></div>
                         <hr class="slideHr">
-                        <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
+                        <div id="logout"><div class="logoutText"><a href="<%=request.getContextPath()%>/logout">로그아웃</a></div></div>
                 </div>
             </div>
             <div class="iconBack"><img id ="iconBackImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/logoBack.png"></div> 
