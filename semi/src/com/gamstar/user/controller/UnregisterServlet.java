@@ -39,12 +39,13 @@ public class UnregisterServlet extends HttpServlet {
 		int result=new UserService().unregister(user);
 		
 		if(result!=0){
+			request.getSession().removeAttribute("userNo");
 			request.setAttribute("msg", "회원탈퇴 성공");
 			request.setAttribute("loc", "");
 		}
 		else{
 			request.setAttribute("msg", "회원탈퇴 실패");
-			request.setAttribute("loc", "");
+			request.setAttribute("loc", "/view/profile");
 		}
 
 		request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);

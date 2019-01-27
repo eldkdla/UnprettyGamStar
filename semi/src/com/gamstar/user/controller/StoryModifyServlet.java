@@ -91,10 +91,12 @@ public class StoryModifyServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", loc);
 				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				return;
 			}
 			else{
 				System.out.println("사진 multipart로 안보냈음");
 				response.sendRedirect("profile");
+				return;
 			}
 			
 		}

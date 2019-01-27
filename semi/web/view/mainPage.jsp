@@ -785,7 +785,7 @@
                              
                          }));
                        $('#fchatlistdiv'+i).append($('<img/>',{
-                             src: json[i]["otherProfile"],
+                             src: '<%=request.getContextPath()%>/'+json[i]["otherProfile"],
                              class:'chatuserimg',
                              id: 'fchatuserimg'+i
                             
@@ -811,7 +811,7 @@
                               
                            }));
                        $('#fchatlistdiv'+i).append($('<img/>',{
-                             src: '../img/alarm.png',
+                             src: '<%=request.getContextPath()%>/img/alarm.png',
                              class:'alarm',
                              style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
                             
@@ -838,7 +838,7 @@
                              
                          }));
                        $('#fchatlistdiv'+i).append($('<img/>',{
-                             src: json[i]["otherProfile"],
+                             src: '<%=request.getContextPath()%>/'+json[i]["otherProfile"],
                              class:'chatuserimg',
                              id: 'fchatuserimg'+i
                             
@@ -934,7 +934,7 @@
                            
                        }));
                      $('#fchatlistdiv'+i).append($('<img/>',{
-                           src: json[i]["otherProfile"],
+                           src: '<%=request.getContextPath()%>/'+json[i]["otherProfile"],
                            class:'chatuserimg',
                            id: 'fchatuserimg'+i
                           
@@ -960,7 +960,7 @@
                             
                          }));
                      $('#fchatlistdiv'+i).append($('<img/>',{
-                           src: '../img/alarm.png',
+                           src: '<%=request.getContextPath()%>/img/alarm.png',
                            class:'alarm',
                            style:'position: relative; width: 15px; height: 15px; top:30px; left: 4px;'
                           
@@ -987,7 +987,7 @@
                            
                        }));
                      $('#fchatlistdiv'+i).append($('<img/>',{
-                           src: json[i]["otherProfile"],
+                           src: '<%=request.getContextPath()%>/'+json[i]["otherProfile"],
                            class:'chatuserimg',
                            id: 'fchatuserimg'+i
                           
@@ -1074,6 +1074,7 @@
             console.log(data);
             $('#friendlistdiv').children().remove();
             for(var j=0;j<data.length;j++){
+            	
                  $('#friendlistdiv').append($('<label/>',{
                      for: "friendcheck"+j,
                      id: "friendlabel"+j
@@ -1085,7 +1086,7 @@
                  $('#friend'+j).append($('<img/>',{
                      class: "frienduserimg",
                      id: "frienduserimg"+j,
-                     src :data[j]["profile"]
+                     src :'<%=request.getContextPath()%>/'+data[j]["profile"]
                      }));
                  $('#friend'+j).append($('<input/>',{
                      type:"radio",
@@ -1200,7 +1201,7 @@ var data2;
                                 }));
                             $('#receiveUser'+i).append($('<img/>',{
                                 class: "receiveUserImg",
-                                src: img
+                                src: '<%=request.getContextPath()%>/'+img
                                 }));
                             $('#receiveUser'+i).append($('<span/>',{
                                 class: "receiveUserName",
@@ -1359,12 +1360,12 @@ var data2;
     	if(callaudio%2==1){
     	audiosetting=0;
     	callaudio++;
-    	$('#alarmset').css('background',' url("../img/alarmon.png") no-repeat');
+    	$('#alarmset').css('background',' url("<%=request.getContextPath()%>/img/alarmon.png") no-repeat');
     	}
     	else if(callaudio%2==0) {
     	audiosetting=1;
     	callaudio++;
-    	$('#alarmset').css('background','url("../img/alarmoff.png") no-repeat');
+    	$('#alarmset').css('background','url("<%=request.getContextPath()%>/img/alarmoff.png") no-repeat');
 
     	}
     	

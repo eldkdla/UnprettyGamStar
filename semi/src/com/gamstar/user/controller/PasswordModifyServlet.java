@@ -45,8 +45,9 @@ public class PasswordModifyServlet extends HttpServlet {
 				
 				
 				if(result!=0){
+					request.getSession().removeAttribute("userNo");
 					msg="비밀번호 변경성공";
-					loc="/view/profile";
+					loc="";
 				}
 				else{
 					msg="비밀번호 변경실패";
@@ -56,8 +57,8 @@ public class PasswordModifyServlet extends HttpServlet {
 				request.setAttribute("msg", msg);
 				request.setAttribute("loc", loc);
 				
-		
 				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				return;
 			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");

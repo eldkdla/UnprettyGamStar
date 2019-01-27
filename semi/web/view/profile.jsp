@@ -20,6 +20,7 @@
        
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
@@ -42,12 +43,13 @@
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
 	   boolean isRequestFollow=(boolean)request.getAttribute("isRequestFollow");
 	%>
-	
+		
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
 	<canvas class="dummy_canvas" style="display:none;" id="sephia"></canvas>
+	<canvas class="dummy_canvas" style="display:none" id="duotone"></canvas>
 	
 	<div id="newspeedview_btn_wrapper">
 
@@ -217,6 +219,7 @@
     </div>
 
 
+	 <%@include file="common/header.jsp"%>
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -415,33 +418,63 @@
             	 <%if(isRequestFollowDataArray.size()!=0){
             		 for(int i=0;i<isRequestFollowDataArray.size();i++){
             		 %>
-            		 $('body').alertBox({
-            		        title: "'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다",
-            		        lTxt: '보류',
-            		        lCallback: function(){
-            		        	$.ajax({
-            	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
-            	            		type:"POST",
-            	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
-            	            		success:function(data){},
-            	            		error:function(xhr,status){
-            	            			alert(xhr+" : "+status);	
-            	            		}
-            	            		});
-            		        },
-            		        rTxt: '수락',
-            		        rCallback: function(){
-	 					        $.ajax({
-	 					            url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
-	 					            type:'POST',
-	 					            data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
-	 					            success:function(data){},
-            	            		error:function(xhr,status){
-            	            			alert(xhr+" : "+status);	
-            	            		}
-            	            	});
-            		        }
-            		      });
+	            		 $('body').append($('<div/>',{
+	      		    		id:'requestFollow<%=i%>',
+	      		    		class:'requestFollowModal'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>').append($('<div/>',{
+	      		    		class:'requestFollowModal-content'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<p/>',{
+	      		    		text:"'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다"
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'보류'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'수락'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'거절'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(2)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	     	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
+	     	            		type:"POST",
+	     	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
+	     	            		success:function(data){},
+	     	            		error:function(xhr,status){
+	     	            			alert(xhr+" : "+status);	
+	     	            		}
+	     	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(3)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		 $.ajax({
+	 					          url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					          type:'POST',
+	 					          data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	 					          success:function(data){},
+	      	            		  error:function(xhr,status){
+	      	            		  alert(xhr+" : "+status);	
+	      	            		}
+	      	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(4)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	      		          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+	      		          		type:'POST',
+	      		          		data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	      		          		success:function(data){
+	      		          		},
+	      		          		error:function(xhr,status){
+	      		          			alert(xhr+" : "+status);
+	      		          		}
+	      		          		
+	      		          	});
+	      		    	});
             		 <%}
             		 }%>
          	<%}
@@ -814,10 +847,48 @@
     			});
     			<%}%>
     			
+    			$.ajax({ //팔로워 목록 갱신
+    	    		url:"<%=request.getContextPath()%>/view/selectfollow",
+    	    		type:"POST",
+    	    		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
+    	    		success:function(data){
+    		
+    	    			$('#profileContent5>*').remove();
+    	    			
+    	    			 for(var i=0;i<data.length;i++){							
+    								var no=data[i]["no"];
+    								var name=data[i]["name"];
+    								var profilePhoto=data[i]["profilePhoto"];
+    								
+    								$('#profileContent5').append($('<div/>',{
+    					                class:'profileFollowDv',
+    					                id:no
+    					             }));
+    					             
+    					             $('#profileContent5>#'+no).on("click",function(){
+    					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+    					             });
+    					             
+    					             $('#profileContent5>#'+no).append($('<img/>',{
+    					                src: '<%=request.getContextPath()%>/'+profilePhoto
+    					             }));
+    					            
+    					             $('#profileContent5>#'+no).append($('<label/>',{
+    					                
+    					             }));
+    					             $('#profileContent5>#'+no+'>label').text(name);            	
+    						}
+    	    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
+    	    		},
+    	    		error:function(xhr,status){
+    	    			alert(xhr+" : "+status);
+    	    		}
+    	    	});
+    			
     		}
     	});
 		
-		$.ajax({ //팔로워 목록 갱신
+		<%-- $.ajax({ //팔로워 목록 갱신
     		url:"<%=request.getContextPath()%>/view/selectfollow",
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
@@ -853,7 +924,7 @@
     		error:function(xhr,status){
     			alert(xhr+" : "+status);
     		}
-    	});
+    	}); --%>
 		
 	}
 	 
@@ -1533,6 +1604,10 @@
 				<li class="media_filter_list">
 				<label class="media_filter_preview" for="radio_effect_sephia"> </label> 
 				<input type="radio" id="radio_effect_sephia" class="filter_radio" name="media_filter_select"></li>
+				
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_duotone"> </label> 
+				<input type="radio" id="radio_effect_duotone" class="filter_radio" name="media_filter_select"></li>
 
 			</ul>
 

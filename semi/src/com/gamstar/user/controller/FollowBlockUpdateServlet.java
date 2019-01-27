@@ -44,6 +44,7 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 					request.setAttribute("msg", "잘못된 접근");
 					request.setAttribute("loc", "");
 					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+					return;
 				}
 			}
 			
@@ -96,11 +97,13 @@ public class FollowBlockUpdateServlet extends HttpServlet {
 					//내 차단목록에 상대를 추가 (db에서 트리거로 서로 팔로우,팔로워 삭제)
 					result=new UserService().insertBlockUser(user,userNo);
 					response.sendRedirect("profile");
+					return;
 				}
 				else{
 					//내 차단목록에서 상대를 삭제		
 					result=new UserService().deleteBlockUser(user,userNo);
 					response.sendRedirect("profile");
+					return;
 				}
 			}
 		
