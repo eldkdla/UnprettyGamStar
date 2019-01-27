@@ -11,7 +11,8 @@ public class NewspeedComment {
 	private Date date;
 	private int enable;
 	private String userName;
-
+	private int level;
+	
 	public int getNewspeedNo() {
 		return newspeedNo;
 	}
@@ -83,6 +84,14 @@ public class NewspeedComment {
 				+ ", getNewspeedNo()=" + getNewspeedNo() + ", getNo()=" + getNo() + ", getRootNo()=" + getRootNo()
 				+ ", getContent()=" + getContent() + ", getUserNo()=" + getUserNo() + ", getDate()=" + getDate()
 				+ ", getEnable()=" + getEnable() + ", getUserName()=" + getUserName() + "]";
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 
 }

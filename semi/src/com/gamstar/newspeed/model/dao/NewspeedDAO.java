@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.gamstar.newspeed.model.service.AND;
+import com.gamstar.newspeed.model.service.SET;
 import com.gamstar.newspeed.model.vo.Newspeed;
 import com.gamstar.newspeed.model.vo.NewspeedComment;
 import com.gamstar.newspeed.model.vo.NewspeedLike;
@@ -710,6 +712,8 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 			while (rs.next()) {
 				NewspeedComment newspeedComment= getNewspeedComment(rs);
 				newspeedCommentList.add(newspeedComment);
+				
+				System.out.println("도데체 셀렉문 뭐쓰길래 안나오냐?"+newspeedComment);
 			}
 
 
@@ -767,6 +771,7 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		newspeedComment.setRootNo(rs.getInt("COMMENT_ROOT_NO"));
 		newspeedComment.setUserNo(rs.getInt("USER_NO"));
 		newspeedComment.setUserName(rs.getString("USER_NAME"));
+		newspeedComment.setEnable(rs.getInt("COMMENT_ENABLE"));
 		
 		return newspeedComment;	
 	}
@@ -933,6 +938,59 @@ selectUserNewspeedNo=SELECT U.* FROM TB_USER U JOIN TB_NEWSPEED N ON (U.USER_NO 
 		
 		return result;
 	}
+	
+	public int insertNewspeedRecomment(Connection conn, NewspeedComment newspeedComment) {
+		String sql = prop.getProperty("insertNewspeedrecomment");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedComment.getNewspeedNo());
+			pstmt.setInt(2, newspeedComment.getRootNo());
+			pstmt.setString(3, newspeedComment.getContent());
+			pstmt.setInt(4, newspeedComment.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int deleteNewspeedComment(Connection conn, int newspeedCommentNo) {
+		//deleteNewspeedComment=UPDATE TB_NEWSPEED_COMMENT SET COMMENT_ENABLE = 0 WHERE ((COMMENT_NO = COMMENT_ROOT_NO AND COMMENT_ROOT_NO = ?) OR(COMMENT_NO != COMMENT_ROOT_NO AND COMMENT_NO = ?))
+		String sql = prop.getProperty("deleteNewspeedComment");
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, newspeedCommentNo);
+			pstmt.setInt(2, newspeedCommentNo);
+			pstmt.setInt(3, newspeedCommentNo);
+			result = pstmt.executeUpdate();
+			
+
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+		
+	}
+
 
 
 }

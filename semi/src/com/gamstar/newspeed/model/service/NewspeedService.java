@@ -321,6 +321,8 @@ public class NewspeedService {
 		Connection conn = getConnection();
 		List<NewspeedComment> newspeedCommentList = newspeedDAO.selectNewspeedCommentList(conn, newspeedNo);
 		
+		System.out.println("어케나오나 보자 ㅎㅎ"+newspeedCommentList);
+		
 		close(conn);
 		
 		return newspeedCommentList;
@@ -329,6 +331,8 @@ public class NewspeedService {
 	public List<NewspeedComment> selectNewspeedCommentList(int newspeedNo, int userNo) {
 		Connection conn = getConnection();
 		List<NewspeedComment> newspeedCommentList = newspeedDAO.selectNewspeedCommentList(conn, newspeedNo, userNo);
+		
+		System.out.println("야 정렬순서좀 보자" + newspeedCommentList);
 		
 		close(conn);
 		
@@ -419,10 +423,37 @@ public class NewspeedService {
 		return result;
 	}
 	
-
+	public int insertNewspeedRecomment(NewspeedComment newspeedComment) {
+		Connection conn = getConnection();
+		int result = newspeedDAO.insertNewspeedRecomment(conn,newspeedComment);
 	
-	//'{"commentList":[{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commenftContent":"날씨가 너무 춥네요~", "commentIndex":1},{"userNo":1,"userName":"임태완","profilephoto":"basic_profile_photo.png" ,"commentContent":"날씨가 너무 춥네요~", "commentIndex":1}],"fileList":[{"mediaIndex":1,"fileName":"btn_add_media.png","tagList":[{"tagIndex":0,"mediaIndex":1,"x":"0.03350970017636689","y":"0.4192790451074912","userNo":"6", "userName":"반가워"}]}, {"mediaIndex":2,"fileName":"m-series-2015-upscaling-4k-large.jpg","tagList":[{"tagIndex":0,"mediaIndex":2,"x":"0.28924162257495595","y":"0.44327739509527836","userNo":"6","userName":"반가워"}]}],
-	//"content":"asdasdsdadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsasd", "newspeedNo":"1","userNo":"1", "userName":"임태완", "profilephoto":"basic_profile_photo.png"}');
+		if (result < 1) {
+			rollback(conn);
+		} else {
+			commit(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int deleteNewspeedComment(int newspeedCommentNo) {
+		Connection conn = getConnection();
+		int result = newspeedDAO.deleteNewspeedComment(conn, newspeedCommentNo);
+				
+		if (result < 1) {
+			rollback(conn);
+		} else {
+		    commit(conn);
+		}
+				
+		close(conn);
+				
+		return result;
+	}
+	
+
 	
 	
 }
