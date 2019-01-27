@@ -23,7 +23,7 @@
             <div id='isAnswered'>
                     <label> 
                         <small>답변상황</small>
-                        <form style='display:inline;' name='showSptFrm' action="<%=request.getContextPath() %>/admin/support/show" >
+                        <form style='display:inline;' name='showSptFrm' action="<%=request.getContextPath() %>/admin/support/show">
 	                        <select name='show' id='showSupport' onchange="submit();">
 	                            <option value='all'>모두보기</option>
 	                            <option value='ing'>처리중</option>
@@ -52,7 +52,8 @@
                 <tr>
                     <td><%=s.getSupportBoardNo() %></td>
                     <td class="sCon">
-                    	<a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>&type=<%=searchType%>&keyword=<%=searchKeyword%>">
+                    	<a class='linkView' href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>&type=<%=searchType%>&keyword=<%=searchKeyword%>"
+                    	onclick='clickedView();'>
                     		<%if(s.getSupportBoardTitle().length()>20) {%>
                     			<%=s.getSupportBoardTitle().substring(0, 19) %>...
                     		<%}else{ %>
@@ -93,15 +94,21 @@
         </section>
     </div>
     <script>
-        // 모바일 메뉴 열기 위한 함수
-        function openAdminMobileMenu(){
-            $('nav').toggle();
-        }
         
         //답변상황으로 보기
         $('showSupport').change(function(){
         	$('#showSupport').val()
         });
+        
+        function clickedView() {
+            if (!clicked) {
+            
+                 clicked=true;
+                 $('.linkView').unbind('click');
+            } else {
+            	 $('.linkView').delay( 2000 );
+            }
+         }
     </script>
 </body>
 </html>

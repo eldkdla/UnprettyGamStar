@@ -158,9 +158,9 @@ textarea#supportAnswer{
                             <div class='scrollWrapper'>
                             	<% for(SupportBoardMedia m : mlist) { 
                             		if(m.getSupportBoardMediaType()==0){%>
-                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='showImg(src);'/>
+                                	<img class='supImg' src='<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>' onclick='image_popup(src);'/>
                                 <%}else if(m.getSupportBoardMediaType()==1) {%>
-		                                <video width="400" controls height=100%;>
+		                                <video class='supImg' width="400" controls height=100%;>
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/mp4">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/ogg">
 										  <source src="<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>" type="video/webm" />
@@ -183,7 +183,7 @@ textarea#supportAnswer{
                             &nbsp;
                             <% for(SupportBoardMedia m : mlist) { %>
                             <br/>
-                            <a onclick='showImg("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
+                            <a onclick='image_popup("<%=request.getContextPath() %>/<%=m.getSupportBoardMediaPathRe() %>");'>
                             	<%=m.getSupportBoardMediaPathOri().substring(m.getSupportBoardMediaPathOri().lastIndexOf("/")+1) %>
                            	</a>
                            	<%} %>
@@ -247,11 +247,11 @@ textarea#supportAnswer{
             
             <div style='float: right;'>
             <a onclick='sendSupportAnswwer();'>
-                <img src='<%=request.getContextPath() %>/img/adminImg/write.png'/>
+                <img src='<%=request.getContextPath() %>/img/adminImg/write.png' class='linkEdit' onclick='clickedEdit();'/>
                 <small>등록</small>
             </a>
             &nbsp;
-            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>'>
+            <a href='<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=<%=cPage%>' class='linkEdit' onclick='clickedEdit();'>
                 <small>취소</small>
             </a>
             </div>
@@ -283,9 +283,6 @@ textarea#supportAnswer{
 
        $('#supportAnswer').submit();
     }
-    function openAdminMobileMenu(){
-        $('nav').toggle();
-    }
     function showImg(i){
         var url=i;
         var title='첨부파일';
@@ -293,7 +290,15 @@ textarea#supportAnswer{
 
         var popup=open(i,title,shape);
     }
-    
+    function clickedEdit() {
+        if (!clicked) {
+        
+             clicked=true;
+             $('.linkEdit').unbind('click');
+        } else {
+        	 $('.linkEdit').delay( 2000 );
+        }
+     }
 </script>
 </body>
 </html>

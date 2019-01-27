@@ -120,7 +120,7 @@
 	
 
 @media all and (min-width:1067px){
-	nav {
+	nav#adminNav {
 		display:none;
 	}
 	div#wrapper{
@@ -145,6 +145,9 @@
 	}
 	div#adminFunctionBtn-container {
 		display:none;
+	}
+	div#adminBoardContent-container{
+		margin-top:18px;
 	}
 	br{
 		display:none;
@@ -186,8 +189,8 @@
 				<img src='<%=request.getContextPath() %>/img/adminImg/send.png' onclick="location.href='<%=request.getContextPath()%>/admin/supportList'";/>
 				<label>문의확인</label>
 			</div>
-			<div id='reportBtn'>
-				<img src='<%=request.getContextPath() %>/img/adminImg/stop.png' onclick="location.href='<%=request.getContextPath()%>/admin/reportList'";/>
+			<div >
+				<img id='reportBtn' src='<%=request.getContextPath() %>/img/adminImg/stop.png' onclick='isClicked();'/>
 				<label>신고처리</label>
 			</div>
 			<div id='managerBtn'>
@@ -209,13 +212,20 @@
 						<th>Date</th>
 					</tr>
 			<%if (rList==null||rList.size()==0) {%>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
 					<tr>
-						<td colspan="4"></td>
+						<td colspan="4">
+						새로운 신고가 없습니다
+						</td>
+						
 					</tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
+					<tr><td colspan="4">&nbsp;</td></tr>
 			<%}else{
 				
 				for(ReportBoard r : rList) {%>
-					<tr class='reportTr' onclick="location.href='<%=request.getContextPath()%>/admin/reportList';">
+					<tr class='reportTr' onclick="goReport();">
 						<td><%=r.getReportBoardTargetId() %></td>
 						<td><%if (r.getReportBoardType()==0){%>USER<%}else if(r.getReportBoardType()==1) {%>NEWSPEED<%} %>
 						</td>
@@ -229,6 +239,7 @@
 					for(int i=0; i<5-rList.size(); i++) {%>
 				   <tr>
 				   		<td>&nbsp;</td>
+				   		<td></td>
 				   		<td></td>
 				   		<td></td>
 				   </tr>
@@ -247,10 +258,25 @@
 						<th>Title</th>
 						<th>Date</th>
 					</tr>
-				<%for(SupportBoard s : sList) {%>
+				<%
+				if(sList.isEmpty()||sList.size()==0)
+				{%>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr>
+						<td colspan="5">
+						새로운 문의가 없습니다
+						</td>
+						
+					</tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					<tr><td colspan="5">&nbsp;</td></tr>
+					
+					<%}else {
+						for(SupportBoard s : sList) {%>
 					<tr>
 						<td><%=s.getSupportBoardWriterName() %>(<%=s.getSupportBoardWriterId() %>)</td>
-						<td><a href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=1">
+						<td><a class='linkView' href="<%=request.getContextPath()%>/admin/supportView?no=<%=s.getSupportBoardNo() %>&cPage=1" onclick='clickedView();'>
 						<%if (s.getSupportBoardTitle().length()>8) { %><%=s.getSupportBoardTitle().substring(0,7) %>..<%}
 							else {%><%=s.getSupportBoardTitle() %><%} %></a></td>
 						<td><%=s.getSupportBoardDate() %></td>
@@ -264,6 +290,7 @@
 				   		<td></td>
 				   </tr>
 				<%		}
+			   	  }
 			   	  }%>   	
 				</table>
 			</div>
@@ -271,9 +298,28 @@
 	</div>
 </section>
 <script>
-	function goReport(no){
+	<%-- function goReport(no){
 		location.href='<%=request.getContextPath()%>/admin/reportView?show='+no;
+	}--%>
+	function clickedView() {
+        if (!clicked) {
+        
+             clicked=true;
+             $('.linkView').unbind('click');
+        } else {
+        	 $('.linkView').delay( 2000 );
+        }
+     }
+	function goReport(){
+		if (!clicked) {
+			location.href='<%=request.getContextPath()%>/admin/reportList';
+            clicked=true;
+            $('.reportTr').unbind('click');
+       } else {
+       	 $('.reportTr').delay( 2000 );
+       }
 	}
+	
 </script>
 </body>
 </html>

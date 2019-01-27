@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
+	<script type="text/javascript" src="../js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
 	<script src="../js/report.js"></script>
@@ -43,7 +43,7 @@
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
 	   boolean isRequestFollow=(boolean)request.getAttribute("isRequestFollow");
 	%>
-	
+		
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
@@ -219,6 +219,7 @@
     </div>
 
 
+	 <%@include file="common/header.jsp"%>
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -846,10 +847,48 @@
     			});
     			<%}%>
     			
+    			$.ajax({ //팔로워 목록 갱신
+    	    		url:"<%=request.getContextPath()%>/view/selectfollow",
+    	    		type:"POST",
+    	    		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
+    	    		success:function(data){
+    		
+    	    			$('#profileContent5>*').remove();
+    	    			
+    	    			 for(var i=0;i<data.length;i++){							
+    								var no=data[i]["no"];
+    								var name=data[i]["name"];
+    								var profilePhoto=data[i]["profilePhoto"];
+    								
+    								$('#profileContent5').append($('<div/>',{
+    					                class:'profileFollowDv',
+    					                id:no
+    					             }));
+    					             
+    					             $('#profileContent5>#'+no).on("click",function(){
+    					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+    					             });
+    					             
+    					             $('#profileContent5>#'+no).append($('<img/>',{
+    					                src: '<%=request.getContextPath()%>/'+profilePhoto
+    					             }));
+    					            
+    					             $('#profileContent5>#'+no).append($('<label/>',{
+    					                
+    					             }));
+    					             $('#profileContent5>#'+no+'>label').text(name);            	
+    						}
+    	    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
+    	    		},
+    	    		error:function(xhr,status){
+    	    			alert(xhr+" : "+status);
+    	    		}
+    	    	});
+    			
     		}
     	});
 		
-		$.ajax({ //팔로워 목록 갱신
+		<%-- $.ajax({ //팔로워 목록 갱신
     		url:"<%=request.getContextPath()%>/view/selectfollow",
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
@@ -885,7 +924,7 @@
     		error:function(xhr,status){
     			alert(xhr+" : "+status);
     		}
-    	});
+    	}); --%>
 		
 	}
 	 

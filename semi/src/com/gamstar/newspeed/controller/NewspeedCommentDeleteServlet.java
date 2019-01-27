@@ -36,7 +36,7 @@ public class NewspeedCommentDeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		if (request.getSession().getAttribute("userNo") == null) {
-			System.out.println("오잉?");
+			response.sendRedirect(request.getContextPath());
 		}
 		
 		int commentNo = Integer.parseInt(request.getParameter("commentNo"));

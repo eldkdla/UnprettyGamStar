@@ -47,6 +47,7 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 			//내정보창으로 정보보내기
 			RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
 			rd.forward(request, response);
+			return;
 			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");

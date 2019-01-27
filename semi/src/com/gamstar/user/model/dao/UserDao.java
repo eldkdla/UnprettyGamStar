@@ -1020,4 +1020,39 @@ public class UserDao {
 				return u;
 			}
 
+			public List<User> selectSearchUser(Connection conn, String searchStr){
+			      PreparedStatement pstmt = null;
+			      ResultSet rs = null;
+			      String sql = prop.getProperty("selectSearchUser");
+			      
+			      List<User> listDB = new ArrayList();
+			      User data = null;
+			      
+			   try {
+			         
+			         pstmt=conn.prepareStatement(sql);
+			         pstmt.setString(1, "%" + searchStr + "%");
+			         rs=pstmt.executeQuery();
+			            
+			         while(rs.next()) {
+			            data = new User();
+			               
+			            data.setNo(rs.getInt("user_no"));
+			            data.setName(rs.getString("user_name"));
+			            data.setProfilePhoto(rs.getString("user_profile_photo"));
+
+			               
+			            listDB.add(data);
+			         }
+
+			      }catch(Exception e) {
+			         e.printStackTrace();
+			      }
+			      finally {
+			         close(rs);
+			         close(pstmt);
+			      }
+			      return listDB;
+			   }
+
 }

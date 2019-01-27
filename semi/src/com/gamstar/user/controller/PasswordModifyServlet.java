@@ -58,6 +58,7 @@ public class PasswordModifyServlet extends HttpServlet {
 				request.setAttribute("loc", loc);
 				
 				request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+				return;
 			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");
