@@ -23,7 +23,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
 	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
+	<script type="text/javascript" src="../js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
 	<script src="../js/report.js"></script>

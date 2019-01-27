@@ -31,12 +31,14 @@ import common.HtmlSpecialChar;
 @WebServlet("/newspeed/newspeedview")
 public class NewspeedDetailViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private NewspeedDataJSONParser parser;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public NewspeedDetailViewServlet() {
 		super();
+		parser = new NewspeedDataJSONParser();
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,7 +53,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		if (isError(request)) {
-
+			response.sendRedirect(request.getContextPath());
 		}
 		
 		System.out.println(request.getServletContext().getRealPath("/") +"절대");
@@ -64,7 +66,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		Newspeed newspeed = nService.selectNewspeed(newspeedNo);
 		
 		if (newspeed == null) {
-			System.out.println("게시글을 불러올 수 없습니다.");
+			response.sendRedirect(request.getContextPath());
 			return;
 		}
 		
@@ -98,12 +100,7 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 	}
 
 	private boolean isError(HttpServletRequest request) {
-		if (request.getParameter("newspeedNo") == null || request.getSession().getAttribute("userNo") == null) {
-			System.out.println("로그인이 안되어있거나 게시글번호가 없거나");
-			return true;
-		}
-
-		return false;
+		return request.getParameter("newspeedNo") == null || request.getSession().getAttribute("userNo") == null;
 	}
 
 	private JSONObject parseNewspeedToJSON(Newspeed newspeed, User writer, List<NewspeedMedia> newspeedMediaList,
@@ -147,6 +144,11 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 			json.put("commentContent", HtmlSpecialChar.getHtmlStr(newspeedComment.getContent()));
 			json.put("commentNo", newspeedComment.getNo());
 			json.put("rootCommentNo", newspeedComment.getRootNo());
+			
+			String before = parser.parseToDate(newspeedComment.getBeforeDay()).replaceAll(".0", "");
+			System.out.println(before + "언제 달았니?");
+			
+			json.put("beforeTime", before);
 				
 			if (userNo == newspeedComment.getUserNo()) {
 				json.put("isMine", true);
@@ -186,6 +188,11 @@ public class NewspeedDetailViewServlet extends HttpServlet {
 		newspeedJSONObject.put("content", HtmlSpecialChar.getHtmlStr(newspeed.getContent()));
 		newspeedJSONObject.put("userNo", newspeed.getUserNo());
 		newspeedJSONObject.put("newspeedNo", newspeed.getNo());
+		
+		String before = parser.parseToDate(newspeed.getBeforeDay()).replaceAll(".0", "");
+		System.out.println(before + "언제 달았니?");
+		
+		newspeedJSONObject.put("beforeTime", before);
 
 		for (int i = 0; i < mediaList.size(); i++) {
 			mediaListJSONArray.add(getMediaInTagList(mediaList.get(i), mediaTagList));
