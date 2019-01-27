@@ -20,7 +20,7 @@
                 <div id="alramIcon"></div>
                 <div id="slideIcon"><img id="slideIconImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/setting.png"></div>
                 <div id="slideBox">
-                        <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
+                        <div id="infoChange"><div class="infoChangeText"><a href="<%=request.getContextPath()%>/view/profilemodifyStart">개인정보설정</a></div></div>
                         <hr class="slideHr">
                         <div id="chatting" onclick="chat()"><div class="chattingText" ><a href="#">채팅</a></div></div>
                         <hr class="slideHr">

@@ -17,8 +17,8 @@
 <body>
 
 <% User user=(User)request.getAttribute("userData");%>
-<%@include file="common/header.jsp"%>
 		<div class="fullScreen">
+<%@include file="common/header.jsp"%>
             <div id='modifyScreenMenu'>
                 <ul id='modifyScreenMenuUl'>
                     <li class='modifyScreenMenuLi'>
