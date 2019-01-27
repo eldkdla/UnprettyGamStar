@@ -219,8 +219,8 @@
     </div>
 
 
-	 <div class='fullScreen'>
 	 <%@include file="common/header.jsp"%>
+	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
            <img src="<%=request.getContextPath()%>/<%=user.getProfileBackgroundPhoto() %>" alt="" id="profileBackgroundPhoto" onclick="changeBackgroundPhoto();">
