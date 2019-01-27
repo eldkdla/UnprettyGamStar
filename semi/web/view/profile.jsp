@@ -47,6 +47,7 @@
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
+	<canvas class="dummy_canvas" style="display:none;" id="sephia"></canvas>
 	
 	<div id="newspeedview_btn_wrapper">
 
@@ -1529,10 +1530,9 @@
 				</label> <input type="radio" id="radio_effect_brightness"
 					class="filter_radio" name="media_filter_select"></li>
 
-				<li class="media_filter_list"><label
-					class="media_filter_preview" for="radio_effect_test"> </label> <input
-					type="radio" id="radio_effect_test" class="filter_radio"
-					name="media_filter_select"></li>
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_sephia"> </label> 
+				<input type="radio" id="radio_effect_sephia" class="filter_radio" name="media_filter_select"></li>
 
 			</ul>
 
