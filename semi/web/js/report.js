@@ -54,13 +54,25 @@ function requestReport(targetUserNo, targetNewspeedNo, mapping) {
                 success: function(data, textStatus, jqXHR)
                 {
                 	$('#reportBgk').fadeOut(700);
+                	$(textArea).val('');
+                	$('#reportContent input[type=file]').val('');
                 }, error: function(jqXHR, textStatus, errorThrown)
                 {
                     console.log('ERRORS: ' + textStatus);
                     console.log(errorThrown);
                     $('#reportBgk').fadeOut(700);
+                    $(textArea).val('');
+                    $('#reportContent input[type=file]').val('');
                 }
         	});
+}
 
 
+function checkFileType(inputfiles) {
+	
+	for (var i = 0; i < inputfiles.length; i++) {
+		var fileName = inputfiles[i].name;
+		
+	}
+	
 }
