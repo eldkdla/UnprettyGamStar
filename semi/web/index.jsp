@@ -139,7 +139,8 @@ else
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
 
             <button id="alarmset" onclick='alarmOnOff()'></button>
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> 
+            <button id="chatroomcloseBtn" onclick="removechatlist()">
+            X 
             </button> 
         </div>
         
@@ -448,7 +449,7 @@ else
 		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="/">'+mineFollowNickSet[i]+'</a></div> </div>')
 		               	}
 
-
+                                                                    
 		        
 		        
 	     			   	var image = new Image();
