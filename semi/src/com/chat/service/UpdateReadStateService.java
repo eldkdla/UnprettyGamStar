@@ -11,9 +11,9 @@ import com.chat.dao.InputChatDao;
 import com.chat.dao.UpdateReadStateDao;
 
 public class UpdateReadStateService {
-	public void updateReadState(int chatNo) {
+	public void updateReadState(int chatNo, int myNo) {
 		Connection conn=getConnection();
-		int result=new UpdateReadStateDao().updateReadState(conn, chatNo);
+		int result=new UpdateReadStateDao().updateReadState(conn, chatNo, myNo);
 		if(result==0) {
 			System.out.println("스테이트 변경 실패");
 			rollback(conn);

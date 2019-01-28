@@ -31,8 +31,9 @@ public class UpdateReadStateServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("스테이트 서블릿");
 		String chatno=request.getParameter("chatNo");
+		int myNo=(int)request.getSession().getAttribute("userNo");
 		int chatNo=Integer.parseInt(chatno);
-		new UpdateReadStateService().updateReadState(chatNo);
+		new UpdateReadStateService().updateReadState(chatNo, myNo);
 	}
 
 	/**

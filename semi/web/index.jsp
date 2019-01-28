@@ -139,7 +139,8 @@ else
             <span style="color: white; font-size: 14px; position: relative; left: 5px;">Messanger</span>
 
             <button id="alarmset" onclick='alarmOnOff()'></button>
-            <button id="chatroomcloseBtn" onclick="removechatlist()"> 
+            <button id="chatroomcloseBtn" onclick="removechatlist()">
+            x 
             </button> 
         </div>
         
@@ -450,7 +451,7 @@ else
 		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="http://localhost:9090/GamStar/view/profile?uu='+mineFollowUrlSet[i]+'">'+mineFollowNickSet[i]+'</a></div> </div>')
 		               	}
 
-
+                                                                    
 		        
 		        
 	     			   	var image = new Image();
@@ -1805,7 +1806,7 @@ var f=0;
                  $('#friend'+j).append($('<img/>',{
                      class: "frienduserimg",
                      id: "frienduserimg"+j,
-                     src :data[j]["profile"]
+                     src :'<%=request.getContextPath()%>/'+data[j]["profile"]
                      }));
                  $('#friend'+j).append($('<input/>',{
                      type:"radio",
