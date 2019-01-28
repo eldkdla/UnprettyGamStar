@@ -36,7 +36,7 @@ public class ConfirmSupportDataServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int myNo=1;
+		int myNo=(int)request.getSession().getAttribute("userNo");
 		ArrayList<ConfirmSupportData> csArr=new ArrayList<ConfirmSupportData>();
 		csArr=new ConfirmSupportDataService().callConfirmSupportData(myNo);
 		SimpleDateFormat datefm=new SimpleDateFormat("yyyy-MM-dd");

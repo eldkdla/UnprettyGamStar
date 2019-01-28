@@ -243,7 +243,7 @@ else
                 <div id="alramIcon"></div>
                 <div id="slideIcon"><img id="slideIconImg" src="img/newspeeddetailview/setting.png"></div>
                 <div id="slideBox">
-                        <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
+                        <div id="infoChange"><div class="infoChangeText"><a href="view/profilemodifyStart">개인정보설정</a></div></div>
                         <hr class="slideHr">
                         <div id="chatting" onclick="chat()"><div class="chattingText">채팅</div></div>
                         <hr class="slideHr">
@@ -251,7 +251,7 @@ else
                         <hr class="slideHr">
                         <div id="contactBoard2" onclick="confirmSupportContents()"><div class="contactBoardText">답변확인</div></div>
                         <hr class="slideHr">
-                        <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
+                        <div id="logout"><div class="logoutText"><a href="<%=request.getContextPath()%>/logout">로그아웃</a></div></div>
                 </div>
             </div>
            <div class="iconBack"><img id ="iconBackImg" src="img/newspeeddetailview/logoBack.png"></div>
@@ -271,6 +271,10 @@ else
 
         var feedCount = 0;
         var limite = 20;
+        
+        $('#myHomIcon').click(function(){
+            location.href='<%=request.getContextPath()%>/view/profile';
+         });
  		
  		$(function beforeAjax(){
  			

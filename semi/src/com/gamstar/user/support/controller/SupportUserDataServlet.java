@@ -87,7 +87,7 @@ public class SupportUserDataServlet extends HttpServlet {
 			}
 			
 			//userData.setUserNo((int)request.getSession().getAttribute("userNo"));
-			userData.setUserNo(1);
+			userData.setUserNo((int)request.getSession().getAttribute("userNo"));
 			userData.setSupportTitle(multi.getParameter("title"));
 			userData.setSupportContent(multi.getParameter("content"));
 			
