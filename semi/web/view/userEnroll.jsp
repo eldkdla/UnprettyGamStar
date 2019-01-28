@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>굄성 - UnprettyGamStar - 가입페이지다요/</title>
+<title>굄성 - UnprettyGamStar - 가입페이지입니다</title>
 <script src="<%=request.getContextPath()%>/js/jquery-3.3.1.js"></script>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
 <link href="https://fonts.googleapis.com/css?family=Jua|Song+Myung|Stylish|Yeon+Sung|Gothic+A1&amp;subset=korean" rel="stylesheet">
@@ -65,7 +65,7 @@ div .userRegFrm {
 <div id=mainDiv>
         <fieldset>
             <legend>&nbsp; - UnprettyGamStar - &nbsp;</legend>
-            <p>안뇽? 가입을 환영한다요./</p>
+            <p>가입을 환영합니다.</p>
             <form action="<%=request.getContextPath()%>/userenroll" method="post">
                 <!-- 아이디 -->
                 <div class="userRegFrm">

@@ -1804,7 +1804,7 @@ var f=0;
                  $('#friend'+j).append($('<img/>',{
                      class: "frienduserimg",
                      id: "frienduserimg"+j,
-                     src :data[j]["profile"]
+                     src :'<%=request.getContextPath()%>/'+data[j]["profile"]
                      }));
                  $('#friend'+j).append($('<input/>',{
                      type:"radio",
