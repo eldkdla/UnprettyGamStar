@@ -3,6 +3,46 @@
 	 */
 	
 	console.log("js 들어옴~~");
+/*	
+	$(document).on('click','.titleImg', function(){
+		
+		var feedIndex = ($(this).closest('.feed').prevAll().length);
+		var url = $('#feedBody .feed:eq(' + feedIndex + ') .link').text();
+		
+		location.href="http://localhost:9090/GamStar/view/profile?uu="+url+"";
+
+	});
+	*/
+
+	$(document).on('click','.saveImg', function(){
+		var feedIndex = ($(this).closest('.feed').prevAll().length);
+		
+		
+        console.log(newspeedNo);
+		
+		$.ajax({
+			url:"./newspeed/newspeedstore",
+			data:({"newspeedNo":newspeedNo}),
+			success: function(data){
+				console.log(data.length)-2;
+				var src = "newspeed_store_active_icon_wrapper";
+				console.log(src.length);
+
+				if((data.length)-2 == src.length){
+					console.log("들어옴");
+					$('#feedBody .feed:eq(' + feedIndex + ') .saveImg').attr('src','img/newspeeddetailview/newspeed_store_icon.png');
+				}else{
+					$('#feedBody .feed:eq(' + feedIndex + ') .saveImg').attr('src','img/newspeeddetailview/newspeed_store_active_icon.png');
+				}
+			},
+			error:function(){
+				console.log('에러');
+			}
+		})
+		
+	})
+	
+	
 	$('#slideIcon').click(function slideBoxClick(){ //수정아이콘 클릭 이벤트
 	    $('#slideBox').slideToggle('slow');
 	})
@@ -60,10 +100,17 @@
 	 	    		
 	 	    		for(var i = 0; i<Object.keys(data[0]).length; i++){
 	 	    			$('#searchNull').remove();
-	 	    			$('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=' + data[0]["follow"+i].profilePhoto + '></div><div class="searchNick"><a class="searchNickLink" href="http://localhost:9090/GamStar/view/profile?uu='+data[0]["follow"+i].userNo+'">' + data[0]["follow"+i].userName + '</a></div></div>');	
+	 	    			$('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=' + data[0]["follow"+i].profilePhoto + '><p class="searchNickLink">'+data[0]["follow"+i].userNo+'</p></div><div class="searchNick">' + data[0]["follow"+i].userName + '</div></div>');	
 	 	    		}
 	 	    		
-
+	 	    		$(document).on('click','.searchPeople', function(){
+	 	    			console.log("클릭댐!");
+	 	    			var url = $(this).children().children('.searchNickLink').text();
+	 	    			location.href="http://localhost:9090/GamStar/view/profile?uu="+url+"";
+	 	    			console.log(url);
+	 	    		})
+	 	    		
+//href="http://localhost:9090/GamStar/view/profile?uu='+data[0]["follow"+i].userNo+
 
 	 	    	},
 	 	    	error: function(){
@@ -384,13 +431,13 @@
             }
         })
 	    	
-	    if (src == "../img/newspeeddetailview/newspeed_like_active.png") { //좋아요 클릭시 좋아요 빼기
-	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like.png");
+	    if (src == "img/newspeeddetailview/newspeed_like_active.png") { //좋아요 클릭시 좋아요 빼기
+	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "img/newspeeddetailview/newspeed_like.png");
 	        str--;
 	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
 	    }
 	    else {  //좋아요 클릭시 좋아요 플러스
-	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
+	        $('#feedBody .feed:eq(' + feedIndex + ') .like').attr('src', "img/newspeeddetailview/newspeed_like_active.png");
 	        str++;
 	        $('#feedBody .feed:eq(' + feedIndex + ') .showLike').text(str + "Liked");
 	    }

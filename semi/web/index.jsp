@@ -5,7 +5,7 @@
 String login="";
 int userNo = 1;
 
-if(request.getSession().getAttribute("userNo") == null)
+ if(request.getSession().getAttribute("userNo") == null)
 {
 	response.sendRedirect(request.getContextPath()+"/view/login.jsp");
 }
@@ -13,7 +13,7 @@ else
 {
 	login = (int)request.getSession().getAttribute("userNo") + "";
 	userNo = (int)request.getSession().getAttribute("userNo");
-}
+} 
 %>
 
 <!DOCTYPE html>
@@ -336,7 +336,7 @@ else
 			               	
 			                $('#feedBody').append('<div class="feed"><p class="feedLink">'+contentSet[1]+'</p></div>');
 
-			                $('#feedBody .feed:eq(' + feedCount + ')').append('<a class="link" href="#"></a>');
+			                $('#feedBody .feed:eq(' + feedCount + ')').append('<a class="link" href="/"></a>');
 			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<img class="titleImg" src="'+userSet[1] + '">');
 			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<p class="nick">' + userSet[0] + '</p>');
 
@@ -386,6 +386,8 @@ else
     			                    $('.feed:eq(' + feedCount + ') .bar .like').attr('src', "img/newspeeddetailview/newspeed_like_active.png");
     			                }
 							}
+							
+							
 
 			                var commentHeight = $('#feedBody .feed:eq(' + feedCount + ') .titleBody').height();
 			                if (commentHeight > 70) {  //댓글 더보기 체크
@@ -445,7 +447,7 @@ else
 
 		                for(var i=0; i<mineFollowImgSet.length; i++){
 		               	
-		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="/">'+mineFollowNickSet[i]+'</a></div> </div>')
+		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="http://localhost:9090/GamStar/view/profile?uu='+mineFollowUrlSet[i]+'">'+mineFollowNickSet[i]+'</a></div> </div>')
 		               	}
 
 
