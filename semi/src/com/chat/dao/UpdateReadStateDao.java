@@ -23,22 +23,11 @@ public class UpdateReadStateDao {
 	public int updateReadState(Connection conn, int chatNo, int myNo) {
 		PreparedStatement pstmt=null;
 		PreparedStatement pstmt2=null;
-		int chatUserNo=0;
-		String sql=prop.getProperty("callPreviewChatUserNo");
-		try {
-			pstmt2=conn.prepareStatement(sql);
-			pstmt2.setInt(1, chatNo);
-			rs=pstmt2.executeQuery();
-			if(rs.next()) {
-				chatUserNo=rs.getInt("user_no");
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		int result=0;
 		
-		if(chatUserNo!=myNo) {
-		 sql=prop.getProperty("updateReadState");
+		
+		String sql=prop.getProperty("updateReadState");
 		try 
 		{
 			System.out.println(sql);
@@ -55,7 +44,7 @@ public class UpdateReadStateDao {
 		finally
 		{
 			close(pstmt);
-		}}
+		}
 		System.out.println("result : "+result);
 		return result;
 		

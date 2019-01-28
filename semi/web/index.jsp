@@ -140,7 +140,7 @@ else
 
             <button id="alarmset" onclick='alarmOnOff()'></button>
             <button id="chatroomcloseBtn" onclick="removechatlist()">
-            X 
+            x 
             </button> 
         </div>
         
