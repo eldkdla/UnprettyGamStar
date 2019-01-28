@@ -73,7 +73,7 @@
 	 	    })
 	    }
 	    
-	    
+	    $('')
 	    
 	    console.log(searchStr);
 	   

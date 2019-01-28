@@ -58,7 +58,9 @@ public class NewspeedRecommentServlet extends HttpServlet {
 
 		nService.insertNewspeedRecomment(newspeedComment);
 		NewspeedDataJSONParser parser = new NewspeedDataJSONParser();
-		String data = parser.getNewspeedCommentListJSONArray(nService.selectNewspeedCommentList(newspeedNo, userNo), userNo).toJSONString();
+		String data = parser
+				.getNewspeedCommentListJSONArray(nService.selectNewspeedCommentList(newspeedNo, userNo), userNo)
+				.toJSONString();
 
 		System.out.println("왜그랭?");
 		System.out.println(data);
