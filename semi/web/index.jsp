@@ -30,7 +30,7 @@ if(request.getSession().getAttribute("userNo") == null)
 	<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
     <intercept-url pattern="/favicon.ico" access="ROLE_ANONYMOUS" />
 
-	<link href="<%=request.getContextPath()%>/css/mainCss.css" rel="stylesheet" type="text/css">
+	<link href="css/mainCss.css" rel="stylesheet" type="text/css">
 	<style>
 	    body,
         html {
@@ -233,14 +233,14 @@ if(request.getSession().getAttribute("userNo") == null)
         	<div id="gamstarLogo"> <p id="gamstarTitle">GamStar</p> </div>
             <div id='searchBody'>
                 <input type="search" id="search" value="" results=5 placeholder="search..."/>
-               <img src="../img/newspeeddetailview/searchView.png" id="searchView">
-                <img src="../img/newspeeddetailview/searchDelete.png" id="searchDelete">
+               <img src="img/newspeeddetailview/searchView.png" id="searchView">
+                <img src="img/newspeeddetailview/searchDelete.png" id="searchDelete">
             </div>
             <div id="infoBox"> <div id="infoSentence">Search Something :)</div> </div>
             <div id="naviIconWrap">
-               <div id="myHomIcon"><img id="myHomIconImg" src="../img/newspeeddetailview/myPage.png"></div>
+               <div id="myHomIcon"><img id="myHomIconImg" src="img/newspeeddetailview/myPage.png"></div>
                 <div id="alramIcon"></div>
-                <div id="slideIcon"><img id="slideIconImg" src="../img/newspeeddetailview/setting.png"></div>
+                <div id="slideIcon"><img id="slideIconImg" src="img/newspeeddetailview/setting.png"></div>
                 <div id="slideBox">
                         <div id="infoChange"><div class="infoChangeText"><a href="#">개인정보설정</a></div></div>
                         <hr class="slideHr">
@@ -253,8 +253,8 @@ if(request.getSession().getAttribute("userNo") == null)
                         <div id="logout"><div class="logoutText"><a href="#">로그아웃</a></div></div>
                 </div>
             </div>
-           <div class="iconBack"><img id ="iconBackImg" src="../img/newspeeddetailview/logoBack.png"></div>
-            <div class="naviIcon"><img id ="naviIconImg" src="../img/newspeeddetailview/logo.png"></div>     
+           <div class="iconBack"><img id ="iconBackImg" src="img/newspeeddetailview/logoBack.png"></div>
+            <div class="naviIcon"><img id ="naviIconImg" src="img/newspeeddetailview/logo.png"></div>     
         </div>
 
 
@@ -332,7 +332,7 @@ if(request.getSession().getAttribute("userNo") == null)
 			                $('#feedBody').append('<div class="feed"><p class="feedLink">'+contentSet[1]+'</p></div>');
 
 			                $('#feedBody .feed:eq(' + feedCount + ')').append('<a class="link" href="#"></a>');
-			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<img class="titleImg" src="<%=request.getContextPath()%>/'+userSet[1] + '">');
+			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<img class="titleImg" src="'+userSet[1] + '">');
 			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<p class="nick">' + userSet[0] + '</p>');
 
 			                $('#feedBody .feed:eq(' + feedCount + ')').append('<div class="imgBody"></div>');
@@ -342,23 +342,23 @@ if(request.getSession().getAttribute("userNo") == null)
 									
 			                	if(mediaType[i] == "0"){
 
-			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><div class="tagBody"><img class ="imgSet" src="<%=request.getContextPath()%>/'+Object.values(mediaSet[i])+'"></div></div>');
+			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><div class="tagBody"><img class ="imgSet" src="'+Object.values(mediaSet[i])+'"></div></div>');
 
 			                	}
  			                	else{
  
-			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><div class="tagBody"><video class="videoSet" muted autoplay loop controls="controls" src="<%=request.getContextPath()%>/'+Object.values(mediaSet[i]) + '"></video></div></div>');
+			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><div class="tagBody"><video class="videoSet" muted autoplay loop controls="controls" src="'+Object.values(mediaSet[i]) + '"></video></div></div>');
 			                	} 
 			          		};
 
 			            
-			                $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="prev"><img class="prevImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_prev_icon.png" ></div><div class="next"><img class="nextImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_next_icon.png" ></div>');
+			                $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="prev"><img class="prevImg" src="img/newspeeddetailview/newspeed_prev_icon.png" ></div><div class="next"><img class="nextImg" src="img/newspeeddetailview/newspeed_next_icon.png" ></div>');
 
 			                $('#feedBody .feed:eq(' +feedCount + ')').append('<div class ="bar"></div>');
-			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="like" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_like.png">');
-			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="commentImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_comment.png">');
-			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="saveImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_store_icon.png">');
-		                    $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="report" src="<%=request.getContextPath()%>/img/newspeeddetailview/report_icon.png">');
+			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="like" src="img/newspeeddetailview/newspeed_like.png">');
+			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="commentImg" src="img/newspeeddetailview/newspeed_comment.png">');
+			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="saveImg" src="img/newspeeddetailview/newspeed_store_icon.png">');
+		                    $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="report" src="img/newspeeddetailview/report_icon.png">');
 			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<p class="showLike">' + likeSet.length + 'Liked</p>');
 			                $('#feedBody .feed:eq(' + feedCount + ')').append('<div class="commentWrap"></div>')
 			                $('#feedBody .feed:eq(' + feedCount + ') .commentWrap').append('<div class = titleBody><div class="titleNick">' + userSet[0] + '</div><div class="title">' + contentSet[0] + '</div></div>');
@@ -378,7 +378,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
     			                if (<%=userNo%> == likeSet[i]) { //좋아요 체크
 
-    			                    $('.feed:eq(' + feedCount + ') .bar .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
+    			                    $('.feed:eq(' + feedCount + ') .bar .like').attr('src', "img/newspeeddetailview/newspeed_like_active.png");
     			                }
 							}
 
@@ -440,14 +440,14 @@ if(request.getSession().getAttribute("userNo") == null)
 
 		                for(var i=0; i<mineFollowImgSet.length; i++){
 		               	
-		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="../'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="/">'+mineFollowNickSet[i]+'</a></div> </div>')
+		               		$('#noteContent').append('<div class="noteFollowSort"> <div class="followImgWrap"><img class="followImg" src="'+mineFollowImgSet[i]+'"></div> <div class="followNick"><a href="/">'+mineFollowNickSet[i]+'</a></div> </div>')
 		               	}
 
 
 		        
 		        
 	     			   	var image = new Image();
-	    			  	image.src = "<%=request.getContextPath()%>/"+Object.values(mediaSet[0]);
+	    			  	image.src = Object.values(mediaSet[0]);
 	    			  	image.onload = function(){
 	    			 	console.log("처음이미지 온로드");
 	    			      	for(var j =0; j < feedCount; j++){
@@ -580,7 +580,7 @@ if(request.getSession().getAttribute("userNo") == null)
                  						
             			                $('#feedBody').append('<div class="feed"><p class="feedLink">'+contentSet[1]+'</p></div>');
             			                $('#feedBody .feed:eq(' + feedCount + ')').append('<a class="link" href="#"></a>');
-            			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<img class="titleImg" src="<%=request.getContextPath()%>/' + userSet[1] + '">');
+            			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<img class="titleImg" src="' + userSet[1] + '">');
             			                $('#feedBody .feed:eq(' + feedCount + ') .link').append('<p class="nick">' + userSet[0] + '</p>');
 
             			                $('#feedBody .feed:eq(' + feedCount + ')').append('<div class="imgBody"></div>');
@@ -590,24 +590,24 @@ if(request.getSession().getAttribute("userNo") == null)
         									
             			                	if(mediaType[i] == "0"){
  
-            			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><img class ="imgSet" src="<%=request.getContextPath()%>/' + Object.values(mediaSet[i]) + '"></div>');
+            			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><img class ="imgSet" src="' + Object.values(mediaSet[i]) + '"></div>');
             			                	}
              			                	else{
 
-            			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><video class="videoSet" muted autoplay loop controls="controls" src="<%=request.getContextPath()%>/' + Object.values(mediaSet[i]) + '"></video></div>');
+            			                		 $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="imgWrap"><video class="videoSet" muted autoplay loop controls="controls" src="' + Object.values(mediaSet[i]) + '"></video></div>');
 
                  								videoFeedIndex.push(feedCount);
             			                	} 
             			          		};
 
             			            
-            			                $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="prev"><img class="prevImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_prev_icon.png" ></div><div class="next"><img class="nextImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_next_icon.png" ></div>');
+            			                $('#feedBody .feed:eq(' + feedCount + ') .imgBody').append('<div class="prev"><img class="prevImg" src="img/newspeeddetailview/newspeed_prev_icon.png" ></div><div class="next"><img class="nextImg" src="img/newspeeddetailview/newspeed_next_icon.png" ></div>');
             
             			                $('#feedBody .feed:eq(' +feedCount + ')').append('<div class ="bar"></div>');
-            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="like" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_like.png">');
-            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="commentImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_comment.png">');
-            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="saveImg" src="<%=request.getContextPath()%>/img/newspeeddetailview/newspeed_store_icon.png">');
-            		                    $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="report" src="<%=request.getContextPath()%>/img/newspeeddetailview/report_icon.png">');
+            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="like" src="img/newspeeddetailview/newspeed_like.png">');
+            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="commentImg" src="img/newspeeddetailview/newspeed_comment.png">');
+            			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="saveImg" src="img/newspeeddetailview/newspeed_store_icon.png">');
+            		                    $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<img class="report" src="img/newspeeddetailview/report_icon.png">');
             			                $('#feedBody .feed:eq(' + feedCount + ') .bar').append('<p class="showLike">' + likeSet.length + 'Liked</p>');
             			                $('#feedBody .feed:eq(' + feedCount + ')').append('<div class="commentWrap"></div>')
             			                $('#feedBody .feed:eq(' + feedCount + ') .commentWrap').append('<div class = titleBody><div class="titleNick">' + userSet[0] + '</div><div class="title">' + contentSet[0] + '</div></div>');
@@ -627,7 +627,7 @@ if(request.getSession().getAttribute("userNo") == null)
 
         	    			                if (<%=userNo%> == likeSet[i]) { //좋아요 체크
 
-        	    			                    $('.feed:eq(' + feedCount + ') .bar .like').attr('src', "../img/newspeeddetailview/newspeed_like_active.png");
+        	    			                    $('.feed:eq(' + feedCount + ') .bar .like').attr('src', "img/newspeeddetailview/newspeed_like_active.png");
         	    			                }
         								}
             		                    
@@ -682,7 +682,7 @@ if(request.getSession().getAttribute("userNo") == null)
             	    				
              			   			var image = new Image();
              			   			console.log("feedCount : "+feedCount);
-            			  			image.src = "<%=request.getContextPath()%>/"+Object.values(mediaSet[0]);
+            			  			image.src = ""+Object.values(mediaSet[0]);
             			  			image.onload = function(){
             			  				console.log("두번째             이미지 온로드");
             			  				
@@ -757,7 +757,7 @@ if(request.getSession().getAttribute("userNo") == null)
    var timer;
    var audiosetting=1;
   
-   var audio = new Audio('../audio/alarm.mp3');
+   var audio = new Audio('audio/alarm.mp3');
    var audioflag1;
    var audioflag2;
    var audioflagc1;
@@ -1948,7 +1948,6 @@ var heightt;
 
     $(document).scroll(function noteScroll(){
     	var position = $(window).scrollTop();
-    	console.log(heightt);
     	 $('#chatroom').css('top', position+100);
     	 $('#supportMainDiv').css('top', position+100);
     	 $('#chatroomfriendroom').css('top', position+100);
@@ -1959,7 +1958,7 @@ var heightt;
 
 </script>
 
-     <script type="text/javascript" src="../js/mainJs.js"></script>
+     <script type="text/javascript" src="js/mainJs.js"></script>
 
 
 </body>

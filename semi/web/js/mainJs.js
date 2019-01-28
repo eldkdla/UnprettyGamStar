@@ -47,7 +47,7 @@
 	    }
 	    else{
 	    	 $.ajax({
-	 	    	url:"../mainsearchservlet",
+	 	    	url:"./mainsearchservlet",
 	 	    	data:{"searchStr":searchStr},
 	 	    	success: function(data){
 	 	    		console.log("서치 통신");
@@ -60,7 +60,7 @@
 	 	    		
 	 	    		for(var i = 0; i<Object.keys(data[0]).length; i++){
 	 	    			$('#searchNull').remove();
-	 	    			$('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=../' + data[0]["follow"+i].profilePhoto + '></div><div class="searchNick"><a class="searchNickLink" href="/">' + data[0]["follow"+i].userName + '</a></div></div>');	
+	 	    			$('#infoBox').append('<div class="searchPeople"><div class="searchImgWrap"><img class="searchImg" src=' + data[0]["follow"+i].profilePhoto + '></div><div class="searchNick"><a class="searchNickLink" href="http://localhost:9090/GamStar/view/profile?uu='+data[0]["follow"+i].userNo+'">' + data[0]["follow"+i].userName + '</a></div></div>');	
 	 	    		}
 	 	    		
 
@@ -72,6 +72,8 @@
 	 	    	
 	 	    })
 	    }
+	    
+	    
 	    
 	    console.log(searchStr);
 	   
@@ -353,7 +355,7 @@
 	    var newspeedNo =  $('#feedBody .feed:eq(' + feedIndex + ') .feedLink').text();
 	    
         $.ajax({  
-            url:"../newspeed/newspeedlike",
+            url:"./newspeed/newspeedlike",
             data:{"newspeedNo":newspeedNo},
             success: function(data){
             	
@@ -430,12 +432,12 @@
 		       console.log(rootNo);
 
 		       $.ajax({
-		    	   url:"../newspeed/newspeedrecomment",
+		    	   url:"./newspeed/newspeedrecomment",
 		    	   data:{"newspeedNo":newspeedNo,"commentContent":userComment,"rootCommentNo":Number(rootNo)},
 		    	   success: function(data2){
 		    		   console.log("답덥글 통신");
 		    		   
-		    		   data = JSON.parse(data2);
+		    		   var data = JSON.parse(data2);
 
 		    		   console.log(data);
 		    		   console.log(data[0]["recommentList"]);
@@ -448,7 +450,7 @@
 								console.log('받아지냐?');
 								
 								console.log("코맨트 푸쉬---------------------");
-											if(data[0] == data[i-1].userNo){
+											if(data[i-1].isMine){
 												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
 											}
 											else{
@@ -462,7 +464,7 @@
 											console.log("루트 들어옴~");
 											for(var j=0; j<data[i-1].recommentList.length; j++){
 												console.log("루트 푸쉬");
-												if(1 == data[i-1].recommentList[j]["userNo"]){
+												if(data[i-1].isMine){
 													$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
 												}
 												else{
@@ -497,7 +499,7 @@
 		       console.log(rootNo);
 
 		       $.ajax({
-		    	   url:"../mainnewspeedrecommentservlet",
+		    	   url:"./mainnewspeedrecommentservlet",
 		    	   data:{"newspeedNo":newspeedNo,"commentContent":userComment,"rootCommentNo":rootNo},
 		    	   success: function(data){
 		    		   console.log("답덥글 통신");
@@ -559,7 +561,7 @@
 		console.log("코멘트 번호 : "+commentNo);
 		console.log("피드 번호 : "+feedNo);
 		 $.ajax({
-			url:"../newspeed/newspeedcommentdelete",
+			url:"./newspeed/newspeedcommentdelete",
 			data:{"newspeedNo":feedNo,"commentNo":commentNo},
 			success: function(data2){
 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
@@ -625,7 +627,7 @@
 
 	        
 	        $.ajax({  //코멘트 받아오기 
-	             url:"../mainnewspeedcommentservlet",
+	             url:"./mainnewspeedcommentservlet",
 	             data:{"newspeedNo":newspeedNo,"commentContent":userComment},
 	             success: function(data){
 	            	 console.log("코멘트 통신성공");
@@ -695,7 +697,7 @@
 	     
 	        
 	         $.ajax({  //코멘트 받아오기 
-	             url:"../newspeed/newspeedcommentwrite",
+	             url:"./newspeed/newspeedcommentwrite",
 	             data:{"newspeedNo":newspeedNo,"commentContent":userComment},
 	             success: function(data2){
 	            	 console.log("코멘트 통신성공");
@@ -704,31 +706,32 @@
 	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .commentSort').remove();
 	 	     	     $('#feedBody .feed:eq(' + feedIndex + ') .rootCommentSort').remove();
 						
-						data = JSON.parse(data2);
+					var data = JSON.parse(data2);
+					console.log(data);
 	            	 
 	            	 var commentSize = data.length;
 						for(var i=commentSize; i>0; i--){ //코멘트 셋팅
 							console.log('받아지냐?!!!');
 							console.log("코맨트 푸쉬---------------------");
 										if(data[i-1].isMine){
-											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"><p class="writeRootComment">답글달기</p><p class="delteComment">삭제</p></div> </div>');   										
 										}
 										else{
-											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
+											$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="commentSort"><p class="commentRootNo">'+data[i-1].rootCommentNo+'</p><p class="commentNo">'+data[i-1].commentNo+'</p><div class="commentNick">' + data[i-1].userName + '</div><div class="comment">' + data[i-1].commentContent + '</div> <div class="commentEditeWrap"> <p class="writeRootComment">답글달기</p></div> </div>');    										
 										}
 									
 
-									var rootCommentSize = data[i-1].recommentList.length;
+									var rootCommentSize = data[i-1].recommentList.length; 
 									console.log(rootCommentSize);
 									if(!rootCommentSize == "0"){
 										console.log("루트 들어옴~");
 										for(var j=0; j<data[i-1].recommentList.length; j++){
 											console.log("루트 푸쉬");
 											if(data[i-1].isMine){
-												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].recommentList[j]["rootCommentNo"]+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> <div class="commentEditeWrap"><p class="delteComment">삭제</p></div> </div>');   										
 											}
 											else{
-												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
+												$('#feedBody .feed:eq(' + feedIndex + ') .commentWrap .commentBody').append('<div class="rootCommentSort"><p class="commentRootNo">'+data[i-1].recommentList[j]["rootCommentNo"]+'</p><p class="commentNo">'+data[i-1].recommentList[j]["commentNo"]+'</p><div class="rootCommentNick">' + data[i-1].recommentList[j]["userName"] + '</div><div class="rootComment">' + data[i-1].recommentList[j]["commentContent"] + '</div> </div>');    										
 											}	
 										}
 										
