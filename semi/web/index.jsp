@@ -8,7 +8,8 @@ int userNo = 1;
 if(request.getSession().getAttribute("userNo") == null)
 {
 	response.sendRedirect(request.getContextPath()+"/view/login.jsp");
-}else
+}
+else
 {
 	login = (int)request.getSession().getAttribute("userNo") + "";
 	userNo = (int)request.getSession().getAttribute("userNo");
