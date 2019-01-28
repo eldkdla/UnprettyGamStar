@@ -40,8 +40,8 @@ public class AddFriendListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ArrayList<User> arr=new ArrayList<User>();
-		//int userNo=(int)request.getSession().getAttribute("userNo");
-		int userNo=1;
+		int userNo=(int)request.getSession().getAttribute("userNo");
+		//int userNo=1;
 		arr=new FriendListService().callFriendList(userNo);
 		
 		

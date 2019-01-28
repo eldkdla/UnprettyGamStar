@@ -37,8 +37,8 @@ public class PreviewChatLisitServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//String userId="user10";
-		//int myNo=(int)request.getSession().getAttribute("userNo");
-		int myNo=1;
+		int myNo=(int)request.getSession().getAttribute("userNo");
+		//int myNo=1;
 		ArrayList<PreiviewChatList> previewlist=new ArrayList<PreiviewChatList>();
 		previewlist=new PreviewChatListService().callPreviewChatList(myNo);
 		/*for(int i=0;i<previewlist.size();i++) {
