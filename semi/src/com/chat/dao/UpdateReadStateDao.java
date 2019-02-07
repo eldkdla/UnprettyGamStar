@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class UpdateReadStateDao {
 	Properties prop=new Properties();
-	//ResultSet rs=null;
+	ResultSet rs=null;
 	public UpdateReadStateDao() {
 		String fileName=CreateChatroomNoDao.class.getResource("./chatquery.properties").getPath();
 		try {
@@ -20,10 +20,14 @@ public class UpdateReadStateDao {
 			e.printStackTrace();
 		}
 	}
-	public int updateReadState(Connection conn, int chatNo) {
+	public int updateReadState(Connection conn, int chatNo, int myNo) {
 		PreparedStatement pstmt=null;
-		String sql=prop.getProperty("updateReadState");
+		PreparedStatement pstmt2=null;
+		
 		int result=0;
+		
+		
+		String sql=prop.getProperty("updateReadState");
 		try 
 		{
 			System.out.println(sql);

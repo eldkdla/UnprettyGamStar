@@ -1,11 +1,13 @@
 @charset "UTF-8";
 
 /* login */
-section#login-container {
+section#login-container {	
 	width: 600px;
+	position:relative;
 	min-width:600px;
-	margin: 0 auto;
+	left:50%;
 	text-align: center;
+	transform:translate(-50%,15%);
 }
 
 #xxx {

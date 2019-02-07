@@ -60,7 +60,7 @@ public class MailSendServlet extends HttpServlet {
 		//String content = request.getParameter("content");//보내질 내용
 		String randomNo = randomNum();
 		
-		String content = "메일이 잘 도착하나요?<br>인증번호는 : [ "+randomNo+" ] 입니다.";//보내질 내용
+		String content = "인증번호는 : [ "+randomNo+" ] 입니다.";//보내질 내용
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		

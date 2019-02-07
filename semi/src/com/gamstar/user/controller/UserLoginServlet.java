@@ -89,8 +89,13 @@ public class UserLoginServlet extends HttpServlet {
 				HttpSession session=request.getSession();//세션생성~!
 				session.setAttribute("userNo", data.getNo());
 				//response.sendRedirect(request.getContextPath()+"index.jsp");
+				if(data.getNo()<0)
+				{
+					response.sendRedirect(request.getContextPath()+"/admin/goAdminMain");
+				}
+				else {
 				response.sendRedirect(request.getContextPath()+"/");
-				
+				}
 				System.out.println("서블렛 ? : "+(int)request.getSession().getAttribute("userNo"));
 
 			}
