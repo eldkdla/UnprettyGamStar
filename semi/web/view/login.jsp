@@ -16,8 +16,8 @@
 	response.sendRedirect(request.getContextPath()+"/");
 }
 %>
-<h3>로그인 페이지다요.</h3>
-<section id="login-container">
+<!-- <h3>로그인 페이지다요.</h3> -->
+<section id="login-container" style='margin-top:30px;'>
 	<div id="loginLayout">
 		<div id="xxx">
 			<img id="welcome" src="<%=request.getContextPath()%>/img/login/login.png" width="200px" height="200px">
