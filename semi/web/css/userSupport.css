@@ -1,0 +1,165 @@
+
+ /*문의하기*/
+  #supportMaincloseBtn,#confirmSupportCloseBtn{
+        background-color: transparent !important;
+        background-image: none !important;
+        border-color: transparent;
+        border: none;
+        float: right;
+        width: 28px;
+        height: 20px;
+        font-size: 17px;
+        color: rgb(221, 221, 221);
+        user-select: none;
+        cursor: pointer;
+
+
+    }
+    #supportMaincloseBtn,#confirmSupportCloseBtn{
+        color:rgb(255, 255, 255);
+    }
+ 
+    .supportMain{
+    	z-index: 4500000000;
+        display: none;
+        position: absolute;
+        width: 500px;
+        height: 455px;
+        left:0px; top:0px;
+        border: 1.1px solid black;
+        box-shadow: 0px 0px 5px 1px rgb(146, 146, 146);
+        background-color: rgb(255, 255, 255);
+        
+    }
+    #supportMainStatus,#confirmSupportMainStatus {
+        background-color: black;
+        height: 28px;
+        width: 500px;
+        left:0px; top:0px;
+        position: absolute;
+        cursor: pointer;
+        
+    }
+    #supportDiv{
+    top:5px;
+        position: relative;
+        left: 5px;
+        width: 495px;
+        height: 335px;
+    }
+    #supportTitle{
+        position: relative;
+        width: 500px;
+        height: 30px;
+
+    }
+    #supportTitleInput{
+        position: relative;
+        left: 40px;
+        width: 400px;
+    }
+    #supportTitleSpan{
+        position: relative;
+        left: 35px;
+        font-weight: bold;
+        font-size: 14px;
+        font-family: 'Gothic A1', sans-serif;
+    }
+    #supportContent{
+        position: relative;
+        width: 500px;
+        height: 280px;
+        top: 10px;
+    }
+    #supportContentSpan{
+        position: relative;
+        left: 35px;
+        bottom: 240px;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+    }
+    #supportContentTextArea{
+        position: relative;
+        left: 40px;
+        width: 400px;
+        height: 250px;
+        resize: none;
+    }
+    #supportFile{
+        position: relative;
+        width: 480px;
+        height: 30px;
+        bottom:5px;
+
+    }
+    #supportFileSpan{
+        position: relative;
+        left: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        font-family: 'Gothic A1', sans-serif;
+    }
+    #supportFileInput{
+        font-family: 'Gothic A1', sans-serif;
+        font-size: 13px;
+        position: relative;
+        left: 14px;
+        width: 400px;
+    }
+    #supportBottom{
+    
+        position: relative;
+        height: 40px;
+        text-align: center;
+    }
+    #supportSubmit{
+        top:3px;
+        color: white;
+        font-family: 'Gothic A1', sans-serif;
+        border: none;
+        cursor: pointer;
+        position: relative;
+        width: 75px;
+        height: 33px;
+        right: 20px;
+        background-color: rgb(75, 159, 255);
+        border-radius: 5px;
+        float: right;
+    }
+    #confrimSupportContents{
+    	position: relative;
+    	top: 13px;
+    	height: 369px;
+    	border-top: 2px solid black;
+    	overflow-y: scroll;
+        -ms-overflow-style: none;
+    }
+    
+    #confrimSupportContents::-webkit-scrollbar {
+
+        display:none;
+
+    }
+    .xxx{
+        	border-bottom: 2px solid black;
+        }
+    .xx{
+        	text-align: center;
+        	font-size: 14px;
+        	font-family: 'Gothic A1', sans-serif;
+        }
+    #aSupportIndexBtn{
+        	position: relative;
+        	color: white; 
+        	font-family: 'Gothic A1', sans-serif; 
+        	border: none;
+    		top:15px;
+	        cursor: pointer;
+	        position: relative;
+	        width: 65px;
+	        height: 33px;
+	        background-color: rgb(75, 159, 255);
+	        border-radius: 5px;
+        
+        }

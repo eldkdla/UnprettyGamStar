@@ -20,6 +20,8 @@
 			{
 				clientId: "fqOHJi8WFN9_xpysEVQG",
 				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
+				 //callbackUrl: "http://192.168.20.28:9090/GamStar/view/ncallback.jsp",
+				 //callbackUrl: "http://192.168.43.213:9090/GamStar/view/ncallback.jsp",
 				<%-- callbackUrl: "<%=request.getContextPath()%>/view/ncallback.jsp", --%>
 				isPopup: true,
 				callbackHandle: true	/* callback 페이지가 분리되었을 경우에 callback 페이지에서는 callback처리를 해줄수 있도록 설정합니다. */
@@ -54,7 +56,7 @@
 					var uniqId = naverLogin.user.getId();
 					var age = naverLogin.user.getAge();
 					
-					console.log("테스트부분");
+					//console.log("테스트부분");
 					
 					//var token = naverLogin.accessToken();
 					//console.log("토큰 : "+token);
@@ -63,7 +65,7 @@
 					
 					//alert("한박자쉬고");
 					opener.setNaverData(uniqId, email, name, window);
-					console.log("자식창은 언제 빠이빠이?")
+					//console.log("자식창은 언제 빠이빠이?")
 					//console.log("정보 : "+email+" : "+name+" : "+profileImage+" : "+birthday+" : "+uniqId+" : "+age+"끗");
 					//console.log(email);
 					
@@ -95,7 +97,7 @@
 				
 					//window.location.replace("http://" + window.location.hostname + ( (location.port==""||location.port==undefined)?"":":" + location.port) + "/njst/views/user/nlogin.jsp");		//처리후에 되돌아갈 곳
 				} else {
-					console.log("callback 처리에 실패하였습니다.");
+					//console.log("callback 처리에 실패하였습니다.");
 				}
 				window.close();
 			});

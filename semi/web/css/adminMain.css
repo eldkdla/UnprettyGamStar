@@ -1,0 +1,1101 @@
+
+#navi {
+    position:fixed;
+    width: 100%;
+    height: 60px;
+    top:0;
+    left:0px;
+    background-color: white;
+    background-size: 100%;
+    border: 1px solid darkgray;
+    z-index: 3;
+}
+
+.iconBack {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 0%;
+            top: 50%;
+            transform: translate(-0%,-50%);
+            background-color: cornflowerblue;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+}
+
+
+#iconBackImg{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            cursor: pointer;
+}
+
+#gamstarLogo{
+    position: absolute;
+    width: 140px;
+    height: 50px;
+    left:10.5%;
+    top:50%;
+    transform:translate(-10.5%,-50%);
+}
+
+#gamstarTitle{
+            position: absolute;
+
+            font-size: 32px;
+            color: black;
+          left: 15%;
+            top:-50%;
+
+         cursor: pointer;
+}
+#naviWrap{
+            position: absolute;
+            width: 450px;
+            height: 10px;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Courgette', cursive;
+
+}
+
+
+#naviIconWrap{
+        position: absolute;
+        /* background-color: gray; */
+        width: 160px;
+        height: 70px;
+        left: 100%;
+        top: 50%;
+        transform: translate(-100%,-50%);
+        opacity: 1;
+        }
+
+
+#myHomIcon{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 0%;
+            top: 50%;
+            transform: translate(-0%, -50%);
+            background-color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+        }
+        
+        #myHomIconImg{
+           position: relative;
+           width: 45px;
+           height: 45px;
+           left: 50%;
+           top: 50%;
+           transform: translate(-50%,-50%);
+        }
+
+        #alramIcon{
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            position: absolute;
+            width: 20px;
+            height:20px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: gray;
+            border-radius: 100%;
+            opacity: 1;
+        }
+        
+
+        #slideIcon{
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            position: absolute;
+            width: 50px;
+            height:50px;
+            left: 100%;
+            top: 50%;
+            transform: translate(-100%, -50%);
+            background-color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+        }
+        
+        #slideIconImg{
+           position: relative;
+           width: 45px;
+           height: 45px;
+           left: 50%;
+           top: 50%;
+           transform: translate(-50%,-50%);
+        }
+
+        #slideBox{
+            position: absolute;
+            display: block;
+            width: 130px;
+            height: 230px;
+            left: 72px;
+            top: 70px;
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid black;
+            overflow: hidden;
+            display: none;
+        }
+
+             
+        #infoChange{
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .infoChangeText{
+            position: absolute;
+            width: 95px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .infoChangeText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #chatting{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .chattingText{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+
+            /* background-color: red; */
+        }
+
+        .chattingText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #contactBoard{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .contactBoardText{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .contactBoardText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #logout{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .logoutText{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .logoutText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+@media all and (max-width:600px){
+    /* 상단바 */
+/*     div#adminUpsideBar{
+		width:320px;
+		height:50px;
+		margin:0 auto;
+	} */
+	div#logo{
+		vertical-align: middle;
+		font-family: 'Courgette', cursive;
+	}
+	div#logo>p#logoTitle{
+		font-size: 40px;
+		line-height: 2;
+	}
+	div#adminLogin-container{
+		font-family: 'Nanum Gothic', sans-serif;
+		display:none;
+	}
+    /* 기본 틀 잡는 용 */
+    body{
+        text-align: center;
+        color: black;
+        width: 320px;
+        height:100%;
+        margin: 0 auto;
+    }
+    div#wrapper{
+    width:100%;
+    text-align: center;
+    min-height: 500px;
+    margin: 0 auto;
+    }
+    /*header, */footer, nav#adminNav, aside, section{
+    /* border: 1px solid black; */
+    margin: 3px;
+    padding: 8px;
+    }
+
+    header{
+    /* height: 150px; */
+    height:8%;
+    margin:0;
+    padding:0;
+    }
+
+    nav#adminNav{
+        width: 80%;
+        text-align: left;
+        display:none;
+    }
+    nav#adminNav>p{
+    text-align: center; 
+    width:100%; 
+    font-family: 'Nanum Gothic', sans-serif;
+    }
+    nav#adminNav>p>img{
+    width :50px; 
+    opacity: 0.5; 
+    display: inline-block;
+    cursor : pointer;
+    }
+    nav#adminNav>ul{
+    padding: 0;
+    margin: 0;
+    }
+    nav#adminNav>ul>li{
+    list-style: none;
+    }
+    nav#adminNav>ul>li:first-of-type{
+        text-align: center;
+    }
+    nav#adminNav>ul>li>input[type=text]{
+    width:60%;
+    }
+    nav#adminNav>ul>li>button>img{
+    width:18px; 
+    opacity: 0.5;
+    }
+    nav#adminNav>ul>li>a>img{
+    width:25px; 
+    opacity: 0.5; 
+    margin:0; 
+    padding:0;
+    }
+
+    section{
+    /* border:1px solid black; */
+    float:left;
+    width: 320px;
+    }
+
+    footer{
+    height: 100px;
+    position: relative;
+    clear: both;
+    }
+
+    #pageName{
+    text-align: left;
+    }
+    #mainMenu{
+    margin: 5px;
+    width: 320px;
+    height: 50px;
+    /* border: 1px solid black; */
+    }
+
+
+    /* 사이드 (nav#adminNav) 버튼 */
+    .sideBtn{
+    width:100%;
+    padding:15px 0;
+    cursor:pointer;
+    font-family:'Nanum Gothic','sans-serif';
+    font-size:15px;
+    text-decoration: none;
+    color:black;
+    display:inline-block;
+    text-align: center;
+    vertical-align: middle;
+    }
+    .sideBtn:hover{
+    width:100%;
+    border-left:5px solid black;
+    color:black;
+    padding:15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic','sans-serif';
+    cursor: pointer;
+    }
+
+    .searchBtn{
+    border-top-right-radius:8px;
+    border-bottom-right-radius:8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin:0;
+    padding:0;
+    border:none;
+    background-color: white;
+    cursor: pointer;
+    }
+    .searchBtn:hover{
+    opacity: 0.8;
+    }
+    .searchBtn:focus{
+    outline: none;
+    }
+    .searchBtn>img{
+    width:18px; 
+    opacity: 0.5;
+    }
+
+    #pageName{
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Nanum Gothic','sans-serif';
+    }
+
+    /* 아래쪽 페이지 바꾸는 용도 */
+    .pageChange{
+    text-align: center;
+    }
+    .pageChange a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.7);
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+    .pageChange a:hover{
+    text-decoration: none;
+    color:white;
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color:lightgray;
+    border-radius: 10px 10px 10px 10px;
+
+    }
+    .cPage span{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.9);
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+    #back{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+    #next{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+
+    /* 모바일 등 작은 페이지 메뉴 여는 버튼 */
+    div#openMenuDiv{
+        width:100%;
+        text-align: left;
+    }
+    button#openMenu{
+        margin-left:5px;
+        display:inline-block;
+        border:none;
+        background-color: rgba(0, 0, 0, 0);
+        position: fixed;
+        border-top-right-radius:5px;
+        border-bottom-right-radius:5px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    button#openMenu:focus{
+        outline: none;
+        background-color: rgba(0,0,0,0.3);
+    }
+    button#openMenu>img{
+        width:30px;
+    }
+} 
+
+@media all and (min-width:601px) and (max-width:1066px){
+
+   /* 기본 틀 잡는 용 */
+   body{
+        text-align: center;
+        color: black;
+        width: 600px;
+        height:100%;
+        margin: 0 auto;
+    }
+    div#wrapper{
+        width:100%;
+        text-align: center;
+        min-height: 500px;
+        margin: 0 auto;
+        margin-top:100px;
+    }
+
+    header{
+        /* height: 150px; */
+         width: 600px;
+        margin:0;
+        padding:0;
+    }
+
+    /* 사이드메뉴가 들어간 nav#adminNav를 메인메뉴 밑으로 올린다 */
+    nav#adminNav{
+        width: 100%;
+        height:45px;
+        text-align: center;
+        padding:0;
+        margin:0;
+    }
+    nav#adminNav>br{
+        display:none;
+    }
+    nav#adminNav>p{
+        display:none;
+    }
+    nav#adminNav>ul{
+        padding: 0;
+        margin: 0;
+    }
+    nav#adminNav>ul>li{
+        list-style: none;
+        display:inline-block;
+        padding:0;
+        margin:0;
+    }
+
+    /* 검색버튼 삭제 */
+    nav#adminNav>ul>li>input[type=text]{
+        width:80%;
+        display:none;
+    }
+    nav#adminNav>ul>li>button{
+        display:none;
+        width:18px;
+        opacity: 0.5;
+    }
+    nav#adminNav>ul>li>a>img{
+    width:25px; 
+    opacity: 0.5; 
+    margin:0; 
+    padding:0;
+    }
+
+    /* 내용 section 설정 */
+    section{
+    /* border:1px solid black; */
+    float:left;
+    width: 100%;
+    margin-top:15px;
+    }
+    section>br:first-of-type{
+        display:none;
+    }
+    
+    footer{
+    height: 100px;
+    position: relative;
+    clear: both;
+    }
+
+    #pageName{
+    text-align: left;
+    }
+    #mainMenu{
+    margin: 5px;
+    width: 100%;
+    height: 50px;
+    /* border: 1px solid black; */
+    }
+
+
+    /* 사이드 (nav#adminNav)의 버튼 */
+    .sideBtn{
+    width:100px;
+    height:40px;
+    padding:0;
+    cursor:pointer;
+    font-family:'Nanum Gothic','sans-serif';
+    font-size:15px;
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.7);
+    display:inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 5px solid rgba(0,0,0,0.3);
+    }
+    .sideBtn:hover{
+    border-bottom-color:black;
+    color:black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic','sans-serif';
+    cursor: pointer;
+    opacity: 1.2;
+    }
+
+    .searchBtn{
+    border-top-right-radius:8px;
+    border-bottom-right-radius:8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin:0;
+    padding:0;
+    border:none;
+    background-color: white;
+    cursor: pointer;
+    }
+    .searchBtn:hover{
+    opacity: 0.8;
+    }
+    .searchBtn:focus{
+    outline: none;
+    }
+    .searchBtn>img{
+    width:18px; 
+    opacity: 0.5;
+    }
+
+    /* 각 페이지 명칭 */
+    #pageName{
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Nanum Gothic','sans-serif';
+    }
+
+    /* 아래쪽 페이지 바꾸는 용도(다음 페이지/ 이전 페이지) */
+    .pageChange{
+    text-align: center;
+    }
+    .pageChange a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.7);
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+    .pageChange a:hover{
+    text-decoration: none;
+    color:white;
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color:lightgray;
+    border-radius: 10px 10px 10px 10px;
+
+    }
+    #back{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+    #next{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+
+    /* 모바일 등 작은 페이지 메뉴 여는 버튼 */
+    button#openMenu{
+        display:none;
+    }
+}
+
+@media all and (min-width:1067px){
+    /* 기본 틀 잡는 용 */
+    body{
+    text-align: center;
+    color: black;
+    width: 1050px;
+    height:100%;
+    margin: 0 auto;
+    }
+    div#wrapper{
+    width:100%;
+    text-align: center;
+    min-height: 500px;
+    margin: 0 auto;
+    margin-top:100px;
+    }
+    /*header, */footer, nav#adminNav, aside, section{
+    /* border: 1px solid black; */
+    margin: 3px;
+    padding: 8px;
+    }
+
+    header{
+    /* height: 150px; */
+    width: 1050px;
+    margin:0;
+    padding:0;
+    }
+
+    nav#adminNav, aside{
+    float: left;
+    height: 800px;
+    }
+
+    /* 서브메뉴 */
+    nav#adminNav{
+    width: 150px;
+    text-align: left;
+    }
+    nav#adminNav>p{
+    text-align: center; 
+    width:100%; 
+    font-family: 'Nanum Gothic', sans-serif;
+    }
+    nav#adminNav>p>img{
+    width :50px; 
+    opacity: 0.5; 
+    display: inline-block;
+    }
+    nav#adminNav>ul{
+    padding: 0;
+    margin: 0;
+    }
+    nav#adminNav>ul>li{
+    list-style: none;
+    }
+    nav#adminNav>ul>li>input[type=text]{
+    width:75%;
+    }
+    nav#adminNav>ul>li>button>img{
+    width:18px; 
+    opacity: 0.5;
+    }
+    nav#adminNav>ul>li>a>img{
+    width:25px; 
+    opacity: 0.5; 
+    margin:0; 
+    padding:0;
+    }
+
+    /* section 의 css */
+    section{
+    /* border:1px solid black; */
+    float:left;
+    width: 850px;
+    }
+    aside{
+    width: 150px;
+    }
+
+    footer{
+    height: 100px;
+    position: relative;
+    clear: both;
+    }
+
+    #pageName{
+    text-align: left;
+    }
+    #mainMenu{
+    margin: 5px;
+    width: 1000px;
+    height: 50px;
+    /* border: 1px solid black; */
+    }
+
+
+    /* 사이드 (nav#adminNav)의 버튼(서브메뉴) */
+    .sideBtn{
+    width:100%;
+    padding:15px 0;
+    cursor:pointer;
+    font-family:'Nanum Gothic','sans-serif';
+    font-size:15px;
+    text-decoration: none;
+    color:black;
+    display:inline-block;
+    text-align: center;
+    vertical-align: middle;
+
+    }
+    .sideBtn:hover{
+    width:100%;
+    border-left:5px solid black;
+    color:black;
+    padding:15px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic','sans-serif';
+    cursor: pointer;
+    }
+
+    /* 검색 버튼 */
+    .searchBtn{
+    border-top-right-radius:8px;
+    border-bottom-right-radius:8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin:0;
+    padding:0;
+    border:none;
+    background-color: white;
+    cursor: pointer;
+    }
+    .searchBtn:hover{
+    opacity: 0.8;
+    }
+    .searchBtn:focus{
+    outline: none;
+    }
+    .searchBtn>img{
+    width:18px; 
+    opacity: 0.5;
+    }
+
+    /* 페이지 이름 */
+    #pageName{
+    text-align: center;
+    font-size: 25px;
+    font-family: 'Nanum Gothic','sans-serif';
+    }
+
+    /* 아래쪽 페이지 바꾸는 용도 (이전페이지/ 다음페이지)*/
+    .pageChange{
+    text-align: center;
+    }
+    .pageChange a{
+    text-decoration: none;
+    color:rgba(0, 0, 0, 0.7);
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    }
+    .pageChange a:hover{
+    text-decoration: none;
+    color:white;
+    margin:3px;
+    padding:3px;
+    padding-left: 8px;
+    padding-right: 8px;
+    background-color:lightgray;
+    border-radius: 10px 10px 10px 10px;
+
+    }
+    #back{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #back:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+    #next{
+    width:50px;
+    background-color: white;
+    border:none;
+    color:black;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:hover{
+    width:50px;
+    border:none;
+    background-color: black;
+    color:white;
+    padding:5px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 4px;
+    cursor: pointer;
+    border-top-right-radius:25px;
+    border-bottom-right-radius:25px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    }
+    #next:focus{
+    outline: none;
+    background-color: rgba(0, 0, 0, 0.7);
+    color:white;
+    }
+
+    /* 모바일 등 작은 페이지 메뉴 여는 버튼 */
+    button#openMenu{
+        display:none;
+    }
+
+}

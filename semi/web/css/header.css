@@ -1,0 +1,518 @@
+@CHARSET "UTF-8";
+
+
+
+#navi {
+    position:fixed;
+    width: 100%;
+    height: 60px;
+    top:0;
+    background-color: white;
+    background-size: 300%;
+    border: 1px solid darkgray;
+    z-index: 200;
+}
+
+.iconBack {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: -30%;
+            top: 50%;
+            transform: translate(-0%,-50%);
+            background-color: cornflowerblue;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+}
+
+
+#iconBackImg{
+            position: relative;
+            width: 30px;
+            height: 30px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            cursor: pointer;
+}
+
+#gamstarLogo{
+    position: absolute;
+    width: 140px;
+    height: 50px;
+    left:-18.5%;
+    top:50%;
+    transform:translate(-10.5%,-50%);
+}
+
+#gamstarTitle{
+            position: absolute;
+
+            font-size: 32px;
+            color: black;
+          left: 15%;
+            top:-50%;
+
+         cursor: pointer;
+}
+#naviWrap{
+            position: absolute;
+            width: 450px;
+            height: 10px;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Courgette', cursive;
+         
+}
+
+
+#naviIconWrap{
+        position: absolute;
+        /* background-color: gray; */
+        width: 160px;
+        height: 70px;
+        left: 120%;
+        top: 50%;
+        transform: translate(-100%,-50%);
+        opacity: 1;
+        
+        }
+
+
+      #myHomIcon{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            left: 0%;
+            top: 50%;
+            transform: translate(-0%, -50%);
+            background-color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+        }
+        
+        #myHomIconImg{
+           position: relative;
+           width: 45px;
+           height: 45px;
+           left: 50%;
+           top: 50%;
+           transform: translate(-50%,-50%);
+        }
+
+        #alramIcon{
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            position: absolute;
+            width: 20px;
+            height:20px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: gray;
+            border-radius: 100%;
+            opacity: 1;
+        }
+        
+
+        #slideIcon{
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            position: absolute;
+            width: 50px;
+            height:50px;
+            left: 100%;
+            top: 50%;
+            transform: translate(-100%, -50%);
+            background-color: white;
+            border-radius: 50px;
+            cursor: pointer;
+            opacity: 1;
+        }
+        
+        #slideIconImg{
+           position: relative;
+           width: 45px;
+           height: 45px;
+           left: 50%;
+           top: 50%;
+           transform: translate(-50%,-50%);
+        }
+
+        #slideBox{
+            position: absolute;
+            display: block;
+            width: 130px;
+            height: 285px;
+            left: 72px;
+            top: 70px;
+            background-color: white;
+            border-radius: 10px;
+            border: 1px solid black;
+            overflow: hidden;
+            display: none;
+        }
+
+             
+        #infoChange{
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .infoChangeText{
+            position: absolute;
+            width: 95px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .infoChangeText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #chatting{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .chattingText{
+        	color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+
+            /* background-color: red; */
+        }
+
+        .chattingText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #contactBoard{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+        #contactBoard2{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .contactBoardText{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .contactBoardText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #logout{
+            position: relative;
+            width: 100%;
+            height: 40px;
+            /* background-color: red; */
+        }
+
+        .logoutText{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%);
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            /* background-color: red; */
+            cursor: pointer;
+        }
+
+        .logoutText a{
+            color: cornflowerblue;
+            font-size: 15px;
+            font-weight: bold;
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        
+           #searchBody{
+            position: absolute;
+            width: 200px;
+            height: 10px;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+        }
+
+        #search{
+            position: absolute; 
+            width: 150px;
+            left: 50%;
+            top:50%;
+            transform: translate(-50%, -50%);
+            border-radius: 30px;
+            border:0px solid gray;
+            background-color: white;
+            padding: 0px 30px;
+            outline: none;
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+        }
+        
+        #search::placeholder{
+            font-size: 14px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        #search::-webkit-search-cancel-button{
+            -webkit-appearance: none;
+        }
+        
+        #searchView{
+           position: absolute;
+            width: 18px;
+            height: 18px;
+            left: -400%:
+            top: 50%;
+            transform: translate(400%, -50%);
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            opacity:0;
+        }
+
+        #searchDelete{
+            position: absolute;
+            display:none;
+            width: 16.5px;
+            height: 16.5px;
+            left: 105%;
+            top:50%;
+            transform: translate(-105%, -50%);
+            cursor: pointer;
+            display: none;
+        }
+
+        #infoBox{
+            position: relative;
+            width: 400px;
+            height: 0px;
+            left: 50%;
+            top: 30px;
+            transform: translate(-50%);
+            transition: ease-in-out;
+            transition-duration: 0.7s;
+            background-color: white;
+            border-radius: 35px;
+            border: 0px solid gray;
+            overflow-x: hidden;
+        }
+      
+        #infoBox::-webkit-scrollbar{
+            
+            background-color: red;
+            border-radius: 10px;
+            display: none;
+        }
+        /* #infoBox::-webkit-scrollbar {
+            width: 10px;
+        } */
+
+        #infoBox::-webkit-scrollbar-track {
+            background: gainsboro; border-radius: 10px; 
+            width: 10px;
+            height: 10px;
+            }
+        #infoBox::-webkit-scrollbar-thumb {  
+            background: white;  border-radius: 10px; 
+            width: 20px;
+            }
+
+    @keyframes addInfoBox{
+        from{
+            height: 0px;
+        }
+        to{
+            height: 150px;
+        }
+    }
+
+    @keyframes removeInfoBox{
+        from{
+            height: 200px;
+        }
+        to{
+            height: 0px;
+        }
+    }
+
+    .infoBox{
+        animation: ease-in-out;
+        animation-name: addInfoBox; 
+        animation-duration: 0.5s;
+        animation-fill-mode:forwards;
+        animation-play-state: running;
+    }
+
+    .removeInfoBox{
+        animation: ease-in-out;
+        animation-name: removeInfoBox; 
+        animation-duration: 0.5s;
+        animation-fill-mode:forwards;
+        animation-play-state: running;
+    }
+
+    #infoSentence{
+        position: absolute;
+        width: 325px;
+        font-size: 35px;
+        font-family: 'Quicksand', sans-serif;
+        left: 50%;
+        top:50%;
+        font-weight: bold;
+        transform: translate(-50%, -50%);
+        transition: ease-in-out;
+        transition-duration: 0.5s;
+        opacity: 0;
+    }
+
+    @keyframes searchPeople{
+        from{
+            opacity: 0;
+        }
+        to{
+            opacity: 1;
+        }
+    }
+    
+
+    .searchPeople{
+        position: relative;
+
+        width: 270px;
+        height: 90px;
+        left: 50%;
+        top: 3%;
+        transform: translate(-50%, -3%);
+        border: 3px solid gray;
+        border-radius: 15px;
+        margin-top: 5px;
+          cursor: pointer;
+    }
+
+    .searchImgWrap{
+        position: relative;
+        width: 55px;
+        height: 55px;
+        line-height: 72px;
+        left: 50%;
+        top: 15%;
+        transform: translate(-50%, -15%);
+        background: linear-gradient(to right, #12c2e9, #c471ed, #f64f5a);
+        border-radius: 100%;
+    }
+
+    .searchImg{
+        position: relative;
+        width: 45px;
+        height: 45px;
+        left: 50%;
+        top: 52%;
+        transform: translate(-50%, -52%);
+        border-radius: 100%;
+        border: 2px solid white;
+    }
+
+    .searchNick{
+         position: relative;
+       left: 120px;
+       top: 8px;
+    }
+    
+    .searchNick .searchNickLink{
+       text-decoration: none;
+       font-size: 15px;
+       font-weight:bold;
+       color: black;
+    }
+    
+    #searchNull{
+        position: relative;
+
+        width: 270px;
+        height: 150px;
+        left: 50%;
+        top: 3%;
+        transform: translate(-50%, -3%);
+        border-radius: 15px;
+        border: 3px solid gray;
+        margin-top: 5px;
+    }
+    
+    #searchNull #noSearchEmoticon{
+      position:relative;
+        font-family: 'Quicksand', sans-serif;
+       left: 10px;
+       top: -60px;
+       font-size: 70px;
+       color: gray;
+       font-weight: bold;
+    }
+    
+    #searchNull #noSearchSentence{
+       position: relative;
+        font-family: 'Quicksand', sans-serif;
+       left: 72px;
+       top: -130px;
+       font-size: 18px;
+       color: gray;
+       font-weight: bold;
+    
+    }

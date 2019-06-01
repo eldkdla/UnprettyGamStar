@@ -17,7 +17,11 @@ import common.encrypt.EncryptWrapper;
 		servletNames= {
 				"PasswordModifyServlet",
 				"ChkBeforePw",
-				"UnregisterServlet"
+				"UnregisterServlet",
+				"UserLoginServlet",
+				"UserEnrollServlet",
+				"CreateNewAdminServlet",
+				"ResetUserPasswordServlet"
 		}
 		)
 public class EncryptFilter implements Filter {
@@ -35,8 +39,8 @@ public class EncryptFilter implements Filter {
 		HttpServletRequest request=(HttpServletRequest)req;
 		
 		EncryptWrapper encW=new EncryptWrapper(request);
-		/*System.out.println("filter : "+encW.getParameter("newPw"));*/
-		/*System.out.println("filter : "+encW.getParameter("beforePw"));*/
+		//System.out.println("filter : "+encW.getParameter("newPw"));
+		//System.out.println("filter : "+encW.getParameter("beforePw"));
 		chain.doFilter(encW, res);	
 
 	}

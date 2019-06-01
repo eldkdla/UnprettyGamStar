@@ -306,7 +306,16 @@
        cursor: pointer;
        font-family: 'Gothic A1', sans-serif;
    }
-  
+  #chkName{
+  	   position: relative;
+       background-color: white;
+       float: right;
+       right: 90px;
+       top:5px;
+       font-size: 14px;
+       font-family: 'Gothic A1', sans-serif;
+       font-weight: bold;
+  }
   #chkEmail{
  	   position: relative;
        background-color: white;
@@ -327,18 +336,9 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
   }
-  #chkBeforePw{
- 	   position: relative;
-       background-color: white;
-       float: right;
-       right: 65px;
-       bottom: 21px;
-       font-size: 14px;
-       font-family: 'Gothic A1', sans-serif;
-       font-weight: bold;
-  }
 
-  #chkPwDiv{
+
+  .chkEmailPhonePw{
        position: relative;
        background-color: white;
        float: right;
@@ -348,16 +348,7 @@
        font-family: 'Gothic A1', sans-serif;
        font-weight: bold;
    }
-     #chkPwDv{
-      position: relative;
-       background-color: white;
-       float: right;
-       right: 65px;
-       bottom: 21px;
-       font-size: 14px;
-       font-family: 'Gothic A1', sans-serif;
-       font-weight: bold;
- 	 }
+ 
    
  }
  
@@ -368,7 +359,7 @@
  
      .fullScreen{
          width: 99%;
-         margin-top: 7%;
+         margin-top: 70px;
      }
     
      #modifyScreenMenu{

@@ -41,11 +41,13 @@ public class MyProfilePageModifyStartServlet extends HttpServlet {
 			user.setNo((int)request.getSession().getAttribute("userNo"));
 			//유저정보 가져오기
 			User userData=new UserService().selectUser(user);
+			System.out.println(userData.getNo()+" : "+userData.getName());
 			request.setAttribute("userData", userData);
 			
 			//내정보창으로 정보보내기
 			RequestDispatcher rd = request.getRequestDispatcher("/view/profileModify.jsp");
 			rd.forward(request, response);
+			return;
 			
 		}else{
 			request.setAttribute("msg", "잘못된 접근");

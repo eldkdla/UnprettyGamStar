@@ -20,7 +20,7 @@
                 }
 
                 if(!checkFile()) {
-                    alert('올릴 수 없는 파일이 존재합니다. 다시 올려주세요');
+                    profileAlert('올릴 수 없는 파일이 존재합니다. 다시 올려주세요');
                     return;
                 }
                 
@@ -32,7 +32,6 @@
 
                     fileReader.onload = function(e) {
 
-                        console.log('파일을 체크해요!');
                         var fileExt = getFileExt(uploadFiless[uploadIndex].name);
                         var mediaType = 0;
                         
@@ -57,12 +56,11 @@
                 }
 
                 function checkFile() {
-                    for (var i = 0; i < uploadFiles.length; i++) {
-                        var file = uploadFiles[i];
+                    for (var i = 0; i < uploadFiless.length; i++) {
+                        var file = uploadFiless[i];
                         var fileExt = getFileExt(file.name);
                         
-                        console.log('파일을 체크해요!');
-                        
+                
                         if (!isImage(fileExt) && ! isVideo(fileExt)) {
                             return false;
                         }
@@ -86,7 +84,6 @@
 
 
                 function setElement(e, mediaType) {
-                	console.log("빠아앙" + e.target + "뿌아앙")
                 	
                     var result = e.target.result;
                     var root = document.getElementById('media_preview');
@@ -110,8 +107,8 @@
                     	thumbnailMedia.setAttribute('src', result);
                     	$(thumbnailMediaWrapper).css('background-image', "url(" + result + ")");
                     } else {
-                    	thumbnailMedia.setAttribute('src', "/PostingEx/img/postwrite/videopreview.png");
-                    	$(thumbnailMediaWrapper).css('background-image', "url(/PostingEx/img/postwrite/videopreview.png)");
+       
+                    	$(thumbnailMediaWrapper).css('background-image', "url(../img/postwrite/videopreview.png)");
                     }
 
                     
@@ -133,7 +130,7 @@
 
                     $(thumbnailEditImg).on('click', function () {
                     	if (mediaType == 1) {
-                    		alert('동영상 편집은 지원하지 않습니다');
+                    		profileAlert('동영상 편집은 지원하지 않습니다');
                     		return;
                     	}
                     	
@@ -203,7 +200,6 @@
                     var index = $(this).parent().prevAll().length;
                     var mediaIndex = $('#media_index').val();
 
-                    console.log(index);
                     $('.effect_radio').siblings().children().css('color', 'gray');
                     $(this).siblings().children().css('color', 'black');
 
@@ -290,7 +286,7 @@
                     var left = Number($(parent).css('left').replace("px", "")) + xSub;
 
                     if (left < leftEmpty) {
-                        console.log('넌왜터질려함');
+                 
                         left = left - xSub;
                     }
 
@@ -349,7 +345,7 @@
 
                 $('.edge').on('dragend', function (e) {
                     e.stopPropagation();
-                    console.log(x + '드래그끝나용..' + y)
+                
                     if (e.pageX > 0)
                         x = e.pageX;
                     if (e.pageY > 0)
@@ -536,7 +532,7 @@
 
                             $('#tag_box').css('display', 'none');
                             $('#tag_wrapper').css('display', 'none');
-                            alert('자르기 영엮 밖에는 태그할 수 없습니다.');
+                            profileAlert('자르기 영엮 밖에는 태그할 수 없습니다.');
                             return;
                         }
                         $('input[id=xPoint]').attr('value', (x / canvas.width));
@@ -552,15 +548,14 @@
                         $('#tag_box').css('display', 'block');
                         $('#tag_wrapper').css('display', 'block');
 
-                        console.log(e.offsetX + "offset" + e.offsetY);
-
+                     
                     }
                 });
 
                 $(filterCanvas).on('mouseenter', function (e) {
-                    console.log('들어감');
+                
                     if (radios[2].checked) {
-                        console.log('들어감');
+                   
                         $(this).css('cursor', 'Crosshair');
                     } else {
                         $('#filter_canvas').css('cursor', 'default');
@@ -573,7 +568,7 @@
             function onClickPostingWhole() {
 
                 $('#media_edit').on('click', function (e) {
-                    console.log(this);
+               
                     $('#tag_box').css('display', 'none');
                     $('#tag_wrapper').css('display', 'none');
                     e.stopPropagation();
@@ -585,8 +580,7 @@
                     e.stopPropagation();
                     var searchList = this;
 
-                    console.log(searchList);
-                    console.log($('.tag_list_wrapper').length + "안녕?");
+                    
 
                     //     <div class="tag_list_wrapper">     
                     //     <p>임태완완완완완</p>
@@ -611,11 +605,10 @@
                     var mediaIndex = $('#media_index').val();
                     var name;
                     var tagIndex = $(this).prevAll().length + 1;
-                    console.log(tagIndex);
-                    console.log(mediaIndex + "왜이러세요?");
+                  
                     
                     if (isOverlapTagUser(mediaIndex, $('.search_list:eq(' + (tagIndex-1) + ') input[name=user_no]').val())){
-                    	alert('이미 태그한 유저입니다');
+                    	profileAlert('이미 태그한 유저입니다');
                     	return;
                     }
 
@@ -627,7 +620,7 @@
                         }));
 
                         name = $('.search_list:nth-child(' + tagIndex + ') .name_wrapper p').text();
-                        console.log(name + "야야야");
+                     
                     } else {
                         $('#media_tag_nav > .tag_list_wrapper:eq(' + (mediaIndex) + ')').append($('<div/>', {
                             class: 'tag_user_wrapper',
@@ -635,7 +628,7 @@
                         }));
 
                         name = $('.search_list:nth-child(' + tagIndex + ') .name_wrapper p').text();
-                        console.log(name + "왜불러");
+                
                     }
 
 
@@ -687,12 +680,12 @@
                 var isHashtag = false;
 
                 $('#posting_content').on('keyup paste', function (e) {
-                    console.log($(this).html());
+                  
 
                 });
 
                 $('#posting_content').on('mouseclick', function (e) {
-                    console.log($(this).text());
+                  
 
                 });
             }
@@ -704,8 +697,6 @@
             	
    
             }
-
-
 
             $(window).resize(function () {
                 resizing();
@@ -719,7 +710,7 @@
             })
 
             function relocateCloseIcon() {
-                console.log(window.outerWidth);
+              
                 var rate = $('#media_edit').css('width').replace("px", "") / 30 - 12;
                 $('.tag_user_wrapper_close').css('left', rate + "%");
             }
@@ -746,7 +737,6 @@
                 $(modal).fadeIn('slow');
                 
 
-                console.log($(modal).parent());
                 resizing();
                 
             }
@@ -767,7 +757,7 @@
             	var thumbnailWrapper = $('#media_preview').children();
             	
             	for (var i = 1; i < thumbnailWrapper.length; i++) {
-            		console.log(thumbnailWrapper[i] + '뭐하냐??');
+            	
             		$(thumbnailWrapper[i]).remove();
             	}
             	
@@ -778,7 +768,7 @@
 
             function showMedaiEdit() {
                 if (!isChrome()) {
-                    alert('이미지 편집은 크롬 브라우저에서만 가능합니다.');
+                    profileAlert('이미지 편집은 크롬 브라우저에서만 가능합니다.');
                     return;
                 }
 
@@ -812,10 +802,10 @@
 
                 if (index == 0) {
                     $('.tag_list_wrapper:first').css('display', 'block');
-                    console.log("방가워");
+                   
                 } else {
                     $('.tag_list_wrapper:eq(' + (index) + ')').css('display', 'block');
-                    console.log("나두");
+         
                 }
 
                 imageRoad(index);
@@ -874,6 +864,10 @@
                     setGrayscale(canvas.getContext('2d'), maxWidth, maxHeight);
                 } else if (radios[2].checked) {
                     setBrightness(canvas.getContext('2d'), maxWidth, maxHeight);
+                } else if (radios[3].checked) {
+                	setSephia(canvas.getContext('2d'), maxWidth, maxHeight);
+                } else if (radios[4].checked) {
+                	setDuotone(canvas.getContext('2d'), maxWidth, maxHeight);
                 }
             }
 
@@ -936,14 +930,12 @@
                 var cutTool = $('#cut_tool');
                 var left = Number($(canvas).css('left').replace("px", ""));
 
-                console.log(canvasWrapper.width() + "이거왜케큼?" + canvas.width);
-
+                
                 $(cutTool).css('width', canvas.width);
                 $(cutTool).css('height', canvas.height);
                 $(cutTool).css('left', left + (canvasWrapper.width() - canvas.width) / 2);
                 $(cutTool).css('top', $(canvas).css('top'));
 
-                console.log($(cutTool).css('left') + "뭐가문제임??");
                 setCanvasCutToolEdge();
             }
 
@@ -969,9 +961,13 @@
                 var normalCanvas = $('#normal')[0];
                 var grayscaleCanvas = $('#grayscale')[0];
                 var brightnessCanvas = $('#brightness')[0];
+                var sephiaCanvas = $('#sephia')[0];
+                var duotoneCanvas = $('#duotone')[0]
                 var normalContext = normalCanvas.getContext('2d');
                 var grayscaleContext = grayscaleCanvas.getContext('2d');
                 var brightnessContext = brightnessCanvas.getContext('2d');
+                var sephiaContext = sephiaCanvas.getContext('2d');
+                var duotoneContext = duotoneCanvas.getContext('2d');
                 var pixels;
                 var cwidth = image.width;
                 var cheight = image.height;
@@ -982,22 +978,32 @@
                 grayscaleCanvas.height = cheight;
                 brightnessCanvas.width = cwidth;
                 brightnessCanvas.height = cheight;
+                sephiaCanvas.width = cwidth;
+                sephiaCanvas.height = cheight;
+                duotoneCanvas.width = cwidth;
+                duotoneCanvas.height = cheight;
 
                 normalContext.clearRect(0, 0, normalCanvas.width, normalCanvas.height);
                 grayscaleContext.clearRect(0, 0, grayscaleCanvas.width, grayscaleCanvas.height);
                 brightnessContext.clearRect(0, 0, brightnessCanvas.width, brightnessCanvas.height);
+                sephiaContext.clearRect(0, 0, sephiaCanvas.width, sephiaCanvas.height);
                 normalContext.drawImage(image, 0, 0, cwidth, cheight);
                 grayscaleContext.drawImage(image, 0, 0, cwidth, cheight);
                 brightnessContext.drawImage(image, 0, 0, cwidth, cheight);
+                sephiaContext.drawImage(image, 0, 0, cwidth, cheight);
+                duotoneContext.drawImage(image, 0, 0, cwidth, cheight);
 
                 setGrayscale(grayscaleContext, cwidth, cheight);
                 setBrightness(brightnessContext, cwidth, cheight);
+                setSephia(sephiaContext, cwidth, cheight);
+                setDuotone(duotoneContext, cwidth, cheight);
 
 
                 $('#radio_effect_normal').prev().css('background-image', "url(" + normalCanvas.toDataURL() + ")");
                 $('#radio_effect_grayscale').prev().css('background-image', "url(" + grayscaleCanvas.toDataURL() + ")");
                 $('#radio_effect_brightness').prev().css('background-image', "url(" + brightnessCanvas.toDataURL() + ")");
-
+                $('#radio_effect_sephia').prev().css('background-image', "url(" + sephiaCanvas.toDataURL() + ")");
+                $('#radio_effect_duotone').prev().css('background-image', "url(" + duotoneCanvas.toDataURL() + ")");
             }
 
             function setGrayscale(grayscaleContext, width, height) {
@@ -1028,6 +1034,40 @@
 
                 brightnessContext.putImageData(pixels, 0, 0);
             }
+            
+
+            function setSephia(sephiaContext, width, height) {
+                var pixels = sephiaContext.getImageData(0, 0, width, height);
+                var data = pixels.data;
+
+                for (var i = 0; i < data.length; i += 4) {
+                    var r = data[i];
+                    var g = data[i+1];
+                    var b = data[i+2];
+            
+                    data[i] = r*0.3588 + g*0.7044 + b*0.1368;
+                    data[i+1] = r*0.2990 + g*0.5870 + b*0.1140;
+                    data[i+2] = r*0.2392 + g*0.4696 + b*0.0912;
+            
+                }
+
+                sephiaContext.putImageData(pixels, 0, 0);
+            }
+            
+            function setDuotone(duotoneContext, width, height) {
+                var pixels = duotoneContext.getImageData(0, 0, width, height);
+                var data = pixels.data;
+
+                for (var i = 0; i < data.length; i += 4) {
+                	var r = data[i];
+        			var g = data[i + 1];
+        			var b = data[i + 2];
+        			var r = (r+g+b)/3;
+        			
+        			data[i] = r;
+                }
+                duotoneContext.putImageData(pixels, 0, 0);
+            }
 
 
             function drawOriginalSizeCanvas(image) {
@@ -1051,6 +1091,11 @@
                     setGrayscale(ctx, canvas.width, canvas.height);
                 } else if (radio[2].checked) {
                     setBrightness(ctx, canvas.width, canvas.height);
+                } else if (radio[3].checked) {
+
+                	setSephia(ctx, canvas.width, canvas.height);
+                } else if(radio[4].checked) {
+                	setDuotone(ctx, canvas.width, canvas.height);
                 }
             }
 
@@ -1072,8 +1117,7 @@
                 var width = (Number($('#cut_tool').css('width').replace("px", "")) * rate);
                 var height = (Number($('#cut_tool').css('height').replace("px", "")) * rate);
 
-                console.log(cWidth + " 안녕하세용");
-                console.log(left + "방가방가2");
+         
 
                 ctx = canvas.getContext('2d');
                 canvas.width = width;
@@ -1086,8 +1130,11 @@
                 relocateTagPoint();
 
                 function relocateTagPoint() {
-                	var x = $('input[class=xPoint]');
-                	var y = $('input[class=yPoint]');
+                	var selected = $('#media_index').val();
+                	
+                	
+                	var x = $('.tag_list_wrapper:eq(' + selected+') input[class=xPoint]');
+                	var y = $('.tag_list_wrapper:eq(' + selected+') input[class=yPoint]');
                 	for (var i = 0; i < x.length; i++) {
                 		$(x[i]).val(($(x[i]).val() * cWidth - left) / width);
                 		$(y[i]).val(($(y[i]).val() * cHeight - top) / height);
@@ -1143,7 +1190,7 @@
 
             function cancelMediaEdit() {
                 var mediaIndex = $('#media_index').val();
-                console.log(mediaIndex + "닫는당!!")
+         
                 cancelTagList(mediaIndex);
 
                 hideMediaEdit();
@@ -1173,15 +1220,14 @@
                     var y = tagChildren[2].value * canvas.height;
 
                     if (x < left || y < top || y > bottom || x > right) {
-                        console.log(tag);
+                    
                         var tagValue = $(tag).attr('name');
 
                         if (tagValue.indexOf('cancel') == -1) {
-                            console.log('님??');
+                    
                             $(tag).attr('name', tagValue + '_cancel');
                             $(tag).css('display', 'none');
 
-                            console.log($(tag).attr('name'));
                         }
                     }
                 }
@@ -1224,10 +1270,10 @@
             }
             
             function submitPosting() {
-            	console.log('?????');
+            
             	
             	if(!checkValidate()) {
-            		 console.log('??');
+            	
             		return;
             	}
             	
@@ -1236,11 +1282,14 @@
             
             function checkValidate() {
             	if (allFiles.length < 1) {
-            		alert('사진이나 영상을 하나 이상 업로드하세요.');
-            		console.log('실행되나궁금');
+            		profileAlert('사진이나 영상을 하나 이상 업로드하세요.');
+            	
             		return false;
-            	} else if ($('#posting_content').text().length < 5) {
-            		alert('최소 5글자 이상 입력하세요.');
+            	} else if ($('#posting_content').text().trim().length < 5) {
+            		profileAlert('빈칸 미포함 최소 5글자 이상 입력하세요.');
+            		return false;
+            	} else if ($('#posting_content').text().length > 165) {
+            		profileAlert('빈칸 포함 최소 166글자 미만 입력하세요.');
             		return false;
             	}
             	
@@ -1287,18 +1336,13 @@
            
             	var tagListWrapper = $('#media_tag_nav .tag_list_wrapper:eq(' + mediaIndex +')');
             	var tagUserWrappers = $('#media_tag_nav .tag_list_wrapper:eq(' + mediaIndex +') .tag_user_wrapper .userNo');
-            	
-            	console.log(tagUserWrappers);
-            	console.log(tagUserWrappers.length);
-            	
+       
             	for (var i = 0; i < tagUserWrappers.length; i++) {
             		var tagUserWrapper = $('#media_tag_nav .tag_list_wrapper:eq(' + mediaIndex +') .tag_user_wrapper:eq(' + i + ')');
             		var tagName = $(tagUserWrapper).attr('name');
             		var vall = $(tagUserWrappers[i]).val();
             		
-            		console.log(userNo + '버노버노' + vall);
-            		console.log(tagUserWrapper)
-            		console.log(tagName + "뭐니?");
+     
             		
             		if (vall == userNo && tagName != 'old_cancel' && tagName != 'new_cancel') {
             			return true;

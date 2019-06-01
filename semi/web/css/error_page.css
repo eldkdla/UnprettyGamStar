@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+
+@media all and (min-width:1200px){   
+	img{
+		position:relative;
+		margin:auto;
+		width:900px;	
+	}
+}
+
+@media all and (max-width:1199px){   
+	img{
+		position:relative;
+		margin:auto;
+		width:80%;	
+	}
+}

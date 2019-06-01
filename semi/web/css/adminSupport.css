@@ -1,0 +1,137 @@
+@charset "UTF-8";
+
+   @media all and (min-width:1067px){
+     /* Support Main Table */
+     table.type{
+        text-align:center; 
+        width:100%; 
+        padding:10px; 
+        margin-top:10px;
+        border-collapse: collapse;
+    }
+    table.type th{
+        border-top:1px solid rgba(189,189,189,0.8);
+        border-bottom: 1px solid rgba(189,189,189,0.8);
+        line-height: 2;
+        padding:4px;
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    table.type td{
+        line-height:1.8;
+        border-bottom: 1px solid rgba(189,189,189,0.4);
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    td.sCon a{
+        text-decoration: none;
+        color:rgba(0, 0, 0, 0.7);
+    }
+
+    div#isAnswered{
+        text-align: right
+    }
+    div#isAnswered>label{
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+    div.supportSearch{
+        text-align: right;
+    }
+    div.supportSearch>select{
+        vertical-align: middle;
+    }
+    div.supportSearch>text{
+        vertical-align: middle;
+    }
+}
+
+
+@media all and (min-width:601px) and (max-width:1066px){
+    table.type{
+        text-align:center; 
+        width:100%; 
+        padding:10px; 
+        margin-top:10px;
+        border-collapse: collapse;
+    }
+    table.type th{
+        border-top:1px solid rgba(189,189,189,0.8);
+        border-bottom: 1px solid rgba(189,189,189,0.8);
+        line-height: 2;
+        padding:4px;
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    table.type td{
+        line-height:1.8;
+        border-bottom: 1px solid rgba(189,189,189,0.4);
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    td.sCon a{
+        text-decoration: none;
+        color:rgba(0, 0, 0, 0.7);
+    }
+
+    div#isAnswered{
+        text-align: right
+    }
+    div#isAnswered>label{
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+    div.supportSearch{
+        text-align: right;
+    }
+    div.supportSearch>select{
+        vertical-align: middle;
+    }
+    div.supportSearch>text{
+        vertical-align: middle;
+    }
+}
+
+
+@media all and (min-width:150px) and (max-width:600px){
+    table.type{
+        text-align:center; 
+        width:100%; 
+        padding:10px; 
+        margin-top:10px;
+        border-collapse: collapse;
+    }
+    table.type th{
+        border-top:1px solid rgba(189,189,189,0.8);
+        border-bottom: 1px solid rgba(189,189,189,0.8);
+        line-height: 2;
+        padding:4px;
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    table.type td{
+        line-height:1.8;
+        border-bottom: 1px solid rgba(189,189,189,0.4);
+        font-family: 'Nanum Gothic', sans-serif;
+        color:rgba(0, 0, 0, 0.7);
+    }
+    td.sCon a{
+        text-decoration: none;
+        color:rgba(0, 0, 0, 0.7);
+    }
+
+    div#isAnswered{
+        text-align: right
+    }
+    div#isAnswered>label{
+        font-family: 'Nanum Gothic', sans-serif;
+    }
+    div.supportSearch{
+        text-align: right;
+    }
+    div.supportSearch>select{
+        vertical-align: middle;
+    }
+    div.supportSearch>text{
+        vertical-align: middle;
+    }
+
+} 

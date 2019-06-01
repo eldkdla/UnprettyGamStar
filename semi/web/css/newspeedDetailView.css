@@ -1,0 +1,568 @@
+@charset "UTF-8";
+
+ #miniModal{
+            position:absolute;
+            display:none;
+            background-color:rgba(0,0,0,0.8);
+            color:white;
+            width:100px;
+            height:20px;
+            top:70%;
+            left:50%;
+            z-index:210000000;
+            text-align:center;
+            border-radius: 15px;
+            font-size:12px;
+        }
+
+        .balloons {
+	        position: absolute;
+	        display:none;
+	        height:17px;
+	        text-align:center;
+	        white-space:no-wrap;
+	        min-width:40px;
+	        max-width:80px;
+	        background-color:rgba(0,0,0,0.8);
+            border-radius: 10px;
+            color:#efefef;
+            font-size:11px;
+            z-index:2100001000
+        }
+
+        .balloons:hover {
+            cursor: pointer;
+        }
+ 
+        #newspeedview_btn_wrapper{
+            display: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(0,0,0,0.8);
+            box-sizing: border-box;
+            padding:0;
+            margin:0;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            min-width:800px;  
+            z-index:210000120;  
+        }
+
+
+        #newspeedview_container{
+            position: relative;
+            display: inline-block;
+            background-color:white;
+            width:65.5%;
+            min-width:65.5%;
+            height:600px;
+            left:50%;
+            top:10%;
+            transform:translateX(-50%);  
+            box-sizing: border-box;
+            overflow: hidden;
+            padding:0;
+            margin:0;
+        }
+
+        #newspeedview_list_wrapper{
+            display: inline-block;
+            text-align: center;
+            width:100%;
+            left:0%;
+            position: relative;
+            min-width:100%; 
+            height:100%;
+            border-radius: 10px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            padding:0;
+            margin:0;
+            font-size:0px;
+        }
+
+        #newspeedview_list_wrapper > div{
+            display:inline-block;
+            position: relative;
+            width:100%;
+            height:600px;
+            overflow: hidden;
+            box-sizing: border-box;
+            padding:0;
+            margin-left:0%;
+            font-size:16px;
+        }
+
+        .newspeedview_media_list_wrapper{
+            position: absolute;
+            left:0%;
+            display: inline-block;
+            width:60%;
+            height:600px;
+            overflow: hidden;
+        }
+
+        .newspeedview_media_list{
+            position: relative;
+            display:inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            height: 100%;
+            font-size:0px;
+            width:100%;
+            left:0%;
+            background:black;
+        }
+
+        .newspeedview_media_list >div{
+            position: relative;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            width:100%;
+            height:600px;
+            left:0%;
+            font-size:16px;
+        }
+
+        .newspeedview_media_content{
+            background-color:black;
+            width:100%;
+            height:100%;
+            background-size: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+
+        #container-left-btnnnn{
+            display:none;
+            position: absolute;
+            top:45%;
+            left:0;
+            box-sizing: border-box;
+            background-image:url('../img/newspeeddetailview/newspeed_prev_icon.png');
+            background-size:cover;
+            width:80px;
+            height:80px;
+            opacity: 0.5;
+            z-index:2100001900;
+            
+        }
+
+        #container-right-btnnnn{
+            display:inline-block;
+            position: absolute;
+            top:45%;
+            right:0;
+            box-sizing: border-box;
+            background-image:url('../img/newspeeddetailview/newspeed_next_icon.png');
+            background-size:cover;
+            width:80px;
+            height:80px;
+            opacity: 0.5;
+            z-index:2100002500;
+        }
+        
+        #container-right-btn2{
+	            display:inline-block;
+	            position: absolute;
+	            top:45%;
+	            right:0;
+	            box-sizing: border-box;
+	            background-image:url('../img/newspeeddetailview/newspeed_next_icon.png');
+	            background-size:cover;
+	            width:500px;
+	            height:80px;
+	            opacity: 0.5;
+	            z-index:300000000;
+	        }
+	        
+
+        #container-right-btnnnn:hover{
+            cursor: pointer;
+            opacity:0.8;
+        }
+
+        #container-left-btnnnn:hover{
+            cursor: pointer;
+            opacity:0.8;
+        }
+
+        .medialist_left_btn{
+            display:inline-block;
+            position: absolute;
+            top:45%;
+            left:0;
+            height:80px;
+            width:30px;
+            box-sizing: border-box;
+            z-index:142152331;
+            background-image:url('../img/newspeeddetailview/media_left_btn.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+        }
+
+        .medialist_right_btn{
+            display:inline-block;
+            position: absolute;
+            top:45%;
+            height:80px;
+            width:30px;
+            right:0;
+            box-sizing: border-box;
+            z-index:142152331;
+            background-image:url('../img/newspeeddetailview/media_right_btn.png');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.5;
+        }
+
+        .medialist_right_btn:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+
+        .medialist_left_btn:hover {
+            opacity: 0.8;
+            cursor: pointer;
+        }
+    
+        .newspeedview_all_content_wrapper{
+            display:inline-block;
+            position: relative;
+            width:35.5%;
+            height:600px;
+            left:30%;
+        }
+
+        .newspeed_content_hr{
+            color:lightgray;
+            width:100%;
+            margin-bottom : -3px;
+            margin-top : -3px;
+            z-index: 210000001;
+        }
+
+        .newspeedview_all_content_wrapper > div {
+            position: relative;
+            width:100%;
+        }
+
+        .newspeedview_writer_wrapper{
+            height:10%;
+            width:100%;
+        }
+
+    
+        .newspeedview_writer_content_wrapper{
+            width:100%;
+            height:70%;
+        }
+
+        .newspeedview_writer_wrapper .newspeedview_profilephoto{
+            display: inline-block;
+            width:45px;
+            position:relative;
+            top:10px;
+            left:0%;
+            border-radius: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .newspeedview_writer_wrapper .newspeedview_writername {
+            display:inline-block;
+            position: relative;
+            left:-5%;
+            top:35%;
+            height:100%;
+            width:89%;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .newspeedview_writer_wrapper .newspeedview_writername > * {
+            width:100%;
+            left:8%;
+            bottom:45%;
+            position: relative;
+            display:inline-block;
+            text-align: left;
+            font-family: 'Quicksand', sans-serif;    
+        }
+
+        .newspeedview_content_wrapper{
+            height:20%;
+            width:100%;
+            display:inline-block;
+            text-align:left;
+        }
+
+        .newspeedview_content_wrapper > div > * {
+            display:inline-block;
+            height:0px;
+            padding-top:-5px;
+            white-space: normal;
+            word-break: break-all;
+            word-wrap:break-word;  
+        }
+        .newspeedview_content_wrapper > div {
+            position: relative;
+            display: inline-block;
+            text-align:left;
+            white-space: normal;
+            word-break: break-all;
+            word-wrap:break-word; 
+            font-size:14.5px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+
+        .newspeedview_comment_wrapper{
+            height:50%;
+            overflow-x: hidden;
+            overflow-y:auto;
+            font-family: 'Quicksand', sans-serif;
+            margin-top:20px;
+            
+        }
+        
+        .newspeedview_comment_wrapper > div {
+            text-align:left;
+            white-space: normal;
+                        word-break: break-all;
+            word-wrap:break-word; 
+            font-size:14.5px;
+            margin-left : 10px;
+            margin-right: 10px;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .newspeedview_comment_wrapper > div > h4:hover {
+            cursor: pointer;
+        }
+
+        .newspeedview_comment_wrapper > div > *{
+            display:inline-block;
+                        word-break: break-all;
+            word-wrap:break-word; 
+            white-space: normal;
+        }
+        
+        .newspeedview_comment_option_wrapper{
+        	width:100%;
+        	height:15px;
+        	margin-top:-5px;
+        	margin-bottom:10px;
+        }
+        .newspeedview_comment_option_wrapper > div{
+        	color:gray;
+        	font-size:10px;
+        	margin-right:10px;
+        }
+        
+        .newspeedview_comment_option_wrapper > div:hover{
+        	cursor:pointer;
+        }
+        
+        .newspeedview_comment_wrapper h4 {
+        	margin-block-start:0;
+        	margin-block-end:0;
+        }
+
+        .newspeed_comment_user{
+            display:inline-block;
+            font-weight: 600;
+        }
+        .newspeed_comment {
+            display:inline-block;
+            white-space: normal;
+                        word-break: break-all;
+            word-wrap:break-word; 
+        }
+        
+        .newspeedview_comment_wrapper h4:hover {
+        	cursor:pointer;
+        }
+       
+
+        .newspeedview_icon_wrapper{
+            position: relative;
+            top:10px;
+            height: 10%;
+        }
+
+        .newspeedview_icon_wrapper > div {
+            width:12%;
+            height:40px;
+            display: inline-block;
+            background-size:contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: absolute;
+        }
+
+        .newspeedview_icon_wrapper > div:hover{
+            cursor: pointer;
+        }
+
+        .newspeedview_icon_wrapper .newspeed_like_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_like.png');
+            left:2%;
+        }
+        
+         .newspeedview_icon_wrapper .newspeed_like_active_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_like_active.png');
+            left:2%;
+        }
+
+        .newspeedview_icon_wrapper .newspeed_comment_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_stored_active.png');
+            left:50px;
+        }
+
+        .newspeedview_icon_wrapper .newspeed_report_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/report_icon.png');
+            left:90%;
+        }
+        .newspeedview_icon_wrapper .newspeed_store_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_store_icon.png');
+            left:75%;
+        }
+        
+                .newspeedview_icon_wrapper .newspeed_store_active_icon_wrapper{
+            background-image:url('../img/newspeeddetailview/newspeed_store_active_icon.png');
+            left:75%;
+        }
+
+
+        .newspeedview_commentwrite_wrapper{
+            position: relative;
+            height: 3%;
+            top:20px;
+          
+        }
+
+        .newspeedview_comment_write {
+            position: relative;
+            width:85%;
+            height:100%;
+            z-index:9999999;
+            border:0.7px solid lightgray;
+        }
+
+        .newspeedview_comment_write_submit{
+            display: inline-block;
+            position: relative;
+            background-image:url('../img/newspeeddetailview/comment_submit_btn.png');
+            background-size:contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            top:10px;
+            left:10px;
+            width:30px;
+            height:30px;
+        }
+        
+        .newspeedview_comment_write_submit:hover{
+        	cursor:pointer;
+        }
+
+        .newspeedview_media_image{
+            position: relative;
+           	width:100%;
+           	height:auto;
+           	background-color:rgba(255,255,255,1);
+        }
+        
+
+        .newspeedview_media_image_wrapper{
+        	position: relative;
+            top:50%;
+            transform:translate(-50%, -50%);
+            left:50%;
+            width:100%;
+            height:auto;
+        }
+
+        .newspeedview_media_video{
+            position: relative;
+            top:50%;
+            transform:translateY(-50%);
+            object-fit:scale-down;
+        
+        }
+        
+        .comment_content{
+        	display:inline-block;
+        }
+        
+        .input_text_recomment {
+        	display:block;
+        	width:70%;
+        	margin-bottom:15px;
+        	margin-top:10px;
+        	
+        }
+        
+        .recomment_wrapper {
+             display:inline-block;
+             white-space:normal;
+             margin-left:10%;	
+            word-break: break-all;
+            word-wrap:break-word;  
+            width:90%;
+            margin-top:3px;
+            margin-bottom:3px;
+        }
+        
+        .newspeedview_comment_option_wrapper{
+             display:block;
+             white-space:normal;
+             margin-left:30px;	
+                         word-break: break-all;
+            word-wrap:break-word;  
+        }
+          
+          .recomment_option_wrapper{
+          	display:block;
+          	width:100%;
+          }
+          
+          .recomment_option_wrapper .comment_option_delete {
+            text:'삭제';
+            color:gray;
+        	font-size:10px;
+        	margin-right:10px;
+        	margin-top:5px;
+        	margin-bottom:5px;
+        	margin-left:10px;
+          }    
+          
+          
+          .comment_option_delete:hover{
+          cursor:pointer;
+          }
+          
+          .newspeedview_profilephoto:hover {
+          	cursor:pointer;
+          }
+          
+          .newspeedview_content_wrapper > h4:hover{
+          	cursor:pointer;
+          }
+          
+          
+          .beforeTime {
+          	margin-top:2px;
+          	margin-bottom:0px;
+          	font-size:9px;
+          	color:gray;
+          	display:inline-block;
+          }
+              

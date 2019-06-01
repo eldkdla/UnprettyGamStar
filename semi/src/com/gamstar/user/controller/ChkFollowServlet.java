@@ -44,6 +44,7 @@ public class ChkFollowServlet extends HttpServlet {
 					request.setAttribute("msg", "잘못된 접근");
 					request.setAttribute("loc", "");
 					request.getRequestDispatcher("/view/common/msg.jsp").forward(request, response);
+					return;
 				}
 			}
 			

@@ -61,9 +61,12 @@ public class NewspeedWriteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		if (request.getSession().getAttribute("userNo") == null) {
+			response.sendRedirect(request.getContextPath());
+		}
+		
 		String root = getServletContext().getRealPath("/") + "upload/newspeed/";
 	
-		String path = root + "upload/newspeed/";
 		int userNo = Integer.parseInt(request.getSession().getAttribute("userNo").toString());
 		int result = -1;
 		

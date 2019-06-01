@@ -10,7 +10,7 @@
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>사람정보창</title>
 
 	<!-- <script src="http://code.jquery.com/jquery.min.js"></script>  -->
 	<script src="../js/jquery-3.3.1.js"></script>
@@ -20,11 +20,13 @@
        
 	<link href="<%=request.getContextPath()%>/css/alertBox.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/profileAlert.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/requestFollowAlert.css">
 	<link href="<%=request.getContextPath()%>/css/newspeedwrite.css" rel="stylesheet" type="Text/css">
-	
-	<script type="text/javascript" src="<%=request.getContextPath()%>/js/alertBox.js"></script>
+	<link href="<%=request.getContextPath()%>/css/newspeedDetailView.css" rel="stylesheet" type="Text/css">
+	<script type="text/javascript" src="../js/alertBox.js"></script>
 	<script src="../js/newspeedwrite.js"></script>
 	<script src="../js/newspeedRequest.js"></script>
+	<script src="../js/report.js"></script>
 </head>
 <body>
 	
@@ -33,17 +35,191 @@
 	   ArrayList<User> followerDataArray=(ArrayList<User>)request.getAttribute("followerDataArray");
 	   ArrayList<User> followDataArray=(ArrayList<User>)request.getAttribute("followDataArray");
 	   ArrayList<User> blockDataArray=(ArrayList<User>)request.getAttribute("blockDataArray");
+	   ArrayList<User> requestfollowDataArray=(ArrayList<User>)request.getAttribute("requestfollowDataArray");
 	   ArrayList<NewspeedMedia> content1DataArray=(ArrayList<NewspeedMedia>)request.getAttribute("content1DataArray");
 	   ArrayList<NewspeedMedia> storageContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("storageContentDataArray");
 	   ArrayList<NewspeedMedia> tagContentDataArray=(ArrayList<NewspeedMedia>)request.getAttribute("tagContentDataArray");
+	   ArrayList<User> isRequestFollowDataArray=(ArrayList<User>)request.getAttribute("isRequestFollowDataArray");
 	   boolean isFollowed=(boolean)request.getAttribute("isFollowed");
+	   boolean isRequestFollow=(boolean)request.getAttribute("isRequestFollow");
 	%>
-	
+		
 	<canvas class="dummy_canvas" style="display:none;" id="original_size_canvas"></canvas>
 	<canvas class="dummy_canvas" style="display:none;" id="normal"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="grayscale"></canvas>
 	<canvas class="dummy_canvas" style="display:none;"id="brightness"></canvas>
-    
+	<canvas class="dummy_canvas" style="display:none;" id="sephia"></canvas>
+	<canvas class="dummy_canvas" style="display:none" id="duotone"></canvas>
+	
+	<div id="newspeedview_btn_wrapper">
+
+        <div id="container-left-btnnnn"></div>
+        <div id="newspeedview_container">
+
+            <div id="newspeedview_list_wrapper">
+                <div class="newspeedview_list_select">
+                    <input type="hidden" class="newspeedNo" value="1">
+
+                    <div class="newspeedview_media_list_wrapper">
+                        <div class="medialist_left_btn"></div>
+
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="userNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="newspeedview_media">
+                                <div class="newspeedview_media_content">
+                                    <div class="balloons">임태완
+                                        <input type="hidden" class="tagUserNo" value="01">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="medialist_right_btn"></div>
+
+                    </div>
+
+
+
+                    <div class="newspeedview_all_content_wrapper">
+                        <div class="newspeedview_writer_wrapper">
+                            <div class="newspeedview_writer_content_wrapper">
+                                <div class="newspeedview_profilephoto">
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                                <div class="newspeedview_writername">
+                                    <h4>임태완</h4>
+                                    <input type="hidden" class="userNo" value="1">
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_content_wrapper">
+                            <div>
+                                <div class="newspeed_username">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                        </div>
+
+                        <hr class="newspeed_content_hr">
+
+                        <div class="newspeedview_comment_wrapper">
+                            <div>
+                                <div class="newspeed_comment_user">임태완</div>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+                            <div>
+                                <h4>임태완</h4>
+                                오늘 미세먼지가 짱 많대요. 다들 마스크 쓰시고 감기 조심하세요. 미세먼지 언제 없어지려나 ㅠㅠ 다들 사랑해요!!
+                                ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ
+                                <input type="hidden" class="userNo" value="1">
+                            </div>
+
+                        </div>
+
+
+                        <div class="newspeedview_icon_wrapper">
+                            <div class="newspeed_like_icon_wrapper">
+
+                            </div>
+                            <div class="newspeed_store_icon_wrapper">
+
+                            </div>
+
+                        </div>
+                        <hr class="newspeed_content_hr">
+                        <div class="newspeedview_commentwrite_wrapper">
+                            <input type="text" class="newspeedview_comment_write">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+                </div>
+
+                <div class="newspeedview_list">
+                    <div class="newspeedview_media_list_wrapper">
+                        <input type="button" value="방가워" class="medialist_left_btn">
+                        <div class="newspeedview_media_list">
+                            <div class="newspeedview_media_select">
+                                반가워
+                            </div>
+                            <div class="newspeedview_media">
+                                나도
+                            </div>
+                            <div class="newspeedview_media">
+                                응 ㅇㅅㅇ
+                            </div>
+                        </div>
+                        <input type="button" value="방가워" class="medialist_right_btn">
+                    </div>
+
+                </div>
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+
+                <div class="newspeedview_list">
+                    <p>3</p>
+
+                </div>
+            </div>
+
+        </div>
+        <div id="container-right-btnnnn"></div>
+    </div>
+
+
+	 <%@include file="common/header.jsp"%>
 	 <div class='fullScreen'>
         <div class="profileTop">
            <div id='BackgroundPhotoIconDv' onclick="changeBackgroundPhoto();"><img src='<%=request.getContextPath()%>/img/camera20.png'><label>배경 사진 업데이트</label></div>
@@ -64,13 +240,34 @@
             </div>
         </div>
  		
- 		<div id="updatePhoto">
- 			<div id="updatePhotoContent">
+ 		<div class="updatePhoto" id="updatePhoto">
+ 			<div class="updatePhotoContent" id="updatePhotoContent">
  				<button>프로필사진 변경</button>
  				<button>스토리 변경</button>
  				<button>스토리 보기</button>
  			</div>
  		</div>
+ 		
+ 		<div class="updatePhoto" id="userPhotoMenu">
+ 			<div class="updatePhotoContent" id="userPhotoMenuContent">
+ 				<button>스토리 보기</button>
+ 				<button>신고하기</button>
+ 			</div>
+ 		</div>
+ 		
+ 		<form action="" method="post" enctype="multipart/form-data">
+ 		<div class="reportBgk" id="reportBgk">
+ 			<div class="reportContent" id="reportContent">	
+ 				<div><label onclick="closeReport();">&#10005</label></div>
+ 				<h2>신고하기</h2>	
+	 			<label>신고내용</label>
+	 			<textarea name="reportTextarea" placeholder="신고내용을 입력해주세요" wrap="hard" autofocus required></textarea>
+ 				<label>첨부파일</label>
+ 				<input type="file" name="reportmedia[]" multiple="multiple">
+ 				<button type="button">신고하기</button>
+ 			</div>
+ 		</div>	
+ 		</form>
  		
  		<div id="storyContent">
 			<div>
@@ -120,18 +317,22 @@
                     <input type="radio" name="profileMenuRbt" id="profileMenuRbt2" onclick='profileMenuChange();'>
                     <label for="profileMenuRbt2" class="profileMenuLb">차단됨</label>
                 </li>
+                <li class="profileMenuLi" id="requestFollow">
+                    <input type="radio" name="profileMenuRbt" id="profileMenuRbt7" onclick='profileMenuChange();'>
+                    <label for="profileMenuRbt7" class="profileMenuLb">요청됨</label>
+                </li>
             </ul>
         </div>
        	<div id=disclosure>
-       	<div id="disclosureContent">
-       		<label>비공개 계정입니다</label><br><br>
-       		<label>게시글을 보려면 팔로우하세요</label>
+	       	<div id="disclosureContent">
+	       		<label>비공개 계정입니다</label><br><br>
+	       		<label>게시글을 보려면 팔로우하세요</label>
+	       	</div>
        	</div>
-       	</div>
-        <div id="profileContent1"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
+        <div id="profileContent1" class="profileContent"></div>  			<!-- 게시글 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->  
         <div id="profileContent2"></div> 			<!-- 저장됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent3"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
-        <div id="profileContent4"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent3" class="profileContent"></div> 			<!-- 태그됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
+        <div id="profileContent4" class="profileContent"></div>		 	<!-- 팔로워 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         <form action="mypage.jsp" method="post">
         	<div id="profileContent5"></div>		<!-- 팔로우 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followerId" value="followerId"/>
@@ -140,12 +341,19 @@
         	<div id="profileContent6"></div>		<!-- 차단됨 메뉴 컨텐츠 부모 (게시글들 감싸는애) -->
         	<input type="hidden" name="followId" value="followId"/>
         </form>  
-
+		<div id="profileContent7" class="profileContent"></div>
     </div>
     
+    
+      
    
 
     <script>
+    		//신고창 닫기 이벤트
+    		function closeReport(){
+    			$('#reportBgk').fadeOut();
+    		}
+    		
     		//공용 Alert 모달창
 		    function profileAlert(alertMsg){
 		    	$('#myModal').remove();
@@ -207,6 +415,68 @@
             	 $('#profilePhotoBt').click(function(){
             		 showProfilePhotoMenu();
             	 });
+            	 <%if(isRequestFollowDataArray.size()!=0){
+            		 for(int i=0;i<isRequestFollowDataArray.size();i++){
+            		 %>
+	            		 $('body').append($('<div/>',{
+	      		    		id:'requestFollow<%=i%>',
+	      		    		class:'requestFollowModal'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>').append($('<div/>',{
+	      		    		class:'requestFollowModal-content'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<p/>',{
+	      		    		text:"'<%=isRequestFollowDataArray.get(i).getName()%>'님이 팔로우 요청했습니다"
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'보류'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'수락'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div').append($('<div/>',{
+	      		    		text:'거절'
+	      		    	}));
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(2)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	     	            		url:'<%=request.getContextPath()%>/view/reserverequestfollow',
+	     	            		type:"POST",
+	     	            		data:{"requestFollowUserNo":<%=isRequestFollowDataArray.get(i).getNo()%>},
+	     	            		success:function(data){},
+	     	            		error:function(xhr,status){
+	     	            			alert(xhr+" : "+status);	
+	     	            		}
+	     	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(3)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		 $.ajax({
+	 					          url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					          type:'POST',
+	 					          data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	 					          success:function(data){},
+	      	            		  error:function(xhr,status){
+	      	            		  alert(xhr+" : "+status);	
+	      	            		}
+	      	            	});
+	      		    	});
+	      		    	$('#requestFollow<%=i%>>div>:nth-child(4)').on("click",function(){
+	      		    		$('#requestFollow<%=i%>').remove();
+	      		    		$.ajax({
+	      		          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+	      		          		type:'POST',
+	      		          		data:{'requestFollowUserNo':<%=isRequestFollowDataArray.get(i).getNo()%>},
+	      		          		success:function(data){
+	      		          		},
+	      		          		error:function(xhr,status){
+	      		          			alert(xhr+" : "+status);
+	      		          		}
+	      		          		
+	      		          	});
+	      		    	});
+            		 <%}
+            		 }%>
          	<%}
          	else{//다른사람 페이지
          		System.out.println("다른사람 페이지네");
@@ -219,50 +489,111 @@
          		$('#profileBackgroundPhoto').removeAttr("onclick");
          		$('#profileBackgroundPhoto').css("cursor","default");
          		$('#blockMenu').css("display","none");
-         	
+         		$('#requestFollow').css("display","none");
+         		
          		<%if(isFollowed){%>
 	         		$('#profileFollowBt>label').text("팔로우됨");
 	        		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
 	        		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
 	        		$('#profileFollowBt').css("color","white"); 
         		
-	        		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-	        		//프사 선택시 스토리 열리게 
-		        		 $('#profilePhotoBt').click(function(){
-		        			 $("#storyContent").fadeIn();
-		     				updateBar=setInterval(update,500);
-		     				if(!$('#storyProgressBar').width()==0){
-		     					myMovie.currentTime=0;
-		     					progressBar.style.width='0px';
-		     				    window.clearInterval(updateBar);
-		     				}
-		     				if(myMovie.paused){
-		     					myMovie.play();
-		     				}
-		            	 });
-		        		 $('#profilePhotoBt').css("cursor","pointer");
-	        		<%}
-	        		else{%> //스토리 없으면
-	        			$('#profilePhotoBt').off("click");
-	             		$('#profilePhotoBt').css("cursor","default");
-	        		<%}%>
+	        		$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+	        			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	 		        			 $("#storyContent").fadeIn();
+	 		     				updateBar=setInterval(update,500);
+	 		     				if(!$('#storyProgressBar').width()==0){
+	 		     					myMovie.currentTime=0;
+	 		     					progressBar.style.width='0px';
+	 		     				    window.clearInterval(updateBar);
+	 		     				}
+	 		     				if(myMovie.paused){
+	 		     					myMovie.play();
+	 		     				}
+	 		            	
+	 	        		<%}
+	 	        		else{%> //스토리 없으면
+	 	        			profileAlert("스토리가 없습니다");
+	 	        		<%}%> 
+       				 });
+	        		
         		<%}
+
+         		else if(isRequestFollow){%>
+	         		$('#profileFollowBt>label').text("팔로우요청");
+	      			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+	        		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
+	        		$('#profileFollowBt').css("color","white");
+	        		<%if(user.getDisclosure()==0){
+		            	System.out.println("비공개임");
+		            	%>
+		            	//스크롤막기
+		            	$('html').scrollTop(0);
+		            	$('body').on('scroll touchmove mousewheel', function(event) {
+		            		  event.preventDefault();
+		            		  event.stopPropagation();
+		            		  return false;
+		            	});
+		            	$('#profileMenuDiv').css("display","none");
+		            	$('#disclosure').css("display","block");            		 
+	            	<%}%>
+	            		
+	            	$("#userPhotoMenuContent>button:nth-child(1)").css("background-color","rgba(50,50,50,0.2)");
+	           		$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+         		<%}
+
          		else{%>
         			$('#profileFollowBt>label').text("팔로우");
             		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
             		$('#profileFollowBt').css("background-color","#F6F6F6"); 
             		$('#profileFollowBt').css("color","black");
-            		$('#profilePhotoBt').off("click");
-             		$('#profilePhotoBt').css("cursor","default");
             		<%if(user.getDisclosure()==0){
             		System.out.println("비공개임");
             		%>
+            		//스크롤막기
+            		$('html').scrollTop(0);
+	            	$('body').on('scroll touchmove mousewheel', function(event) {
+	            		  event.preventDefault();
+	            		  event.stopPropagation();
+	            		  return false;
+	            	});
             		$('#profileMenuDiv').css("display","none");
-            		$('#disclosure').css("display","block");
-            		
+            		$('#disclosure').css("display","block");            		 
             		<%}%>
+            		
+            		$("#userPhotoMenuContent>button:nth-child(1)").css("background-color","rgba(50,50,50,0.2)");
+           			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+           			
         		<%}%>
-         		
+        		
+	        		 $('#profilePhotoBt').click(function(){
+	        			 $("#userPhotoMenu").fadeIn();
+	     				
+	            	 });
+	        		 $('#userPhotoMenu').click(function(){
+	        			$('#userPhotoMenu').fadeOut(); 
+	        		 });	 
+	            	 
+	            	 $("#userPhotoMenuContent>button:nth-child(2)").click(function(){
+	            		 $('#reportBgk').fadeIn();
+	            		 $('.reportContent>textarea').val("");
+	      				 $('.reportContent>input[type=file]').val("");
+	            	 });
+	            	/*  $('#reportBgk').click(function(){
+	            		$('#reportBgk').fadeOut(); 
+	            	 });
+	            	 $('#reportContent').click(function(e){
+	            		 e.stopPropagation();
+	            	 }); */
+	            	 
+	            	 //신고창에서 신고보내기
+	            	 $('#reportContent>button').click(function(){
+	      				if($('#reportContent>textarea').val()!=""){
+	      					onClickReportBtn(<%=user.getNo()%>, 0, '<%=request.getContextPath()%>/view/reportuser');	
+	      				}
+	     	 			else{
+	     	 				profileAlert("신고내용 입력");
+	     	 			}
+	      			});
          		
          	<%}%>
          	
@@ -406,12 +737,7 @@
 	        		$('#profileBlockBt').css("background-color","rgb(241,95,95)"); 
 	        		$('#profileBlockBt').css("color","white");
 	        	}
-			  	 <%-- else{
-	        		$('#profileBlockBt>label').text("차단하기");
-	        		$('#profileBlockBt>img').attr("src","<%=request.getContextPath()%>/img/blockBtOff.png");
-	        		$('#profileBlockBt').css("background-color","#F6F6F6"); 
-	        		$('#profileBlockBt').css("color","black");
-	        	}  --%>
+			  	
 	        	location.href='<%=request.getContextPath()%>/view/updatefollowblock?block='+$('#profileBlockBt>label').text()+'&uu=<%=user.getNo()%>'; 
 	        }
 	      });
@@ -420,51 +746,77 @@
 	function followClick(){
 /* 		$('#profileBlockBt').removeAttr("onclick"); //버튼눌릴때 다른버튼 비활성화
 		$('#profileName').removeAttr("onclick"); */
+		var beforeFollowBtLabel="";
+		var afterFollowBtLabel="";
+		
 		if(($('#profileFollowBt>label').text())==("팔로우")){
-    		$('#profileFollowBt>label').text("팔로우됨");
+
+			beforefollowBtLabel="팔로우";
+			<%if(user.getDisclosure()==0){%>  //비공개
+			afterFollowBtLabel="팔로우요청";
+					//$('#profileFollowBt>label').text("팔로우요청");
+          			$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
+            		$('#profileFollowBt').css("background-color","rgba(255,223,36)");  
+            		$('#profileFollowBt').css("color","white");
+          	<%}
+          	else{%>
+          	afterFollowBtLabel="팔로우됨"
+          	//$('#profileFollowBt>label').text("팔로우됨");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOn.png");
     		$('#profileFollowBt').css("background-color","rgb(103,153,255)");  
     		$('#profileFollowBt').css("color","white");
     		
-    		<%if(userStory.getPath()!=""){%> //스토리가 있으면
-    		//프사 선택시 스토리 열리게 
-        		 $('#profilePhotoBt').click(function(){
-        			 $("#storyContent").fadeIn();
-     				updateBar=setInterval(update,500);
-     				if(!$('#storyProgressBar').width()==0){
-     					myMovie.currentTime=0;
-     					progressBar.style.width='0px';
-     				    window.clearInterval(updateBar);
-     				}
-     				if(myMovie.paused){
-     					myMovie.play();
-     				}
-            	 });
-        		 $('#profilePhotoBt').css("cursor","pointer");
-    		<%}
-    		else{%> //스토리 없으면
-        		$('#profilePhotoBt').off("click");
-         		$('#profilePhotoBt').css("cursor","default");
-    		<%}%>
-    		
-    	}
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled",false);
+   			$("#userPhotoMenuContent>button:nth-child(1)").hover(function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgb(193,193,193)","color":"white"});
+   			},function(){
+   				$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"white","color":"black"});
+   			});
+   			$("#userPhotoMenuContent>button:nth-child(1)").click(function(){
+   			 <%if(userStory.getPath()!=""){%> //스토리가 있으면 스토리 열리게 
+	        			 $("#storyContent").fadeIn();
+	     				updateBar=setInterval(update,500);
+	     				if(!$('#storyProgressBar').width()==0){
+	     					myMovie.currentTime=0;
+	     					progressBar.style.width='0px';
+	     				    window.clearInterval(updateBar);
+	     				}
+	     				if(myMovie.paused){
+	     					myMovie.play();
+	     				}
+	            	
+        		<%}
+        		else{%> //스토리 없으면
+        			profileAlert("스토리가 없습니다");
+        		<%}%> 
+				 });
+    	<%}%>
+		}
     	else{
-    		$('#profileFollowBt>label').text("팔로우");
+    		if(($('#profileFollowBt>label').text())==("팔로우요청")){
+    			beforeFollowBtLabel="팔로우요청";
+    		}
+    		else if(($('#profileFollowBt>label').text())==("팔로우됨")){
+    			beforeFollowBtLabel="팔로우됨";
+    		}
+    		afterFollowBtLabel="팔로우"
+    		//$('#profileFollowBt>label').text("팔로우");
     		$('#profileFollowBt>img').attr("src","<%=request.getContextPath()%>/img/followOff.png");
     		$('#profileFollowBt').css("background-color","#F6F6F6"); 
     		$('#profileFollowBt').css("color","black");
     		
-    		$('#profilePhotoBt').off("click");
-     		$('#profilePhotoBt').css("cursor","default");
+    		$("#userPhotoMenuContent>button:nth-child(1)").css({"background-color":"rgba(50,50,50,0.2)","color":"gray"});
+   			$("#userPhotoMenuContent>button:nth-child(1)").attr("disabled","disalbed");
+   		
     	}
 		
-		<%-- location.href='<%=request.getContextPath()%>/view/updatefollowblock?follow='+$('#profileFollowBt>label').text()+'&uu=<%=user.getUserNo()%>'; --%>
+		
 		$.ajax({ //팔로우,팔로워 목록에 추가
     		url:'<%=request.getContextPath()%>/view/updatefollowblock',
     		type:"POST",
-    		data:{"follow":$('#profileFollowBt>label').text(),"uu":<%=user.getNo()%>},
+    		data:{"follow":afterFollowBtLabel/* $('#profileFollowBt>label').text() */,"uu":<%=user.getNo()%>,"beforeFollowBtLabel":beforeFollowBtLabel},
     		success:function(data){
-    			
     			<%if(user.getDisclosure()==0){%>
     			$.ajax({//비공개 계정일때 팔로우 확인
     				url:"<%=request.getContextPath()%>/view/chkFollow",
@@ -472,11 +824,19 @@
     				data:{"userNo":<%=user.getNo()%>},
     				success:function(data){
     					if(data=="true"){
+    						$('body').off('scroll touchmove mousewheel');
     						$('#profileMenuDiv').css("display","block");
     	            		$('#disclosure').css("display","none");
     	            		
     					}
     					else if(data=="false"){
+    						//스크롤막기
+    						$('html').scrollTop(0);
+    		            	$('body').on('scroll touchmove mousewheel', function(event) {
+    		            		  event.preventDefault();
+    		            		  event.stopPropagation();
+    		            		  return false;
+    		            		});
     						$('#profileMenuDiv').css("display","none");
     	            		$('#disclosure').css("display","block");
     					}
@@ -487,15 +847,53 @@
     			});
     			<%}%>
     			
+    			$.ajax({ //팔로워 목록 갱신
+    	    		url:"<%=request.getContextPath()%>/view/selectfollow",
+    	    		type:"POST",
+    	    		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
+    	    		success:function(data){
+    		
+    	    			$('#profileContent5>*').remove();
+    	    			
+    	    			 for(var i=0;i<data.length;i++){							
+    								var no=data[i]["no"];
+    								var name=data[i]["name"];
+    								var profilePhoto=data[i]["profilePhoto"];
+    								
+    								$('#profileContent5').append($('<div/>',{
+    					                class:'profileFollowDv',
+    					                id:no
+    					             }));
+    					             
+    					             $('#profileContent5>#'+no).on("click",function(){
+    					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+    					             });
+    					             
+    					             $('#profileContent5>#'+no).append($('<img/>',{
+    					                src: '<%=request.getContextPath()%>/'+profilePhoto
+    					             }));
+    					            
+    					             $('#profileContent5>#'+no).append($('<label/>',{
+    					                
+    					             }));
+    					             $('#profileContent5>#'+no+'>label').text(name);            	
+    						}
+    	    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
+    	    		},
+    	    		error:function(xhr,status){
+    	    			alert(xhr+" : "+status);
+    	    		}
+    	    	});
+    			
     		}
     	});
 		
-		$.ajax({ //팔로워 목록 갱신
+		<%-- $.ajax({ //팔로워 목록 갱신
     		url:"<%=request.getContextPath()%>/view/selectfollow",
     		type:"POST",
     		data:{"userNo":<%=user.getNo()%>,"isfollow":"follower"},
     		success:function(data){
-    			
+	
     			$('#profileContent5>*').remove();
     			
     			 for(var i=0;i<data.length;i++){							
@@ -520,12 +918,13 @@
 				                
 				             }));
 				             $('#profileContent5>#'+no+'>label').text(name);            	
-					}	
+					}
+    			 $('#profileFollowBt>label').text(afterFollowBtLabel);
     		},
     		error:function(xhr,status){
     			alert(xhr+" : "+status);
     		}
-    	});
+    	}); --%>
 		
 	}
 	 
@@ -541,11 +940,15 @@
             function profileMenuChange(){
                // console.log($('#profileMenuRbt1').is(':checked'));
                //console.log($(event).get(0)==$('#profileMenuRbt1').get(0));
+               
+  
                 
                  if($('#profileMenuRbt1:checked').val()){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt1').css('background','url(<%=request.getContextPath()%>/img/profileMenu1.png) no-repeat');
-                    $('#profileContent1').css('display','block');  
+                    $('#profileContent1').css('display','block');
+                    selectedTab = 0;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt1:checked').val())){
                     $('#profileMenuRbt1').parents('li').css('borderTop',"none");
@@ -556,6 +959,7 @@
                     $('#profileMenuRbt2').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt2').css('background','url(<%=request.getContextPath()%>/img/profileMenu2.png) no-repeat');
                     $('#profileContent2').css('display','block'); 
+                   
                  }
                  else if(!($('#profileMenuRbt2:checked').val())){
                     $('#profileMenuRbt2').parents('li').css('borderTop',"none");
@@ -567,6 +971,8 @@
                     $('#profileMenuRbt3').parents('li').css('borderTop',"3px solid black");  
                     $('#profileMenuRbt3').css('background','url(<%=request.getContextPath()%>/img/profileMenu3.png) no-repeat');
                     $('#profileContent3').css('display','block');  
+                    selectedTab = 1;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt3:checked').val())){
                     $('#profileMenuRbt3').parents('li').css('borderTop',"none");
@@ -576,7 +982,9 @@
                  if($('#profileMenuRbt4:checked').val()){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"3px solid black");
                     $('#profileMenuRbt4').css('background','url(<%=request.getContextPath()%>/img/profileMenu4.png) no-repeat');
-                    $('#profileContent4').css('display','block');    
+                    $('#profileContent4').css('display','block');   
+                    selectedTab = 2;
+                    console.log($('.profileContent:eq(' + selectedTab + ')'));
                  }
                  else if(!($('#profileMenuRbt4:checked').val())){
                     $('#profileMenuRbt4').parents('li').css('borderTop',"none");
@@ -603,6 +1011,16 @@
                     $('#profileMenuRbt6').css('background','url(<%=request.getContextPath()%>/img/profileMenu66.png) no-repeat');
                     $('#profileContent6').css('display','none'); 
                 }
+                if($('#profileMenuRbt7:checked').val()){
+                    $('#profileMenuRbt7').parents('li').css('borderTop',"3px solid black");
+                    $('#profileMenuRbt7').css('background','url(<%=request.getContextPath()%>/img/profileMenu6.png) no-repeat');
+                    $('#profileContent7').css('display','block'); 
+                 }
+                 else if(!($('#profileMenuRbt7:checked').val())){
+                    $('#profileMenuRbt7').parents('li').css('borderTop',"none");
+                    $('#profileMenuRbt7').css('background','url(<%=request.getContextPath()%>/img/profileMenu66.png) no-repeat');
+                    $('#profileContent7').css('display','none'); 
+                }
             }
             
     </script>
@@ -615,7 +1033,7 @@
            'img/09.jpg','img/10.jpg','img/11.jpg','img/12.jpg','img/13.jpg'); */
             
             //1.게시글 컨텐츠
-            
+            var content1Height;
              <%for(int i=0;i<content1DataArray.size();i++){%>
              	
             	 $('#profileContent1').append($('<div/>',{
@@ -628,13 +1046,60 @@
                   		  style:"background-image: url('<%=request.getContextPath()%>/upload/newspeed/videoContent.png')"
               	    <%}%>
                 }));
+            	 
+            	 <%if((user.getNo()==(int)request.getSession().getAttribute("userNo"))||(user.getNo()<0)){%>
+            	 $('#profileContent1>div:nth-child(<%=i+1%>)').append($('<button/>',{
+  					class:'contentCancelBt',
+  					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
+  				 }));
+            	 
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
+            	 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
+            	 
+  				 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
+  				 e.stopPropagation(); //부모 이벤트 실행 안되게
+  				 var deleteNewspeedDiv1=$(this).parent();
+  				 var storedNewspeedNo1=$(this).parent().attr("value");
+  				 $('body').alertBox({
+  				        title:'게시물을 지우시겠습니까?',
+  				        lTxt: '아니요',
+  				        lCallback: function(){}, 
+  				        rTxt: '네',
+  				        rCallback: function(){
+  							 $.ajax({
+  								url:'<%=request.getContextPath()%>/view/deletenewspeed',
+  								type:"POST",
+  								data:{"storedNewspeedNo1":storedNewspeedNo1},
+  								success:function(){
+  									deleteNewspeedDiv1.remove();
+  									location.reload();
+  								}
+  							}); 
+  				        }
+  				      });
+  				 });
+  				 
+  				$('#profileContent1>:eq(<%=i%>)').hover(function(){
+  					 $(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","block");
+  				},function(){
+  					$(('#profileContent1>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
+  				});
+  				<%}%>
+  				
             	
             	 $('#profileContent1>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value"));
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+            		 
+            		 
             	 });
-
              <%}%>  
-
+            
+             //비공개 높이 설정
+			$('#disclosure').css('height',((Math.ceil(<%=content1DataArray.size()%>/3)+13)*200));
+			$('html').scrollTop(0);
            //3.저장됨 컨텐츠
              <%for(int i=0;i<storageContentDataArray.size();i++){%>
             	 $('#profileContent3').append($('<div/>',{
@@ -654,10 +1119,8 @@
   					style:"background-image: url('<%=request.getContextPath()%>/img/cancel3.png')"
   				 }));
             	 
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("display","none");
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("width","20px");
-            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css("height","20.5px");
-            	 
+            	 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').css({"display":"none","width":"20px","height":"20.5px"});
+            	
   				 $(('#profileContent3>div:nth-child(<%=i+1%>)')+'>button').on("click",function(e){
   				 e.stopPropagation(); //부모 이벤트 실행 안되게
   				 var deleteNewspeedDiv=$(this).parent();
@@ -674,6 +1137,7 @@
   								data:{"storedNewspeedNo":storedNewspeedNo},
   								success:function(){
   									deleteNewspeedDiv.remove();
+  									location.reload();
   								}
   							}); 
   				        }
@@ -688,7 +1152,12 @@
   				<%}%>
             	 
             	 $('#profileContent3>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+            		 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength, $(this)); 
+
+            	
              	 });
             	 
              <%}%> 
@@ -708,7 +1177,9 @@
              	}));
             	 
             	 $('#profileContent4>:eq(<%=i%>)').on('click',function(){
-            		 requestNewspeedInfo('../',$(this).attr("value")); 
+         		    var maxLength = $('#profileContent3 .profileContent134Photo').length;
+        		    var selectIndex = $(this).prevAll().length;
+            		 requestNewspeedInfo($(this).attr("value"), selectIndex, maxLength , $(this));  
               	 });
             	 
              <%}%>  
@@ -883,9 +1354,159 @@
 				      });
 			 });
 			 <%}%> 
-				
+			 
+			 
+			 //7.팔로우요청 컨텐츠
+             $('#profileMenuRbt7').on("click",function(){
+	              $.ajax({
+	            		url:"<%=request.getContextPath()%>/view/selectrequestfollow",
+	            		type:"POST",
+	            		data:{"userNo":<%=user.getNo()%>},
+	            		success:function(data){
+	            			
+	            			$('#profileContent7>*').remove();
+	            			
+	            			 for(var i=0;i<data.length;i++){ 		
+	 							    var no=data[i]["no"];
+	 								var name=data[i]["name"];
+	 								var profilePhoto=data[i]["profilePhoto"]; 
+	 								if(data[i]["iswatch"]==1){
+	 								$('#profileContent7').append($('<div/>',{
+	 					                class:'profileFollowDv',
+	 					                id:no
+	 					             }));
+	 					             $('#profileContent7>#'+no).on("click",function(){
+	 					            	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+	 					             });
+	 					             
+	 					             $('#profileContent7>#'+no).append($('<img/>',{
+	 					            	 src: '<%=request.getContextPath()%>/'+profilePhoto
+	 					             }));
+	 					            
+	 					             $('#profileContent7>#'+no).append($('<label/>',{
+	 					                text:name
+	 					             }));
+	 					             
+	 					             $('#profileContent7>#'+no).append($('<button/>',{
+	 					            	text:'거절'
+	 					             }));
+	 					           
+	 					             $('#profileContent7>#'+no).append($('<button/>',{
+	 					            	text:'수락'
+	 					             }));
+	 					            $('#profileContent7>#'+no+'>button:eq(0)').on("click",function(e){
+	 					            	e.stopPropagation();
+	 					            	var requestFollowUserNoDiv=$(this).parent();
+	 					            	var requestFollowUserNo=$(this).parent().attr("id");
+	 					            	$.ajax({
+	 					            		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+	 					            		type:'POST',
+	 					            		data:{'requestFollowUserNo':requestFollowUserNo},
+	 					            		success:function(data){
+	 					            			requestFollowUserNoDiv.remove();
+	 					            		},
+	 					            		error:function(xhr,status){
+	 					            			alert(xhr+" : "+status);
+	 					            		}
+	 					            		
+	 					            	});
+	 					            });
+	 					           $('#profileContent7>#'+no+'>button:eq(1)').on("click",function(e){
+	 					            	e.stopPropagation();
+	 					            	var requestFollowUserNoDiv=$(this).parent();
+	 					            	var requestFollowUserNo=$(this).parent().attr("id");
+	 					            	$.ajax({
+	 					            		url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+	 					            		type:'POST',
+	 					            		data:{'requestFollowUserNo':requestFollowUserNo},
+	 					            		success:function(data){
+	 					            			requestFollowUserNoDiv.remove();
+	 					            		},
+	 					            		error:function(xhr,status){
+	 					            			alert(xhr+" : "+status);
+	 					            		}
+	 					            		
+	 					            	});
+	 					            });
+	 					            $('#profileContent7>#'+no+'>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
+	 					            $('#profileContent7>#'+no+'>button:eq(1)').css({'background-color':'#59DA50'}); 
+	 				 		}
+	 						}
+	            		},
+	            		error:function(xhr,status){
+	            			alert(xhr+" : "+status);
+	            		}
+	            	});  
+             	});
+						
         });
 			 
+      //페이지 로딩시 팔로우요청 가져오기
+        <%for(int i=0;i<requestfollowDataArray.size();i++){
+        	if(requestfollowDataArray.get(i).getIswatch()==1){%>
+        $('#profileContent7').append($('<div/>',{
+           class:'profileFollowDv',
+           id:'<%=requestfollowDataArray.get(i).getNo()%>'
+        }));
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<img/>',{
+           src: '<%=request.getContextPath()%>/<%=requestfollowDataArray.get(i).getProfilePhoto()%>'
+        }));
+       
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').on("click",function(){
+        	location.href='<%=request.getContextPath()%>/view/profile?uu='+$(this).attr("id");
+        });
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<label/>',{
+           
+        }));
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>label').text('<%=requestfollowDataArray.get(i).getName()%>');
+        
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<button/>',{
+         	text:'거절'
+          }));
+        
+          $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>').append($('<button/>',{
+         	text:'수락'
+          }));
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').on("click",function(e){
+        	 e.stopPropagation();
+          	var requestFollowUserNoDiv=$(this).parent();
+          	var requestFollowUserNo=$(this).parent().attr("id");
+          	$.ajax({
+          		url:'<%=request.getContextPath()%>/view/deleterequestfollowuser',
+          		type:'POST',
+          		data:{'requestFollowUserNo':requestFollowUserNo},
+          		success:function(data){
+          			requestFollowUserNoDiv.remove();
+          		},
+          		error:function(xhr,status){
+          			alert(xhr+" : "+status);
+          		}
+          		
+          	});
+         });
+        $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').on("click",function(e){
+        	e.stopPropagation();
+         	var requestFollowUserNoDiv=$(this).parent();
+         	var requestFollowUserNo=$(this).parent().attr("id");
+         	$.ajax({
+         		url:'<%=request.getContextPath()%>/view/allowrequestfollowuser',
+         		type:'POST',
+         		data:{'requestFollowUserNo':requestFollowUserNo},
+         		success:function(data){
+         			requestFollowUserNoDiv.remove();
+         		},
+         		error:function(xhr,status){
+         			alert(xhr+" : "+status);
+         		}
+         		
+         	});
+         });
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(0)').css({'margin-right':'8px','background-color':'#FF5A5A'});
+         $('#profileContent7>#<%=requestfollowDataArray.get(i).getNo()%>>button:eq(1)').css({'background-color':'#59DA50'}); 
+         
+       <%}}%> 
     </script> 
 
 	<div id="posting_wrap">	
@@ -980,10 +1601,13 @@
 				</label> <input type="radio" id="radio_effect_brightness"
 					class="filter_radio" name="media_filter_select"></li>
 
-				<li class="media_filter_list"><label
-					class="media_filter_preview" for="radio_effect_test"> </label> <input
-					type="radio" id="radio_effect_test" class="filter_radio"
-					name="media_filter_select"></li>
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_sephia"> </label> 
+				<input type="radio" id="radio_effect_sephia" class="filter_radio" name="media_filter_select"></li>
+				
+				<li class="media_filter_list">
+				<label class="media_filter_preview" for="radio_effect_duotone"> </label> 
+				<input type="radio" id="radio_effect_duotone" class="filter_radio" name="media_filter_select"></li>
 
 			</ul>
 
@@ -1083,10 +1707,10 @@
 			
 			newspeed = {
 					"fileList":fileArray,
-					"content":$('#posting_content').html()
+					"content":$('#posting_content').text()
 			};
 
-			data.append('content',$('#posting_content').html());
+			data.append('content',$('#posting_content').text());
 			data.append('newspeed',JSON.stringify(newspeed));
 
          	$.ajax({
@@ -1141,6 +1765,8 @@
 		$(document).keyup(function(e) {	//esc누르면 프로필 메뉴 닫기
 		    if (e.keyCode == 27) { 
 		    	$('#updatePhoto').fadeOut();
+		    	$('#userPhotoMenu').fadeOut();
+		    	/* $('#reportBgk').fadeOut(); */
 		   }
 		});
 		
@@ -1155,16 +1781,28 @@
 			 $('#uploadProfileStory').click(); 	//hidden 인풋 실행 
 	     });
 		 $("#updatePhotoContent>button:nth-last-child(1)").click(function(){  //스토리 보기
-			 $("#storyContent").fadeIn();
-				updateBar=setInterval(update,10);
-				if(!$('#storyProgressBar').width()==0){
-					myMovie.currentTime=0;
-					progressBar.style.width='0px';
-				    window.clearInterval(updateBar);
-				}
-				if(myMovie.paused){
-					myMovie.play();
-				}
+			 
+			<%if(userStory.getPath()!=""){%>     	 
+				 if($("#storyContent>div>video").prop('muted', false)){
+					 $("#storyContent>div>video").prop('muted', true);
+					 $("#storyContent>div>img").attr("src","<%=request.getContextPath() %>/img/soundOff.png");
+				 }
+			 
+				 $("#storyContent").fadeIn();
+					updateBar=setInterval(update,10);
+					if(!$('#storyProgressBar').width()==0){
+						myMovie.currentTime=0;
+						progressBar.style.width='0px';
+					    window.clearInterval(updateBar);
+					}
+					if(myMovie.paused){
+						myMovie.play();
+					}
+			<%}
+			else{%> //스토리 없으면
+  			profileAlert("스토리가 없습니다");
+  		<%}%>
+				
 	     });
 		 
 		 $(document).ready(function(){
@@ -1175,7 +1813,6 @@
 			    progressBar=document.getElementById('storyProgressBar');
 			    
 			    <%if(userStory.getPath()!=""){%> //스토리있으면 테두리 추가
-			    	console.log("스토리있대");
 			    	$('#profilePhoto').css({'background-image': 'linear-gradient(white, white), radial-gradient(circle at top left, #FAED7D,#F361DC)','background-origin': 'border-box','background-clip': 'content-box, border-box'});
 			    <%}%>
 		});
@@ -1215,11 +1852,13 @@
 		 
 		$(document).keyup(function(e) {  //esc누르면 스토리 꺼짐
 		    if (e.keyCode == 27) { 
+		    	$("#storyContent>div>video").prop('muted', true);
 		    	$("#storyContent").fadeOut();
 		   }
 		});
 		 
 		$("#storyContent").click(function(e){   //스토리밖 클릭시 스토리 꺼짐
+			$("#storyContent>div>video").prop('muted', true);
 			$("#storyContent").fadeOut();
 		});
 		

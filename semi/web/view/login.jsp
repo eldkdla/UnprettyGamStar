@@ -16,23 +16,25 @@
 	response.sendRedirect(request.getContextPath()+"/");
 }
 %>
-<h3>로그인 페이지다요.</h3>
-<section id="login-container">
+<!-- <h3>로그인 페이지다요.</h3> -->
+<section id="login-container" style='margin-top:30px;'>
 	<div id="loginLayout">
 		<div id="xxx">
 			<img id="welcome" src="<%=request.getContextPath()%>/img/login/login.png" width="200px" height="200px">
 			<h1 class="loginLogo">\ 굄-성 /<br>- UnprettyGamStar -</h1>
 
 			<form id="loginFrm" action="<%=request.getContextPath() %>/login" method="POST">
+				<div id="capcap">&nbsp;</div>
+						
 				<table id="loginTable">
 					<tr>
 						<td><label for="id" class="loginLabel">ID : </label><br>
 						<label for="pw" class="loginLabel">PW : </label>
 						</td>
 						
-						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID/Email/Phone??" required onkeypress="javascript:capsLock(this);" />
-						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" onkeypress="javascript:capsLock(this);" />
-						<p id="capslock" style="color: red; font-weight: bold; display: none">Caps Lock키가 눌려있습니다.</p>
+						<td><input type="text" class="loginInput" autofocus name="id" id="id" maxlength="30" placeholder=" ID" required />
+						<input type="password" class="loginInput" style="margin-top: 5px" name="pw" id="pw" placeholder=" Password" />
+						
 						
 						</td>
 						<td>
@@ -41,8 +43,11 @@
 					</tr>
 					
 					<tr>
-						<td colspan="3">
-						<a class="loginLabel" href="#" style="margin-right: 50px">아이디/비밀번호 찾기</a> <a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
+						<td colspan="2">
+						<a class="loginLabel" href="<%=request.getContextPath()%>/view/lostUser.jsp" style="margin-right: 10px" onClick="window.open(this.href, '', 'width=430, height=350', 'top=300', 'left=400'); return false;">아이디찾기/비밀번호 재설정</a>
+						<a class="loginLabel" href="<%=request.getContextPath()%>/view/userEnroll.jsp">회원가입</a>
+						</td>
+						<td><div id="naverIdLogin" style ="display: inline-block;"></div>
 						</td>
 					</tr>
 				</table>
@@ -53,39 +58,28 @@
 		
 		<div id="plus_login">
 <!-- 네이버아이디로로그인 버튼 노출 영역 -->
-<div id="naverIdLogin"></div>
+
 <!-- //네이버아이디로로그인 버튼 노출 영역 -->
-		<div id="plus">
+		<%-- <div id="plus">
 			<a id="gnbLogin" href="<%=request.getContextPath()%>">HOME-INDEX</a> 
-			<input type="button" value="페이스북" id="222">
+			<!-- <input type="button" value="페이스북" id="222">
 			<input type="button" value="다음" id="333">
-			<input type="button" value="구글" id="444"></div>
+			<input type="button" value="구글" id="444"> --></div> --%>
 		</div>
 	</div>
 	
 </section>
 
 <script>
-	/*      var pwInput = document.getElementById("pw");
-	 var capslockAlert = document.getElementById("capslock");
-	 pwInput.addEventListener("keyup", function (event) {
 
-	 if (!event.getModifierState("CapsLock")) {
-	 capslockAlert.style.display = "none"
-	 } else {
-	 capslockAlert.style.display = "block";
-	 }
-	 });*/
 
-	function capsLock(e) {
-		console.log(event.getModifierState("CapsLock"));
-		var capslockAlert = document.getElementById("capslock");
-		if (event.getModifierState("CapsLock")) {
-			capslockAlert.style.display = "block";
-		} else {
-			capslockAlert.style.display = "none"
-		}
-	}
+$('.loginInput').keyup(function(){	
+	if (event.getModifierState("CapsLock")) {
+		$('#capcap').html("Caps Lock키가 눌려있습니다.").css({'color':'red','font-weight' : 'bold'});
+	  } else {
+		  $('#capcap').html("&nbsp;");
+	  }	
+});
 
 		//공용 Alert 모달창
         function profileAlert(alertMsg){
@@ -116,7 +110,9 @@
     	var naverLogin = new naver.LoginWithNaverId(
     			{
     				clientId: "fqOHJi8WFN9_xpysEVQG",
+    				//callbackUrl: "http://192.168.20.28:9090/GamStar/view/ncallback.jsp",
     				callbackUrl: "http://localhost:9090/GamStar/view/ncallback.jsp",
+    				//callbackUrl: "http://192.168.43.213:9090/GamStar/view/ncallback.jsp",
     				isPopup: true, /* 팝업을 통한 연동처리 여부 */
     				callbackHandle: true,
     				loginButton: {color: "green", type: 2, height: 30 } /* 로그인 버튼의 타입을 지정 */
@@ -143,7 +139,7 @@
         
         
     	function test(num) {
-    	console.log(num);
+    	//console.log(num);
     	};
     	
 </script>
